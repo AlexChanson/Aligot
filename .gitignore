@@ -35,8 +35,13 @@
 .Trashes
 ehthumbs.db
 Thumbs.db
+
+# Alex's stuff (don't touch) #
+##############################
 README.MD
 _config.yml
+.idea/
+LICENSE
 
 # Workaround for empty folders #
 ################################
