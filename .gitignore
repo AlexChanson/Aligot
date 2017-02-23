@@ -37,3 +37,7 @@ ehthumbs.db
 Thumbs.db
 README.MD
 _config.yml
+
+# Workaround for empty folders #
+################################
+.gitignore
