@@ -7,7 +7,7 @@ public class testVector2D {
 
     public static void main(String[] args) {
         Vector2D v1 = new Vector2D(1,1);
-        Vector2D v2 = new Vector2D(3,6);
+        Vector2D v2 = new Vector2D(1,2);
         System.out.println("V1");
         v1.printCoordinates();
         System.out.println("V2");
