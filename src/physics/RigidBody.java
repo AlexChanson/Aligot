@@ -22,7 +22,7 @@ public class RigidBody {
     }
 
     public void updatePosition(double dt){
-        position = position + velocity.multiply(dt);
+        position =  position.add(velocity.multiply(dt));
     }
 
 }
