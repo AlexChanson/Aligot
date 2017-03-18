@@ -47,14 +47,12 @@ public class Vector2D {
         return (this.x - other.x) * (this.x - other.x) + (this.y - other.y) * (this.y - other.y);
     }
 
-    public void add(double x, double y){
-        this.x += x;
-        this.y += y;
+    public Vector2D add(double x, double y){
+        return new Vector2D(this.x + x, this.y + y);
     }
 
-    public void add(Vector2D other){
-        this.x += other.x;
-        this.y += other.y;
+    public Vector2D add(Vector2D other){
+        return new Vector2D(this.x + other.x, this.y + other.y);
     }
 
     public double angle(){
@@ -79,9 +77,8 @@ public class Vector2D {
         return Math.abs(angle-otherAngle);
     }
 
-    public void multiply(double scale){
-        this.x *= scale;
-        this.y *= scale;
+    public Vector2D multiply(double scale){
+        return new Vector2D(this.x*scale, this.y*scale);
     }
 
     public void rotate(double angle){
