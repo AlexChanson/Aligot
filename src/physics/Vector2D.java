@@ -81,6 +81,10 @@ public class Vector2D {
         return new Vector2D(this.x*scale, this.y*scale);
     }
 
+    public Vector2D Divide(double scale){
+        return new Vector2D(this.x/scale, this.y/scale);
+    }
+
     public void rotate(double angle){
         this.x = this.x * Math.cos(angle) - this.y * Math.sin(angle);
         this.y = this.x * Math.sin(angle) + this.y * Math.cos(angle);
