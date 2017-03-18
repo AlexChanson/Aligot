@@ -33,4 +33,10 @@ public class RigidBody {
         acceleration = sommeForce.Divide(mass);
     }
 
+    public void update(Vector2D sommeForce, double dt){
+        this.updateAcceleration(sommeForce, dt);
+        this.updateVelocity(dt);
+        this.updatePosition(dt);
+    }
+
 }
