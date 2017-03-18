@@ -14,6 +14,11 @@ public class Vector2D {
         this.y = y;
     }
 
+    public Vector2D(Vector2D other){
+        this.x = other.x;
+        this.y = other.y;
+    }
+
     public static Vector2D createFromAngle(double norm, double angle){
         return new Vector2D(norm*Math.cos(angle), norm*Math.sin(angle));
     }
@@ -34,6 +39,16 @@ public class Vector2D {
     public double distanceToSquared(Vector2D other){ //TODO Léo
 
         return 0;
+    }
+
+    public void add(double x, double y){
+        this.x += x;
+        this.y += y;
+    }
+
+    public void add(Vector2D other){
+        this.x += other.x;
+        this.y += other.y;
     }
 
     public double angle(){
