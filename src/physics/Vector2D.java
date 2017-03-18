@@ -9,6 +9,14 @@ public class Vector2D {
     double x;
     double y;
 
+    public double getX(){
+        return x;
+    }
+
+    public double getY(){
+        return y;
+    }
+
     public Vector2D(double x, double y){
         this.x = x;
         this.y = y;
@@ -23,22 +31,20 @@ public class Vector2D {
         return new Vector2D(norm*Math.cos(angle), norm*Math.sin(angle));
     }
 
-    public double norm(){ //TODO Léo
-        return 0;
+    public double norm(){
+        return Math.sqrt(x*x+y*y);
     }
 
-    public double normSquared(){ //TODO Léo
-        return 0;
+    public double normSquared(){
+        return x*x+y*y;
     }
 
-    public double distanceTo(Vector2D other){ //TODO Léo
-
-        return 0;
+    public double distanceTo(Vector2D other){
+        return Math.sqrt((this.x - other.x) * (this.x - other.x) + (this.y - other.y) * (this.y - other.y));
     }
 
-    public double distanceToSquared(Vector2D other){ //TODO Léo
-
-        return 0;
+    public double distanceToSquared(Vector2D other){
+        return (this.x - other.x) * (this.x - other.x) + (this.y - other.y) * (this.y - other.y);
     }
 
     public void add(double x, double y){
