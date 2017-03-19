@@ -27,6 +27,8 @@ public class Vector2D {
         this.y = other.y;
     }
 
+    public static Vector2D getNull(){ return new Vector2D(0,0); }
+
     public static Vector2D createFromAngle(double norm, double angle){
         return new Vector2D(norm*Math.cos(angle), norm*Math.sin(angle));
     }

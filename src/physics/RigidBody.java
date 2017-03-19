@@ -5,12 +5,12 @@ package physics;
  */
 public class RigidBody {
 
-    Vector2D position;
-    Vector2D velocity;
-    Vector2D acceleration;
-    double size;
-    double mass;
-    double friction;
+    Vector2D position;       // in meter
+    Vector2D velocity;       // in meter/second
+    Vector2D acceleration;   // in meter/second²
+    double size;             // radius in meter
+    double mass;             // in kg
+    double restitution;      // no unit, between 0 and 1 where 1 is perfect restitution
 
     public RigidBody(Vector2D position, double size, double masse){
         this.position = position;
@@ -18,7 +18,7 @@ public class RigidBody {
         this.mass = masse;
         velocity = new Vector2D(0, 0);
         acceleration = new Vector2D(0 , 0);
-        friction = 1;
+        restitution = 0.5;
     }
 
     public void updatePosition(double dt){
@@ -37,6 +37,10 @@ public class RigidBody {
         this.updateAcceleration(sommeForce, dt);
         this.updateVelocity(dt);
         this.updatePosition(dt);
+    }
+
+    public String toString(){
+        return String.format("Rigidbody %d\nPosition: %s\nVelocity: %s", hashCode(), this.position.toString(), this.velocity.toString());
     }
 
 }
