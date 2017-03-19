@@ -120,10 +120,7 @@ public class Vector2D {
         return this.x*other.x + this.y*other.y;
     }
 
-    public void printCoordinates(){
-        System.out.print("x: ");
-        System.out.println(this.x);
-        System.out.print("y: ");
-        System.out.println(this.y);
+    public String toString(){
+        return "x: " + this.x + "\ny: " + this.y;
     }
 }
