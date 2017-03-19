@@ -47,3 +47,5 @@ LICENSE
 # Workaround for empty folders #
 ################################
 #.keep
+lib/
+out/
