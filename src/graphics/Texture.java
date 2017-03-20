@@ -1,90 +1,54 @@
 package graphics;
 
-import org.lwjgl.opengl.GL11;
+import org.lwjgl.BufferUtils;
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.nio.ByteBuffer;
+
+import static org.lwjgl.opengl.GL11.*;
 
 /**
  * Created by Christopher on 14/03/2017.
  */
 public class Texture {
-    private int target;
-    private int textureID;
-    private int height;
+    private int id;
     private int width;
-    private int textureWidth;
-    private int textureHeight;
-    private float widthRatio;
-    private float heightRatio;
+    private int height;
 
-    public Texture(int target, int textureID) {
-        this.target = target;
-        this.textureID = textureID;
+    public Texture (String fileName){
+        BufferedImage bufferImage;
+        try {
+            bufferImage = ImageIO.read(new File(fileName));
+            width = bufferImage.getWidth();
+            height = bufferImage.getHeight();
+            int [] pixels_raw = new int[height * width];
+            pixels_raw = bufferImage.getRGB(0,0,width,height,null,0,width);
+            ByteBuffer pixels = BufferUtils.createByteBuffer(width * height * 4);
+            for (int i=0; i< height; i++){
+                for(int j = 0; j < width; j++){
+                    int pixel = pixels_raw[j*width + 4];
+                    pixels.put((byte)((pixel >>16) & 0xFF));
+                    pixels.put((byte)((pixel >> 8) & 0xFF));
+                    pixels.put((byte)(pixel & 0xFF));
+                    pixels.put((byte)((pixel >> 24) & 0xFF));
+                }
+            }
+            pixels.flip();
+
+            id = glGenTextures();
+            glBindTexture(GL_TEXTURE_2D, id);
+            glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+            glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+            glTexImage2D(GL_TEXTURE_2D,0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, pixels);
+
+        } catch (IOException e){
+            e.printStackTrace();
+        }
     }
 
-    public void bind() {
-        GL11.glBindTexture(target, textureID);
-    }
-
-    public int getTarget() {
-        return target;
-    }
-
-    public int getTextureID() {
-        return textureID;
-    }
-
-    public int getHeight() {
-        return height;
-    }
-
-    public int getWidth() {
-        return width;
-    }
-
-    public int getTextureWidth() {
-        return textureWidth;
-    }
-
-    public int getTextureHeight() {
-        return textureHeight;
-    }
-
-    public float getWidthRatio() {
-        return widthRatio;
-    }
-
-    public float getHeightRatio() {
-        return heightRatio;
-    }
-
-    public void setTarget(int target) {
-        this.target = target;
-    }
-
-    public void setTextureID(int textureID) {
-        this.textureID = textureID;
-    }
-
-    public void setHeight(int height) {
-        this.height = height;
-    }
-
-    public void setWidth(int width) {
-        this.width = width;
-    }
-
-    public void setTextureWidth(int textureWidth) {
-        this.textureWidth = textureWidth;
-    }
-
-    public void setTextureHeight(int textureHeight) {
-        this.textureHeight = textureHeight;
-    }
-
-    public void setWidthRatio(float widthRatio) {
-        this.widthRatio = widthRatio;
-    }
-
-    public void setHeightRatio(float heightRatio) {
-        this.heightRatio = heightRatio;
+    public void bind(){
+        glBindTexture(GL_TEXTURE_2D, id);
     }
 }
