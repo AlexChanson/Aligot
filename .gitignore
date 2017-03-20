@@ -42,7 +42,10 @@ README.MD
 _config.yml
 .idea/
 LICENSE
+*.iml
 
 # Workaround for empty folders #
 ################################
 #.keep
+lib/
+out/
