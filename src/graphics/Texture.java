@@ -20,6 +20,7 @@ public class Texture {
     public Texture (String fileName){
         BufferedImage bufferImage;
         try {
+            System.out.println("Print de debugg");
             bufferImage = ImageIO.read(new File(fileName));
             width = bufferImage.getWidth();
             height = bufferImage.getHeight();

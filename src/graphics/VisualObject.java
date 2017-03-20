@@ -42,6 +42,7 @@ public abstract class VisualObject {
     }
 
     public void drawSprite() {
+        System.out.println("Print");
 
     }
 }

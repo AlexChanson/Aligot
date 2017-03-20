@@ -14,7 +14,7 @@ public class MainFrame {
             System.exit(1);
         }
 
-        long win = glfwCreateWindow(1000, 1000, "First frame",0,0);
+        long win = glfwCreateWindow(1000, 1000, "First frame 1.0",0,0);
         glfwShowWindow(win);
         glfwMakeContextCurrent(win);
 
