@@ -1,15 +1,13 @@
+package graphics;
 
 import org.lwjgl.opengl.GL;
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.*;
 
-/**
- * Created by Christopher on 14/03/2017.
- */
 public class MainFrame {
     public static void main(String[] args) {
 
-        if (glfwInit() != true){
+        if (!glfwInit()){
             System.exit(1);
         }
 
@@ -20,8 +18,8 @@ public class MainFrame {
         GL.createCapabilities();
         glEnable(GL_TEXTURE_2D);
         glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-        Texture texture = new Texture (System.getProperty("user.dir") +"/sprite/alpha.png");
-        while( glfwWindowShouldClose(win) != true){
+        Texture texture = new Texture (System.getProperty("user.dir") +"/ressources/sprites/teapot.jpg");
+        while(!glfwWindowShouldClose(win)){
             glfwPollEvents();
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
             texture.bind();

@@ -1,3 +1,4 @@
+package graphics;
 
 import org.lwjgl.BufferUtils;
 import javax.imageio.ImageIO;
@@ -8,9 +9,6 @@ import java.nio.ByteBuffer;
 
 import static org.lwjgl.opengl.GL11.*;
 
-/**
- * Created by Christopher on 14/03/2017.
- */
 public class Texture {
     private int id;
     private int width;
