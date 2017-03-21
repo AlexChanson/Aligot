@@ -3,20 +3,20 @@ package graphics.gui;
 /**
  * Created by clement on 21/03/17.
  */
-public class GridLayoutConstrains extends LayoutConstrains<GridLayout> {
+public class GridLayoutConstraints extends LayoutConstraints<GridLayout> {
     private int colOffset;
     private int rowOffset;
     private int col;
     private int row;
 
-    GridLayoutConstrains(int colOffset, int rowOffset) {
+    GridLayoutConstraints(int colOffset, int rowOffset) {
         this.colOffset = colOffset;
         this.rowOffset = rowOffset;
         this.col = 1;
         this.row = 1;
     }
 
-    GridLayoutConstrains(int colOffset, int rowOffset, int col, int row) {
+    GridLayoutConstraints(int colOffset, int rowOffset, int col, int row) {
         this.colOffset = colOffset;
         this.rowOffset = rowOffset;
         this.col = col;
