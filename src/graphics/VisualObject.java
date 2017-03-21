@@ -1,8 +1,3 @@
-package graphics;
-
-/**
- * Created by Christopher on 14/03/2017.
- */
 public abstract class VisualObject {
     private float scale;
     private float rotate;

@@ -1,4 +1,3 @@
-package graphics;
 
 import org.lwjgl.BufferUtils;
 import javax.imageio.ImageIO;
@@ -21,15 +20,19 @@ public class Texture {
         BufferedImage bufferImage;
         try {
             System.out.println("Print de debugg");
-            bufferImage = ImageIO.read(new File(fileName));
+            File f = new File(fileName);
+            System.out.println(f.getAbsoluteFile());
+            bufferImage = ImageIO.read(f);
             width = bufferImage.getWidth();
             height = bufferImage.getHeight();
-            int [] pixels_raw = new int[height * width];
-            pixels_raw = bufferImage.getRGB(0,0,width,height,null,0,width);
+
+            int [] pixels_raw = bufferImage.getRGB(0,0,width,height,null,0,width);
+            System.out.println(pixels_raw.length);
             ByteBuffer pixels = BufferUtils.createByteBuffer(width * height * 4);
-            for (int i=0; i< height; i++){
-                for(int j = 0; j < width; j++){
-                    int pixel = pixels_raw[j*width + 4];
+
+            for (int y=0; y< height; y++){
+                for(int x = 0; x < width; x++){
+                    int pixel = pixels_raw[y*width+x];
                     pixels.put((byte)((pixel >>16) & 0xFF));
                     pixels.put((byte)((pixel >> 8) & 0xFF));
                     pixels.put((byte)(pixel & 0xFF));
@@ -43,6 +46,8 @@ public class Texture {
             glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
             glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
             glTexImage2D(GL_TEXTURE_2D,0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, pixels);
+            glEnable(GL_BLEND);
+            glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
         } catch (IOException e){
             e.printStackTrace();

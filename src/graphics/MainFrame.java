@@ -1,4 +1,3 @@
-package graphics;
 
 import org.lwjgl.opengl.GL;
 import static org.lwjgl.glfw.GLFW.*;
@@ -17,24 +16,24 @@ public class MainFrame {
         long win = glfwCreateWindow(1000, 1000, "First frame 1.0",0,0);
         glfwShowWindow(win);
         glfwMakeContextCurrent(win);
-
+        glfwSwapInterval(1);
         GL.createCapabilities();
         glEnable(GL_TEXTURE_2D);
-        Texture texture = new Texture ("C:/Users/Christopher/IdeaProjects/jeugraphique/sprites/game_over.png");
+        glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+        Texture texture = new Texture (System.getProperty("user.dir") +"/sprite/alpha.png");
         while( glfwWindowShouldClose(win) != true){
             glfwPollEvents();
-
-            glClear(GL_COLOR_BUFFER_BIT);
+            glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
             texture.bind();
             glBegin(GL_QUADS);
+                glTexCoord2f(0,1);
+                glVertex2f(-1f,-1f);
                 glTexCoord2f(0,0);
                 glVertex2f(-1f,1f);
-                glTexCoord2f(0,1);
+                glTexCoord2f(1,0);
                 glVertex2f(1f,1f);
                 glTexCoord2f(1,1);
                 glVertex2f(1f,-1f);
-                glTexCoord2f(1,0);
-                glVertex2f(-1f,-1f);
             glEnd();
             glfwSwapBuffers(win);
         }
