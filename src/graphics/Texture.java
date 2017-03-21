@@ -17,15 +17,12 @@ public class Texture {
     public Texture (String fileName){
         BufferedImage bufferImage;
         try {
-            System.out.println("Print de debugg");
             File f = new File(fileName);
-            System.out.println(f.getAbsoluteFile());
             bufferImage = ImageIO.read(f);
             width = bufferImage.getWidth();
             height = bufferImage.getHeight();
 
             int [] pixels_raw = bufferImage.getRGB(0,0,width,height,null,0,width);
-            System.out.println(pixels_raw.length);
             ByteBuffer pixels = BufferUtils.createByteBuffer(width * height * 4);
 
             for (int y=0; y< height; y++){
@@ -54,5 +51,29 @@ public class Texture {
 
     public void bind(){
         glBindTexture(GL_TEXTURE_2D, id);
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public void setWidth(int width) {
+        this.width = width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
     }
 }
