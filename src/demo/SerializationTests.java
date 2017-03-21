@@ -1,15 +1,14 @@
 package demo;
-/**
+
 import com.google.gson.Gson;
 import core.Level;
 import core.Spawn;
 import physics.RigidBody;
 import physics.Vector2D;
-*/
+
 /**
  * Don't mess with this, it ain't for kids -Alex
  */
-/**
 public class SerializationTests {
     public static void main(String[] args){
         Gson gson = new Gson();
@@ -18,4 +17,4 @@ public class SerializationTests {
         test.addSpawns(new Spawn(new Vector2D(13,458)));
         System.out.println(gson.toJson(test));
     }
-}*/
+}
