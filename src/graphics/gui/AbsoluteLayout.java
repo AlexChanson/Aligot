@@ -3,7 +3,7 @@ package graphics.gui;
 import java.awt.Image;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
-//
+
 /**
  * Created by clement on 21/03/17.
  */
