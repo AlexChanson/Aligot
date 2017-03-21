@@ -43,7 +43,7 @@ public class Window {
             texture.bind();
             glBegin(GL_QUADS);
             glTexCoord2f(0,1);
-            glVertex2f(-0.025f,-0.25f);
+            glVertex2f(-0.25f,-0.25f);
             glTexCoord2f(0,0);
             glVertex2f(-0.25f,0.25f);
             glTexCoord2f(1,0);

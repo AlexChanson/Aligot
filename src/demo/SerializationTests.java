@@ -9,6 +9,7 @@ import physics.Vector2D;
 /**
  * Don't mess with this, it ain't for kids -Alex
  */
+
 public class SerializationTests {
     public static void main(String[] args){
         Gson gson = new Gson();
