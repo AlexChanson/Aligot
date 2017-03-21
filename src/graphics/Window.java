@@ -48,6 +48,7 @@ public class Window {
         glTexCoord2f(1,1);
         glVertex2f(0.25f,-0.25f);
         glEnd();
+        //glTranslatef(-posX, -posY, 0);
     }
 
     public boolean shouldClose(){

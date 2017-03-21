@@ -10,7 +10,14 @@ import java.util.stream.Stream;
 /**
  * Created by ben on 19/03/17.
  */
-public abstract class ComputedForce {
+public abstract class ForceSolver {
+
+    public static HashMap<RigidBody,Vector2D> combineForces(HashMap<RigidBody, Vector2D> first,
+                                                            HashMap<RigidBody, Vector2D> second){
+        HashMap<RigidBody, Vector2D> combined = new HashMap<>(second);
+        first.forEach((key, value) -> combined.merge(key, value, (v1, v2) -> v1.add(v2)));
+        return combined;
+    }
 
     public static ArrayList<Pair<RigidBody, RigidBody>> getCombination(ArrayList<RigidBody> bodies){
         ArrayList<Pair<RigidBody, RigidBody>> returnedPairs = new ArrayList<>();

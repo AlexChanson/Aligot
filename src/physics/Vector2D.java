@@ -57,6 +57,14 @@ public class Vector2D {
         return new Vector2D(this.x + other.x, this.y + other.y);
     }
 
+    public Vector2D minus(double x, double y){
+        return new Vector2D(this.x - x, this.y - y);
+    }
+
+    public Vector2D minus(Vector2D other){
+        return new Vector2D(this.x - other.x, this.y - other.y);
+    }
+
     public double angle(){
         return Math.acos(this.x/this.norm());
     }

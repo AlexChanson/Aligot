@@ -11,6 +11,8 @@ public class RigidBody {
     double size;             // radius in meter
     double mass;             // in kg
     double restitution;      // no unit, between 0 and 1 where 1 is perfect restitution
+    boolean attractive;      // is this body attracting the others?
+    boolean staticObject;    // is this body moving?
 
     public RigidBody(Vector2D position, double size, double masse){
         this.position = position;
@@ -19,6 +21,7 @@ public class RigidBody {
         velocity = new Vector2D(0, 0);
         acceleration = new Vector2D(0 , 0);
         restitution = 0.5;
+        attractive = false;
     }
 
     public void updatePosition(double dt){
@@ -27,6 +30,22 @@ public class RigidBody {
 
     public void updateVelocity(double dt){
         velocity = velocity.add(acceleration.multiply(dt));
+    }
+
+    public void setAttractive(boolean attractive){
+        this.attractive = attractive;
+    }
+
+    public boolean getAttractive(){
+        return this.attractive;
+    }
+
+    public void setStaticObject( boolean staticObject ){
+        this.staticObject = staticObject;
+    }
+
+    public boolean getStaticObject(){
+        return this.staticObject;
     }
 
     public void updateAcceleration(Vector2D sommeForce, double dt){

@@ -9,9 +9,13 @@ import java.util.Map;
  */
 public class Simulator {
     private ArrayList<RigidBody> bodies;
+    private ArrayList<ForceSolver> forceSolvers;
+    private HashMap<RigidBody, Vector2D> forces;
 
     public Simulator(){
         this.bodies = new ArrayList<>();
+        this.forceSolvers = new ArrayList<>();
+        this.forces =  new HashMap<>();
     }
 
     public void removeBody(RigidBody body){
@@ -23,16 +27,15 @@ public class Simulator {
     }
 
     public void step(double dt){
-        HashMap<RigidBody, Vector2D> forces = new HashMap<>();
-
+        forceSolvers.forEach((value) -> forces.putAll(ForceSolver.combineForces(forces, value.computeForces(this))));
         for (RigidBody body: this.bodies) {
             if (forces.containsKey(body) ){
                 body.updateAcceleration(forces.get(body), dt);
-                forces.put(body, Vector2D.getNull());
             }
             body.updateVelocity(dt);
             body.updatePosition(dt);
         }
+        forces.clear();
     }
 
     public ArrayList<RigidBody> getBodies(){ return bodies; }
