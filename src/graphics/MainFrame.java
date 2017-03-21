@@ -9,6 +9,7 @@ public class MainFrame {
         window.createWindow("Space Shooter");
         while (window.shouldClose()) {
             window.draw("teapot.jpg", -0.5f, 0.5f);
+            window.draw("teapot.jpg", 0.5f, 0);
             window.swapBuffers();
             glfwPollEvents();
         }
