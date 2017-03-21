@@ -37,7 +37,6 @@ public class Window {
         Texture texture = new Texture (System.getProperty("user.dir") + "/ressources/sprites/" + fileName);
         glEnable(GL_TEXTURE_2D);
         glTranslatef(posX, posY, 0);
-        while(!glfwWindowShouldClose(window)){
             glfwPollEvents();
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
             texture.bind();
@@ -51,8 +50,6 @@ public class Window {
             glTexCoord2f(1,1);
             glVertex2f(0.25f,-0.25f);
             glEnd();
-            glfwSwapBuffers(window);
-        }
         glfwTerminate();
     }
 
