@@ -22,6 +22,9 @@ public class Window {
             window = glfwCreateWindow(width, height, title, 0, 0);
             glfwShowWindow(window);
             glfwMakeContextCurrent(window);
+            glfwSwapInterval(1);
+            GL.createCapabilities();
+            glEnable(GL_TEXTURE_2D);
 
         } catch (IllegalStateException e) {
             System.out.println("Failed to create window");
@@ -32,24 +35,19 @@ public class Window {
         if (!glfwInit()){
             System.exit(1);
         }
-        glfwSwapInterval(1);
-        GL.createCapabilities();
         Texture texture = new Texture (System.getProperty("user.dir") + "/ressources/sprites/" + fileName);
-        glEnable(GL_TEXTURE_2D);
         glTranslatef(posX, posY, 0);
-            glfwPollEvents();
-            glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-            texture.bind();
-            glBegin(GL_QUADS);
-            glTexCoord2f(0,1);
-            glVertex2f(-0.25f,-0.25f);
-            glTexCoord2f(0,0);
-            glVertex2f(-0.25f,0.25f);
-            glTexCoord2f(1,0);
-            glVertex2f(0.25f,0.25f);
-            glTexCoord2f(1,1);
-            glVertex2f(0.25f,-0.25f);
-            glEnd();
+        texture.bind();
+        glBegin(GL_QUADS);
+        glTexCoord2f(0,1);
+        glVertex2f(-0.25f,-0.25f);
+        glTexCoord2f(0,0);
+        glVertex2f(-0.25f,0.25f);
+        glTexCoord2f(1,0);
+        glVertex2f(0.25f,0.25f);
+        glTexCoord2f(1,1);
+        glVertex2f(0.25f,-0.25f);
+        glEnd();
     }
 
     public boolean shouldClose(){

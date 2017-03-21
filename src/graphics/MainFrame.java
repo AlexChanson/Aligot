@@ -1,5 +1,6 @@
 package graphics;
 
+import static org.lwjgl.glfw.GLFW.glfwPollEvents;
 import static org.lwjgl.glfw.GLFW.glfwTerminate;
 
 public class MainFrame {
@@ -9,6 +10,7 @@ public class MainFrame {
         while (window.shouldClose()) {
             window.draw("teapot.jpg", -0.5f, 0.5f);
             window.swapBuffers();
+            glfwPollEvents();
         }
         glfwTerminate();
     }
