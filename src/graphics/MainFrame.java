@@ -17,8 +17,8 @@ public class MainFrame {
         while (window.shouldClose()) {
         	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-            window.drawSprite("alpha.png", 0, 0, 0, 0);
-            window.drawSprite("rubics_cube.jpg", 360, 0, 0, 0);
+            //window.drawSprite("alpha.png", 0, 0, 0, 0);
+            window.drawSprite("rubics_cube.jpg", 0, 0, 0, 0);
             window.swapBuffers();
             glfwPollEvents();
         }

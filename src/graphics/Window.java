@@ -27,26 +27,31 @@ public class Window {
         }
     }
 
+    private float absToRelHeight(int h) { return h / (float) this.getHeight(); }
+
+    private float absToRelWidth(int w) { return w / (float) this.getWidth(); }
+
     public void drawSprite(String fileName, int posX, int posY, float rotate, int scale){
     	glPushMatrix();
 
-		glRotatef(0, 1, 1, 0);
         Texture texture = new Texture (System.getProperty("user.dir") + "\\sprite\\" + fileName);
-        glTranslatef(2 * posX / this.getWidth(), 2 * posY / this.getHeight(), 0);
+        glTranslatef(2 * absToRelWidth(posX), 2 * absToRelHeight(posY), 0);
+        //glRotatef(45f, 0, 0, 1);
         texture.bind();
 
-        glBegin(GL_QUADS);
+        float relWidth = absToRelWidth(texture.getWidth()), relHeight = absToRelHeight(texture.getHeight());
 
+        glBegin(GL_QUADS);
         glTexCoord2f(0,1);
-        glVertex2f(-0.5f,-0.5f);
+        glVertex2f(-relWidth,-relHeight);
         glTexCoord2f(0,0);
-        glVertex2f(-0.5f,0.5f);
+        glVertex2f(-relWidth,relHeight);
         glTexCoord2f(1,0);
-        glVertex2f(0.5f,0.5f);
+        glVertex2f(relWidth,relHeight);
         glTexCoord2f(1,1);
-        glVertex2f(0.5f,-0.5f);
+        glVertex2f(relWidth,-relHeight);
         glEnd();
-		
+
     	glPopMatrix();
     }
 
