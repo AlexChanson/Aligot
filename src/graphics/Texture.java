@@ -1,4 +1,3 @@
-package graphics;
 
 import org.lwjgl.BufferUtils;
 import javax.imageio.ImageIO;
@@ -22,7 +21,7 @@ public class Texture {
             width = bufferImage.getWidth();
             height = bufferImage.getHeight();
 
-            int [] pixels_raw = bufferImage.getRGB(0,0,width,height,null,0,width);
+            int [] pixels_raw = bufferImage.getRGB(0, 0, width, height,null,0,width);
             ByteBuffer pixels = BufferUtils.createByteBuffer(width * height * 4);
 
             for (int y=0; y< height; y++){

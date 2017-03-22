@@ -1,5 +1,3 @@
-package graphics;
-
 import org.lwjgl.opengl.GL;
 
 import static org.lwjgl.glfw.GLFW.*;
@@ -10,11 +8,9 @@ public class Window {
     private int width;
     private int height;
 
-    public Window (){
+    public Window (String title){
         setSize(1920, 1080);
-    }
 
-    public void createWindow(String title) {
         try {
             if (!glfwInit()) {
                 System.exit(1);
@@ -31,24 +27,27 @@ public class Window {
         }
     }
 
-    public void draw(String fileName, float posX, float posY){
-        if (!glfwInit()){
-            System.exit(1);
-        }
-        Texture texture = new Texture (System.getProperty("user.dir") + "/ressources/sprites/" + fileName);
-        glTranslatef(posX, posY, 0);
+    public void drawSprite(String fileName, int posX, int posY, float rotate, int scale){
+    	glPushMatrix();
+
+		glRotatef(0, 1, 1, 0);
+        Texture texture = new Texture (System.getProperty("user.dir") + "\\sprite\\" + fileName);
+        glTranslatef(2 * posX / this.getWidth(), 2 * posY / this.getHeight(), 0);
         texture.bind();
+
         glBegin(GL_QUADS);
+
         glTexCoord2f(0,1);
-        glVertex2f(-0.25f,-0.25f);
+        glVertex2f(-0.5f,-0.5f);
         glTexCoord2f(0,0);
-        glVertex2f(-0.25f,0.25f);
+        glVertex2f(-0.5f,0.5f);
         glTexCoord2f(1,0);
-        glVertex2f(0.25f,0.25f);
+        glVertex2f(0.5f,0.5f);
         glTexCoord2f(1,1);
-        glVertex2f(0.25f,-0.25f);
+        glVertex2f(0.5f,-0.5f);
         glEnd();
-        //glTranslatef(-posX, -posY, 0);
+		
+    	glPopMatrix();
     }
 
     public boolean shouldClose(){
