@@ -37,7 +37,7 @@ public class Window {
     public void drawSprite(String fileName, int posX, int posY, float rotate, float scale){
         glPushMatrix();
 
-        Texture texture = new Texture (System.getProperty("user.dir") + "/sprite/" + fileName);
+        Texture texture = new Texture (System.getProperty("user.dir") + "/ressources/sprites/" + fileName);
         //float relWidth = absToRelWidth(texture.getWidth()), relHeight = absToRelHeight(texture.getHeight());
         float relWidth = texture.getWidth() / 2, relHeight = texture.getHeight() / 2;
         //float relWidth = 1f, relHeight = 1f;
@@ -48,6 +48,7 @@ public class Window {
 
         //glScalef(1f, (float) (this.getWidth() / this.getHeight()), 1f);
         glRotatef(rotate, 0, 0f, 1f);
+        glScalef(scale, scale, 1);
 
 
         glBegin(GL_QUADS);
