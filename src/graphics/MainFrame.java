@@ -1,3 +1,4 @@
+package graphics;
 
 import org.lwjgl.opengl.GL;
 import static org.lwjgl.glfw.GLFW.*;
@@ -15,11 +16,16 @@ public class MainFrame {
         Window window = new Window("Space Shooter");
 
         while (window.shouldClose()) {
-        	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
             //window.drawSprite("alpha.png", 0, 0, 0, 0);
-            window.drawSprite("rubics_cube.jpg", 0, 0, 0, 0);
+
+            glMatrixMode(GL_PROJECTION);
+            glLoadIdentity();
+            glOrtho(0, window.getWidth(), window.getHeight(), 0, -1, 1);
+            glMatrixMode(GL_MODELVIEW);
+
+            window.drawSprite("rubics_cube.jpg", 480, 270, 45, 0);
             window.swapBuffers();
+
             glfwPollEvents();
         }
         glfwTerminate();

@@ -1,3 +1,5 @@
+package graphics;
+
 import org.lwjgl.opengl.GL;
 
 import static org.lwjgl.glfw.GLFW.*;
@@ -9,7 +11,7 @@ public class Window {
     private int height;
 
     public Window (String title){
-        setSize(1920, 1080);
+        setSize(960, 540);
 
         try {
             if (!glfwInit()) {
@@ -21,6 +23,7 @@ public class Window {
             glfwSwapInterval(1);
             GL.createCapabilities();
             glEnable(GL_TEXTURE_2D);
+            //glScalef((float) 1 / this.getWidth(), (float) 1 / this.getHeight(), 1);
 
         } catch (IllegalStateException e) {
             System.out.println("Failed to create window");
@@ -32,27 +35,33 @@ public class Window {
     private float absToRelWidth(int w) { return w / (float) this.getWidth(); }
 
     public void drawSprite(String fileName, int posX, int posY, float rotate, int scale){
-    	glPushMatrix();
+        glPushMatrix();
 
-        Texture texture = new Texture (System.getProperty("user.dir") + "\\sprite\\" + fileName);
-        glTranslatef(2 * absToRelWidth(posX), 2 * absToRelHeight(posY), 0);
-        //glRotatef(45f, 0, 0, 1);
+        Texture texture = new Texture (System.getProperty("user.dir") + "/sprite/" + fileName);
+        //float relWidth = absToRelWidth(texture.getWidth()), relHeight = absToRelHeight(texture.getHeight());
+        float relWidth = texture.getWidth() / 2, relHeight = texture.getHeight() / 2;
+        //float relWidth = 1f, relHeight = 1f;
+
+        glTranslatef(posX, posY, 0);
+        //glScalef(1f, 1f, 1f);
         texture.bind();
 
-        float relWidth = absToRelWidth(texture.getWidth()), relHeight = absToRelHeight(texture.getHeight());
+        //glScalef(1f, (float) (this.getWidth() / this.getHeight()), 1f);
+        glRotatef(rotate, 0, 0f, 1f);
+
 
         glBegin(GL_QUADS);
-        glTexCoord2f(0,1);
-        glVertex2f(-relWidth,-relHeight);
-        glTexCoord2f(0,0);
-        glVertex2f(-relWidth,relHeight);
-        glTexCoord2f(1,0);
-        glVertex2f(relWidth,relHeight);
-        glTexCoord2f(1,1);
-        glVertex2f(relWidth,-relHeight);
+            glTexCoord2f(0, -1);
+            glVertex2f(-relWidth, -relHeight);
+            glTexCoord2f(0, 0);
+            glVertex2f(-relWidth, relHeight);
+            glTexCoord2f(-1, 0);
+            glVertex2f(relWidth, relHeight);
+            glTexCoord2f(-1, -1);
+            glVertex2f(relWidth, -relHeight);
         glEnd();
 
-    	glPopMatrix();
+        glPopMatrix();
     }
 
     public boolean shouldClose(){
