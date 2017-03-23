@@ -25,7 +25,8 @@ public class MainFrame {
             glOrtho(0, window.getWidth(), window.getHeight(), 0, -1, 1);
             glMatrixMode(GL_MODELVIEW);
 
-            window.drawSprite("rubics_cube.jpg", 480, 270, 45, 0);
+            window.drawSprite("rubics_cube.jpg", 240, 270, 0, 0.5f);
+            window.drawSprite("rubics_cube.jpg", 720, 270, 30, 1f);
             window.swapBuffers();
 
             glfwPollEvents();
