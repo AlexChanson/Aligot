@@ -17,6 +17,8 @@ public class MainFrame {
 
         while (window.shouldClose()) {
             //window.drawSprite("alpha.png", 0, 0, 0, 0);
+            glClear(GL_COLOR_BUFFER_BIT);
+
 
             glMatrixMode(GL_PROJECTION);
             glLoadIdentity();
