@@ -1,8 +1,10 @@
 package graphics;
 
+import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.opengl.GL;
 
 import java.awt.*;
+import java.nio.IntBuffer;
 
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.*;
@@ -16,7 +18,7 @@ public class Window {
                 System.exit(1);
             }
 
-            window = glfwCreateWindow(getWidth(), getHeight(), title, 0, 0);
+            window = glfwCreateWindow(getWidth(), getHeight(), title, glfwGetPrimaryMonitor(), 0);
             glfwShowWindow(window);
             glfwMakeContextCurrent(window);
             glfwSwapInterval(1);
@@ -37,17 +39,17 @@ public class Window {
         glRotatef(rotate, 0, 0f, 1f);
         glScalef(scale, scale, 1);
 
-        texture.bind();
+        glBindTexture(GL_TEXTURE_2D, texture.getId());
 
         glBegin(GL_QUADS);
-        glTexCoord2f(0, -1);
-        glVertex2f(-relWidth, -relHeight);
-        glTexCoord2f(0, 0);
-        glVertex2f(-relWidth, relHeight);
-        glTexCoord2f(-1, 0);
-        glVertex2f(relWidth, relHeight);
-        glTexCoord2f(-1, -1);
-        glVertex2f(relWidth, -relHeight);
+            glTexCoord2f(0, -1);
+            glVertex2f(-relWidth, -relHeight);
+            glTexCoord2f(0, 0);
+            glVertex2f(-relWidth, relHeight);
+            glTexCoord2f(-1, 0);
+            glVertex2f(relWidth, relHeight);
+            glTexCoord2f(-1, -1);
+            glVertex2f(relWidth, -relHeight);
         glEnd();
 
         glPopMatrix();
@@ -55,12 +57,13 @@ public class Window {
 
     public static void drawSprite(String fileName, int posX, int posY, float rotate, float scale) {
         String path = System.getProperty("user.dir") + "/ressources/sprites/" + fileName;
-        Texture texture = new Texture (path);
+
+        Texture texture = new Texture(path);
 
         drawTexture(texture, posX, posY, rotate, scale);
     }
 
-    public static boolean shouldClose(){
+    public static boolean shouldClose() {
         return !glfwWindowShouldClose(window);
     }
 
@@ -69,16 +72,18 @@ public class Window {
     }
 
     public static int getWidth() {
-        //return (int) getScreenSize().getWidth();
-        return 1280;
+        return videoMode().width();
     }
 
     public static int getHeight() {
-        //return (int) getScreenSize().getHeight();
-        return 512;
+        return videoMode().height();
     }
 
-    private static Dimension getScreenSize() {
-        return Toolkit.getDefaultToolkit().getScreenSize();
+    private static GLFWVidMode videoMode() {
+        return glfwGetVideoMode(getMonitor());
+    }
+
+    private static long getMonitor() {
+        return glfwGetMonitors().get(0);
     }
 }
