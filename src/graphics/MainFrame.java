@@ -13,21 +13,21 @@ import static org.lwjgl.glfw.GLFW.glfwTerminate;
 
 public class MainFrame {
     public static void main(String[] args) {
-        Window window = new Window("Space Shooter");
+        Window.init("Space Shooter");
 
-        while (window.shouldClose()) {
+        while (Window.shouldClose()) {
             //window.drawSprite("alpha.png", 0, 0, 0, 0);
             glClear(GL_COLOR_BUFFER_BIT);
 
 
             glMatrixMode(GL_PROJECTION);
             glLoadIdentity();
-            glOrtho(0, window.getWidth(), window.getHeight(), 0, -1, 1);
+            glOrtho(0, Window.getWidth(), Window.getHeight(), 0, -1, 1);
             glMatrixMode(GL_MODELVIEW);
 
-            window.drawSprite("rubics_cube.jpg", 240, 270, 0, 0.5f);
-            window.drawSprite("rubics_cube.jpg", 720, 270, 30, 1f);
-            window.swapBuffers();
+            Window.drawSprite("rubics_cube.jpg", 240, 270, 0, 0.5f);
+            Window.drawSprite("rubics_cube.jpg", 720, 270, 30, 1f);
+            Window.swapBuffers();
 
             glfwPollEvents();
         }

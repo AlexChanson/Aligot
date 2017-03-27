@@ -53,27 +53,19 @@ public class Texture {
         glBindTexture(GL_TEXTURE_2D, id);
     }
 
-    public int getId() {
-        return id;
+    public boolean equals(Texture t) {
+        return this.id == t.id;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public boolean equals(int id) {
+        return this.id == id;
     }
 
     public int getWidth() {
         return width;
     }
 
-    public void setWidth(int width) {
-        this.width = width;
-    }
-
     public int getHeight() {
         return height;
-    }
-
-    public void setHeight(int height) {
-        this.height = height;
     }
 }
