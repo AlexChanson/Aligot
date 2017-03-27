@@ -26,6 +26,8 @@ public class NewtonGravitationSolver extends ForceSolver {
         double attraction;
         for ( Pair<RigidBody, RigidBody> pair : pairs ){
             computedForce = pair.getLeft().position.minus(pair.getRight().position);
+            if(computedForce.normSquared() == 0.0)
+                System.out.println("Ben divided by 0 :/");
             attraction = this.gravitationalConstant*pair.getLeft().mass*pair.getRight().mass/computedForce.normSquared();
             computedForce.normalize();
             computedForce = computedForce.multiply(attraction);
