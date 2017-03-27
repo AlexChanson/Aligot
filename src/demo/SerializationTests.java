@@ -6,10 +6,6 @@ import core.Spawn;
 import physics.RigidBody;
 import physics.Vector2D;
 
-/**
- * Don't mess with this, it ain't for kids -Alex
- */
-
 public class SerializationTests {
     public static void main(String[] args){
         Gson gson = new Gson();
@@ -17,5 +13,8 @@ public class SerializationTests {
         test.addElement(new RigidBody(new Vector2D(5,6),152222,555), new RigidBody(new Vector2D(789,8),152222,555477));
         test.addSpawns(new Spawn(new Vector2D(13,458)));
         System.out.println(gson.toJson(test));
+
+        char c = 'ì';
+        System.out.println((int)c);
     }
 }

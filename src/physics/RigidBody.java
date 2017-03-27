@@ -48,6 +48,14 @@ public class RigidBody {
         return this.staticObject;
     }
 
+    public Vector2D getVelocity() {
+        return velocity;
+    }
+
+    public void setVelocity(Vector2D velocity) {
+        this.velocity = velocity;
+    }
+
     public void updateAcceleration(Vector2D sommeForce, double dt){
         acceleration = sommeForce.Divide(mass);
     }

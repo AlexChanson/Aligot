@@ -4,9 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Created by ben on 18/03/17.
- */
 public class Simulator {
     private ArrayList<RigidBody> bodies;
     private ArrayList<ForceSolver> forceSolvers;
@@ -39,21 +36,5 @@ public class Simulator {
     }
 
     public ArrayList<RigidBody> getBodies(){ return bodies; }
-
-    public static void main(String[] args){
-        Simulator sim = new Simulator();
-        RigidBody added = new RigidBody(new Vector2D(0,1), 1, 1);
-        added.velocity = new Vector2D(0,1);
-        sim.addBody(added);
-        added = new RigidBody(new Vector2D(0,1), 1, 1);
-        sim.addBody(added);
-        for (int i = 0; i<10; ++i){
-            for ( RigidBody body: sim.bodies){
-                System.out.println(body.toString());
-            }
-            sim.step(1);
-        }
-    }
-
 
 }
