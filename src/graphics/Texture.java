@@ -12,7 +12,7 @@ import java.util.HashMap;
 import static org.lwjgl.opengl.GL11.*;
 
 public class Texture {
-    private static HashMap<String, Texture> generatedTexture = new HashMap();
+    private static HashMap<String, Texture> generatedTexture = new HashMap<>();
     private String path;
     private BufferedImage img;
     private int id;
@@ -77,6 +77,6 @@ public class Texture {
     }
 
     public boolean equals(Texture t) {
-        return t.path == this.path;
+        return t.path.equals(this.path);
     }
 }
