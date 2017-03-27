@@ -23,6 +23,10 @@ public class Simulator {
         this.bodies.add(body);
     }
 
+    public void addSolver(ForceSolver fs){
+        forceSolvers.add(fs);
+    }
+
     public void step(double dt){
         forceSolvers.forEach((value) -> forces.putAll(ForceSolver.combineForces(forces, value.computeForces(this))));
         for (RigidBody body: this.bodies) {
