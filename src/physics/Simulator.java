@@ -31,7 +31,7 @@ public class Simulator {
         forceSolvers.forEach((value) -> forces.putAll(ForceSolver.combineForces(forces, value.computeForces(this))));
         for (RigidBody body: this.bodies) {
             if (forces.containsKey(body) ){
-                body.updateAcceleration(forces.get(body), dt);
+                body.updateAcceleration(forces.get(body));
             }
             body.updateVelocity(dt);
             body.updatePosition(dt);

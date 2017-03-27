@@ -11,7 +11,7 @@ import java.util.HashMap;
 public class NewtonGravitationSolver extends ForceSolver {
     double gravitationalConstant;
 
-    public NewtonGravitationSolver(float gravitationalConstant){
+    public NewtonGravitationSolver(double gravitationalConstant){
         this.gravitationalConstant = gravitationalConstant;
     }
 
@@ -20,6 +20,7 @@ public class NewtonGravitationSolver extends ForceSolver {
         ArrayList<Pair<RigidBody, RigidBody>> pairs = NewtonGravitationSolver.getCombination(sim.getBodies()); // get all the possible pairs without repetition of the same element
         pairs.removeIf((pair) -> !pair.getLeft().attractive); //keeps only the pairs with left rigidbody attractive
         HashMap<RigidBody, Vector2D> forces = new HashMap<>();
+        System.out.println(pairs.size());
 
         Vector2D computedForce;
         double attraction;
