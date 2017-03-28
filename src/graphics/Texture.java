@@ -2,42 +2,14 @@ package graphics;
 
 import org.lwjgl.BufferUtils;
 
-import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.nio.ByteBuffer;
-import java.util.HashMap;
 
 import static org.lwjgl.opengl.GL11.*;
 
-public class Texture {
-    private static HashMap<String, Texture> generatedTexture = new HashMap<>();
-    private String path;
-    private BufferedImage img;
-    private int id;
-
-    Texture(String path) {
-        this.path = path;
-
-        if (generatedTexture.containsKey(path)) {
-            Texture t = generatedTexture.get(path);
-            this.id = t.id;
-            this.img = t.img;
-        }
-        else {
-            try {
-                File f = new File(path);
-                this.img = ImageIO.read(f);
-
-                this.generate();
-
-                generatedTexture.put(path, this);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
+public abstract class Texture {
+    protected BufferedImage img;
+    protected int id;
 
     protected void generate() {
         int[] pixels_raw = this.img.getRGB(0, 0, this.getWidth(), this.getHeight(), null, 0, this.getWidth());
@@ -74,9 +46,5 @@ public class Texture {
 
     public int getId() {
         return this.id;
-    }
-
-    public boolean equals(Texture t) {
-        return t.path.equals(this.path);
     }
 }
