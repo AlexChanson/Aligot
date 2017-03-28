@@ -14,7 +14,7 @@ public class MainFrame {
 
         int i = 0;
         Simulator sim = new Simulator();
-        sim.addSolver(new NewtonGravitationSolver(-6.67e-11));
+        sim.addSolver(new NewtonGravitationSolver(6.67e-11));
         RigidBody body1 = new RigidBody(new Vector2D(400,400), 12, 83.6);
         RigidBody body2 = new RigidBody(new Vector2D(800,400), 6, 5.9722e17);
 
@@ -45,8 +45,8 @@ public class MainFrame {
             glLoadIdentity();
             glOrtho(0, Window.getWidth(), Window.getHeight(), 0, -1, 1);
             glMatrixMode(GL_MODELVIEW);
-            sim.step(0.1);
-            Window.drawSprite("sputnik.jpg", (int)body1.getPosition().getX(), (int)body1.getPosition().getY(), -i, 0.05f);
+            sim.step(0.025);
+            Window.drawSprite("sputnik.jpg", (int)body1.getPosition().getX(), (int)body1.getPosition().getY(), (float) (body1.getVelocity().angleDegree()), 0.05f);
             Window.drawSprite("earth.jpg", (int)body2.getPosition().getX(), (int)body2.getPosition().getY(), i, 0.1f);
             Window.swapBuffers();
 
