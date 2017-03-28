@@ -83,4 +83,8 @@ public class Window {
     private static long getMonitor() {
         return glfwGetMonitors().get(0);
     }
+
+    public static long getWindow() {
+        return window;
+    }
 }

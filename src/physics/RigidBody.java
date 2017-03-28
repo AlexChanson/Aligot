@@ -22,6 +22,7 @@ public class RigidBody {
         acceleration = new Vector2D(0 , 0);
         restitution = 0.5;
         attractive = false;
+        staticObject = false;
     }
 
     public void updatePosition(double dt){
@@ -50,6 +51,10 @@ public class RigidBody {
 
     public Vector2D getVelocity() {
         return velocity;
+    }
+
+    public Vector2D getPosition() {
+        return position;
     }
 
     public void setVelocity(Vector2D velocity) {

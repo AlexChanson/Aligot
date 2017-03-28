@@ -30,11 +30,13 @@ public class Simulator {
     public void step(double dt){
         forceSolvers.forEach((value) -> forces.putAll(ForceSolver.combineForces(forces, value.computeForces(this))));
         for (RigidBody body: this.bodies) {
-            if (forces.containsKey(body) ){
-                body.updateAcceleration(forces.get(body));
+            if (!body.getStaticObject()){
+                if (forces.containsKey(body) ){
+                    body.updateAcceleration(forces.get(body));
+                }
+                body.updateVelocity(dt);
+                body.updatePosition(dt);
             }
-            body.updateVelocity(dt);
-            body.updatePosition(dt);
         }
         forces.clear();
     }
