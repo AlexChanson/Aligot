@@ -6,10 +6,12 @@ import java.util.HashMap;
 public class Simulator {
     private ArrayList<RigidBody> bodies;
     private ArrayList<PhysicSolver> physicSolvers;
+    private double maxSpeed;
 
     public Simulator(){
         this.bodies = new ArrayList<>();
         this.physicSolvers = new ArrayList<>();
+        this.maxSpeed = 5000;
     }
 
     public void removeBody(RigidBody body){
@@ -34,6 +36,10 @@ public class Simulator {
                 // update all physics properties, order is important
                 body.updateAcceleration();
                 body.updateVelocity(dt);
+                // check for max speed and cap if needed
+                if (body.getVelocity().norm() > this.maxSpeed){
+                    body.setVelocity(body.getVelocity().getNormalized().multiply(this.maxSpeed));
+                }
                 body.updatePosition(dt);
 
                 body.resetAppliedForces(); // set forces applied to object to 0
@@ -43,4 +49,12 @@ public class Simulator {
 
     public ArrayList<RigidBody> getBodies(){ return bodies; }
 
+    public double getMaxSpeed() {
+        return maxSpeed;
+    }
+
+    public void setMaxSpeed(double maxSpeed) {
+        if (maxSpeed > 0 || maxSpeed == -1)
+            this.maxSpeed = maxSpeed;
+    }
 }

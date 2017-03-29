@@ -1,14 +1,16 @@
 package core;
 
 
-public class Spawn {
-    private Planet position;
+import physics.Vector2D;
 
-    public Spawn(Planet position) {
+public class Spawn {
+    private Vector2D position;
+
+    public Spawn(Vector2D position) {
         this.position = position;
     }
 
-    public Planet getPosition() {
+    public Vector2D getPosition() {
         return position;
     }
 }
