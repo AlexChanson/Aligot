@@ -8,6 +8,7 @@ public class RigidBody {
     Vector2D position;       // in meter
     Vector2D velocity;       // in meter/second
     Vector2D acceleration;   // in meter/second²
+    Vector2D appliedForce;
     double size;             // radius in meter
     double mass;             // in kg
     double restitution;      // no unit, between 0 and 1 where 1 is perfect restitution
@@ -20,6 +21,7 @@ public class RigidBody {
         this.mass = masse;
         velocity = new Vector2D(0, 0);
         acceleration = new Vector2D(0 , 0);
+        appliedForce = new Vector2D(0,0);
         restitution = 0.5;
         attractive = false;
         staticObject = false;
@@ -61,12 +63,24 @@ public class RigidBody {
         this.velocity = velocity;
     }
 
-    public void updateAcceleration(Vector2D sommeForce){
-        acceleration = sommeForce.Divide(mass);
+    public void updateAcceleration(){
+        acceleration = this.appliedForce.Divide(mass);
+    }
+
+    public Vector2D getAppliedForce() {
+        return appliedForce;
+    }
+
+    public void resetAppliedForces(){
+        this.appliedForce = Vector2D.getNull();
+    }
+
+    public void applyForce(Vector2D force) {
+        this.appliedForce = this.appliedForce.add(force);
     }
 
     public void update(Vector2D sommeForce, double dt){
-        this.updateAcceleration(sommeForce);
+        this.updateAcceleration();
         this.updateVelocity(dt);
         this.updatePosition(dt);
     }

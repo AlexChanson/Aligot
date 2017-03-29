@@ -20,21 +20,23 @@ public class MainFrame {
 
         body1.setVelocity(new Vector2D(0,300));
 
-        body1.setAttractive(true);
+        body1.setAttractive(false);
         body2.setAttractive(true);
 
         body2.setStaticObject(true);
 
         sim.addBody(body1);
         sim.addBody(body2);
+
+        RigidBody bh = new RigidBody(new Vector2D(900,900), 1, 10e16);
+        bh.setVelocity(Vector2D.getNull());
+        bh.setAttractive(true);
+        bh.setStaticObject(true);
         glfwSetKeyCallback(Window.getWindow(), (window, key, scancode, action, mods) -> {
             if (key == GLFW_KEY_E && action == GLFW_PRESS){
-                RigidBody rb = new RigidBody(new Vector2D(900,900), 1, 10e10);
-                rb.setVelocity(Vector2D.getNull());
-                rb.setAttractive(true);
-                rb.setStaticObject(true);
+                sim.addBody(bh);
                 System.out.println("KEY PRESSED");
-                sim.addBody(rb);
+
             }
         });
         while (Window.shouldClose()) {
@@ -46,7 +48,7 @@ public class MainFrame {
             glOrtho(0, Window.getWidth(), Window.getHeight(), 0, -1, 1);
             glMatrixMode(GL_MODELVIEW);
             sim.step(0.025);
-            Window.drawSprite("sputnik.jpg", (int)body1.getPosition().getX(), (int)body1.getPosition().getY(), (float) (body1.getVelocity().angleDegree()), 0.05f);
+            Window.drawSprite("sputnik.jpg", (int)body1.getPosition().getX(), (int)body1.getPosition().getY(), (float) (body1.getVelocity().angleDegree()+120), 0.05f);
             Window.drawSprite("earth.jpg", (int)body2.getPosition().getX(), (int)body2.getPosition().getY(), i, 0.1f);
             Window.swapBuffers();
 
