@@ -8,7 +8,7 @@ import java.util.HashMap;
 /**
  * Created by ben on 21/03/17.
  */
-public class NewtonGravitationSolver extends ForceSolver {
+public class NewtonGravitationSolver extends PhysicSolver {
     double gravitationalConstant;
 
     public NewtonGravitationSolver(double gravitationalConstant){
@@ -16,27 +16,28 @@ public class NewtonGravitationSolver extends ForceSolver {
     }
 
     @Override
-    public HashMap<RigidBody, Vector2D> computeForces(Simulator sim) {
+    public void compute(Simulator sim) {
         ArrayList<Pair<RigidBody, RigidBody>> pairs = NewtonGravitationSolver.getCombination(sim.getBodies()); // get all the possible pairs without repetition of the same element
-        pairs.removeIf((pair) -> !pair.getLeft().attractive); //keeps only the pairs with left rigidbody attractive
-        HashMap<RigidBody, Vector2D> forces = new HashMap<>();
-        System.out.println(pairs.size());
+        pairs.removeIf((pair) -> !pair.getLeft().getAttractive() && !pair.getRight().getAttractive()); //keeps only the pairs with at least one attractive rigidbody
+        //System.out.println(pairs.size());
 
         Vector2D computedForce;
         double attraction;
         for ( Pair<RigidBody, RigidBody> pair : pairs ){
-            computedForce = pair.getLeft().position.minus(pair.getRight().position);
-            if(computedForce.normSquared() == 0.0)
-                System.out.println("Ben divided by 0 :/");
-            attraction = this.gravitationalConstant*pair.getLeft().mass*pair.getRight().mass/computedForce.normSquared();
-            computedForce.normalize();
-            computedForce = computedForce.multiply(attraction);
-            if ( pair.getRight().attractive ){
-                forces.put(pair.getLeft(), computedForce);
-            }
-            forces.put(pair.getRight(), computedForce.getOpposite());
-        }
+            computedForce = pair.getRight().getPosition().minus(pair.getLeft().getPosition());
+            if(computedForce.normSquared() > 0.01){
+                attraction = this.gravitationalConstant*pair.getLeft().mass*pair.getRight().mass/computedForce.normSquared();
+                computedForce.normalize();
+                computedForce = computedForce.multiply(attraction);
 
-        return forces;
+                // apply force only if the body attracts
+                if ( pair.getRight().getAttractive() ){
+                    pair.getLeft().applyForce(computedForce);
+                }
+                if ( pair.getLeft().getAttractive() ){
+                    pair.getRight().applyForce(computedForce.getOpposite());
+                }
+            }
+        }
     }
 }

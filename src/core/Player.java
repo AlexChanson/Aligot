@@ -1,8 +1,5 @@
 package core;
 
-/**
- * Fait par Alexandre le 19/03/2017.
- */
-public class Player {
+public class Player extends GameObject{
     private String name;
 }

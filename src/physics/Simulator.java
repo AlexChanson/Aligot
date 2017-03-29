@@ -2,17 +2,16 @@ package physics;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 
 public class Simulator {
     private ArrayList<RigidBody> bodies;
-    private ArrayList<ForceSolver> forceSolvers;
-    private HashMap<RigidBody, Vector2D> forces;
+    private ArrayList<PhysicSolver> physicSolvers;
+    private double maxSpeed;
 
     public Simulator(){
         this.bodies = new ArrayList<>();
-        this.forceSolvers = new ArrayList<>();
-        this.forces =  new HashMap<>();
+        this.physicSolvers = new ArrayList<>();
+        this.maxSpeed = 5000;
     }
 
     public void removeBody(RigidBody body){
@@ -20,25 +19,42 @@ public class Simulator {
     }
 
     public void addBody(RigidBody body){
-        this.bodies.add(body);
+        if (!bodies.contains(body)) // prevent adding the same boy more than once
+            this.bodies.add(body);
     }
 
-    public void addSolver(ForceSolver fs){
-        forceSolvers.add(fs);
+    public void addSolver(PhysicSolver fs){
+        physicSolvers.add(fs);
     }
 
     public void step(double dt){
-        forceSolvers.forEach((value) -> forces.putAll(ForceSolver.combineForces(forces, value.computeForces(this))));
+        physicSolvers.forEach((solver) -> solver.compute(this)); // for each solver, compute its effect
+
         for (RigidBody body: this.bodies) {
-            if (forces.containsKey(body) ){
-                body.updateAcceleration(forces.get(body));
+            if (!body.getStaticObject()){
+
+                // update all physics properties, order is important
+                body.updateAcceleration();
+                body.updateVelocity(dt);
+                // check for max speed and cap if needed
+                if (body.getVelocity().norm() > this.maxSpeed){
+                    body.setVelocity(body.getVelocity().getNormalized().multiply(this.maxSpeed));
+                }
+                body.updatePosition(dt);
+
+                body.resetAppliedForces(); // set forces applied to object to 0
             }
-            body.updateVelocity(dt);
-            body.updatePosition(dt);
         }
-        forces.clear();
     }
 
     public ArrayList<RigidBody> getBodies(){ return bodies; }
 
+    public double getMaxSpeed() {
+        return maxSpeed;
+    }
+
+    public void setMaxSpeed(double maxSpeed) {
+        if (maxSpeed > 0 || maxSpeed == -1)
+            this.maxSpeed = maxSpeed;
+    }
 }

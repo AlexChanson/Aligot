@@ -66,11 +66,18 @@ public class Vector2D {
     }
 
     public double angle(){
-        return Math.acos(this.x/this.norm());
+        if (x >= 0){
+            return Math.acos(this.x/this.norm());
+        }
+
+        return Math.PI+Math.acos(this.x/this.norm());
     }
 
     public double angleDegree(){
-        return 180*Math.atan(this.y/this.x)/Math.PI;
+        if ( x >= 0 ){
+            return 180*Math.atan(this.y/this.x)/Math.PI;
+        }
+        return 180+180*Math.atan(this.y/this.x)/Math.PI;
     }
 
     public double angleBetween(Vector2D other){

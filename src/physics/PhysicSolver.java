@@ -10,7 +10,7 @@ import java.util.stream.Stream;
 /**
  * Created by ben on 19/03/17.
  */
-public abstract class ForceSolver {
+public abstract class PhysicSolver {
 
     public static HashMap<RigidBody,Vector2D> combineForces(HashMap<RigidBody, Vector2D> first,
                                                             HashMap<RigidBody, Vector2D> second){
@@ -30,5 +30,5 @@ public abstract class ForceSolver {
         return returnedPairs;
     }
 
-    public abstract HashMap<RigidBody, Vector2D> computeForces(Simulator sim);
+    public abstract void compute(Simulator sim);
 }
