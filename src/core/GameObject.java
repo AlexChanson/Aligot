@@ -5,13 +5,13 @@ import physics.RigidBody;
 
 public abstract class GameObject {
     protected RigidBody rigidBody;
-    protected Texture texture;
+    protected String texture;
     protected int z;
 
     public GameObject() {
     }
 
-    public GameObject(RigidBody rigidBody, Texture texture) {
+    public GameObject(RigidBody rigidBody, String texture) {
         this.rigidBody = rigidBody;
         this.texture = texture;
     }
@@ -24,11 +24,11 @@ public abstract class GameObject {
         this.rigidBody = rigidBody;
     }
 
-    public Texture getTexture() {
+    public String getTexture() {
         return texture;
     }
 
-    public void setTexture(Texture texture) {
+    public void setTexture(String texture) {
         this.texture = texture;
     }
 
