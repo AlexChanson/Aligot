@@ -35,6 +35,7 @@ public class Window {
         glTranslatef(posX, posY, 0);
         glRotatef(rotate, 0, 0f, 1f);
         glScalef(scale, scale, 1);
+        glColor3f(255, 255 ,255);
 
         glBindTexture(GL_TEXTURE_2D, texture.getId());
 
@@ -58,6 +59,72 @@ public class Window {
         SpriteTexture texture = new SpriteTexture(path);
 
         drawTexture(texture, posX, posY, rotate, scale);
+    }
+
+    public static void drawLine(int x1, int y1, int x2, int y2, float thickness, int R, int G, int B, float rotate){
+        int minX, minY;
+
+        minX = Math.min(x1, x2);
+        minY = Math.min(y1, y2);
+
+        x1 -= minX;
+        x2 -= minX;
+        y1 -= minY;
+        y2 -= minY;
+
+        glPushMatrix();
+
+        glBindTexture(0, 0);
+        glTranslatef(minX, minY, 0);
+        glRotatef(rotate, 0, 0f, 1f);
+        glColor3f(R, G ,B);
+        glLineWidth((float) thickness);
+
+        glBegin(GL_LINES);
+        glVertex2f(x1, y1);
+        glVertex2f(x2, y2);
+        glEnd();
+
+        glPopMatrix();
+    }
+
+    public static void drawRectangle (int width, int height, int posX, int posY, int R, int G, int B, float rotate){
+        glPushMatrix();
+
+        glBindTexture(0, 0);
+        glTranslatef(posX, posY, 0);
+        glRotatef(rotate, 0, 0f, 1f);
+        glColor3f(R, G, B);
+
+        glBegin(GL_QUADS);
+        glVertex2f(-width, -height);
+        glVertex2f(-width, height);
+        glVertex2f(width, height);
+        glVertex2f(width, -height);
+        glEnd();
+
+        glPopMatrix();
+    }
+
+    public static void drawCircle(int posX, int posY, int radius, int R, int G, int B) {
+        double perimeter = Math.PI * 2 * radius;
+        double a = 1.0 / radius;
+
+        glPushMatrix();
+
+        glBindTexture(0, 0);
+        glTranslatef(posX, posY, 0);
+        glColor3f(R, G, B);
+
+        glBegin(GL_POLYGON);
+
+        for (double i = -Math.PI; i < Math.PI; i += a) {
+            glVertex2f((float) (Math.cos(i) * radius), (float) (Math.sin(i) * radius));
+        }
+
+        glEnd();
+
+        glPopMatrix();
     }
 
     public static boolean shouldClose() {
