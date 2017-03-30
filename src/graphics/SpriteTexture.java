@@ -51,6 +51,9 @@ public class SpriteTexture extends Texture {
         }
     }
 
+    /**
+     * Generate a texture in which a sprite will be applied
+     */
     private void generate() {
         int[] pixels_raw = this.img.getRGB(0, 0, this.getWidth(), this.getHeight(), null, 0, this.getWidth());
         ByteBuffer pixels = BufferUtils.createByteBuffer(this.getHeight() * this.getWidth() * 4);
