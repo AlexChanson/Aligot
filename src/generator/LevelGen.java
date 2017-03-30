@@ -87,18 +87,23 @@ public class LevelGen {
         centers.remove(right);
         int temp = getInt(minRadius, maxRadius);
         double temp2 = massRef*(maxRadius/minRadius);
-        worlds.add(new Spawn(new RigidBody(left, temp, temp2),""));
-        worlds.add(new Spawn(new RigidBody(right, temp, temp2), ""));
+        RigidBody rigidBody = new RigidBody(left, temp, temp2);
+        rigidBody.setAttractive(true);
+        rigidBody.setStaticObject(true);
+        worlds.add(new Spawn(rigidBody, ""));
+        rigidBody = new RigidBody(right, temp, temp2);
+        rigidBody.setAttractive(true);
+        rigidBody.setStaticObject(true);
+        worlds.add(new Spawn(rigidBody, ""));
     }
 
     private void genPlanets() {
         String[] planetTypes = {"solid", "gaz"};
         for(Vector2D v : centers){
-            worlds.add(new Planet(new RigidBody(v,
-                    getInt(minRadius, maxRadius),
-                    massRef*(maxRadius/minRadius)),
-                    "earth.jpg",
-                    planetTypes[gen.nextInt(2)]));
+            RigidBody rigidBody = new RigidBody(v, getInt(minRadius, maxRadius),massRef*(maxRadius/minRadius));
+            rigidBody.setAttractive(true);
+            rigidBody.setStaticObject(true);
+            worlds.add(new Planet(rigidBody,"earth.jpg", planetTypes[gen.nextInt(2)]));
         }
         result.getPlanets().addAll(worlds);
     }

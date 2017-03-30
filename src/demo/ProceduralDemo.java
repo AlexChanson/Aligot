@@ -3,7 +3,9 @@ package demo;
 import core.Planet;
 import core.Spawn;
 import generator.LevelGen;
+import graphics.TextTexture;
 import graphics.Window;
+import org.lwjgl.glfw.GLFWKeyCallback;
 import physics.Vector2D;
 
 import java.util.ArrayList;
@@ -15,15 +17,21 @@ import static org.lwjgl.opengl.GL11.*;
 
 public class ProceduralDemo {
     private static HashSet<Planet> stuffToRender = new HashSet<>();
+
     public static void main(String[] args) {
-        Window.init("Space Shooter");
+        Window.init("Demo Generateur Procedural");
 
         glfwSetKeyCallback(Window.getWindow(), (window, key, scancode, action, mods) -> {
             if (key == GLFW_KEY_E && action == GLFW_PRESS){
-                LevelGen lvl = new LevelGen((long) (Math.random()*1000), LevelGen.LARGE, 7);
+                LevelGen lvl = new LevelGen((long) (Math.random()*100000), LevelGen.LARGE, 7);
                 stuffToRender = lvl.create().getPlanets();
                 }
+            if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS) {
+                Window.exit();
+                glfwTerminate();
+            }
         });
+
         while (Window.shouldClose()) {
             glClear(GL_COLOR_BUFFER_BIT);
 
@@ -41,7 +49,6 @@ public class ProceduralDemo {
                             (int)stuffToRender.getRigidBody().getPosition().getY(),
                             (int) stuffToRender.getRigidBody().getSize(), 50,255,50);
             });
-
 
             Window.swapBuffers();
             glfwPollEvents();
