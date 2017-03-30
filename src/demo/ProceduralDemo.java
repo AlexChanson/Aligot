@@ -40,7 +40,7 @@ public class ProceduralDemo {
                 simulator.addBody(projectile);
             }
             if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS) {
-                Window.exit();
+                //Window.exit();
                 glfwTerminate();
             }
         });

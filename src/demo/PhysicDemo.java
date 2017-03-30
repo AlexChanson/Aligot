@@ -1,10 +1,8 @@
 package demo;
 
 import graphics.Window;
-import physics.NewtonGravitationSolver;
-import physics.RigidBody;
-import physics.Simulator;
-import physics.Vector2D;
+import physics.*;
+
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.*;
 
@@ -16,8 +14,10 @@ public class PhysicDemo {
         Simulator sim = new Simulator();
         sim.setMaxSpeed(5000);
         sim.addSolver(new NewtonGravitationSolver(6.67e-11));
-        RigidBody body1 = new RigidBody(new Vector2D(400,400), 12, 83.6);
-        RigidBody body2 = new RigidBody(new Vector2D(800,400), 6, 5.9722e17);
+        sim.addSolver(new AirDampingSolver(0.01,0.02));
+        sim.addSolver(new CollisionSolver());
+        RigidBody body1 = new RigidBody(new Vector2D(400,400), 10, 83.6);
+        RigidBody body2 = new RigidBody(new Vector2D(800,400), 160, 5.9722e17);
 
         body1.setVelocity(new Vector2D(0,300));
 
@@ -40,6 +40,8 @@ public class PhysicDemo {
 
             }
         });
+
+
         while (Window.shouldClose()) {
             glClear(GL_COLOR_BUFFER_BIT);
             glMatrixMode(GL_PROJECTION);
@@ -48,6 +50,16 @@ public class PhysicDemo {
             glMatrixMode(GL_MODELVIEW);
 
             sim.step(0.025);
+            Window.drawRectangle(10,10,10,10,0,255,255,0);
+            Window.drawLine(100, 100, 300, 300, 180, 255, 0, 0);
+            Window.drawSprite("earth.jpg", (int)body2.getPosition().getX(), (int)body2.getPosition().getY(), i, 0.1f);
+            Window.drawSprite("sputnik.jpg", (int)body1.getPosition().getX(), (int)body1.getPosition().getY(), 1, 0.05f);
+            Vector2D forceVector = body1.getAppliedForce();
+            int forceX = (int) ((body1.getPosition().getX()+forceVector.getX())*10);
+            int forceY = (int) ((body1.getPosition().getY()+forceVector.getY())*10);
+            //System.out.println(forceX);
+            Window.drawLine((int) body1.getPosition().getX(), (int) body1.getPosition().getY(), forceX, forceY, 10, 255,128,0);
+
             //Window.drawLine(100, 100, 300, 300, 180, 255, 128, 0);
             //Window.drawSprite("earth.jpg", (int)body2.getPosition().getX(), (int)body2.getPosition().getY(), i, 0.1f);
             //Window.drawSprite("sputnik.jpg", (int)body1.getPosition().getX(), (int)body1.getPosition().getY(), (float) (body1.getVelocity().angleDegree()+120), 0.05f);
