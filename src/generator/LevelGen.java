@@ -16,11 +16,13 @@ public class LevelGen {
     public static final int[] SMALL = {640,360}, MEDIUM = {1280,720}, LARGE = {1920,1080};
     private final long seed;
     private int[] mapSize = MEDIUM;
-    public ArrayList<Vector2D> centers = new ArrayList<>();
+    private ArrayList<Vector2D> centers = new ArrayList<>();
     public ArrayList<Planet> worlds = new ArrayList<>();
     private Random gen;
     private Vector2D left, right;
     private int planetNumber, minRadius, maxRadius, minMass = 100000000, maxMass = minMass*10;
+    private double massRef = 5e15; //the mass of the smallest planet will be scaled with radius
+    private Level result;
 
     public LevelGen(long seed) {
         this.seed = seed;
@@ -38,11 +40,13 @@ public class LevelGen {
     }
 
     public Level create(){
+        result = new Level("test");
         System.out.println("Starting Procedural generator...");
         genCenters();
+        genSpawns();
         genPlanets();
         System.out.println("Generation Done !, Planet number = " + centers.size());
-        return null;
+        return result;
     }
 
     private void genCenters() {
@@ -77,15 +81,29 @@ public class LevelGen {
         }
     }
 
+    private void genSpawns(){
+        //removing centers from the list will generate them separately
+        centers.remove(left);
+        centers.remove(right);
+        int temp = getInt(minRadius, maxRadius);
+        double temp2 = massRef*(maxRadius/minRadius);
+        worlds.add(new Planet(new RigidBody(left, temp, temp2),"","solid"));
+        worlds.add(new Planet(new RigidBody(right, temp, temp2), "", "solid"));
+        ArrayList<Spawn> spawns = new ArrayList<>();
+        worlds.forEach(world -> spawns.add(new Spawn(world)));
+        result.setSpawns(spawns);
+    }
+
     private void genPlanets() {
+        String[] planetTypes = {"solid", "gaz"};
         for(Vector2D v : centers){
             worlds.add(new Planet(new RigidBody(v,
                     getInt(minRadius, maxRadius),
-                    getInt(minMass, maxMass)),
+                    massRef*(maxRadius/minRadius)),
                     "earth.jpg",
-                    "dummy_type"));
+                    planetTypes[gen.nextInt(2)]));
         }
-
+        result.getElements().addAll(worlds);
     }
 
     private int getInt(int min, int max){
