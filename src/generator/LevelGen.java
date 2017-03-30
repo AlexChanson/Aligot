@@ -61,8 +61,8 @@ public class LevelGen {
         centers.add(left);
 
         // Generating the left spawn in the right most third of the boundary box
-        right = new Vector2D(getInt(third*2, boundaries[0][1]), getInt(boundaries[1][0], boundaries[1][1]));
-        right.add(right);
+        right = new Vector2D(getInt(third*3, boundaries[0][1]), getInt(boundaries[1][0], boundaries[1][1]));
+        centers.add(right);
 
         // Generating the rest of the planets
         int i, maxTries = 1000;
