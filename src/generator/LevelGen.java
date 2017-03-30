@@ -5,9 +5,7 @@ import core.Planet;
 import core.Spawn;
 import physics.RigidBody;
 import physics.Vector2D;
-
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.Random;
 
 import static java.lang.Math.*;
@@ -17,10 +15,10 @@ public class LevelGen {
     private final long seed;
     private int[] mapSize = MEDIUM;
     private ArrayList<Vector2D> centers = new ArrayList<>();
-    public ArrayList<Planet> worlds = new ArrayList<>();
+    private ArrayList<Planet> worlds = new ArrayList<>();
     private Random gen;
     private Vector2D left, right;
-    private int planetNumber, minRadius, maxRadius, minMass = 100000000, maxMass = minMass*10;
+    private int planetNumber, minRadius, maxRadius;
     private double massRef = 5e15; //the mass of the smallest planet will be scaled with radius
     private Level result;
 
@@ -41,7 +39,7 @@ public class LevelGen {
 
     public Level create(){
         result = new Level("test");
-        System.out.println("Starting Procedural generator...");
+        System.out.println("Starting Procedural generator with seed " + seed);
         genCenters();
         genSpawns();
         genPlanets();
@@ -53,12 +51,12 @@ public class LevelGen {
         double diag = sqrt(pow(mapSize[0],2)+ pow(mapSize[1],2));
         minRadius = (int) (diag*0.015);
         maxRadius = (int) (diag*0.045);
-        System.out.println(diag);
-        int[][] boundaries = {{(int) (maxRadius*1.5), (int) (mapSize[0] - maxRadius*1.5)},
-                {(int) (maxRadius*1.5), (int) (mapSize[1] - maxRadius*1.5)}};
+
+        int[][] boundaries = {{(int) (maxRadius*1.4), (int) (mapSize[0] - maxRadius*1.4)},
+                {(int) (maxRadius*1.4), (int) (mapSize[1] - maxRadius*1.4)}};
 
         // Generating the left spawn in the left most third of the boundary box
-        int third = mapSize[0]/3;
+        int third = mapSize[0]/4;
         left = new Vector2D(getInt(boundaries[0][0], third), getInt(boundaries[1][0], boundaries[1][1]));
         centers.add(left);
 
@@ -67,9 +65,9 @@ public class LevelGen {
         right.add(right);
 
         // Generating the rest of the planets
-        int maxTries = 1000;
+        int i, maxTries = 1000;
         Vector2D temp;
-        for(int i = 0; i < maxTries && centers.size() < planetNumber; ++i){
+        for(i = 0; i < maxTries && centers.size() <= planetNumber; ++i){
             temp = new Vector2D(getInt(boundaries[0][0], boundaries[0][1]), getInt(boundaries[1][0], boundaries[1][1]));
             boolean ok = true;
             for(Vector2D p : centers){
@@ -79,6 +77,8 @@ public class LevelGen {
             if(ok)
                 centers.add(temp);
         }
+
+        System.out.println("Done in " + i + " tries.");
     }
 
     private void genSpawns(){
@@ -87,11 +87,8 @@ public class LevelGen {
         centers.remove(right);
         int temp = getInt(minRadius, maxRadius);
         double temp2 = massRef*(maxRadius/minRadius);
-        worlds.add(new Planet(new RigidBody(left, temp, temp2),"","solid"));
-        worlds.add(new Planet(new RigidBody(right, temp, temp2), "", "solid"));
-        ArrayList<Spawn> spawns = new ArrayList<>();
-        worlds.forEach(world -> spawns.add(new Spawn(world)));
-        result.setSpawns(spawns);
+        worlds.add(new Spawn(new RigidBody(left, temp, temp2),""));
+        worlds.add(new Spawn(new RigidBody(right, temp, temp2), ""));
     }
 
     private void genPlanets() {
@@ -103,11 +100,17 @@ public class LevelGen {
                     "earth.jpg",
                     planetTypes[gen.nextInt(2)]));
         }
-        result.getElements().addAll(worlds);
+        result.getPlanets().addAll(worlds);
     }
 
     private int getInt(int min, int max){
         return min + gen.nextInt(max-min);
     }
 
+    public Level getLevel() {
+        if(result != null)
+            return result;
+        else
+            return create();
+    }
 }

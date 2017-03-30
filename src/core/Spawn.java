@@ -1,14 +1,11 @@
 package core;
 
 
-public class Spawn {
-    private Planet position;
+import physics.RigidBody;
 
-    public Spawn(Planet position) {
-        this.position = position;
-    }
+public class Spawn extends Planet{
 
-    public Planet getPosition() {
-        return position;
+    public Spawn(RigidBody rigidBody, String texture) {
+        super(rigidBody, texture, "solid");
     }
 }

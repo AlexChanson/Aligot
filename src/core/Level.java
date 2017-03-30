@@ -7,8 +7,7 @@ import java.util.HashSet;
 
 public class Level {
     private String name, info, bgTexture;
-    private HashSet<Planet> elements = new HashSet<>();
-    private ArrayList<Spawn> spawns = new ArrayList<>();
+    private HashSet<Planet> planets = new HashSet<>();
 
     public Level(String name) {
         this.name = name;
@@ -20,36 +19,23 @@ public class Level {
         this.bgTexture = bgTexture;
     }
 
-    public Level(String name, String info, String bgTexture, HashSet<Planet> elements, ArrayList<Spawn> spawns) {
+    public Level(String name, String info, String bgTexture, HashSet<Planet> planets) {
         this.name = name;
         this.info = info;
         this.bgTexture = bgTexture;
-        this.elements = elements;
-        this.spawns = spawns;
+        this.planets = planets;
     }
 
-    public void addElement(Planet... elements){
-        Collections.addAll(this.elements, elements);
-    }
-
-    public void addSpawns(Spawn... spawns){
-        Collections.addAll(this.spawns, spawns);
+    public void addPlanet(Planet... elements){
+        Collections.addAll(this.planets, elements);
     }
 
     public String getName() {
         return name;
     }
 
-    public HashSet<Planet> getElements() {
-        return elements;
-    }
-
-    public ArrayList<Spawn> getSpawns() {
-        return spawns;
-    }
-
-    public void setSpawns(ArrayList<Spawn> spawns) {
-        this.spawns = spawns;
+    public HashSet<Planet> getPlanets() {
+        return planets;
     }
 
     public void setName(String name) {
