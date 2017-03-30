@@ -1,4 +1,6 @@
-package graphics;
+package demo;
+
+import graphics.Window;
 
 import static org.lwjgl.opengl.GL11.*;
 
