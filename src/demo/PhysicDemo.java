@@ -53,8 +53,7 @@ public class PhysicDemo {
             Window.drawSprite("sputnik.jpg", (int)body1.getPosition().getX(), (int)body1.getPosition().getY(), (float) (body1.getVelocity().angleDegree()+120), 0.05f);
 
             // Comente la ligne en dessous et sa marche plus
-            Window.drawSprite("rubics_cube.jpg", 240, 270, 0, 0.5f);
-
+            //Window.drawSprite("rubics_cube.jpg", 240, 800, 0, 0.5f);
 
             Window.swapBuffers();
             glfwPollEvents();

@@ -30,6 +30,7 @@ public class Window {
     public static void drawTexture(Texture texture, int posX, int posY, float rotate, float scale) {
         float relWidth = texture.getWidth() / 2, relHeight = texture.getHeight() / 2;
 
+        glEnable(GL_TEXTURE_2D);
         glPushMatrix();
 
         glTranslatef(posX, posY, 0);
@@ -51,6 +52,7 @@ public class Window {
         glEnd();
 
         glPopMatrix();
+        glDisable(GL_TEXTURE_2D);
     }
 
     public static void drawSprite(String fileName, int posX, int posY, float rotate, float scale) {
