@@ -10,6 +10,11 @@ import java.util.Random;
 
 import static java.lang.Math.*;
 
+/**
+ * @author Alexandre
+ * The procedural level generator
+ * Generates levels from a seed
+ */
 public class LevelGen {
     public static final int[] SMALL = {640,360}, MEDIUM = {1280,720}, LARGE = {1920,1080};
     private final long seed;
@@ -26,6 +31,12 @@ public class LevelGen {
         this.seed = seed;
     }
 
+    /**
+     * Initializes the level generator
+     * @param seed the seed for the level, two equals seeds will produce the same level
+     * @param mapSize the map size must be SMALL, MEDIUM or LARGE
+     * @param planetNumber the number of planet the generator will attempt to fit in the map
+     */
     public LevelGen(long seed, int[] mapSize, int planetNumber){
         this.seed = seed;
         this.planetNumber = planetNumber;
@@ -37,6 +48,10 @@ public class LevelGen {
             this.mapSize = mapSize;
     }
 
+    /**
+     * Main method used to run the generation routine, parameters are set with the constructor.
+     * @return Returns the generated level
+     */
     public Level create(){
         result = new Level("test");
         System.out.println("Starting Procedural generator with seed " + seed);
@@ -47,6 +62,9 @@ public class LevelGen {
         return result;
     }
 
+    /**
+     * Generates the center of the planets within defined bounds and avoiding overlap.
+     */
     private void genCenters() {
         double diag = sqrt(pow(mapSize[0],2)+ pow(mapSize[1],2));
         minRadius = (int) (diag*0.015);
@@ -81,6 +99,10 @@ public class LevelGen {
         System.out.println("Done in " + i + " tries.");
     }
 
+    /**
+     * Generates the two span planets for equity they have the same size/gravity,
+     * and are placed a opposite sides of the map.
+     */
     private void genSpawns(){
         //removing centers from the list will generate them separately
         centers.remove(left);
@@ -97,7 +119,12 @@ public class LevelGen {
         worlds.add(new Spawn(rigidBody, ""));
     }
 
+    /**
+     * Generates the other planets of the map they can be of different types,
+     * textures are randomized for each type
+     */
     private void genPlanets() {
+        //TODO: implement more planet types and do random texture choices
         String[] planetTypes = {"solid", "gaz"};
         for(Vector2D v : centers){
             RigidBody rigidBody = new RigidBody(v, getInt(minRadius, maxRadius),massRef*(maxRadius/minRadius));
@@ -108,6 +135,12 @@ public class LevelGen {
         result.getPlanets().addAll(worlds);
     }
 
+    /**
+     * Generates a pseudo-random integer
+     * @param min range lower bound (inclusive)
+     * @param max range upper bound (exclusive)
+     * @return a random integer between [min] and ]max[
+     */
     private int getInt(int min, int max){
         return min + gen.nextInt(max-min);
     }

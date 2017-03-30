@@ -1,10 +1,12 @@
 package core;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 
-
+/**
+ * @author Alexandre
+ * The class holding the entire level
+ */
 public class Level {
     private String name, info, bgTexture;
     private HashSet<Planet> planets = new HashSet<>();

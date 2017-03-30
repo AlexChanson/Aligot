@@ -35,7 +35,7 @@ public class Window {
         glTranslatef(posX, posY, 0);
         glRotatef(rotate, 0, 0f, 1f);
         glScalef(scale, scale, 1);
-        glColor3f(255, 255 ,255);
+        glColor3f(1, 1 ,1);
 
         glBindTexture(GL_TEXTURE_2D, texture.getId());
 
@@ -77,8 +77,8 @@ public class Window {
         glBindTexture(0, 0);
         glTranslatef(minX, minY, 0);
         glRotatef(rotate, 0, 0f, 1f);
-        glColor3f(R, G ,B);
-        glLineWidth((float) thickness);
+        glColor3f((float) (R/255), (float) (G/255.0), (float) (B/255.0));
+        glLineWidth(thickness);
 
         glBegin(GL_LINES);
         glVertex2f(x1, y1);
@@ -94,7 +94,7 @@ public class Window {
         glBindTexture(0, 0);
         glTranslatef(posX, posY, 0);
         glRotatef(rotate, 0, 0f, 1f);
-        glColor3f(R, G, B);
+        glColor3f((float) (R/255), (float) (G/255.0), (float) (B/255.0));
 
         glBegin(GL_QUADS);
         glVertex2f(-width, -height);
