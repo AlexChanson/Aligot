@@ -42,18 +42,21 @@ public class PhysicDemo {
         });
         while (Window.shouldClose()) {
             glClear(GL_COLOR_BUFFER_BIT);
-
-
             glMatrixMode(GL_PROJECTION);
             glLoadIdentity();
             glOrtho(0, Window.getWidth(), Window.getHeight(), 0, -1, 1);
             glMatrixMode(GL_MODELVIEW);
+
             sim.step(0.025);
-            Window.drawSprite("earth.jpg", (int)body2.getPosition().getX(), (int)body2.getPosition().getY(), i, 0.1f);
-            Window.drawSprite("sputnik.jpg", (int)body1.getPosition().getX(), (int)body1.getPosition().getY(), (float) (body1.getVelocity().angleDegree()+120), 0.05f);
+            //Window.drawLine(100, 100, 300, 300, 180, 255, 128, 0);
+            //Window.drawSprite("earth.jpg", (int)body2.getPosition().getX(), (int)body2.getPosition().getY(), i, 0.1f);
+            //Window.drawSprite("sputnik.jpg", (int)body1.getPosition().getX(), (int)body1.getPosition().getY(), (float) (body1.getVelocity().angleDegree()+120), 0.05f);
+
+            Window.drawLine(100, 100, 300, 300, 180, 255, 128, 0);
+            Window.drawSprite("rubics_cube.jpg", 240, 270, 0, 0.5f);
+            Window.drawSprite("rubics_cube.jpg", 720, 270, i, 1f);
 
             Window.swapBuffers();
-
             glfwPollEvents();
 
             i++;
