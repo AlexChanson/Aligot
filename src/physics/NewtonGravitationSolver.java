@@ -15,6 +15,11 @@ public class NewtonGravitationSolver extends PhysicSolver {
         this.gravitationalConstant = gravitationalConstant;
     }
 
+    /**
+     * Apply a force calculated according to Newton's law of Gravity on each rigid body.
+     * Only rigid bodies with attractive set to true attract their pairs according to their mass
+     * @param sim takes a Simulator object to compute the different modifications applied to the rigidbodies
+     */
     @Override
     public void compute(Simulator sim) {
         ArrayList<Pair<RigidBody, RigidBody>> pairs = NewtonGravitationSolver.getCombination(sim.getBodies()); // get all the possible pairs without repetition of the same element
@@ -25,8 +30,8 @@ public class NewtonGravitationSolver extends PhysicSolver {
         double attraction;
         for ( Pair<RigidBody, RigidBody> pair : pairs ){
             computedForce = pair.getRight().getPosition().minus(pair.getLeft().getPosition());
-            if(computedForce.normSquared() > 0.01){
-                attraction = this.gravitationalConstant*pair.getLeft().mass*pair.getRight().mass/computedForce.normSquared();
+            if(computedForce.normSquared() > 0.01){         // prevents calculating force for objects too close from each other
+                attraction = this.gravitationalConstant*pair.getLeft().mass*pair.getRight().mass/computedForce.normSquared(); // Newton's Law of Gravitation
                 computedForce.normalize();
                 computedForce = computedForce.multiply(attraction);
 
