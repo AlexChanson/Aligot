@@ -28,7 +28,7 @@ public class TextTexture extends Texture {
         return 0;
     }
 
-    TextTexture(String text, int size, String color, int maxLineWidth) {
+    public TextTexture(String text, int size, String color, int maxLineWidth) {
         if (fontImg == null) {
             loadFontImg();
         }
