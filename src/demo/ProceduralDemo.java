@@ -52,7 +52,7 @@ public class ProceduralDemo {
             glLoadIdentity();
             glOrtho(0, Window.getWidth(), Window.getHeight(), 0, -1, 1);
             glMatrixMode(GL_MODELVIEW);
-            simulator.step(1);
+            simulator.step(0.001);
             stuffToRender.forEach(stuffToRender -> {
                 if(stuffToRender instanceof Spawn)
                     Window.drawCircle((int)stuffToRender.getRigidBody().getPosition().getX(),
