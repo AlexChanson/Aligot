@@ -15,10 +15,16 @@ public class RigidBody {
     boolean attractive;      // is this body attracting the others?
     boolean staticObject;    // is this body moving?
 
-    public RigidBody(Vector2D position, double size, double masse){
+    /**
+     *
+     * @param position is the place where the rigidbody is
+     * @param size is his radius in meters
+     * @param mass is his mass in kg
+     */
+    public RigidBody(Vector2D position, double size, double mass){
         this.position = position;
         this.size = size;
-        this.mass = masse;
+        this.mass = mass;
         velocity = new Vector2D(0, 0);
         acceleration = new Vector2D(0 , 0);
         appliedForce = new Vector2D(0,0);
@@ -71,6 +77,10 @@ public class RigidBody {
         return appliedForce;
     }
 
+    public double getSize() {
+        return size;
+    }
+
     public void resetAppliedForces(){
         this.appliedForce = Vector2D.getNull();
     }
@@ -79,12 +89,20 @@ public class RigidBody {
         this.appliedForce = this.appliedForce.add(force);
     }
 
-    public void update(Vector2D sommeForce, double dt){
+    /**
+     * calculate all properties in the right order in one method call
+     * @param dt is the time elapsed since las method call
+     */
+    public void update(double dt){
         this.updateAcceleration();
         this.updateVelocity(dt);
         this.updatePosition(dt);
     }
 
+    /**
+     *
+     * @return a formatted string describing the object
+     */
     public String toString(){
         return String.format("Rigidbody %d\nPosition: %s\nVelocity: %s", hashCode(), this.position.toString(), this.velocity.toString());
     }

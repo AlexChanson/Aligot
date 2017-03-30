@@ -1,8 +1,10 @@
 package core;
 
-import graphics.Texture;
 import physics.RigidBody;
 
+/**
+ * The base object of the game, linking physics and graphic
+ */
 public abstract class GameObject {
     protected RigidBody rigidBody;
     protected String texture;

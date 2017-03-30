@@ -12,13 +12,11 @@ import java.util.stream.Stream;
  */
 public abstract class PhysicSolver {
 
-    public static HashMap<RigidBody,Vector2D> combineForces(HashMap<RigidBody, Vector2D> first,
-                                                            HashMap<RigidBody, Vector2D> second){
-        HashMap<RigidBody, Vector2D> combined = new HashMap<>(second);
-        first.forEach((key, value) -> combined.merge(key, value, (v1, v2) -> v1.add(v2)));
-        return combined;
-    }
-
+    /**
+     * @param bodies the list of rigidbodies to arrange in every possible pairs
+     * @return combine bodies in pair without repetition, the order isn't important
+     *               there is only AB or BA but not both
+     */
     public static ArrayList<Pair<RigidBody, RigidBody>> getCombination(ArrayList<RigidBody> bodies){
         ArrayList<Pair<RigidBody, RigidBody>> returnedPairs = new ArrayList<>();
         for ( int i = 0; i<bodies.size(); ++i){
@@ -30,5 +28,10 @@ public abstract class PhysicSolver {
         return returnedPairs;
     }
 
+    /**
+     *
+     * @param sim takes a Simulator object to compute the different modifications applied to the rigidbodies
+     *            in the simulator
+     */
     public abstract void compute(Simulator sim);
 }

@@ -1,16 +1,11 @@
 package core;
 
 
-import physics.Vector2D;
+import physics.RigidBody;
 
-public class Spawn {
-    private Vector2D position;
+public class Spawn extends Planet{
 
-    public Spawn(Vector2D position) {
-        this.position = position;
-    }
-
-    public Vector2D getPosition() {
-        return position;
+    public Spawn(RigidBody rigidBody, String texture) {
+        super(rigidBody, texture, "solid");
     }
 }

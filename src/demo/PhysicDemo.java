@@ -8,7 +8,7 @@ import physics.Vector2D;
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.*;
 
-public class MainFrame {
+public class PhysicDemo {
     public static void main(String[] args) {
         Window.init("Space Shooter");
 
