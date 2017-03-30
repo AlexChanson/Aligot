@@ -153,4 +153,9 @@ public class Window {
     public static long getWindow() {
         return window;
     }
+
+    public static void exit(){
+        glfwDestroyWindow(window);
+        glfwTerminate();
+    }
 }
