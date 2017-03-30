@@ -9,7 +9,7 @@ import java.util.HashMap;
  * Created by ben on 21/03/17.
  */
 public class NewtonGravitationSolver extends PhysicSolver {
-    double gravitationalConstant;
+    private double gravitationalConstant;
 
     public NewtonGravitationSolver(double gravitationalConstant){
         this.gravitationalConstant = gravitationalConstant;

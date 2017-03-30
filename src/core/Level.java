@@ -1,7 +1,5 @@
 package core;
 
-import physics.RigidBody;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
@@ -9,7 +7,7 @@ import java.util.HashSet;
 
 public class Level {
     private String name, info, bgTexture;
-    private HashSet<RigidBody> elements = new HashSet<>();
+    private HashSet<Planet> elements = new HashSet<>();
     private ArrayList<Spawn> spawns = new ArrayList<>();
 
     public Level(String name) {
@@ -22,7 +20,7 @@ public class Level {
         this.bgTexture = bgTexture;
     }
 
-    public Level(String name, String info, String bgTexture, HashSet<RigidBody> elements, ArrayList<Spawn> spawns) {
+    public Level(String name, String info, String bgTexture, HashSet<Planet> elements, ArrayList<Spawn> spawns) {
         this.name = name;
         this.info = info;
         this.bgTexture = bgTexture;
@@ -30,7 +28,7 @@ public class Level {
         this.spawns = spawns;
     }
 
-    public void addElement(RigidBody... elements){
+    public void addElement(Planet... elements){
         Collections.addAll(this.elements, elements);
     }
 
@@ -42,12 +40,8 @@ public class Level {
         return name;
     }
 
-    public HashSet<RigidBody> getElements() {
+    public HashSet<Planet> getElements() {
         return elements;
-    }
-
-    public void setElements(HashSet<RigidBody> elements) {
-        this.elements = elements;
     }
 
     public ArrayList<Spawn> getSpawns() {

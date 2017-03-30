@@ -114,7 +114,7 @@ public class Window {
 
         glBindTexture(0, 0);
         glTranslatef(posX, posY, 0);
-        glColor3f(R, G, B);
+        glColor3f((float) (R/255), (float) (G/255.0), (float) (B/255.0));
 
         glBegin(GL_POLYGON);
 

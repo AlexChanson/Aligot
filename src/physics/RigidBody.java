@@ -71,6 +71,10 @@ public class RigidBody {
         return appliedForce;
     }
 
+    public double getSize() {
+        return size;
+    }
+
     public void resetAppliedForces(){
         this.appliedForce = Vector2D.getNull();
     }

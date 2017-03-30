@@ -26,8 +26,8 @@ public class MainFrame {
             Window.drawRectangle(10, 10, 990, 540, 100, 0, 0, 0);
             Window.drawLine(100, 100, 300, 300, 180, 255, 255, 0, 0f);
             Window.drawCircle(200, 200, 50, 0, 255,0);
-            Window.drawSprite("rubics_cube.jpg", 240, 270, 0, 0.5f);
-            Window.drawSprite("rubics_cube.jpg", 720, 270, i, 1f);
+            //Window.drawSprite("rubics_cube.jpg", 240, 270, 0, 0.5f);
+            //Window.drawSprite("rubics_cube.jpg", 720, 270, i, 1f);
             Window.swapBuffers();
             glfwPollEvents();
 
