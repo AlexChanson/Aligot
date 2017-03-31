@@ -22,10 +22,16 @@ public class SpriteTexture extends Texture {
     private String path;
     private BufferedImage img;
 
+    /**
+     * @return the width of the sprite
+     */
     public int getWidth() {
         return this.img.getWidth();
     }
 
+    /**
+     * @return the height of the sprite
+     */
     public int getHeight() {
         return this.img.getHeight();
     }

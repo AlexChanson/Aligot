@@ -184,18 +184,33 @@ public class Window {
         glPopMatrix();
     }
 
+    /**
+     * @return true if the window should close or false otherwise
+     */
     public static boolean shouldClose() {
         return !glfwWindowShouldClose(window);
     }
 
+    /**
+     * swaps the front buffer of the window with the back buffer
+     * it is necessary step to make render with OpenGL
+     * use this method at the end of the main loop
+     */
     public static void swapBuffers(){
         glfwSwapBuffers(window);
     }
 
+    /**
+     * @return the width of the window
+     */
     public static int getWidth() {
         return videoMode().width();
     }
 
+
+    /**
+     * @return the height of the window
+     */
     public static int getHeight() {
         return videoMode().height();
     }
@@ -208,10 +223,17 @@ public class Window {
         return glfwGetMonitors().get(0);
     }
 
+
+    /**
+     * @return the window id
+     */
     public static long getWindow() {
         return window;
     }
 
+    /**
+     * close the window
+     */
     public static void exit(){
         glfwDestroyWindow(window);
         glfwTerminate();
