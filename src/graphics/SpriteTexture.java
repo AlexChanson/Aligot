@@ -89,7 +89,7 @@ public class SpriteTexture extends Texture {
      * Checks if SpriteTexture contains the path
      * @param t the SpriteTexture
      * @return boolean
-     * 		if boolean is true SpriteTexture contains the path
+     * If boolean is true SpriteTexture contains the path
      */
     public boolean equals(SpriteTexture t) {
         return t.path.equals(this.path);
