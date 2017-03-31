@@ -13,7 +13,9 @@ import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.opengl.GL11.GL_ONE_MINUS_SRC_ALPHA;
 
 /**
- * Created by clement on 27/03/17.
+ * SpriteTexture is used to load a sprite who will be draw in the window
+ * We used an HashMap in which textures will be contain
+ * HashMap is used to avoid reloading a sprite in game loop
  */
 public class SpriteTexture extends Texture {
     private static HashMap<String, SpriteTexture> generatedTexture = new HashMap<>();
@@ -28,6 +30,10 @@ public class SpriteTexture extends Texture {
         return this.img.getHeight();
     }
 
+    /**
+     * Loads a sprite from a path
+     * @param path the path of the sprite
+     */
     SpriteTexture(String path) {
         this.path = path;
 
@@ -51,6 +57,9 @@ public class SpriteTexture extends Texture {
         }
     }
 
+    /**
+     * Generates pixels's sprite and bind a texture to this sprite
+     */
     private void generate() {
         int[] pixels_raw = this.img.getRGB(0, 0, this.getWidth(), this.getHeight(), null, 0, this.getWidth());
         ByteBuffer pixels = BufferUtils.createByteBuffer(this.getHeight() * this.getWidth() * 4);
@@ -76,6 +85,12 @@ public class SpriteTexture extends Texture {
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     }
 
+    /**
+     * Checks if SpriteTexture contains the path
+     * @param t the SpriteTexture
+     * @return boolean
+     * If boolean is true SpriteTexture contains the path
+     */
     public boolean equals(SpriteTexture t) {
         return t.path.equals(this.path);
     }
