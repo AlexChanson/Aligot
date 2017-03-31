@@ -9,6 +9,10 @@ import static org.lwjgl.opengl.GL11.*;
 public class Window {
     private static long window;
 
+    /**
+     * Initializes the window
+     * @param title
+     */
     public static void init(String title) {
         try {
             if (!glfwInit()) {
@@ -27,9 +31,18 @@ public class Window {
         }
     }
 
+    /**
+     * Draws a texture that will contain a sprite
+     * @param texture the texture
+     * @param posX the position x
+     * @param posY the position y
+     * @param rotate the degree of rotation
+     * @param scale the scale parameter
+     */
     public static void drawTexture(Texture texture, int posX, int posY, float rotate, float scale) {
         float relWidth = texture.getWidth() / 2, relHeight = texture.getHeight() / 2;
 
+        glEnable(GL_TEXTURE_2D);
         glPushMatrix();
 
         glTranslatef(posX, posY, 0);
@@ -51,8 +64,17 @@ public class Window {
         glEnd();
 
         glPopMatrix();
+        glDisable(GL_TEXTURE_2D);
     }
 
+    /**
+     * Draws a sprite in the window
+     * @param fileName the name of the file
+     * @param posX the position x
+     * @param posY the position y
+     * @param rotate the degree of rotation
+     * @param scale the scale parameter
+     */
     public static void drawSprite(String fileName, int posX, int posY, float rotate, float scale) {
         String path = System.getProperty("user.dir") + "/ressources/sprites/" + fileName;
 
@@ -61,6 +83,18 @@ public class Window {
         drawTexture(texture, posX, posY, rotate, scale);
     }
 
+    /**
+     * Draws a line in the window
+     * @param x1 the first position x
+     * @param y1 the first position y
+     * @param x2 the second position x
+     * @param y2 the second position y
+     * @param thickness the thickness of the line
+     * @param R the proportion of red
+     * @param G the proportion of green
+     * @param B the proportion of blue
+     * @param rotate the degree of rotation
+     */
     public static void drawLine(int x1, int y1, int x2, int y2, float thickness, int R, int G, int B){
         int minX, minY;
 
@@ -87,6 +121,17 @@ public class Window {
         glPopMatrix();
     }
 
+    /**
+     * Draws a rectangle in the window
+     * @param width the width of the rectangle
+     * @param height the height of the rectangle
+     * @param posX the position x
+     * @param posY the position y
+     * @param R the proportion of red
+     * @param G the proportion of green
+     * @param B the proportion of blue
+     * @param rotate the degree of rotation
+     */
     public static void drawRectangle(int width, int height, int posX, int posY, int R, int G, int B, float rotate){
         glPushMatrix();
 
@@ -104,6 +149,15 @@ public class Window {
         glPopMatrix();
     }
 
+    /**
+     * Draws a circle in the window
+     * @param posX the position x
+     * @param posY the position y
+     * @param radius the radius parameter
+     * @param R the proportion of red
+     * @param G the proportion of green
+     * @param B the proportion of blue
+     */
     public static void drawCircle(int posX, int posY, int radius, int R, int G, int B) {
         double a = 1.0 / radius;
 

@@ -1,10 +1,8 @@
 package demo;
 
 import graphics.Window;
-import physics.NewtonGravitationSolver;
-import physics.RigidBody;
-import physics.Simulator;
-import physics.Vector2D;
+import physics.*;
+
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.*;
 
@@ -16,8 +14,10 @@ public class PhysicDemo {
         Simulator sim = new Simulator();
         sim.setMaxSpeed(5000);
         sim.addSolver(new NewtonGravitationSolver(6.67e-11));
-        RigidBody body1 = new RigidBody(new Vector2D(400,400), 12, 83.6);
-        RigidBody body2 = new RigidBody(new Vector2D(800,400), 6, 5.9722e17);
+        sim.addSolver(new AirDampingSolver(0.01, 0.02));
+        sim.addSolver(new CollisionSolver());
+        RigidBody body1 = new RigidBody(new Vector2D(400,400), 20, 83.6);
+        RigidBody body2 = new RigidBody(new Vector2D(800,400), 140, 5.9722e17);
 
         body1.setVelocity(new Vector2D(0,300));
 
@@ -48,13 +48,16 @@ public class PhysicDemo {
             glMatrixMode(GL_MODELVIEW);
 
             sim.step(0.025);
-            Window.drawLine(100, 100, 300, 300, 180, 255, 128, 0);
-            Window.drawSprite("earth.jpg", (int)body2.getPosition().getX(), (int)body2.getPosition().getY(), i, 0.1f);
-            Window.drawSprite("sputnik.jpg", (int)body1.getPosition().getX(), (int)body1.getPosition().getY(), (float) (body1.getVelocity().angleDegree()+120), 0.05f);
+            //Window.drawSprite("earth.jpg", (int)body2.getPosition().getX(), (int)body2.getPosition().getY(), i, 0.1f);
+            //Window.drawSprite("sputnik.jpg", (int)body1.getPosition().getX(), (int)body1.getPosition().getY(), (float) (body1.getVelocity().angleDegree()+120), 0.05f);
 
-            // Comente la ligne en dessous et sa marche plus
-            Window.drawSprite("rubics_cube.jpg", 240, 270, 0, 0.5f);
+            Window.drawCircle((int)body2.getPosition().getX(), (int)body2.getPosition().getY(), (int)body2.getSize(),255, 0, 0);
+            Window.drawCircle((int)body1.getPosition().getX(), (int)body1.getPosition().getY(), (int)body1.getSize(),0, 255, 0);
+            Vector2D pos = body1.getPosition();
+            int forceX = (int) ((pos.getX()+body1.getAcceleration().getX()*0.3));
+            int forceY = (int) ((pos.getY()+body1.getAcceleration().getY()*0.3));
 
+            Window.drawLine((int)pos.getX(), (int)pos.getY(), forceX, forceY, 10,0, 255,0);
 
             Window.swapBuffers();
             glfwPollEvents();

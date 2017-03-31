@@ -12,6 +12,7 @@ public class RigidBody {
     double size;             // radius in meter
     double mass;             // in kg
     double restitution;      // no unit, between 0 and 1 where 1 is perfect restitution
+    double friction;
     boolean attractive;      // is this body attracting the others?
     boolean staticObject;    // is this body moving?
 
@@ -25,6 +26,7 @@ public class RigidBody {
         this.position = position;
         this.size = size;
         this.mass = mass;
+        this.friction = 0.3;
         velocity = new Vector2D(0, 0);
         acceleration = new Vector2D(0 , 0);
         appliedForce = new Vector2D(0,0);
@@ -63,6 +65,30 @@ public class RigidBody {
 
     public Vector2D getPosition() {
         return position;
+    }
+
+    public void setPosition(Vector2D position) {
+        this.position = position;
+    }
+
+    public double getFriction() {
+        return friction;
+    }
+
+    public void setFriction(double friction) {
+        this.friction = friction;
+    }
+
+    public Vector2D getAcceleration() {
+        return acceleration;
+    }
+
+    public double getMass() {
+        return mass;
+    }
+
+    public void setMass(double mass) {
+        this.mass = mass;
     }
 
     public void setVelocity(Vector2D velocity) {

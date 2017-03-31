@@ -98,6 +98,10 @@ public class Vector2D {
         return new Vector2D(this.x - other.x, this.y - other.y);
     }
 
+    /**
+     *
+     * @return the angle on the unit circle in radiants
+     */
     public double angle(){
         if (x >= 0){
             return Math.acos(this.x/this.norm());
@@ -106,6 +110,10 @@ public class Vector2D {
         return Math.PI+Math.acos(this.x/this.norm());
     }
 
+    /**
+     *
+     * @return the angle on the unit circle in degrees
+     */
     public double angleDegree(){
         if ( x >= 0 ){
             return 180*Math.atan(this.y/this.x)/Math.PI;
@@ -113,6 +121,11 @@ public class Vector2D {
         return 180+180*Math.atan(this.y/this.x)/Math.PI;
     }
 
+    /**
+     *
+     * @param other vector to compare to
+     * @return the angle between the two vectors in radiants
+     */
     public double angleBetween(Vector2D other){
         double angle = Math.atan(this.y/this.x);
         double otherAngle = Math.atan(other.y/other.x);
@@ -147,21 +160,23 @@ public class Vector2D {
 
     /**
      *
-     * @param angle angle used to rotate, positive goes is the opposite rotation of a clock's
+     * @param angle angle used to rotate in radiants, positive goes is the opposite rotation of a clock's
      */
     public void rotate(double angle){
+        double x = this.x;
         this.x = this.x * Math.cos(angle) - this.y * Math.sin(angle);
-        this.y = this.x * Math.sin(angle) + this.y * Math.cos(angle);
+        this.y =      x * Math.sin(angle) + this.y * Math.cos(angle);
     }
 
     public void rotate90(boolean b){
+        double x = this.x;
         if (b){
             this.x = -this.y;
-            this.y = this.x;
+            this.y =       x;
         }
         else{
             this.x = this.y;
-            this.y = -this.x;
+            this.y =     -x;
         }
     }
 
