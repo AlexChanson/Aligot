@@ -6,6 +6,12 @@ import org.lwjgl.opengl.GL;
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.*;
 
+/**
+ * Window in which the game will be played
+ * The library is LWJGL (GLFW)
+ * Window is a canvas in which we draw our game
+ * @author Christopher VALLOT
+ */
 public class Window {
     private static long window;
 
