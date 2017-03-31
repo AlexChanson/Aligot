@@ -8,8 +8,8 @@ import static org.lwjgl.opengl.GL11.*;
 
 /**
  * Window in which the game will be played
- * The library is LWJGL (GLFW)
- * Window is a canvas in which we draw our game
+ * Using lwjgl as a wrapper around opengl
+ * The window contains all game elements render using opengl
  * @author Christopher VALLOT
  */
 public class Window {
@@ -17,7 +17,7 @@ public class Window {
 
     /**
      * Initializes the window
-     * @param title
+     * @param title the window title (not visible in fullscreen)
      */
     public static void init(String title) {
         try {
@@ -76,8 +76,8 @@ public class Window {
     /**
      * Draws a sprite in the window
      * @param fileName the name of the file
-     * @param posX the position x
-     * @param posY the position y
+     * @param posX the position on the x axis
+     * @param posY the position on the y axis
      * @param rotate the degree of rotation
      * @param scale the scale parameter
      */
@@ -96,10 +96,9 @@ public class Window {
      * @param x2 the second position x
      * @param y2 the second position y
      * @param thickness the thickness of the line
-     * @param R the proportion of red
-     * @param G the proportion of green
-     * @param B the proportion of blue
-     * @param rotate the degree of rotation
+     * @param R the proportion of red (0 to 255)
+     * @param G the proportion of green (0 to 255)
+     * @param B the proportion of blue (0 to 255)
      */
     public static void drawLine(int x1, int y1, int x2, int y2, float thickness, int R, int G, int B){
         int minX, minY;

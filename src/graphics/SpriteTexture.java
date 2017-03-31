@@ -13,9 +13,8 @@ import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.opengl.GL11.GL_ONE_MINUS_SRC_ALPHA;
 
 /**
- * SpriteTexture is used to load a sprite who will be draw in the window
- * We used an HashMap in which textures will be contain
- * HashMap is used to avoid reloading a sprite in game loop
+ * SpriteTexture is used to load a sprite who will be drawn in the window
+ * We used a HashMap in which textures loaded the first time they are requested
  */
 public class SpriteTexture extends Texture {
     private static HashMap<String, SpriteTexture> generatedTexture = new HashMap<>();
@@ -64,7 +63,7 @@ public class SpriteTexture extends Texture {
     }
 
     /**
-     * Generates pixels's sprite and bind a texture to this sprite
+     * Loads the pixels from the file and binds them to a texture
      */
     private void generate() {
         int[] pixels_raw = this.img.getRGB(0, 0, this.getWidth(), this.getHeight(), null, 0, this.getWidth());
