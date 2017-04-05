@@ -30,6 +30,7 @@ public class MainFrame {
             Window.drawSprite("earth.jpg", 720, 270, i, 0.1f);
             Window.drawSprite("rubics_cube.jpg", 720, 270, 0, (float) (1.0 / (i % 250)));
 
+
             Window.swapBuffers();
             glfwPollEvents();
 

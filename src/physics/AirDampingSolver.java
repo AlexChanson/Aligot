@@ -2,9 +2,7 @@ package physics;
 
 import java.util.ArrayList;
 
-/**
- * Created by ben on 30/03/17.
- */
+
 public class AirDampingSolver extends PhysicSolver {
     private double linearDamping;
     private double quadraticDamping;

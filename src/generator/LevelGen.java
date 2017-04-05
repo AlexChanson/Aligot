@@ -34,18 +34,13 @@ public class LevelGen {
     /**
      * Initializes the level generator
      * @param seed the seed for the level, two equals seeds will produce the same level
-     * @param mapSize the map size must be SMALL, MEDIUM or LARGE
-     * @param planetNumber the number of planet the generator will attempt to fit in the map
+     * @param mapSize can be SMALL, MEDIUM or LARGE or custom int[2]
      */
-    public LevelGen(long seed, int[] mapSize, int planetNumber){
+    public LevelGen(long seed, int[] mapSize){
         this.seed = seed;
-        this.planetNumber = planetNumber;
+        this.planetNumber = (int) (sqrt(pow(mapSize[0],2)+ pow(mapSize[1],2))/(280) + 1);
         gen = new Random(seed);
-        if(mapSize != SMALL && mapSize != MEDIUM && mapSize != LARGE) {
-            System.out.println("Error illegal argument map size must be SMALL, MEDIUM, LARGE.");
-            this.mapSize = MEDIUM;
-        } else
-            this.mapSize = mapSize;
+        this.mapSize = mapSize;
     }
 
     /**
@@ -84,7 +79,8 @@ public class LevelGen {
 
         // Generating the rest of the planets
         int i, maxTries = 1000;
-        Vector2D temp;
+        Vector2D temp, screenCenter = new Vector2D(mapSize[0]/2, mapSize[1]/2);
+        centers.add(screenCenter);
         for(i = 0; i < maxTries && centers.size() <= planetNumber; ++i){
             temp = new Vector2D(getInt(boundaries[0][0], boundaries[0][1]), getInt(boundaries[1][0], boundaries[1][1]));
             boolean ok = true;
@@ -95,7 +91,7 @@ public class LevelGen {
             if(ok)
                 centers.add(temp);
         }
-
+        centers.remove(screenCenter);
         System.out.println("Done in " + i + " tries.");
     }
 
@@ -150,5 +146,9 @@ public class LevelGen {
             return result;
         else
             return create();
+    }
+
+    public int[] getMapSize() {
+        return mapSize;
     }
 }
