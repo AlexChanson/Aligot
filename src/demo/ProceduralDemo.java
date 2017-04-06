@@ -1,7 +1,6 @@
 package demo;
 
 import core.Planet;
-import core.Spawn;
 import generator.LevelGen;
 import graphics.TextTexture;
 import graphics.Window;
@@ -26,7 +25,7 @@ public class ProceduralDemo {
         simulator.addSolver(new CollisionSolver());
         glfwSetKeyCallback(Window.getWindow(), (window, key, scancode, action, mods) -> {
             if (key == GLFW_KEY_E && action == GLFW_PRESS){
-                LevelGen lvl = new LevelGen((long) (Math.random()*100000), LevelGen.LARGE);
+                LevelGen lvl = new LevelGen((long) (42), LevelGen.LARGE);
                 stuffToRender = lvl.create().getPlanets();
                 simulator.getBodies().clear();
                 projectile = null;
@@ -57,7 +56,7 @@ public class ProceduralDemo {
             glTranslatef(0f, 0.5f, 0f);
             simulator.step(0.1);
             stuffToRender.forEach(stuffToRender -> {
-                if(stuffToRender instanceof Spawn)
+                if(stuffToRender.isSpawn())
                     Window.drawCircle((int)stuffToRender.getRigidBody().getPosition().getX(),
                             (int)stuffToRender.getRigidBody().getPosition().getY(),
                             (int) stuffToRender.getRigidBody().getSize(), 255,50,50);

@@ -1,11 +1,15 @@
 package editor;
 
+import core.Level;
+
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.layout.Background;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import physics.RigidBody;
 
 
 public class MainWindowCtl {
@@ -14,27 +18,24 @@ public class MainWindowCtl {
     private BorderPane borderPane;
     private Pane wrapperPane;
     private Canvas graph;
-    private GraphicsContext gc;
+    private Level currentLevel;
 
     public void initialize(){
+        currentLevel = Load.level(System.getProperty("user.dir")+"\\ressources\\testLevel.json");
+
         wrapperPane = new Pane();
+        wrapperPane.setStyle("-fx-background-color: black");
         borderPane.setCenter(wrapperPane);
         graph = new Canvas();
         wrapperPane.getChildren().add(graph);
 
-        // Bind the width/height property to the wrapper Pane
         graph.widthProperty().bind(wrapperPane.widthProperty());
         graph.heightProperty().bind(wrapperPane.heightProperty());
-        // redraw when resized
-        graph.widthProperty().addListener(event -> draw(graph));
-        graph.heightProperty().addListener(event -> draw(graph));
-        draw(graph);
 
-        /*
-        gc = graph.getGraphicsContext2D();
-        gc.setFill(Color.valueOf("#ff4466"));
-        gc.fillRect(0, 0, 1000, 1000);
-        */
+        graph.widthProperty().addListener(event -> drawLevel(graph));
+        graph.heightProperty().addListener(event -> drawLevel(graph));
+        drawLevel(graph);
+
     }
 
     /**
@@ -55,5 +56,34 @@ public class MainWindowCtl {
         gc.fillOval(-30 + width, -30, 60, 60);
         gc.fillOval(-30, -30 + height, 60, 60);
         gc.fillOval(-30 + width, -30 + height, 60, 60);
+
+        gc.fillRect(50, 50, 20, 20);
+    }
+
+    private int drawLevel(Canvas canvas){
+        if(currentLevel == null)
+            return 1;
+        GraphicsContext gc = canvas.getGraphicsContext2D();
+        double width = canvas.getWidth();
+        double height = canvas.getHeight();
+        double widthRatio = width/currentLevel.getMapSize()[0];
+        double heightRatio = height/currentLevel.getMapSize()[1];
+
+        gc.clearRect(0, 0, width, height);
+
+        currentLevel.getPlanets().forEach(planet -> {
+            RigidBody temp = planet.getRigidBody();
+            if(planet.isSpawn())
+                gc.setFill(Color.RED);
+            else
+                gc.setFill(Color.GREEN);
+            gc.fillOval(temp.getPosition().getX()*widthRatio,
+                    temp.getPosition().getY()*heightRatio,
+                    Math.max(widthRatio, heightRatio)*temp.getSize(),
+                    Math.max(widthRatio, heightRatio)*temp.getSize());
+
+
+        });
+        return 0;
     }
 }

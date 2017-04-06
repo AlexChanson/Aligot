@@ -65,4 +65,8 @@ public class Level {
     public void setMapSize(int[] mapSize) {
         this.mapSize = mapSize;
     }
+
+    public int[] getMapSize() {
+        return mapSize;
+    }
 }

@@ -1,0 +1,251 @@
+{
+  "name": "42",
+  "info": "Generated proceurarly",
+  "bgTexture": "placeholder2.jpg",
+  "planets": [
+    {
+      "type": "solid",
+      "isSpawn": true,
+      "rigidBody": {
+        "position": {
+          "x": 375.0,
+          "y": 300.0
+        },
+        "velocity": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "acceleration": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "appliedForce": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "size": 76.0,
+        "mass": 1.0E16,
+        "restitution": 0.5,
+        "friction": 0.3,
+        "attractive": true,
+        "staticObject": true
+      },
+      "texture": "",
+      "z": 0
+    },
+    {
+      "type": "solid",
+      "isSpawn": false,
+      "rigidBody": {
+        "position": {
+          "x": 972.0,
+          "y": 249.0
+        },
+        "velocity": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "acceleration": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "appliedForce": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "size": 74.0,
+        "mass": 1.0E16,
+        "restitution": 0.5,
+        "friction": 0.3,
+        "attractive": true,
+        "staticObject": true
+      },
+      "texture": "earth.jpg",
+      "z": 0
+    },
+    {
+      "type": "solid",
+      "isSpawn": false,
+      "rigidBody": {
+        "position": {
+          "x": 1536.0,
+          "y": 787.0
+        },
+        "velocity": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "acceleration": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "appliedForce": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "size": 76.0,
+        "mass": 1.0E16,
+        "restitution": 0.5,
+        "friction": 0.3,
+        "attractive": true,
+        "staticObject": true
+      },
+      "texture": "earth.jpg",
+      "z": 0
+    },
+    {
+      "type": "solid",
+      "isSpawn": true,
+      "rigidBody": {
+        "position": {
+          "x": 1742.0,
+          "y": 460.0
+        },
+        "velocity": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "acceleration": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "appliedForce": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "size": 76.0,
+        "mass": 1.0E16,
+        "restitution": 0.5,
+        "friction": 0.3,
+        "attractive": true,
+        "staticObject": true
+      },
+      "texture": "",
+      "z": 0
+    },
+    {
+      "type": "solid",
+      "isSpawn": false,
+      "rigidBody": {
+        "position": {
+          "x": 253.0,
+          "y": 852.0
+        },
+        "velocity": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "acceleration": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "appliedForce": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "size": 77.0,
+        "mass": 1.0E16,
+        "restitution": 0.5,
+        "friction": 0.3,
+        "attractive": true,
+        "staticObject": true
+      },
+      "texture": "earth.jpg",
+      "z": 0
+    },
+    {
+      "type": "solid",
+      "isSpawn": false,
+      "rigidBody": {
+        "position": {
+          "x": 1312.0,
+          "y": 294.0
+        },
+        "velocity": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "acceleration": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "appliedForce": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "size": 52.0,
+        "mass": 1.0E16,
+        "restitution": 0.5,
+        "friction": 0.3,
+        "attractive": true,
+        "staticObject": true
+      },
+      "texture": "earth.jpg",
+      "z": 0
+    },
+    {
+      "type": "gaz",
+      "isSpawn": false,
+      "rigidBody": {
+        "position": {
+          "x": 1025.0,
+          "y": 920.0
+        },
+        "velocity": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "acceleration": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "appliedForce": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "size": 59.0,
+        "mass": 1.0E16,
+        "restitution": 0.5,
+        "friction": 0.3,
+        "attractive": true,
+        "staticObject": true
+      },
+      "texture": "earth.jpg",
+      "z": 0
+    },
+    {
+      "type": "gaz",
+      "isSpawn": false,
+      "rigidBody": {
+        "position": {
+          "x": 697.0,
+          "y": 775.0
+        },
+        "velocity": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "acceleration": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "appliedForce": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "size": 46.0,
+        "mass": 1.0E16,
+        "restitution": 0.5,
+        "friction": 0.3,
+        "attractive": true,
+        "staticObject": true
+      },
+      "texture": "earth.jpg",
+      "z": 0
+    }
+  ],
+  "mapSize": [
+    1920,
+    1080
+  ]
+}

@@ -2,7 +2,7 @@ package generator;
 
 import core.Level;
 import core.Planet;
-import core.Spawn;
+
 import physics.RigidBody;
 import physics.Vector2D;
 import java.util.ArrayList;
@@ -112,11 +112,11 @@ public class LevelGen {
         RigidBody rigidBody = new RigidBody(left, temp, temp2);
         rigidBody.setAttractive(true);
         rigidBody.setStaticObject(true);
-        worlds.add(new Spawn(rigidBody, ""));
+        worlds.add(Planet.spawn(rigidBody, ""));
         rigidBody = new RigidBody(right, temp, temp2);
         rigidBody.setAttractive(true);
         rigidBody.setStaticObject(true);
-        worlds.add(new Spawn(rigidBody, ""));
+        worlds.add(Planet.spawn(rigidBody, ""));
     }
 
     /**
