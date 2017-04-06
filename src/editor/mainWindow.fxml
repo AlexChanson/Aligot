@@ -16,7 +16,7 @@
                 <Menu mnemonicParsing="false" text="File">
                   <items>
                     <MenuItem mnemonicParsing="false" onAction="#openFileDialog" text="Open" />
-                        <MenuItem mnemonicParsing="false" text="Save" />
+                        <MenuItem mnemonicParsing="false" onAction="#saveFileDialog" text="Save" />
                   </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Edit">

@@ -14,6 +14,8 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import physics.RigidBody;
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class MainWindowCtl {
@@ -70,6 +72,34 @@ public class MainWindowCtl {
             alert.showAndWait();
         }
         drawLevel(graph);
+    }
+
+    @FXML
+    private void saveFileDialog(){
+        FileChooser fc = new FileChooser();
+        fc.setTitle("Save a level file");
+        fc.setInitialDirectory(new File(System.getProperty("user.dir")));
+        fc.getExtensionFilters().add(new FileChooser.ExtensionFilter("Level File", "*.lvl"));
+        File toOpen = fc.showSaveDialog(new Stage());
+        if(toOpen != null){
+            try {
+                toOpen.delete();
+                toOpen.createNewFile();
+                FileWriter fw = new FileWriter(toOpen);
+                Gson gson = new Gson();
+                System.out.println(gson.toJson(currentLevel));
+                fw.write(gson.toJson(currentLevel));
+                fw.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText(null);
+                alert.setContentText("The file couldn't be saved !");
+
+                alert.showAndWait();
+            }
+        }
     }
 
     private int drawLevel(Canvas canvas){
