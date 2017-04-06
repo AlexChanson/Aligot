@@ -2,29 +2,41 @@ package editor;
 
 import com.google.gson.Gson;
 import core.Level;
+import generator.LevelGen;
+import javafx.beans.binding.Bindings;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Alert;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.util.StringConverter;
 import physics.RigidBody;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Scanner;
+import java.util.*;
 
 public class MainWindowCtl {
 
     @FXML
     private BorderPane borderPane;
+    @FXML
+    private TextField xCoordinate;
+    @FXML
+    private TextField yCoordinate;
     private Pane wrapperPane;
     private Canvas graph;
     private Level currentLevel = null;
+    private IntegerProperty cursorX = new SimpleIntegerProperty(0);
+    private IntegerProperty cursorY = new SimpleIntegerProperty(0);
 
     public void initialize(){
         wrapperPane = new Pane();
@@ -39,12 +51,32 @@ public class MainWindowCtl {
         graph.widthProperty().addListener(event -> drawLevel(graph));
         graph.heightProperty().addListener(event -> drawLevel(graph));
         graph.setOnMouseClicked(this::mouseHandler);
-        drawLevel(graph);
 
+        xCoordinate.setText(Integer.toString(0));
+        yCoordinate.setText(Integer.toString(0));
+
+        xCoordinate.setTextFormatter(new TextFormatter<>(TextUtils.filter));
+        yCoordinate.setTextFormatter(new TextFormatter<>(TextUtils.filter));
+
+        Bindings.bindBidirectional(xCoordinate.textProperty(), cursorX, TextUtils.converter);
+        Bindings.bindBidirectional(yCoordinate.textProperty(), cursorY, TextUtils.converter);
+
+        cursorX.addListener(observable -> drawLevel(graph));
+        cursorY.addListener(observable -> drawLevel(graph));
+
+        drawLevel(graph);
     }
 
     private void mouseHandler(MouseEvent event){
-        System.out.println("Click ! x:" + event.getX() + " y:" + event.getY());
+        if(currentLevel != null) {
+            //TODO: this shit ain't working ben help !
+            cursorX.setValue((int) (event.getX() / (graph.getWidth() / currentLevel.getMapSize()[0])));
+            cursorY.setValue((int) (event.getY() / (graph.getHeight() / currentLevel.getMapSize()[1])));
+        } else {
+            cursorX.setValue(event.getX());
+            cursorY.setValue(event.getY());
+        }
+        drawLevel(graph);
     }
 
     @FXML
@@ -102,30 +134,76 @@ public class MainWindowCtl {
         }
     }
 
-    private int drawLevel(Canvas canvas){
-        if(currentLevel == null)
-            return 1;
-        GraphicsContext gc = canvas.getGraphicsContext2D();
+    @FXML
+    private void menuDelete(){
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Delete");
+        alert.setHeaderText("Delete level");
+        alert.setContentText("Are you sure tou want to discard the current level ?");
+
+        Optional<ButtonType> result = alert.showAndWait();
+
+        if (Objects.equals(result.get(), ButtonType.OK))
+            currentLevel = null;
+
+        drawLevel(graph);
+    }
+
+    @FXML
+    private void menuGenerate(){
+        List<String> choices = new ArrayList<>();
+        choices.add("Small");
+        choices.add("Medium");
+        choices.add("Large");
+
+        ChoiceDialog<String> dialog = new ChoiceDialog<>("Medium", choices);
+        dialog.setTitle("Generate level");
+        dialog.setHeaderText("Create a level using the built-in procedural generator.");
+        dialog.setContentText("Map Size:");
+
+        Optional<String> result = dialog.showAndWait();
+
+        result.ifPresent(size -> {
+            int[] mapSize = LevelGen.SMALL;
+            switch (size){
+                case "Medium":
+                    mapSize = LevelGen.MEDIUM;
+                case "Large":
+                    mapSize = LevelGen.LARGE;
+            }
+            LevelGen gen = new LevelGen(new Random().nextLong(), mapSize);
+            currentLevel = gen.getLevel();
+        });
+        drawLevel(graph);
+    }
+
+    private void drawLevel(Canvas canvas){
         double width = canvas.getWidth();
         double height = canvas.getHeight();
-        double widthRatio = width/currentLevel.getMapSize()[0];
-        double heightRatio = height/currentLevel.getMapSize()[1];
+        GraphicsContext gc = canvas.getGraphicsContext2D();
 
         gc.clearRect(0, 0, width, height);
 
-        currentLevel.getPlanets().forEach(planet -> {
-            RigidBody temp = planet.getRigidBody();
-            if(planet.isSpawn())
-                gc.setFill(Color.RED);
-            else
-                gc.setFill(Color.GREEN);
-            gc.fillOval(temp.getPosition().getX()*widthRatio,
-                    temp.getPosition().getY()*heightRatio,
-                    Math.max(widthRatio, heightRatio)*temp.getSize(),
-                    Math.max(widthRatio, heightRatio)*temp.getSize());
+        if(currentLevel != null) {
+            double widthRatio = width / currentLevel.getMapSize()[0];
+            double heightRatio = height / currentLevel.getMapSize()[1];
+
+            currentLevel.getPlanets().forEach(planet -> {
+                RigidBody temp = planet.getRigidBody();
+                if (planet.isSpawn())
+                    gc.setFill(Color.RED);
+                else
+                    gc.setFill(Color.GREEN);
+                gc.fillOval(temp.getPosition().getX() * widthRatio,
+                        temp.getPosition().getY() * heightRatio,
+                        Math.max(widthRatio, heightRatio) * temp.getSize(),
+                        Math.max(widthRatio, heightRatio) * temp.getSize());
 
 
-        });
-        return 0;
+            });
+        }
+        //TODO: Desiner une croix a la place du point moche
+        gc.setFill(Color.valueOf("#ffff00"));
+        gc.fillOval(cursorX.getValue(), cursorY.getValue(), 8, 8);
     }
 }
