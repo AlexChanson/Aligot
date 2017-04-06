@@ -29,6 +29,8 @@ public class LevelGen {
 
     public LevelGen(long seed) {
         this.seed = seed;
+        this.mapSize = LARGE;
+        setPlanetNumber(7);
     }
 
     /**
@@ -38,7 +40,7 @@ public class LevelGen {
      */
     public LevelGen(long seed, int[] mapSize){
         this.seed = seed;
-        this.planetNumber = (int) (sqrt(pow(mapSize[0],2)+ pow(mapSize[1],2))/(280) + 1);
+        this.planetNumber = (int) (sqrt(pow(mapSize[0],2)+ pow(mapSize[1],2))/(290) + 1);
         gen = new Random(seed);
         this.mapSize = mapSize;
     }
@@ -48,7 +50,9 @@ public class LevelGen {
      * @return Returns the generated level
      */
     public Level create(){
-        result = new Level("test");
+        String[] bgTextures = {"placeholder1.jpg", "placeholder2.jpg"};
+        result = new Level(Long.toString(seed), "Generated proceurarly", bgTextures[gen.nextInt(bgTextures.length)]);
+        result.setMapSize(mapSize);
         System.out.println("Starting Procedural generator with seed " + seed);
         genCenters();
         genSpawns();
@@ -62,7 +66,7 @@ public class LevelGen {
      */
     private void genCenters() {
         double diag = sqrt(pow(mapSize[0],2)+ pow(mapSize[1],2));
-        minRadius = (int) (diag*0.015);
+        minRadius = (int) (diag*0.018);
         maxRadius = (int) (diag*0.045);
 
         int[][] boundaries = {{(int) (maxRadius*1.4), (int) (mapSize[0] - maxRadius*1.4)},
@@ -150,5 +154,9 @@ public class LevelGen {
 
     public int[] getMapSize() {
         return mapSize;
+    }
+
+    public void setPlanetNumber(int planetNumber) {
+        this.planetNumber = planetNumber;
     }
 }
