@@ -1,16 +1,20 @@
 package editor;
 
+import com.google.gson.Gson;
 import core.Level;
-
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.layout.Background;
+import javafx.scene.control.Alert;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import physics.RigidBody;
-
+import java.io.File;
+import java.util.Scanner;
 
 public class MainWindowCtl {
 
@@ -18,11 +22,9 @@ public class MainWindowCtl {
     private BorderPane borderPane;
     private Pane wrapperPane;
     private Canvas graph;
-    private Level currentLevel;
+    private Level currentLevel = null;
 
     public void initialize(){
-        currentLevel = Load.level(System.getProperty("user.dir")+"\\ressources\\testLevel.json");
-
         wrapperPane = new Pane();
         wrapperPane.setStyle("-fx-background-color: black");
         borderPane.setCenter(wrapperPane);
@@ -34,30 +36,40 @@ public class MainWindowCtl {
 
         graph.widthProperty().addListener(event -> drawLevel(graph));
         graph.heightProperty().addListener(event -> drawLevel(graph));
+        graph.setOnMouseClicked(this::mouseHandler);
         drawLevel(graph);
 
     }
 
-    /**
-     * Draw crossed red lines which each each end is at the corner of window,
-     * and 4 blue circles whose each center is at the corner of the window,
-     * so that make it possible to know where is the extent the Canvas draws
-     */
-    private void draw(Canvas canvas) {
-        int width = (int) canvas.getWidth();
-        int height = (int) canvas.getHeight();
-        GraphicsContext gc = canvas.getGraphicsContext2D();
-        gc.clearRect(0, 0, width, height);
-        gc.setStroke(Color.RED);
-        gc.strokeLine(0, 0, width, height);
-        gc.strokeLine(0, height, width, 0);
-        gc.setFill(Color.BLUE);
-        gc.fillOval(-30, -30, 60, 60);
-        gc.fillOval(-30 + width, -30, 60, 60);
-        gc.fillOval(-30, -30 + height, 60, 60);
-        gc.fillOval(-30 + width, -30 + height, 60, 60);
+    private void mouseHandler(MouseEvent event){
+        System.out.println("Click ! x:" + event.getX() + " y:" + event.getY());
+    }
 
-        gc.fillRect(50, 50, 20, 20);
+    @FXML
+    private void openFileDialog(){
+        FileChooser fc = new FileChooser();
+        fc.setTitle("Open a level file");
+        fc.setInitialDirectory(new File(System.getProperty("user.dir")));
+        fc.getExtensionFilters().add(new FileChooser.ExtensionFilter("Level File", "*.lvl"));
+        File toOpen = fc.showOpenDialog(new Stage());
+        Gson gson = new Gson();
+        String content = "";
+        try {
+            content = new Scanner(toOpen).useDelimiter("\\Z").next();
+        } catch (Exception e) {
+            System.out.println("Error opening file !");
+        }
+        try{
+            currentLevel = gson.fromJson(content, Level.class);
+        }catch (Exception e){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("The file is corrupted or it's format is incorrect !");
+
+            alert.showAndWait();
+        }
+        drawLevel(graph);
     }
 
     private int drawLevel(Canvas canvas){
