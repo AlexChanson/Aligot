@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
@@ -12,7 +17,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" stylesheets="@interface.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="editor.MainWindowCtl">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" stylesheets="@interface.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="editor.MainWindowCtl">
    <children>
       <BorderPane fx:id="borderPane" layoutX="540.0" layoutY="254.0" prefHeight="720.0" prefWidth="1280.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <top>
@@ -20,6 +25,7 @@
               <menus>
                 <Menu mnemonicParsing="false" text="File">
                   <items>
+                        <MenuItem mnemonicParsing="false" onAction="#newFileDialog" text="New" />
                     <MenuItem mnemonicParsing="false" onAction="#openFileDialog" text="Open" />
                         <MenuItem mnemonicParsing="false" onAction="#saveFileDialog" text="Save" />
                   </items>
@@ -30,11 +36,6 @@
                     <MenuItem mnemonicParsing="false" onAction="#menuDelete" text="Delete" />
                   </items>
                 </Menu>
-                <Menu mnemonicParsing="false" text="Help">
-                  <items>
-                    <MenuItem mnemonicParsing="false" text="About" />
-                  </items>
-                </Menu>
               </menus>
             </MenuBar>
          </top>
@@ -43,7 +44,10 @@
                <children>
                   <VBox alignment="TOP_CENTER" layoutX="41.0" layoutY="199.0" prefHeight="688.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <Label text="Coordinates" />
+                        <Label text="Coordinates">
+                           <font>
+                              <Font size="13.0" />
+                           </font></Label>
                         <HBox alignment="CENTER">
                            <children>
                               <Label text="x">
@@ -70,7 +74,10 @@
                                  </HBox.margin></TextField>
                            </children>
                         </HBox>
-                        <Label text="Add Planet" />
+                        <Label text="Planet">
+                           <font>
+                              <Font size="13.0" />
+                           </font></Label>
                         <HBox alignment="CENTER">
                            <children>
                               <Label text="Type">
@@ -78,7 +85,7 @@
                                     <Insets right="5.0" />
                                  </HBox.margin>
                               </Label>
-                              <ChoiceBox prefWidth="150.0" />
+                              <ChoiceBox fx:id="planetType" prefWidth="150.0" />
                            </children>
                         </HBox>
                         <HBox alignment="CENTER_RIGHT">
@@ -88,7 +95,7 @@
                                     <Insets left="5.0" right="5.0" />
                                  </HBox.margin>
                               </Label>
-                              <TextField maxWidth="135.0" promptText="texture.jpg">
+                              <TextField fx:id="planetTexture" maxWidth="135.0" promptText="texture.jpg">
                                  <HBox.margin>
                                     <Insets right="5.0" />
                                  </HBox.margin>
@@ -105,7 +112,7 @@
                                     <Insets left="5.0" right="5.0" />
                                  </HBox.margin>
                               </Label>
-                              <TextField maxWidth="135.0" promptText="6e12">
+                              <TextField fx:id="planetMass" maxWidth="135.0" promptText="6e12">
                                  <HBox.margin>
                                     <Insets right="5.0" />
                                  </HBox.margin>
@@ -119,13 +126,21 @@
                                     <Insets left="5.0" right="5.0" />
                                  </HBox.margin>
                               </Label>
-                              <TextField maxWidth="135.0" promptText="1.34e9">
+                              <TextField fx:id="planetRadius" maxWidth="135.0" promptText="1.34e9">
                                  <HBox.margin>
                                     <Insets right="5.0" />
                                  </HBox.margin>
                               </TextField>
                            </children>
                         </HBox>
+                        <CheckBox fx:id="isSpawnBox" mnemonicParsing="false" text="Spawn">
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <VBox.margin>
+                              <Insets bottom="5.0" top="5.0" />
+                           </VBox.margin>
+                        </CheckBox>
                      </children></VBox>
                </children>
             </AnchorPane>

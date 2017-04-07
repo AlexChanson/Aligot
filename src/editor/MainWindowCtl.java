@@ -2,6 +2,7 @@ package editor;
 
 import com.google.gson.Gson;
 import core.Level;
+import core.Planet;
 import generator.LevelGen;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.IntegerProperty;
@@ -29,10 +30,11 @@ public class MainWindowCtl {
     @FXML
     private BorderPane borderPane;
     @FXML
-    private TextField xCoordinate;
+    private TextField xCoordinate, yCoordinate, planetMass, planetRadius, planetTexture;
     @FXML
-    private TextField yCoordinate;
-    private Pane wrapperPane;
+    private CheckBox isSpawnBox;
+    @FXML
+    private ChoiceBox<String> planetType;
     private Canvas graph;
     private Level currentLevel = null;
     private IntegerProperty cursorX = new SimpleIntegerProperty(0);
@@ -40,7 +42,7 @@ public class MainWindowCtl {
 
     public void initialize(){
         //Setting up the canvas in the center of the border pane
-        wrapperPane = new Pane();
+        Pane wrapperPane = new Pane();
         wrapperPane.setStyle("-fx-background-color: black");
         borderPane.setCenter(wrapperPane);
         graph = new Canvas();
@@ -77,6 +79,13 @@ public class MainWindowCtl {
             cursorY.setValue(event.getY());
         }
         drawLevel(graph);
+    }
+
+    @FXML
+    private void newFileDialog(){
+        //TODO: un dialog pour creer un nouveau niveau avec des entrees utilisateurs: nom, info, taille de la map
+        //tuto ici http://code.makery.ch/blog/javafx-dialogs-official/
+        //Attention prevenir l'utilisateur que le niveau en cours sera detruit si pas sauvegardé
     }
 
     @FXML
@@ -209,5 +218,15 @@ public class MainWindowCtl {
             gc.setFill(Color.valueOf("#ffff00"));
             gc.fillOval(cursorX.getValue(), cursorY.getValue(), 8, 8);
         }
+    }
+
+    private Planet nearestToCursor(){
+        //TODO retourne la planet la plus proche du curseur null si aucun lvl chargé
+        return null;
+    }
+
+    private boolean isCursorOn(Planet p){
+        //TODO: retourne true si le curseur (seulment le point central) est sur la planete p
+        return false;
     }
 }
