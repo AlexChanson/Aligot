@@ -141,6 +141,7 @@
                               <Insets bottom="5.0" top="5.0" />
                            </VBox.margin>
                         </CheckBox>
+                        <Button mnemonicParsing="false" onAction="#deletePlanet" text="Delete" />
                      </children></VBox>
                </children>
             </AnchorPane>

@@ -19,6 +19,18 @@ public class Planet extends GameObject{
         return isSpawn;
     }
 
+    public void setSpawn(boolean spawn) {
+        isSpawn = spawn;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
     public static Planet spawn(RigidBody rigidBody, String texture){
         Planet planet = new Planet(rigidBody, texture, "solid");
         planet.setAsSpawn();

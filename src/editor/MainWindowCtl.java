@@ -6,7 +6,9 @@ import core.Planet;
 import generator.LevelGen;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
@@ -20,6 +22,8 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
 import physics.RigidBody;
+import physics.Vector2D;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -36,9 +40,10 @@ public class MainWindowCtl {
     @FXML
     private ChoiceBox<String> planetType;
     private Canvas graph;
-    private Level currentLevel = null;
     private IntegerProperty cursorX = new SimpleIntegerProperty(0);
     private IntegerProperty cursorY = new SimpleIntegerProperty(0);
+    private ObjectProperty<Level> currentLevel = new SimpleObjectProperty<>(null);
+    private ObjectProperty<Planet> currentPlanet = new SimpleObjectProperty<>(null);
 
     public void initialize(){
         //Setting up the canvas in the center of the border pane
@@ -54,6 +59,8 @@ public class MainWindowCtl {
         graph.widthProperty().addListener(event -> drawLevel(graph));
         graph.heightProperty().addListener(event -> drawLevel(graph));
         graph.setOnMouseClicked(this::mouseHandler);
+        //choice box init
+        planetType.getItems().addAll("solid", "gas_giant", "black_hole");
         //Initializing the coordinates
         xCoordinate.setText(Integer.toString(0));
         yCoordinate.setText(Integer.toString(0));
@@ -66,14 +73,46 @@ public class MainWindowCtl {
         //set listeners to move the cursor if the property is modified
         cursorX.addListener(observable -> drawLevel(graph));
         cursorY.addListener(observable -> drawLevel(graph));
-
+        //planet stuff
+        currentLevel.addListener((observable, oldValue, newValue) -> {
+            if(newValue == null)
+                currentPlanet.set(null);
+        });
+        currentPlanet.addListener((observable, oldValue, newValue) -> {
+            if(newValue != null){
+                isSpawnBox.setSelected(newValue.isSpawn());
+                planetType.setValue(currentPlanet.get().getType());
+                planetTexture.setText(currentPlanet.get().getTexture());
+                planetRadius.setText(Double.toString(currentPlanet.get().getRigidBody().getSize()));
+                planetMass.setText(Double.toString(currentPlanet.get().getRigidBody().getMass()));
+            }else{
+                isSpawnBox.setSelected(false);
+                planetType.setValue(null);
+                planetMass.setText(null);
+                planetRadius.setText(null);
+                planetTexture.setText(null);
+            }
+        });
+        isSpawnBox.selectedProperty().addListener(observable -> {
+            if(currentPlanet.get() != null){
+                if(currentPlanet.get().isSpawn() != isSpawnBox.isSelected()){
+                    currentPlanet.get().setSpawn(isSpawnBox.isSelected());
+                    drawLevel(graph);
+                }
+            }
+        });
         drawLevel(graph);
     }
 
     private void mouseHandler(MouseEvent event){
-        if(currentLevel != null) {
-            cursorX.setValue((int) (event.getX() / (graph.getWidth() / currentLevel.getMapSize()[0])));
-            cursorY.setValue((int) (event.getY() / (graph.getHeight() / currentLevel.getMapSize()[1])));
+        if(currentLevel.get() != null) {
+            cursorX.setValue((int) (event.getX() / (graph.getWidth() / currentLevel.get().getMapSize()[0])));
+            cursorY.setValue((int) (event.getY() / (graph.getHeight() / currentLevel.get().getMapSize()[1])));
+            Planet nearest = nearestToCursor();
+            if (nearest != null && isCursorOn(nearest)){
+                currentPlanet.set(nearest);
+            }else
+                currentPlanet.set(null);
         } else {
             cursorX.setValue(event.getX());
             cursorY.setValue(event.getY());
@@ -103,7 +142,7 @@ public class MainWindowCtl {
             System.out.println("Error opening file !");
         }
         try{
-            currentLevel = gson.fromJson(content, Level.class);
+            currentLevel.set(gson.fromJson(content, Level.class));
         }catch (Exception e){
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
@@ -128,8 +167,7 @@ public class MainWindowCtl {
                 toOpen.createNewFile();
                 FileWriter fw = new FileWriter(toOpen);
                 Gson gson = new Gson();
-                System.out.println(gson.toJson(currentLevel));
-                fw.write(gson.toJson(currentLevel));
+                fw.write(gson.toJson(currentLevel.get()));
                 fw.close();
             } catch (IOException e) {
                 e.printStackTrace();
@@ -153,7 +191,7 @@ public class MainWindowCtl {
         Optional<ButtonType> result = alert.showAndWait();
 
         if (Objects.equals(result.get(), ButtonType.OK))
-            currentLevel = null;
+            currentLevel.set(null);
 
         drawLevel(graph);
     }
@@ -181,7 +219,7 @@ public class MainWindowCtl {
                     mapSize = LevelGen.LARGE;
             }
             LevelGen gen = new LevelGen(new Random().nextLong(), mapSize);
-            currentLevel = gen.getLevel();
+            currentLevel.set(gen.getLevel());
         });
         drawLevel(graph);
     }
@@ -193,11 +231,11 @@ public class MainWindowCtl {
 
         gc.clearRect(0, 0, width, height);
 
-        if(currentLevel != null) {
-            double widthRatio = width / currentLevel.getMapSize()[0];
-            double heightRatio = height / currentLevel.getMapSize()[1];
+        if(currentLevel.get() != null) {
+            double widthRatio = width / currentLevel.get().getMapSize()[0];
+            double heightRatio = height / currentLevel.get().getMapSize()[1];
 
-            currentLevel.getPlanets().forEach(planet -> {
+            currentLevel.get().getPlanets().forEach(planet -> {
                 RigidBody temp = planet.getRigidBody();
                 if (planet.isSpawn())
                     gc.setFill(Color.RED);
@@ -221,12 +259,29 @@ public class MainWindowCtl {
     }
 
     private Planet nearestToCursor(){
-        //TODO retourne la planet la plus proche du curseur null si aucun lvl chargé
-        return null;
+        Planet nearest = null;
+        if (currentLevel.get() != null && currentLevel.get().getPlanets().size() != 0){
+            double min = Double.MAX_VALUE;
+            Vector2D cursor = new Vector2D(cursorX.getValue(), cursorY.getValue());
+            for (Planet p :
+                    currentLevel.get().getPlanets()) {
+                double pToCursor = p.getRigidBody().getPosition().distanceTo(cursor);
+                if(pToCursor < min){
+                       nearest = p;
+                       min = pToCursor;
+                   }
+            }
+        }
+        return nearest;
     }
 
     private boolean isCursorOn(Planet p){
-        //TODO: retourne true si le curseur (seulment le point central) est sur la planete p
-        return false;
+        Vector2D cursor = new Vector2D(cursorX.getValue(), cursorY.getValue());
+        return cursor.distanceTo(p.getRigidBody().getPosition()) <= p.getRigidBody().getSize();
+    }
+
+    @FXML
+    private void deletePlanet(){
+        //TODO delete the selected planet if any
     }
 }
