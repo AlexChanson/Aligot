@@ -9,7 +9,6 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -20,7 +19,6 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import javafx.util.StringConverter;
 import physics.RigidBody;
 import physics.Vector2D;
 
@@ -65,11 +63,13 @@ public class MainWindowCtl {
         xCoordinate.setText(Integer.toString(0));
         yCoordinate.setText(Integer.toString(0));
         //Setting the text filters
-        xCoordinate.setTextFormatter(new TextFormatter<>(TextUtils.filter));
-        yCoordinate.setTextFormatter(new TextFormatter<>(TextUtils.filter));
+        xCoordinate.setTextFormatter(new TextFormatter<>(FxUtils.filter));
+        yCoordinate.setTextFormatter(new TextFormatter<>(FxUtils.filter));
+        planetRadius.setTextFormatter(new TextFormatter<>(FxUtils.doubleFilter));
+        planetMass.setTextFormatter(new TextFormatter<>(FxUtils.doubleFilter));
         //Set the bindings for the coordinates and the cursor
-        Bindings.bindBidirectional(xCoordinate.textProperty(), cursorX, TextUtils.converter);
-        Bindings.bindBidirectional(yCoordinate.textProperty(), cursorY, TextUtils.converter);
+        Bindings.bindBidirectional(xCoordinate.textProperty(), cursorX, FxUtils.converter);
+        Bindings.bindBidirectional(yCoordinate.textProperty(), cursorY, FxUtils.converter);
         //set listeners to move the cursor if the property is modified
         cursorX.addListener(observable -> drawLevel(graph));
         cursorY.addListener(observable -> drawLevel(graph));
@@ -248,14 +248,9 @@ public class MainWindowCtl {
 
 
             });
-            //TODO: Desiner une croix a la place du point moche
-            gc.setFill(Color.valueOf("#ffff00"));
-            gc.fillOval(cursorX.getValue()*widthRatio, cursorY.getValue()*heightRatio, 8, 8);
-        }else{
-            //TODO: Desiner une croix a la place du point moche
-            gc.setFill(Color.valueOf("#ffff00"));
-            gc.fillOval(cursorX.getValue(), cursorY.getValue(), 8, 8);
-        }
+            FxUtils.drawCursor(gc, cursorX.getValue()*widthRatio, cursorY.getValue()*heightRatio);
+        }else
+            FxUtils.drawCursor(gc, cursorX.getValue(), cursorY.getValue());
     }
 
     private Planet nearestToCursor(){
@@ -282,6 +277,28 @@ public class MainWindowCtl {
 
     @FXML
     private void deletePlanet(){
-        //TODO delete the selected planet if any
+        if(currentPlanet.get() != null){
+            currentLevel.get().getPlanets().remove(currentPlanet.get());
+            currentPlanet.set(null);
+            drawLevel(graph);
+        }
+    }
+
+    @FXML
+    private void addPlanet(){
+        //TODO add planet at the coordinates with info from fields
+        if (currentLevel.get() != null && planetRadius.getText() != null && planetTexture.getText() != null && planetMass.getText() != null && planetType.getValue() != null){
+            if(cursorX.get() >= 0 && cursorX.get() <= currentLevel.get().getMapSize()[0] && cursorY.get() >= 0 && cursorY.get() <= currentLevel.get().getMapSize()[1]){
+                try {
+                    double size = Double.parseDouble(planetMass.getText());
+                    double mass = Double.parseDouble(planetMass.getText());
+                    Planet p = new Planet(new RigidBody(new Vector2D(cursorX.get(), cursorY.get()), size, mass), planetTexture.getText(), planetType.getValue());
+                    currentLevel.get().getPlanets().add(p);
+                    drawLevel(graph);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 }

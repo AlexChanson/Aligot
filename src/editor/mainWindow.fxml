@@ -141,7 +141,23 @@
                               <Insets bottom="5.0" top="5.0" />
                            </VBox.margin>
                         </CheckBox>
-                        <Button mnemonicParsing="false" onAction="#deletePlanet" text="Delete" />
+                        <HBox alignment="CENTER">
+                           <children>
+                              <Button mnemonicParsing="false" onAction="#addPlanet" text="Add">
+                                 <HBox.margin>
+                                    <Insets left="5.0" right="5.0" />
+                                 </HBox.margin>
+                              </Button>
+                              <Button mnemonicParsing="false" onAction="#deletePlanet" text="Delete">
+                                 <HBox.margin>
+                                    <Insets left="5.0" right="5.0" />
+                                 </HBox.margin>
+                              </Button>
+                           </children>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                        </HBox>
                      </children></VBox>
                </children>
             </AnchorPane>
