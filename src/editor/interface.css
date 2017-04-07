@@ -1,3 +1,7 @@
 .EditorPanel{
     -fx-background-color: #9a9a9a;
 }
+
+.EditorTextFields{
+    //TODO arranger les champs de texte
+}

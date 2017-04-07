@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import java.lang.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" stylesheets="@interface.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="editor.MainWindowCtl">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" stylesheets="@interface.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="editor.MainWindowCtl">
    <children>
       <BorderPane fx:id="borderPane" layoutX="540.0" layoutY="254.0" prefHeight="720.0" prefWidth="1280.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <top>
@@ -40,26 +41,89 @@
          <right>
             <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="EditorPanel" BorderPane.alignment="CENTER">
                <children>
-                  <VBox layoutX="41.0" layoutY="199.0" prefHeight="688.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <VBox alignment="TOP_CENTER" layoutX="41.0" layoutY="199.0" prefHeight="688.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
+                        <Label text="Coordinates" />
                         <HBox alignment="CENTER">
                            <children>
-                              <Label text="x :">
-                                 <padding>
-                                    <Insets right="5.0" />
-                                 </padding>
+                              <Label text="x">
+                                 <HBox.margin>
+                                    <Insets left="5.0" right="5.0" />
+                                 </HBox.margin>
                               </Label>
-                              <TextField alignment="CENTER" promptText="x coordinate" fx:id="xCoordinate" />
+                              <TextField alignment="CENTER" promptText="x coordinate" fx:id="xCoordinate">
+                                 <HBox.margin>
+                                    <Insets right="5.0" />
+                                 </HBox.margin></TextField>
                            </children>
                         </HBox>
                         <HBox alignment="CENTER">
                            <children>
-                              <Label text="y :">
-                                 <padding>
-                                    <Insets right="5.0" />
-                                 </padding>
+                              <Label text="y">
+                                 <HBox.margin>
+                                    <Insets left="5.0" right="5.0" />
+                                 </HBox.margin>
                               </Label>
-                              <TextField fx:id="yCoordinate" alignment="CENTER" promptText="y coordinate" />
+                              <TextField fx:id="yCoordinate" alignment="CENTER" promptText="y coordinate">
+                                 <HBox.margin>
+                                    <Insets right="5.0" />
+                                 </HBox.margin></TextField>
+                           </children>
+                        </HBox>
+                        <Label text="Add Planet" />
+                        <HBox alignment="CENTER">
+                           <children>
+                              <Label text="Type">
+                                 <HBox.margin>
+                                    <Insets right="5.0" />
+                                 </HBox.margin>
+                              </Label>
+                              <ChoiceBox prefWidth="150.0" />
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER_RIGHT">
+                           <children>
+                              <Label text="Texture">
+                                 <HBox.margin>
+                                    <Insets left="5.0" right="5.0" />
+                                 </HBox.margin>
+                              </Label>
+                              <TextField maxWidth="135.0" promptText="texture.jpg">
+                                 <HBox.margin>
+                                    <Insets right="5.0" />
+                                 </HBox.margin>
+                              </TextField>
+                           </children>
+                           <VBox.margin>
+                              <Insets top="5.0" />
+                           </VBox.margin>
+                        </HBox>
+                        <HBox alignment="CENTER_RIGHT">
+                           <children>
+                              <Label text="Mass">
+                                 <HBox.margin>
+                                    <Insets left="5.0" right="5.0" />
+                                 </HBox.margin>
+                              </Label>
+                              <TextField maxWidth="135.0" promptText="6e12">
+                                 <HBox.margin>
+                                    <Insets right="5.0" />
+                                 </HBox.margin>
+                              </TextField>
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER_RIGHT">
+                           <children>
+                              <Label text="Radius">
+                                 <HBox.margin>
+                                    <Insets left="5.0" right="5.0" />
+                                 </HBox.margin>
+                              </Label>
+                              <TextField maxWidth="135.0" promptText="1.34e9">
+                                 <HBox.margin>
+                                    <Insets right="5.0" />
+                                 </HBox.margin>
+                              </TextField>
                            </children>
                         </HBox>
                      </children></VBox>
