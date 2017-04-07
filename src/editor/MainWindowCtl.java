@@ -39,28 +39,29 @@ public class MainWindowCtl {
     private IntegerProperty cursorY = new SimpleIntegerProperty(0);
 
     public void initialize(){
+        //Setting up the canvas in the center of the border pane
         wrapperPane = new Pane();
         wrapperPane.setStyle("-fx-background-color: black");
         borderPane.setCenter(wrapperPane);
         graph = new Canvas();
         wrapperPane.getChildren().add(graph);
-
+        //setting the bindings to resize
         graph.widthProperty().bind(wrapperPane.widthProperty());
         graph.heightProperty().bind(wrapperPane.heightProperty());
-
+        //setting the canvas event handlers
         graph.widthProperty().addListener(event -> drawLevel(graph));
         graph.heightProperty().addListener(event -> drawLevel(graph));
         graph.setOnMouseClicked(this::mouseHandler);
-
+        //Initializing the coordinates
         xCoordinate.setText(Integer.toString(0));
         yCoordinate.setText(Integer.toString(0));
-
+        //Setting the text filters
         xCoordinate.setTextFormatter(new TextFormatter<>(TextUtils.filter));
         yCoordinate.setTextFormatter(new TextFormatter<>(TextUtils.filter));
-
+        //Set the bindings for the coordinates and the cursor
         Bindings.bindBidirectional(xCoordinate.textProperty(), cursorX, TextUtils.converter);
         Bindings.bindBidirectional(yCoordinate.textProperty(), cursorY, TextUtils.converter);
-
+        //set listeners to move the cursor if the property is modified
         cursorX.addListener(observable -> drawLevel(graph));
         cursorY.addListener(observable -> drawLevel(graph));
 
@@ -69,7 +70,6 @@ public class MainWindowCtl {
 
     private void mouseHandler(MouseEvent event){
         if(currentLevel != null) {
-            //TODO: this shit ain't working ben help !
             cursorX.setValue((int) (event.getX() / (graph.getWidth() / currentLevel.getMapSize()[0])));
             cursorY.setValue((int) (event.getY() / (graph.getHeight() / currentLevel.getMapSize()[1])));
         } else {
@@ -201,9 +201,13 @@ public class MainWindowCtl {
 
 
             });
+            //TODO: Desiner une croix a la place du point moche
+            gc.setFill(Color.valueOf("#ffff00"));
+            gc.fillOval(cursorX.getValue()*widthRatio, cursorY.getValue()*heightRatio, 8, 8);
+        }else{
+            //TODO: Desiner une croix a la place du point moche
+            gc.setFill(Color.valueOf("#ffff00"));
+            gc.fillOval(cursorX.getValue(), cursorY.getValue(), 8, 8);
         }
-        //TODO: Desiner une croix a la place du point moche
-        gc.setFill(Color.valueOf("#ffff00"));
-        gc.fillOval(cursorX.getValue(), cursorY.getValue(), 8, 8);
     }
 }
