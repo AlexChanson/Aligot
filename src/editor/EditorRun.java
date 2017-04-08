@@ -13,7 +13,7 @@ public class EditorRun extends Application {
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("mainWindow.fxml"));
         Parent root = fxmlLoader.load();
-        Scene mainStage = new Scene(root, 1280, 730);
+        Scene mainStage = new Scene(root, 1480, 730);
 
         primaryStage.setTitle("Level Editor");
         primaryStage.setScene(mainStage);

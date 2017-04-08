@@ -101,6 +101,18 @@ public class MainWindowCtl {
                 }
             }
         });
+        planetTexture.textProperty().addListener(observable -> {
+            //TODO Update planet texture
+        });
+        planetRadius.textProperty().addListener(observable -> {
+            //TODO update the planet radius
+        });
+        planetMass.textProperty().addListener(observable -> {
+            //TODO update the planet mass
+        });
+        planetType.valueProperty().addListener(observable -> {
+            //TODO update planet type
+        });
         drawLevel(graph);
     }
 
@@ -290,6 +302,7 @@ public class MainWindowCtl {
     private void addPlanet(){
         if (currentLevel.get() != null && planetRadius.getText() != null && planetTexture.getText() != null && planetMass.getText() != null && planetType.getValue() != null){
             if(cursorX.get() >= 0 && cursorX.get() <= currentLevel.get().getMapSize()[0] && cursorY.get() >= 0 && cursorY.get() <= currentLevel.get().getMapSize()[1]){
+                //TODO: check if the planet does not overlap with another one
                 try {
                     double size = Double.parseDouble(planetRadius.getText());
                     double mass = Double.parseDouble(planetMass.getText());
