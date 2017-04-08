@@ -83,7 +83,7 @@ public class MainWindowCtl {
                 isSpawnBox.setSelected(newValue.isSpawn());
                 planetType.setValue(currentPlanet.get().getType());
                 planetTexture.setText(currentPlanet.get().getTexture());
-                planetRadius.setText(Double.toString(currentPlanet.get().getRigidBody().getSize()));
+                planetRadius.setText(Double.toString(currentPlanet.get().getRigidBody().getRadius()));
                 planetMass.setText(Double.toString(currentPlanet.get().getRigidBody().getMass()));
             }else{
                 isSpawnBox.setSelected(false);
@@ -241,16 +241,18 @@ public class MainWindowCtl {
                     gc.setFill(Color.RED);
                 else
                     gc.setFill(Color.GREEN);
-                gc.fillOval(temp.getPosition().getX() * widthRatio,
-                        temp.getPosition().getY() * heightRatio,
-                        Math.max(widthRatio, heightRatio) * temp.getSize(),
-                        Math.max(widthRatio, heightRatio) * temp.getSize());
+                gc.fillOval(
+                        (temp.getPosition().getX() * widthRatio) - widthRatio * temp.getRadius(),
+                        (temp.getPosition().getY() * heightRatio) - heightRatio * temp.getRadius(),
+                        widthRatio * temp.getRadius() * 2,
+                        heightRatio * temp.getRadius() * 2);
 
 
             });
             FxUtils.drawCursor(gc, cursorX.getValue()*widthRatio, cursorY.getValue()*heightRatio);
         }else
             FxUtils.drawCursor(gc, cursorX.getValue(), cursorY.getValue());
+
     }
 
     private Planet nearestToCursor(){
@@ -272,7 +274,7 @@ public class MainWindowCtl {
 
     private boolean isCursorOn(Planet p){
         Vector2D cursor = new Vector2D(cursorX.getValue(), cursorY.getValue());
-        return cursor.distanceTo(p.getRigidBody().getPosition()) <= p.getRigidBody().getSize();
+        return cursor.distanceTo(p.getRigidBody().getPosition()) <= p.getRigidBody().getRadius();
     }
 
     @FXML
@@ -286,11 +288,10 @@ public class MainWindowCtl {
 
     @FXML
     private void addPlanet(){
-        //TODO add planet at the coordinates with info from fields
         if (currentLevel.get() != null && planetRadius.getText() != null && planetTexture.getText() != null && planetMass.getText() != null && planetType.getValue() != null){
             if(cursorX.get() >= 0 && cursorX.get() <= currentLevel.get().getMapSize()[0] && cursorY.get() >= 0 && cursorY.get() <= currentLevel.get().getMapSize()[1]){
                 try {
-                    double size = Double.parseDouble(planetMass.getText());
+                    double size = Double.parseDouble(planetRadius.getText());
                     double mass = Double.parseDouble(planetMass.getText());
                     Planet p = new Planet(new RigidBody(new Vector2D(cursorX.get(), cursorY.get()), size, mass), planetTexture.getText(), planetType.getValue());
                     currentLevel.get().getPlanets().add(p);

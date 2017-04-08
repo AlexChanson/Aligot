@@ -108,7 +108,7 @@ public class LevelGen {
         centers.remove(left);
         centers.remove(right);
         int temp = getInt(minRadius, maxRadius);
-        double temp2 = massRef*(maxRadius/minRadius);
+        double temp2 = massRef*(temp/minRadius);
         RigidBody rigidBody = new RigidBody(left, temp, temp2);
         rigidBody.setAttractive(true);
         rigidBody.setStaticObject(true);
@@ -127,7 +127,8 @@ public class LevelGen {
         //TODO: implement more planet types and do random texture choices
         String[] planetTypes = {"solid", "gaz"};
         for(Vector2D v : centers){
-            RigidBody rigidBody = new RigidBody(v, getInt(minRadius, maxRadius),massRef*(maxRadius/minRadius));
+            double radius = getInt(minRadius, maxRadius);
+            RigidBody rigidBody = new RigidBody(v, radius,massRef*(radius/minRadius));
             rigidBody.setAttractive(true);
             rigidBody.setStaticObject(true);
             worlds.add(new Planet(rigidBody,"earth.jpg", planetTypes[gen.nextInt(2)]));

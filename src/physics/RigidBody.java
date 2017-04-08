@@ -9,7 +9,7 @@ public class RigidBody {
     Vector2D velocity;       // in meter/second
     Vector2D acceleration;   // in meter/second²
     Vector2D appliedForce;
-    double size;             // radius in meter
+    double radius;             // radius in meter
     double mass;             // in kg
     double restitution;      // no unit, between 0 and 1 where 1 is perfect restitution
     double friction;
@@ -19,12 +19,12 @@ public class RigidBody {
     /**
      *
      * @param position is the place where the rigidbody is
-     * @param size is his radius in meters
+     * @param radius is his radius in meters
      * @param mass is his mass in kg
      */
-    public RigidBody(Vector2D position, double size, double mass){
+    public RigidBody(Vector2D position, double radius, double mass){
         this.position = position;
-        this.size = size;
+        this.radius = radius;
         this.mass = mass;
         this.friction = 0.3;
         velocity = new Vector2D(0, 0);
@@ -103,8 +103,8 @@ public class RigidBody {
         return appliedForce;
     }
 
-    public double getSize() {
-        return size;
+    public double getRadius() {
+        return radius;
     }
 
     public void resetAppliedForces(){

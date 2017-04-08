@@ -51,8 +51,8 @@ public class PhysicDemo {
             //Window.drawSprite("earth.jpg", (int)body2.getPosition().getX(), (int)body2.getPosition().getY(), i, 0.1f);
             //Window.drawSprite("sputnik.jpg", (int)body1.getPosition().getX(), (int)body1.getPosition().getY(), (float) (body1.getVelocity().angleDegree()+120), 0.05f);
 
-            Window.drawCircle((int)body2.getPosition().getX(), (int)body2.getPosition().getY(), (int)body2.getSize(),255, 0, 0);
-            Window.drawCircle((int)body1.getPosition().getX(), (int)body1.getPosition().getY(), (int)body1.getSize(),0, 255, 0);
+            Window.drawCircle((int)body2.getPosition().getX(), (int)body2.getPosition().getY(), (int)body2.getRadius(),255, 0, 0);
+            Window.drawCircle((int)body1.getPosition().getX(), (int)body1.getPosition().getY(), (int)body1.getRadius(),0, 255, 0);
             Vector2D pos = body1.getPosition();
             int forceX = (int) ((pos.getX()+body1.getAcceleration().getX()*0.3));
             int forceY = (int) ((pos.getY()+body1.getAcceleration().getY()*0.3));

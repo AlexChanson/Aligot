@@ -34,7 +34,7 @@ public class CollisionSolver extends PhysicSolver {
             for (Pair<RigidBody, RigidBody> pair: pairs){
                 positionOffset = pair.getRight().getPosition().minus(pair.getLeft().getPosition());
                 distance = positionOffset.norm();
-                collisionTreshold = pair.getLeft().getSize() + pair.getRight().getSize();
+                collisionTreshold = pair.getLeft().getRadius() + pair.getRight().getRadius();
                 overlap = distance - collisionTreshold;
 
                 if ( distance <= collisionTreshold ){

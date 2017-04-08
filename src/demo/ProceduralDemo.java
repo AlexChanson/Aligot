@@ -2,14 +2,10 @@ package demo;
 
 import core.Planet;
 import generator.LevelGen;
-import graphics.TextTexture;
 import graphics.Window;
-import org.lwjgl.glfw.GLFWKeyCallback;
 import physics.*;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.Random;
 
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.*;
@@ -59,11 +55,11 @@ public class ProceduralDemo {
                 if(stuffToRender.isSpawn())
                     Window.drawCircle((int)stuffToRender.getRigidBody().getPosition().getX(),
                             (int)stuffToRender.getRigidBody().getPosition().getY(),
-                            (int) stuffToRender.getRigidBody().getSize(), 255,50,50);
+                            (int) stuffToRender.getRigidBody().getRadius(), 255,50,50);
                 else
                     Window.drawCircle((int)stuffToRender.getRigidBody().getPosition().getX(),
                             (int)stuffToRender.getRigidBody().getPosition().getY(),
-                            (int) stuffToRender.getRigidBody().getSize(), 50,255,50);
+                            (int) stuffToRender.getRigidBody().getRadius(), 50,255,50);
             });
             if(projectile != null)
                 Window.drawCircle((int)projectile.getPosition().getX(), (int)projectile.getPosition().getY(), 20, 0, 0, 255);
