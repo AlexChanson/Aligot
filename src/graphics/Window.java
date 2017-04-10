@@ -6,9 +6,19 @@ import org.lwjgl.opengl.GL;
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.*;
 
+/**
+ * Window in which the game will be played
+ * Using lwjgl as a wrapper around opengl
+ * The window contains all game elements render using opengl
+ * @author Christopher VALLOT
+ */
 public class Window {
     private static long window;
 
+    /**
+     * Initializes the window
+     * @param title the window title (not visible in fullscreen)
+     */
     public static void init(String title) {
         try {
             if (!glfwInit()) {
@@ -27,9 +37,18 @@ public class Window {
         }
     }
 
+    /**
+     * Draws a texture that will contain a sprite
+     * @param texture the texture
+     * @param posX the position x
+     * @param posY the position y
+     * @param rotate the degree of rotation
+     * @param scale the scale parameter
+     */
     public static void drawTexture(Texture texture, int posX, int posY, float rotate, float scale) {
         float relWidth = texture.getWidth() / 2, relHeight = texture.getHeight() / 2;
 
+        glEnable(GL_TEXTURE_2D);
         glPushMatrix();
 
         glTranslatef(posX, posY, 0);
@@ -51,8 +70,17 @@ public class Window {
         glEnd();
 
         glPopMatrix();
+        glDisable(GL_TEXTURE_2D);
     }
 
+    /**
+     * Draws a sprite in the window
+     * @param fileName the name of the file
+     * @param posX the position on the x axis
+     * @param posY the position on the y axis
+     * @param rotate the degree of rotation
+     * @param scale the scale parameter
+     */
     public static void drawSprite(String fileName, int posX, int posY, float rotate, float scale) {
         String path = System.getProperty("user.dir") + "/ressources/sprites/" + fileName;
 
@@ -61,6 +89,17 @@ public class Window {
         drawTexture(texture, posX, posY, rotate, scale);
     }
 
+    /**
+     * Draws a line in the window
+     * @param x1 the first position x
+     * @param y1 the first position y
+     * @param x2 the second position x
+     * @param y2 the second position y
+     * @param thickness the thickness of the line
+     * @param R the proportion of red (0 to 255)
+     * @param G the proportion of green (0 to 255)
+     * @param B the proportion of blue (0 to 255)
+     */
     public static void drawLine(int x1, int y1, int x2, int y2, float thickness, int R, int G, int B){
         int minX, minY;
 
@@ -87,6 +126,17 @@ public class Window {
         glPopMatrix();
     }
 
+    /**
+     * Draws a rectangle in the window
+     * @param width the width of the rectangle
+     * @param height the height of the rectangle
+     * @param posX the position x
+     * @param posY the position y
+     * @param R the proportion of red
+     * @param G the proportion of green
+     * @param B the proportion of blue
+     * @param rotate the degree of rotation
+     */
     public static void drawRectangle(int width, int height, int posX, int posY, int R, int G, int B, float rotate){
         glPushMatrix();
 
@@ -104,6 +154,15 @@ public class Window {
         glPopMatrix();
     }
 
+    /**
+     * Draws a circle in the window
+     * @param posX the position x
+     * @param posY the position y
+     * @param radius the radius parameter
+     * @param R the proportion of red
+     * @param G the proportion of green
+     * @param B the proportion of blue
+     */
     public static void drawCircle(int posX, int posY, int radius, int R, int G, int B) {
         double a = 1.0 / radius;
 
@@ -124,18 +183,33 @@ public class Window {
         glPopMatrix();
     }
 
+    /**
+     * @return true if the window should close or false otherwise
+     */
     public static boolean shouldClose() {
         return !glfwWindowShouldClose(window);
     }
 
+    /**
+     * swaps the front buffer of the window with the back buffer
+     * it is necessary step to make render with OpenGL
+     * use this method at the end of the main loop
+     */
     public static void swapBuffers(){
         glfwSwapBuffers(window);
     }
 
+    /**
+     * @return the width of the window
+     */
     public static int getWidth() {
         return videoMode().width();
     }
 
+
+    /**
+     * @return the height of the window
+     */
     public static int getHeight() {
         return videoMode().height();
     }
@@ -148,10 +222,17 @@ public class Window {
         return glfwGetMonitors().get(0);
     }
 
+
+    /**
+     * @return the window id
+     */
     public static long getWindow() {
         return window;
     }
 
+    /**
+     * close the window
+     */
     public static void exit(){
         glfwDestroyWindow(window);
         glfwTerminate();

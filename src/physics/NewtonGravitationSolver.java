@@ -24,7 +24,7 @@ public class NewtonGravitationSolver extends PhysicSolver {
     public void compute(Simulator sim) {
         ArrayList<Pair<RigidBody, RigidBody>> pairs = NewtonGravitationSolver.getCombination(sim.getBodies()); // get all the possible pairs without repetition of the same element
         pairs.removeIf((pair) -> !pair.getLeft().getAttractive() && !pair.getRight().getAttractive()); //keeps only the pairs with at least one attractive rigidbody
-        //System.out.println(pairs.size());
+        //System.out.println(pairs.radius());
 
         Vector2D computedForce;
         double attraction;

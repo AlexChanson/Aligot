@@ -10,6 +10,7 @@ import java.util.HashSet;
 public class Level {
     private String name, info, bgTexture;
     private HashSet<Planet> planets = new HashSet<>();
+    private int[] mapSize;
 
     public Level(String name) {
         this.name = name;
@@ -21,11 +22,12 @@ public class Level {
         this.bgTexture = bgTexture;
     }
 
-    public Level(String name, String info, String bgTexture, HashSet<Planet> planets) {
+    public Level(String name, String info, String bgTexture, HashSet<Planet> planets, int[] mapSize) {
         this.name = name;
         this.info = info;
         this.bgTexture = bgTexture;
         this.planets = planets;
+        this.mapSize = mapSize;
     }
 
     public void addPlanet(Planet... elements){
@@ -58,5 +60,13 @@ public class Level {
 
     public void setBgTexture(String bgTexture) {
         this.bgTexture = bgTexture;
+    }
+
+    public void setMapSize(int[] mapSize) {
+        this.mapSize = mapSize;
+    }
+
+    public int[] getMapSize() {
+        return mapSize;
     }
 }
