@@ -47,7 +47,7 @@ public class Simulator {
      * @param dt time elapsed since last method call, smaller values are more accurate
      */
     public void step(double dt){
-        physicSolvers.forEach((solver) -> solver.compute(this)); // for each solver, compute its effect
+        physicSolvers.forEach((solver) -> solver.compute(this, dt)); // for each solver, compute its effect
 
         for (RigidBody body: this.bodies) {
             if (!body.getStaticObject()){

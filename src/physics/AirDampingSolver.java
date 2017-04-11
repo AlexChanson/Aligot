@@ -23,7 +23,7 @@ public class AirDampingSolver extends PhysicSolver {
      * apply a force according to his speed to each object
      */
     @Override
-    public void compute(Simulator sim) {
+    public void compute(Simulator sim, double dt) {
         ArrayList<RigidBody> bodies = sim.getBodies();
         bodies.forEach((body) -> body.applyForce(body.getVelocity().multiply(linearDamping).getOpposite().
                 add(body.getVelocity().multiply(quadraticDamping).multiply(body.getVelocity().norm()).getOpposite()) )  );

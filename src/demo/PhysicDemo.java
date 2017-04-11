@@ -16,30 +16,16 @@ public class PhysicDemo {
         sim.addSolver(new NewtonGravitationSolver(6.67e-11));
         sim.addSolver(new AirDampingSolver(0.01, 0.02));
         sim.addSolver(new CollisionSolver());
-        RigidBody body1 = new RigidBody(new Vector2D(400,400), 20, 83.6);
-        RigidBody body2 = new RigidBody(new Vector2D(800,400), 140, 5.9722e17);
+        RigidBody body1 = new RigidBody(new Vector2D(400,400), 140, 83.6);
+        RigidBody body2 = new RigidBody(new Vector2D(800,400), 70, 40);
 
-        body1.setVelocity(new Vector2D(0,300));
+        body1.setVelocity(new Vector2D(100,0));
+        body2.setVelocity(new Vector2D(-50,0));
 
-        body1.setAttractive(false);
-        body2.setAttractive(true);
-
-        body2.setStaticObject(true);
 
         sim.addBody(body1);
         sim.addBody(body2);
 
-        RigidBody bh = new RigidBody(new Vector2D(900,900), 1, 10e16);
-        bh.setVelocity(Vector2D.getNull());
-        bh.setAttractive(true);
-        bh.setStaticObject(true);
-        glfwSetKeyCallback(Window.getWindow(), (window, key, scancode, action, mods) -> {
-            if (key == GLFW_KEY_E && action == GLFW_PRESS){
-                sim.addBody(bh);
-                System.out.println("KEY PRESSED");
-
-            }
-        });
         while (Window.shouldClose()) {
             glClear(GL_COLOR_BUFFER_BIT);
             glMatrixMode(GL_PROJECTION);

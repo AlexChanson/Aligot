@@ -33,5 +33,5 @@ public abstract class PhysicSolver {
      * @param sim takes a Simulator object to compute the different modifications applied to the rigidbodies
      *            in the simulator
      */
-    public abstract void compute(Simulator sim);
+    public abstract void compute(Simulator sim, double dt);
 }

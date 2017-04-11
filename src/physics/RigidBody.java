@@ -79,6 +79,14 @@ public class RigidBody {
         this.friction = friction;
     }
 
+    public double getRestitution() {
+        return restitution;
+    }
+
+    public void setRestitution(double restitution) {
+        this.restitution = restitution;
+    }
+
     public Vector2D getAcceleration() {
         return acceleration;
     }

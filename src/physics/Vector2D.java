@@ -215,6 +215,10 @@ public class Vector2D {
         return this.x*other.x + this.y*other.y;
     }
 
+    public Vector2D projectOn(Vector2D other){
+        return other.getNormalized().multiply(other.scalarProduct(this));
+    }
+
     /**
      *
      * @return a formatted string in the form "x: (x)

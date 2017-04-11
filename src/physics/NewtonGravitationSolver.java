@@ -21,7 +21,7 @@ public class NewtonGravitationSolver extends PhysicSolver {
      * @param sim takes a Simulator object to compute the different modifications applied to the rigidbodies
      */
     @Override
-    public void compute(Simulator sim) {
+    public void compute(Simulator sim, double dt) {
         ArrayList<Pair<RigidBody, RigidBody>> pairs = NewtonGravitationSolver.getCombination(sim.getBodies()); // get all the possible pairs without repetition of the same element
         pairs.removeIf((pair) -> !pair.getLeft().getAttractive() && !pair.getRight().getAttractive()); //keeps only the pairs with at least one attractive rigidbody
         //System.out.println(pairs.radius());
