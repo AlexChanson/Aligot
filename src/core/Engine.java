@@ -8,7 +8,10 @@ import physics.NewtonGravitationSolver;
 import physics.Simulator;
 import java.util.ArrayList;
 
-
+/**
+ * The Game engine, binds the physics with the game mechanics and processes events
+ * @author Alexandre 
+ */
 public class Engine {
     private FiniteStateMachine gameState;
     private Simulator physicsEngine;
@@ -21,12 +24,13 @@ public class Engine {
         this.level = level;
         this.p1 = p1;
         this.p2 = p2;
+        initialize();
+    }
+
+    private void initialize(){
         gameState = new FiniteStateMachine();
         physicsEngine = new Simulator();
         solvers = new ArrayList<>();
-    }
-
-    public void initialize(){
         physicsEngine.addSolver(new NewtonGravitationSolver(6.67e-11));
         physicsEngine.addSolver(new AirDampingSolver(0.005,0.01));
         physicsEngine.addSolver(new CollisionSolver());
@@ -36,6 +40,9 @@ public class Engine {
         //TODO initialize the finite state machine
     }
 
+    /**
+     * This method should be called to process a game tick
+     */
     public void update(){
 
 
@@ -43,6 +50,10 @@ public class Engine {
         solvers.forEach(Solver::resolve);
     }
 
+    /**
+     * Registers an event to the solvers
+     * @param event The event to register
+     */
     public void registerEvent(Event event){
         solvers.forEach(solver -> solver.registerEvent(event));
     }
@@ -60,6 +71,10 @@ public class Engine {
         }
     }
 
+    /**
+     * Change the time stem for the physics simulation default 1/60 of a second
+     * @param timeStep the new time step
+     */
     public void setTimeStep(double timeStep) {
         this.timeStep = timeStep;
     }
