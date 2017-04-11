@@ -1,14 +1,12 @@
 package FSM;
 
 import java.util.HashMap;
-import java.util.HashSet;
 
 /**
  * Created by ben on 11/04/17.
  */
 public class FiniteStateMachine {
     private HashMap<String, State> states;
-    private HashMap<String, String> transitions;
     private Boolean end;
     private String state;
 
@@ -16,13 +14,15 @@ public class FiniteStateMachine {
         end = false;
         state = "";
         states = new HashMap<>();
-        transitions = new HashMap<>();
     }
 
     public void addState(State state){
         String name = state.getStateName();
         if ( states.isEmpty() && name != "" ){
             this.state = name;
+
+        }
+        if ( name != "" ){
             states.put(name, state);
             state.initialize();
         }
@@ -60,6 +60,16 @@ public class FiniteStateMachine {
         return states.containsKey(stateName);
     }
 
+    public String toString(){
+        String returned = "";
+
+        for ( String key: states.keySet() ){
+            returned += key + "\n";
+        }
+
+        return returned;
+    }
+
     public Boolean update(){
         if ( isRegisteredState(this.state) ){
             String newState = this.states.get(this.state).onUpdate();
@@ -67,8 +77,13 @@ public class FiniteStateMachine {
                 changeState(newState);
             }
         }
-        if ( this.states.get(state).isFinalState() ){
-            end = true;
+        if ( isRegisteredState(this.state) ){
+            if (this.states.get(state).isFinalState()) {
+                end = true;
+            }
+        }
+        else{
+            return true;
         }
 
         return end;

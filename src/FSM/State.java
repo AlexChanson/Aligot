@@ -4,7 +4,7 @@ package FSM;
  * Created by ben on 11/04/17.
  */
 public abstract class State {
-    private Boolean finalState;
+    protected Boolean finalState = false;
 
     public void initialize(){
 
@@ -20,7 +20,7 @@ public abstract class State {
 
     public abstract String onUpdate();
 
-    public Boolean isFinalState(){
+    public final Boolean isFinalState(){
         return finalState;
     }
 
