@@ -23,4 +23,6 @@ public abstract class State {
     public Boolean isFinalState(){
         return finalState;
     }
+
+    public abstract String getStateName();
 }
