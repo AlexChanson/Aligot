@@ -1,6 +1,7 @@
 package core;
 
 import FSM.FiniteStateMachine;
+import core.solvers.Solver;
 import physics.AirDampingSolver;
 import physics.CollisionSolver;
 import physics.NewtonGravitationSolver;
@@ -22,6 +23,7 @@ public class Engine {
         this.p2 = p2;
         gameState = new FiniteStateMachine();
         physicsEngine = new Simulator();
+        solvers = new ArrayList<>();
     }
 
     public void initialize(){
@@ -36,10 +38,19 @@ public class Engine {
 
     public void update(){
 
+
+        //Event processing
+        solvers.forEach(Solver::resolve);
+    }
+
+    public void registerEvent(Event event){
+        solvers.forEach(solver -> solver.registerEvent(event));
     }
 
     /**
-     * This method registers the solver into the engine
+     * This method registers the solver(s) into the engine,
+     * if the order in which events are resolved matters to you you should register the solvers
+     * in the correct order according to your needs.
      * @param solvers The solver(s) to add the the game engine
      */
     public void registerSolvers(Solver... solvers){
