@@ -84,7 +84,7 @@ public class Window {
     public static void drawSprite(String fileName, int posX, int posY, float rotate, float scale) {
         String path = System.getProperty("user.dir") + "/ressources/sprites/" + fileName;
 
-        SpriteTexture texture = new SpriteTexture(path);
+        Texture texture = new Texture(path);
 
         drawTexture(texture, posX, posY, rotate, scale);
     }
