@@ -2,6 +2,8 @@ package demo;
 
 import graphics.Window;
 
+import java.awt.*;
+
 import static org.lwjgl.opengl.GL11.*;
 
 /**
@@ -27,7 +29,7 @@ public class MainFrame {
             Window.drawLine(100, 100, 300, 300, 180, 255, 128, 0);
             Window.drawRectangle(100, 200, 500 + (int) (Math.cos(i / 100.0) * 200), 540, 200, 0, 0, 0);
             Window.drawCircle(1000, 200, 100,0, i % 256, 64);
-            Window.drawSprite("earth.jpg", 720, 270, i, 0.1f);
+            Window.drawSprite("test_grey.png", 720, 270, i, 0.2f, Color.cyan);
             Window.drawSprite("rubics_cube.jpg", 720, 270, 0, (float) (1.0 / (i % 250)));
 
 

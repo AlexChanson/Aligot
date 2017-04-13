@@ -1,5 +1,7 @@
 package graphics.gui;
 
+import graphics.Texture;
+
 /**
  * Created by Christopher on 10/04/2017.
  */

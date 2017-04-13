@@ -3,6 +3,8 @@ package graphics;
 import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.opengl.GL;
 
+import java.awt.*;
+
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.*;
 
@@ -85,6 +87,22 @@ public class Window {
         String path = System.getProperty("user.dir") + "/ressources/sprites/" + fileName;
 
         Texture texture = new Texture(path);
+
+        drawTexture(texture, posX, posY, rotate, scale);
+    }
+
+    public static void drawSprite(String fileName, int posX, int posY, float scale) {
+        String path = System.getProperty("user.dir") + "/ressources/sprites/" + fileName;
+
+        Texture texture = new Texture(path);
+
+        drawTexture(texture, posX, posY, 0, scale);
+    }
+
+    public static void drawSprite(String fileName, int posX, int posY, float rotate, float scale, Color tint) {
+        String path = System.getProperty("user.dir") + "/ressources/sprites/" + fileName;
+
+        Texture texture = new Texture(path, tint);
 
         drawTexture(texture, posX, posY, rotate, scale);
     }

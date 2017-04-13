@@ -3,6 +3,7 @@ package graphics;
 import org.lwjgl.BufferUtils;
 
 import javax.imageio.ImageIO;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -64,6 +65,33 @@ public class Texture {
     }
 
     /**
+     * Loads a sprite from a path, and applies a tint to it
+     * @param path the path of the sprite
+     */
+    Texture(String path, Color tint) {
+        this.path = path;
+
+        if (generatedTexture.containsKey(path)) {
+            Texture t = generatedTexture.get(path);
+            this.id = t.id;
+            this.img = t.img;
+        }
+        else {
+            try {
+                File f = new File(path);
+                this.img = Colorizer.colorize(ImageIO.read(f), tint);
+
+                this.generate();
+
+                generatedTexture.put(path, this);
+            }
+            catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    /**
      * Loads the pixels from the file and binds them to a texture
      */
     private void generate() {
@@ -99,5 +127,9 @@ public class Texture {
      */
     public boolean equals(Texture t) {
         return t.path.equals(this.path);
+    }
+
+    public int getId() {
+        return id;
     }
 }
