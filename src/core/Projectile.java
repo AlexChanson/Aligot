@@ -5,11 +5,13 @@ import physics.RigidBody;
 public class Projectile extends GameObject {
     private Ammunition type;
     private Weapon origin;
+    private Player shooter;
 
-    public Projectile(RigidBody rigidBody, String texture, Ammunition type, Weapon origin) {
+    public Projectile(RigidBody rigidBody, String texture, Ammunition type, Weapon origin, Player shooter) {
         super(rigidBody, texture);
         this.type = type;
         this.origin = origin;
+        this.shooter = shooter;
     }
 
     public Weapon getOrigin() {
@@ -18,5 +20,9 @@ public class Projectile extends GameObject {
 
     public Ammunition getType() {
         return type;
+    }
+
+    public Player getShooter() {
+        return shooter;
     }
 }

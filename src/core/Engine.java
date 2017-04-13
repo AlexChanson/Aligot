@@ -1,6 +1,7 @@
 package core;
 
 import FSM.FiniteStateMachine;
+import core.solvers.ImpactSolver;
 import core.solvers.Solver;
 import physics.AirDampingSolver;
 import physics.CollisionSolver;
@@ -33,7 +34,11 @@ public class Engine {
         solvers = new ArrayList<>();
         physicsEngine.addSolver(new NewtonGravitationSolver(6.67e-11));
         physicsEngine.addSolver(new AirDampingSolver(0.005,0.01));
-        physicsEngine.addSolver(new CollisionSolver());
+        CollisionSolver collisionSolver = new CollisionSolver();
+        ImpactSolver impactSolver = new ImpactSolver();
+        collisionSolver.registerCollisionListener(impactSolver);
+        physicsEngine.addSolver(collisionSolver);
+        registerSolvers(impactSolver);
         level.getPlanets().forEach(planet -> physicsEngine.addBody(planet.getRigidBody()));
         physicsEngine.addBody(p1.getRigidBody());
         physicsEngine.addBody(p2.getRigidBody());
@@ -48,6 +53,9 @@ public class Engine {
 
         //Event processing
         solvers.forEach(Solver::resolve);
+
+        //physics simulation
+        physicsEngine.step(timeStep);
     }
 
     /**

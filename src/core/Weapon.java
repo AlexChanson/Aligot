@@ -13,10 +13,10 @@ public class Weapon extends Item{
 
     @Override
     public void use(Player user) {
-        this.fire();
+        this.fire(user);
     }
 
-    private void fire() {
+    private void fire(Player shooter) {
 
     }
 
