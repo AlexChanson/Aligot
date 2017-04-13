@@ -1,8 +1,12 @@
 package core;
 
-public class Weapon {
+public class Weapon extends Item{
     private String name, texture;
     private int[] damageRange;
-    private int projectileType;
+    private Magazine magazine;
 
+    @Override
+    public void use(Player user) {
+
+    }
 }
