@@ -100,4 +100,8 @@ public class Texture {
     public boolean equals(Texture t) {
         return t.path.equals(this.path);
     }
+
+    public int getId() {
+        return this.id;
+    }
 }
