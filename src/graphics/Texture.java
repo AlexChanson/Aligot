@@ -41,7 +41,7 @@ public class Texture {
      * Loads a sprite from a path
      * @param path the path of the sprite
      */
-    Texture(String path) {
+    public Texture(String path) {
         this.path = path;
 
         if (generatedTexture.containsKey(path)) {
@@ -68,7 +68,7 @@ public class Texture {
      * Loads a sprite from a path, and applies a tint to it
      * @param path the path of the sprite
      */
-    Texture(String path, Color tint) {
+    public Texture(String path, Color tint) {
         this.path = path;
 
         if (generatedTexture.containsKey(path)) {
