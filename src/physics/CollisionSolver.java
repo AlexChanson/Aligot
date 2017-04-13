@@ -5,7 +5,6 @@ import utility.Pair;
 import java.util.ArrayList;
 
 import static java.lang.Math.min;
-import static java.lang.Math.tan;
 import static jdk.nashorn.internal.objects.NativeMath.max;
 
 /**
@@ -107,7 +106,7 @@ public class CollisionSolver extends PhysicSolver {
                     }
 
                     for ( CollisionListener collisionListener : collisionListeners){
-                        collisionListener.notifyCollision(pair, distance);
+                        collisionListener.handleCollision(pair, distance);
                     }
                 }
             }
@@ -128,5 +127,9 @@ public class CollisionSolver extends PhysicSolver {
 
     public void setCorrectionAmount(double correctionAmount) {
         this.correctionAmount = min(max(correctionAmount, 0.1), 0.9);
+    }
+
+    public void registerCollisionListener(CollisionListener collisionListener){
+        collisionListeners.add(collisionListener);
     }
 }
