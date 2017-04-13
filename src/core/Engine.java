@@ -1,8 +1,9 @@
 package core;
 
 import FSM.FiniteStateMachine;
-import core.solvers.ImpactSolver;
 import core.solvers.Solver;
+import core.systems.CollisionSubSystem;
+import core.systems.SubSystem;
 import physics.AirDampingSolver;
 import physics.CollisionSolver;
 import physics.NewtonGravitationSolver;
@@ -17,6 +18,7 @@ public class Engine {
     private FiniteStateMachine gameState;
     private Simulator physicsEngine;
     private ArrayList<Solver> solvers;
+    private ArrayList<SubSystem> systems;
     private double timeStep = 1/60;
     private Level level;
     private Player p1, p2;
@@ -32,13 +34,13 @@ public class Engine {
         gameState = new FiniteStateMachine();
         physicsEngine = new Simulator();
         solvers = new ArrayList<>();
+        systems = new ArrayList<>();
         physicsEngine.addSolver(new NewtonGravitationSolver(6.67e-11));
         physicsEngine.addSolver(new AirDampingSolver(0.005,0.01));
         CollisionSolver collisionSolver = new CollisionSolver();
-        ImpactSolver impactSolver = new ImpactSolver();
-        collisionSolver.registerCollisionListener(impactSolver);
+        CollisionSubSystem collisionSystem = new CollisionSubSystem();
+        collisionSolver.registerCollisionListener(collisionSystem);
         physicsEngine.addSolver(collisionSolver);
-        registerSolvers(impactSolver);
         level.getPlanets().forEach(planet -> physicsEngine.addBody(planet.getRigidBody()));
         physicsEngine.addBody(p1.getRigidBody());
         physicsEngine.addBody(p2.getRigidBody());
@@ -50,9 +52,11 @@ public class Engine {
      */
     public void update(){
 
-
         //Event processing
         solvers.forEach(Solver::resolve);
+
+        //Sub Systems processing
+        systems.forEach(SubSystem::update);
 
         //physics simulation
         physicsEngine.step(timeStep);
@@ -76,6 +80,13 @@ public class Engine {
         for(Solver s : solvers){
             s.registerEngine(this);
             this.solvers.add(s);
+        }
+    }
+
+    public void registerSubSystems(SubSystem... subSystems){
+        for(SubSystem ss : subSystems){
+            ss.setEngine(this);
+            this.systems.add(ss);
         }
     }
 

@@ -8,6 +8,7 @@ public class Player extends GameObject{
     private String name;
     private int health, maxHealth;
     private ArrayList<Item> inventory;
+    private double position, rotation;
 
     public Player(RigidBody rigidBody, String texture, String name, int health) {
         super(rigidBody, texture);
@@ -35,5 +36,21 @@ public class Player extends GameObject{
 
     public void setHealth(int health) {
         this.health = health;
+    }
+
+    public double getPosition() {
+        return position;
+    }
+
+    public void setPosition(double position) {
+        this.position = position;
+    }
+
+    public double getRotation() {
+        return rotation;
+    }
+
+    public void setRotation(double rotation) {
+        this.rotation = rotation;
     }
 }
