@@ -48,14 +48,14 @@ public class Window {
      * @param rotate the degree of rotation
      * @param scale the scale parameter
      */
-    public static void drawTexture(Texture texture, int posX, int posY, int width, int height, float rotate, float scale, int textureX, int textureY, int textureWidth, int textureHeight) {
+    public static void drawTexture(Texture texture, int posX, int posY, int width, int height, float rotate, float scale, int textureX, int textureY, int textureWidth, int textureHeight, int r, int g, int b) {
         glEnable(GL_TEXTURE_2D);
         glPushMatrix();
 
         glTranslatef(posX, posY, 0);
         glRotatef(rotate, 0, 0f, 1f);
         glScalef(scale, scale, 1);
-        glColor3f(1, 1 ,1);
+        glColor3f(((float) r) / 255.0f, ((float) g) / 255.0f, ((float) b) / 255.0f);
 
         glBindTexture(GL_TEXTURE_2D, texture.getId());
 
@@ -87,7 +87,7 @@ public class Window {
 
         Texture texture = new Texture(path);
 
-        drawTexture(texture, posX, posY, width, height, rotate, scale, textureX, textureY, textureWidth, textureHeight);
+        drawTexture(texture, posX, posY, width, height, rotate, scale, textureX, textureY, textureWidth, textureHeight, 255, 255, 255);
     }
 
     public static void drawSprite(String fileName, int posX, int posY, float rotate, float scale) {
@@ -95,7 +95,7 @@ public class Window {
 
         Texture texture = new Texture(path);
 
-        drawTexture(texture, posX, posY, texture.getWidth(), texture.getHeight(), rotate, scale, 0, 0, texture.getWidth(), texture.getHeight());
+        drawTexture(texture, posX, posY, texture.getWidth(), texture.getHeight(), rotate, scale, 0, 0, texture.getWidth(), texture.getHeight(), 255, 255, 255);
     }
 
     public static void drawSprite(String fileName, int posX, int posY, int width, int height, float scale, int textureX, int textureY, int textureWidth, int textureHeight) {
@@ -103,7 +103,7 @@ public class Window {
 
         Texture texture = new Texture(path);
 
-        drawTexture(texture, posX, posY, width, height,0, scale, textureX, textureY, textureWidth, textureHeight);
+        drawTexture(texture, posX, posY, width, height,0, scale, textureX, textureY, textureWidth, textureHeight, 255, 255, 255);
     }
 
     public static void drawSprite(String fileName, int posX, int posY, float rotate, float scale, Color tint) {
@@ -111,7 +111,7 @@ public class Window {
 
         Texture texture = new Texture(path, tint);
 
-        drawTexture(texture, posX, posY, texture.getWidth(), texture.getHeight(), rotate, scale, 0, 0, texture.getWidth(), texture.getHeight());
+        drawTexture(texture, posX, posY, texture.getWidth(), texture.getHeight(), rotate, scale, 0, 0, texture.getWidth(), texture.getHeight(), 255, 255, 255);
     }
 
     /**
@@ -208,8 +208,27 @@ public class Window {
         glPopMatrix();
     }
 
-    public static void drawText() {
+    public static void drawText(String text, int x, int y, int size, int r, int g, int b) {
+        String path = System.getProperty("user.dir") + "/ressources/font/verdana.png";
 
+        Texture texture = new Texture(path);
+
+        char[] charArray = text.toCharArray();
+        byte code;
+        int lineOffset = 0, line = 0;
+
+        for (int i = 0; i < charArray.length; i++) {
+            code = (byte) charArray[i];
+
+            if (code == 10) {
+                lineOffset = 0;
+                line++;
+            }
+            else {
+                drawTexture(texture, x + lineOffset * size, y + line * size, size, size, 0f, 1f, (code % 16) * 64, ((int) (code / 16)) * 64, 64, 64, r, g, b);
+                lineOffset++;
+            }
+        }
     }
 
     /**

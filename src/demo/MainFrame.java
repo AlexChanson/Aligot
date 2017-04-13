@@ -16,7 +16,6 @@ import static org.lwjgl.glfw.GLFW.glfwTerminate;
 public class MainFrame {
     public static void main(String[] args) {
         Window.init("Space Shooter");
-
         int i = 0;
 
         while (Window.shouldClose()) {
@@ -32,7 +31,7 @@ public class MainFrame {
             Window.drawSprite("test_grey.png", 720, 270, i, 0.2f, Color.cyan);
             Window.drawSprite("rubics_cube.jpg", 720, 270, 0, (float) (1.0 / (i % 250)));
             Window.drawSprite("rubics_cube.jpg", 720, 270, 128, 128, 0, 1f, 64, 64, 64, 64);
-
+            Window.drawText("test 1\ntest 2", 128, 128, 16, 0, 255, 255);
 
             Window.swapBuffers();
             glfwPollEvents();
