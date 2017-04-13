@@ -1,6 +1,7 @@
 package graphics.gui;
 
 import graphics.Texture;
+
 import static org.lwjgl.opengl.GL11.*;
 
 /**
@@ -10,7 +11,7 @@ public class Button {
     private String path;
     private String text;
 
-    public Button (){
+    public Button () {
     }
 
     public Button (String text){
@@ -25,7 +26,6 @@ public class Button {
         glTranslatef(posX, posY, 0);
         glScalef(scale, scale, 1);
         glColor3f(1, 1 ,1);
-
         glBindTexture(GL_TEXTURE_2D, texture.getId());
 
         glBegin(GL_QUADS);
