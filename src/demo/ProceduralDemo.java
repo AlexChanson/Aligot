@@ -16,7 +16,7 @@ public class ProceduralDemo {
     private static RigidBody projectile;
 
     public static void main(String[] args) {
-        Window.init("Demo Generateur Procedural");
+        Window.init("Demo Generateur Procedural", true);
         simulator.addSolver(new NewtonGravitationSolver(6.67e-11));
         simulator.addSolver(new CollisionSolver());
         glfwSetKeyCallback(Window.getWindow(), (window, key, scancode, action, mods) -> {

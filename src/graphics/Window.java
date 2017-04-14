@@ -1,11 +1,9 @@
 package graphics;
 
+import org.lwjgl.BufferUtils;
 import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.opengl.GL;
-import org.lwjgl.system.MemoryStack;
 
-import java.awt.Color;
-import java.nio.ByteOrder;
 import java.nio.IntBuffer;
 import java.util.HashMap;
 
@@ -20,20 +18,24 @@ import static org.lwjgl.opengl.GL11.*;
  */
 public class Window {
     private static long window;
-    private static int monitor = 0;
+    private static int monitor = 0, width = 1024, height = 640;
+    private static boolean fullscreenEnabled;
     private static HashMap<Character, Integer> charWidth;
 
     /**
      * Initializes the window
      * @param title the window title (not visible in fullscreen)
      */
-    public static void init(String title) {
+    public static void init(String title, boolean fullscreen) {
+        fullscreenEnabled = fullscreen;
+
         try {
             if (!glfwInit()) {
                 System.exit(1);
             }
 
-            window = glfwCreateWindow(getWidth(), getHeight(), title, getMonitorId(), 0);
+            window = glfwCreateWindow(getWidth(), getHeight(), title, fullscreen ? glfwGetPrimaryMonitor() : 0, 0);
+
             glfwShowWindow(window);
             glfwMakeContextCurrent(window);
             glfwSwapInterval(1);
@@ -272,7 +274,19 @@ public class Window {
      * @return the width of the window
      */
     public static int getWidth() {
-        return videoMode().width();
+        if (fullscreenEnabled) {
+            return videoMode().width();
+        }
+        else if (window != 0) {
+            IntBuffer w = BufferUtils.createIntBuffer(1);
+
+            glfwGetWindowSize(window, w, null);
+
+            return w.get();
+        }
+        else {
+            return width;
+        }
     }
 
 
@@ -280,7 +294,39 @@ public class Window {
      * @return the height of the window
      */
     public static int getHeight() {
-        return videoMode().height();
+        if (fullscreenEnabled) {
+            return videoMode().height();
+        }
+        else if (window != 0) {
+            IntBuffer h = BufferUtils.createIntBuffer(1);
+
+            glfwGetWindowSize(window, null, h);
+
+            return h.get();
+        }
+        else {
+            return height;
+        }
+    }
+
+    public static void setWidth(int w) {
+        width = w;
+
+        if (!fullscreenEnabled) {
+            refreshWindowSize();
+        }
+    }
+
+    public static void setHeight(int h) {
+        height = h;
+
+        if (!fullscreenEnabled) {
+            refreshWindowSize();
+        }
+    }
+
+    private static void refreshWindowSize() {
+        glfwSetWindowSize(window, width, height);
     }
 
     private static GLFWVidMode videoMode() {
@@ -292,10 +338,12 @@ public class Window {
     }
 
     public static void setMonitor(int m) {
-        if (m != monitor) {
+        if (m != monitor && monitorAvailable(m)) {
             monitor = m;
 
-            glfwSetWindowMonitor(window, getMonitorId(), 0, 0, getWidth(), getHeight(), 0);
+            if (fullscreenEnabled) {
+                glfwSetWindowMonitor(window, getMonitorId(), 0, 0, getWidth(), getHeight(), 0);
+            }
         }
     }
 
@@ -307,8 +355,28 @@ public class Window {
         return glfwGetMonitors().limit();
     }
 
+    public static boolean monitorAvailable(int m) {
+        return m >= 0 && m < countMonitors();
+    }
+
     public static Texture getTexture(String fileName){
         return Texture.getTexture(System.getProperty("user.dir") + "/ressources/sprites/" + fileName);
+    }
+
+    public static void enableFullscreen() {
+        fullscreenEnabled = true;
+
+        glfwSetWindowMonitor(window, getMonitorId(), 0, 0, getWidth(), getHeight(), 0);
+    }
+
+    public static void disableFullscreen() {
+        fullscreenEnabled = false;
+
+        glfwSetWindowMonitor(window, 0, 0, 0, width, height, 0);
+    }
+
+    public static boolean fullscreenEnabled() {
+        return fullscreenEnabled;
     }
 
     /**
