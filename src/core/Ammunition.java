@@ -26,8 +26,8 @@ public class Ammunition {
         return false;
     }
 
-    @Override
-    protected Object clone() throws CloneNotSupportedException {
+
+    public Ammunition copy(){
         return new Ammunition(damageBonus,type,effect);
     }
 

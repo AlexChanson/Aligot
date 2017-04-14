@@ -68,11 +68,11 @@ public class Weapon extends Item{
         this.compatible = compatible;
     }
 
-    @Override
-    protected Object clone() throws CloneNotSupportedException {
+
+    public Object copy() {
         Ammunition[] temp = new Ammunition[compatible.length];
         for (int i = 0; i < compatible.length; i++)
-            temp[i] = (Ammunition) compatible[i].clone();
+            temp[i] = compatible[i].copy();
         return new Weapon(name, icon, texture, damageRange, temp);
     }
 }
