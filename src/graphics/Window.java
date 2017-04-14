@@ -250,7 +250,7 @@ public class Window {
                 indexOf = word.indexOf("\n");
 
                 if (indexOf != -1 || word.length() >= maxLineOffset) {
-                    if (indexOf != -1 && indexOf >= maxLineOffset) {
+                    if (indexOf == -1) {
                         substr1 = word.substring(0, maxLineOffset);
                         substr2 = word.substring(maxLineOffset);
                     }
