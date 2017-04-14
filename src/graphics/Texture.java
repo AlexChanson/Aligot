@@ -75,11 +75,16 @@ public class Texture {
         }
     }
 
-    public static Texture getTexture(String fileName){
-        if( generatedTexture.containsKey(fileName) ){
-            return generatedTexture.get(fileName);
+    public static Texture getTexture(String path){
+
+        if( generatedTexture.containsKey(path) ){
+            return generatedTexture.get(path);
         }
-        return null;
+        else{
+            Texture tex = new Texture(path);
+            generatedTexture.put(path, tex);
+            return tex;
+        }
     }
 
     private void generate() {
