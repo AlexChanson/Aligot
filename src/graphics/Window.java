@@ -248,7 +248,7 @@ public class Window {
                 line++;
             }
             else if (code >= 32 && code < 128 || code >= 160) {
-                drawTexture(texture, x + lineOffset * size, y + line * size, size, size, 0f, 1f, (code % 16) * 64, ((int) (code / 16)) * 64, 64, 64, r, g, b);
+                drawTexture(texture, x + lineOffset * size, y + line * size, size, size, 0f, 1f, (code % 16) * 256, ((int) (code / 16)) * 256, 256, 256, r, g, b);
                 lineOffset++;
             }
         }
