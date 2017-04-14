@@ -1,9 +1,6 @@
 package graphics.gui;
 
-import graphics.Texture;
 import graphics.Window;
-
-import static org.lwjgl.opengl.GL11.*;
 
 /**
  * Created by Christopher on 10/04/2017.
@@ -13,45 +10,33 @@ public class Button {
     private String text;
     private int posX;
     private int posY;
-    private float scale;
+    private int width;
+    private int height;
 
-    public Button (String path, String text, int posX, int posY, float scale) {
+    public Button (String path, int posX, int posY, int width, int height){
+        this.path = path;
+        this.posX = posX;
+        this.posY = posY;
+        this.width = width;
+        this.height = height;
+    }
+
+    public Button (String path, String text, int posX, int posY, int width, int height) {
         this.path = path;
         this.text = text;
         this.posX = posX;
         this.posY = posY;
-        this.scale = scale;
-    }
-
-    public void drawTexture(Texture texture){
-        float relWidth = texture.getWidth() / 2, relHeight = texture.getHeight() / 2;
-
-        glEnable(GL_TEXTURE_2D);
-        glPushMatrix();
-        glTranslatef(posX, posY, 0);
-        glScalef(scale, scale, 1);
-        glColor3f(1, 1 ,1);
-        glBindTexture(GL_TEXTURE_2D, texture.getId());
-
-        glBegin(GL_QUADS);
-        glTexCoord2f(0, -1);
-        glVertex2f(-relWidth, -relHeight);
-        glTexCoord2f(0, 0);
-        glVertex2f(-relWidth, relHeight);
-        glTexCoord2f(-1, 0);
-        glVertex2f(relWidth, relHeight);
-        glTexCoord2f(-1, -1);
-        glVertex2f(relWidth, -relHeight);
-        glEnd();
-
-        glPopMatrix();
-        glDisable(GL_TEXTURE_2D);
+        this.width = width;
+        this.height = height;
     }
 
     public void drawButton() {
-        String path = System.getProperty("user.dir") + "/ressources/sprites/" + getPath();
-        Texture texture = new Texture(path);
-        drawTexture(texture);
+        if (text != null) {
+            Window.drawSprite(path, posX, posY, 0, Math.min(width, height) / Window.getHeight());
+        }
+        else {
+            Window.drawSprite(path, posX, posY, 0, Math.min(width, height) / Window.getHeight());
+        }
     }
 
     public String getPath() {
@@ -86,11 +71,19 @@ public class Button {
         this.posY = posY;
     }
 
-    public float getScale() {
-        return scale;
+    public int getWidth() {
+        return width;
     }
 
-    public void setScale(float scale) {
-        this.scale = scale;
+    public void setWidth(int width) {
+        this.width = width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
     }
 }
