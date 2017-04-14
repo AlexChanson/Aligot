@@ -4,8 +4,9 @@ import org.lwjgl.BufferUtils;
 import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.opengl.GL;
 
+import java.lang.reflect.Array;
 import java.nio.IntBuffer;
-import java.util.HashMap;
+import java.util.*;
 
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.*;
@@ -223,32 +224,57 @@ public class Window {
         glPopMatrix();
     }
 
-    private static void generateCharactersWidth() {
-        charWidth = new HashMap<Character, Integer>();
+    public static void drawText(String text, int x, int y, int size, int maxLineOffset, int r, int g, int b) {
+        if (maxLineOffset > 0) {
+            String path = System.getProperty("user.dir") + "/ressources/font/verdana.png";
 
-        charWidth.put('!', 3);
-        charWidth.put('"', 7);
-        charWidth.put('#', 22);
-    }
+            Texture texture = new Texture(path);
 
-    public static void drawText(String text, int x, int y, int size, int r, int g, int b) {
-        String path = System.getProperty("user.dir") + "/ressources/font/verdana.png";
+            ArrayList<String> words = new ArrayList<>();
+            String word, substr1, substr2;
+            boolean charrReturn = false;
+            byte code;
+            int indexOf, lineOffset = 0, line = 0;
 
-        Texture texture = new Texture(path);
+            words.addAll(Arrays.asList(text.split(" ")));
 
-        char[] charArray = text.toCharArray();
-        byte code;
-        int lineOffset = 0, line = 0;
+            for (int i = 0; i < words.size(); i++) {
+                word = words.get(i);
 
-        for (int i = 0; i < charArray.length; i++) {
-            code = (byte) charArray[i];
+                if (word.length() + lineOffset >= maxLineOffset && lineOffset > 0 || charrReturn) {
+                    line++;
+                    lineOffset = 0;
+                    charrReturn = false;
+                }
 
-            if (code == 10) {
-                lineOffset = 0;
-                line++;
-            }
-            else if (code >= 32 && code < 128 || code >= 160) {
-                drawTexture(texture, x + lineOffset * size, y + line * size, size, size, 0f, 1f, (code % 16) * 256, ((int) (code / 16)) * 256, 256, 256, r, g, b);
+                indexOf = word.indexOf("\n");
+
+                if (indexOf != -1 || word.length() >= maxLineOffset) {
+                    if (indexOf != -1 && indexOf >= maxLineOffset) {
+                        substr1 = word.substring(0, maxLineOffset);
+                        substr2 = word.substring(maxLineOffset);
+                    }
+                    else {
+                        substr1 = word.substring(0, indexOf);
+                        substr2 = word.substring(indexOf + 1);
+
+                        charrReturn = true;
+                    }
+
+                    words.set(i, substr1);
+                    words.add(i + 1, substr2);
+                    word = substr1;
+                }
+
+                for (char c : word.toCharArray()) {
+                    code = (byte) c;
+
+                    if (code >= 32 && code < 128 || code >= 160) {
+                        drawTexture(texture, x + lineOffset * size, y + line * size, size, size, 0f, 1f, (code % 16) * 256, ((int) (code / 16)) * 256, 256, 256, r, g, b);
+                        lineOffset++;
+                    }
+                }
+
                 lineOffset++;
             }
         }
