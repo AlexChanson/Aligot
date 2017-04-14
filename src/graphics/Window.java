@@ -1,6 +1,5 @@
 package graphics;
 
-import org.lwjgl.BufferUtils;
 import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.opengl.GL;
 import org.lwjgl.system.MemoryStack;
@@ -285,28 +284,13 @@ public class Window {
     }
 
     private static GLFWVidMode videoMode() {
-        return glfwGetVideoMode(getMonitorId());
+        return glfwGetVideoMode(getMonitor());
     }
 
-    private static long getMonitorId() {
-        return glfwGetMonitors().get(monitor);
+    private static long getMonitor() {
+        return glfwGetMonitors().get(0);
     }
 
-    public static void setMonitor(int m) {
-        if (m != monitor) {
-            monitor = m;
-
-            glfwSetWindowMonitor(window, getMonitorId(), 0, 0, getWidth(), getHeight(), 0);
-        }
-    }
-
-    public static int getMonitor() {
-        return monitor;
-    }
-
-    public static int countMonitors() {
-        return glfwGetMonitors().limit();
-    }
 
     /**
      * @return the window id

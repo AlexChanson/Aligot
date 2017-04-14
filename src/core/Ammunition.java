@@ -15,4 +15,33 @@ public class Ammunition {
         type = 1;
         effect = -1;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj instanceof Ammunition){
+            Ammunition other = (Ammunition) obj;
+            if (other.getDamageBonus() == damageBonus && other.getEffect() == effect && other.getType() == type)
+                return true;
+        }
+        return false;
+    }
+
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+        return new Ammunition(damageBonus,type,effect);
+    }
+
+    public int getDamageBonus() {
+        return damageBonus;
+    }
+
+    public int getType() {
+        return type;
+    }
+
+    public int getEffect() {
+        return effect;
+    }
+
+
 }

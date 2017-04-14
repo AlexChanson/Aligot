@@ -76,6 +76,18 @@ public class Texture {
         }
     }
 
+    public static Texture getTexture(String path){
+
+        if( generatedTexture.containsKey(path) ){
+            return generatedTexture.get(path);
+        }
+        else{
+            Texture tex = new Texture(path);
+            generatedTexture.put(path, tex);
+            return tex;
+        }
+    }
+
     private void generate() {
         IntBuffer w, h, comp;
         w = BufferUtils.createIntBuffer(1);

@@ -3,8 +3,6 @@ package demo;
 import graphics.Window;
 import graphics.gui.Button;
 
-import java.awt.*;
-
 import static org.lwjgl.opengl.GL11.*;
 
 /**
@@ -17,7 +15,7 @@ import static org.lwjgl.glfw.GLFW.glfwTerminate;
 public class MainFrame {
     public static void main(String[] args) {
         Window.init("Space Shooter");
-        Button button = new Button ("ecranoption_boutonaccueil.png", 100, 100, 150, 150);
+        Button button = new Button ("ecranoption_boutonaccueil.png", "MDR",100, 100, Window.getTexture("ecranoption_boutonaccueil.png").getWidth(), Window.getTexture("ecranoption_boutonaccueil.png").getHeight());
         int i = 0;
 
         glEnable(GL_BLEND);
