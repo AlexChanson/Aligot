@@ -1,17 +1,13 @@
 package graphics;
 
-import org.lwjgl.BufferUtils;
-
-import javax.imageio.ImageIO;
-import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
+import org.lwjgl.system.MemoryStack;
 import java.nio.ByteBuffer;
+import java.nio.IntBuffer;
 import java.util.HashMap;
 
+import static org.lwjgl.stb.STBImage.*;
 import static org.lwjgl.opengl.GL11.*;
-import static org.lwjgl.opengl.GL11.GL_ONE_MINUS_SRC_ALPHA;
+import static org.lwjgl.opengl.GL13.GL_CLAMP_TO_BORDER;
 
 /**
  * Texture is used to load a sprite who will be drawn in the window
@@ -20,55 +16,28 @@ import static org.lwjgl.opengl.GL11.GL_ONE_MINUS_SRC_ALPHA;
 public class Texture {
     private static HashMap<String, Texture> generatedTexture = new HashMap<>();
     private String path;
-    private BufferedImage img;
-    private int id;
+    //private BufferedImage img;
+    private int id, height, width;
 
     /**
      * @return the width of the sprite
      */
     public int getWidth() {
-        return this.img.getWidth();
+        return this.width;
     }
 
     /**
      * @return the height of the sprite
      */
     public int getHeight() {
-        return this.img.getHeight();
-    }
-
-    /**
-     * Loads a sprite from a path
-     * @param path the path of the sprite
-     */
-    public Texture(String path) {
-        this.path = path;
-
-        if (generatedTexture.containsKey(path)) {
-            Texture t = generatedTexture.get(path);
-            this.id = t.id;
-            this.img = t.img;
-        }
-        else {
-            try {
-                File f = new File(path);
-                this.img = ImageIO.read(f);
-
-                this.generate();
-
-                generatedTexture.put(path, this);
-            }
-            catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+        return this.height;
     }
 
     /**
      * Loads a sprite from a path, and applies a tint to it
      * @param path the path of the sprite
      */
-    public Texture(String path, Color tint) {
+    /*public Texture(String path, Color tint) {
         this.path = path;
 
         if (generatedTexture.containsKey(path)) {
@@ -89,34 +58,50 @@ public class Texture {
                 e.printStackTrace();
             }
         }
+    }*/
+
+    public Texture(String path) {
+        this.path = path;
+
+        if (generatedTexture.containsKey(path)) {
+            Texture t = generatedTexture.get(path);
+            this.id = t.id;
+            this.height = t.height;
+            this.width = t.width;
+        }
+        else {
+            generate();
+            generatedTexture.put(path, this);
+        }
     }
 
-    /**
-     * Loads the pixels from the file and binds them to a texture
-     */
     private void generate() {
-        int[] pixels_raw = this.img.getRGB(0, 0, this.getWidth(), this.getHeight(), null, 0, this.getWidth());
-        ByteBuffer pixels = BufferUtils.createByteBuffer(this.getHeight() * this.getWidth() * 4);
+        MemoryStack stack = MemoryStack.stackPush();
 
-        for (int y = 0; y < this.getHeight(); y++) {
-            for (int x = 0; x < this.getWidth(); x++) {
-                int pixel = pixels_raw[y * this.getWidth() + x];
-                pixels.put((byte) ((pixel >> 16) & 0xFF));
-                pixels.put((byte) ((pixel >> 8) & 0xFF));
-                pixels.put((byte) (pixel & 0xFF));
-                pixels.put((byte) ((pixel >> 24) & 0xFF));
-            }
+        IntBuffer w, h, comp;
+        w = stack.mallocInt(1);
+        h = stack.mallocInt(1);
+        comp = stack.mallocInt(1);
+
+        ByteBuffer image = stbi_load(this.path, w, h, comp, 4);
+
+        if (image == null) {
+            System.out.println("error: " + stbi_failure_reason());
         }
-        pixels.flip();
+
+        this.height = h.get();
+        this.width = w.get();
 
         this.id = glGenTextures();
 
         glBindTexture(GL_TEXTURE_2D, id);
-        glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-        glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, this.getWidth(), this.getHeight(), 0, GL_RGBA, GL_UNSIGNED_BYTE, pixels);
-        glEnable(GL_BLEND);
-        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, this.width, this.height, 0, GL_RGBA, GL_UNSIGNED_BYTE, image);
     }
 
     /**

@@ -18,6 +18,9 @@ public class MainFrame {
         Window.init("Space Shooter");
         int i = 0;
 
+        glEnable(GL_BLEND);
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
         while (Window.shouldClose()) {
             glClear(GL_COLOR_BUFFER_BIT);
             glMatrixMode(GL_PROJECTION);
@@ -28,7 +31,6 @@ public class MainFrame {
             Window.drawLine(100, 100, 300, 300, 180, 255, 128, 0);
             Window.drawRectangle(100, 200, 500 + (int) (Math.cos(i / 100.0) * 200), 540, 200, 0, 0, 0);
             Window.drawCircle(1000, 200, 100,0, i % 256, 64);
-            Window.drawSprite("test_grey.png", 720, 270, i, 0.2f, Color.cyan);
             Window.drawSprite("rubics_cube.jpg", 720, 270, 0, (float) (1.0 / (i % 250)));
             Window.drawSprite("rubics_cube.jpg", 720, 270, 128, 128, 0, 1f, 64, 64, 64, 64);
             Window.drawText("test 1\ntest 2", 128, 128, 16, 0, 255, 255);

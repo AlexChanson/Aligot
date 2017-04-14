@@ -3,6 +3,7 @@ package graphics;
 import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.opengl.GL;
 import java.awt.Color;
+import java.util.HashMap;
 
 import java.awt.*;
 
@@ -17,6 +18,7 @@ import static org.lwjgl.opengl.GL11.*;
  */
 public class Window {
     private static long window;
+    private static HashMap<Character, Integer> charWidth;
 
     /**
      * Initializes the window
@@ -106,13 +108,13 @@ public class Window {
         drawTexture(texture, posX, posY, width, height,0, scale, textureX, textureY, textureWidth, textureHeight, 255, 255, 255);
     }
 
-    public static void drawSprite(String fileName, int posX, int posY, float rotate, float scale, Color tint) {
+    /*public static void drawSprite(String fileName, int posX, int posY, float rotate, float scale, Color tint) {
         String path = System.getProperty("user.dir") + "/ressources/sprites/" + fileName;
 
         Texture texture = new Texture(path, tint);
 
         drawTexture(texture, posX, posY, texture.getWidth(), texture.getHeight(), rotate, scale, 0, 0, texture.getWidth(), texture.getHeight(), 255, 255, 255);
-    }
+    }*/
 
     /**
      * Draws a line in the window
@@ -208,6 +210,14 @@ public class Window {
         glPopMatrix();
     }
 
+    private static void generateCharactersWidth() {
+        charWidth = new HashMap<Character, Integer>();
+
+        charWidth.put('!', 3);
+        charWidth.put('"', 7);
+        charWidth.put('#', 22);
+    }
+
     public static void drawText(String text, int x, int y, int size, int r, int g, int b) {
         String path = System.getProperty("user.dir") + "/ressources/font/verdana.png";
 
@@ -224,7 +234,7 @@ public class Window {
                 lineOffset = 0;
                 line++;
             }
-            else {
+            else if (code >= 32 && code < 128 || code >= 160) {
                 drawTexture(texture, x + lineOffset * size, y + line * size, size, size, 0f, 1f, (code % 16) * 64, ((int) (code / 16)) * 64, 64, 64, r, g, b);
                 lineOffset++;
             }
