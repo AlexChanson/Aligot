@@ -8,7 +8,7 @@ import static org.lwjgl.opengl.GL11.*;
 
 public class PhysicDemo {
     public static void main(String[] args) {
-        Window.init("Space Shooter");
+        Window.init("Space Shooter", true);
 
         int i = 0;
         Simulator sim = new Simulator();

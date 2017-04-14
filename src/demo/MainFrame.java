@@ -14,7 +14,7 @@ import static org.lwjgl.glfw.GLFW.glfwTerminate;
 
 public class MainFrame {
     public static void main(String[] args) {
-        Window.init("Space Shooter");
+        Window.init("Space Shooter", false);
         Button button = new Button ("ecranoption_boutonaccueil.png", "MDR",100, 100, Window.getTexture("ecranoption_boutonaccueil.png").getWidth(), Window.getTexture("ecranoption_boutonaccueil.png").getHeight());
         int i = 0;
 
