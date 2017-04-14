@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane minWidth="200.0" prefHeight="400.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gameprompt.Controls">
+   <children>
+      <VBox layoutX="160.0" layoutY="70.0" minWidth="100.0" prefHeight="400.0" prefWidth="300.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <HBox prefHeight="0.0" prefWidth="200.0">
+               <children>
+                  <Label text="Move Left:">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
+                  </Label>
+                  <Region minWidth="10.0" prefHeight="200.0" prefWidth="10.0" HBox.hgrow="ALWAYS" />
+                  <Label text="Left Arrow" />
+               </children>
+            </HBox>
+            <HBox layoutX="40.0" layoutY="40.0" prefHeight="0.0" prefWidth="200.0">
+               <children>
+                  <Label text="Move Right:">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
+                  </Label>
+                  <Region prefHeight="200.0" prefWidth="10.0" HBox.hgrow="ALWAYS" />
+                  <Label text="Right Arrow" />
+               </children>
+            </HBox>
+            <HBox layoutX="40.0" layoutY="66.0" prefHeight="0.0" prefWidth="200.0">
+               <children>
+                  <Label text="Aim up:">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
+                  </Label>
+                  <Region prefHeight="200.0" prefWidth="10.0" HBox.hgrow="ALWAYS" />
+                  <Label text="Up Arrow" />
+               </children>
+            </HBox>
+            <HBox layoutX="40.0" layoutY="92.0" prefHeight="0.0" prefWidth="200.0">
+               <children>
+                  <Label text="Aim Down:">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
+                  </Label>
+                  <Region prefHeight="200.0" prefWidth="10.0" HBox.hgrow="ALWAYS" />
+                  <Label text="Down Arrow" />
+               </children>
+            </HBox>
+            <HBox layoutX="40.0" layoutY="118.0" prefHeight="0.0" prefWidth="200.0">
+               <children>
+                  <Label text="Charge weapon (Hold):">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
+                  </Label>
+                  <Region prefHeight="200.0" prefWidth="10.0" HBox.hgrow="ALWAYS" />
+                  <Label text="Spacebar" />
+               </children>
+            </HBox>
+         </children>
+         <padding>
+            <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+         </padding>
+      </VBox>
+   </children>
+</AnchorPane>
