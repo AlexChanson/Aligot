@@ -75,6 +75,13 @@ public class Texture {
         }
     }
 
+    public static Texture getTexture(String fileName){
+        if( generatedTexture.containsKey(fileName) ){
+            return generatedTexture.get(fileName);
+        }
+        return null;
+    }
+
     private void generate() {
         MemoryStack stack = MemoryStack.stackPush();
 

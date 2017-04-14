@@ -74,6 +74,10 @@ public class Window {
         glDisable(GL_TEXTURE_2D);
     }
 
+    public static Texture getTexture(String fileName){
+        return Texture.getTexture(System.getProperty("user.dir") + "/ressources/sprites/" + fileName);
+    }
+
     /**
      * Draws a sprite in the window
      * @param fileName the name of the file
