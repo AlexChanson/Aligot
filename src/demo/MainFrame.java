@@ -26,8 +26,9 @@ public class MainFrame {
             glMatrixMode(GL_PROJECTION);
             glLoadIdentity();
             glOrtho(0, Window.getWidth(), Window.getHeight(), 0, -1, 1);
-            glMatrixMode(GL_MODELVIEW);
 
+            glViewport(0, 0, Window.getWidth(), Window.getHeight());
+            glMatrixMode(GL_MODELVIEW);
             button.drawButton();
 
             Window.drawLine(100, 100, 300, 300, 180, 255, 128, 0);
