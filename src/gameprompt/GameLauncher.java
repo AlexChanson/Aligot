@@ -17,19 +17,11 @@ public class GameLauncher extends Application {
     }
 
     @Override
-    public void start(Stage primaryStage) {
-        Parent root = null;
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader();
-            fxmlLoader.setLocation(getClass().getResource("./launcher.fxml"));
-            root = fxmlLoader.load();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public void start(Stage primaryStage) throws Exception{
 
-        if ( root == null ){
-            System.out.println("Error: root not found!");
-        }
+
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("launcher.fxml"));
+        Parent root = fxmlLoader.load();
 
         Scene scene = new Scene(root, 300, 275);
 
