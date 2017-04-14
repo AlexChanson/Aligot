@@ -16,17 +16,16 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 
-
-<AnchorPane minHeight="300.0" minWidth="300.0" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gameprompt.GameLauncher">
+<AnchorPane fx:id="masterAnchor" minHeight="300.0" minWidth="300.0" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gamelauncher.GameLauncherController">
    <children>
       <BorderPane layoutX="200.0" layoutY="100.0" minHeight="300.0" minWidth="300.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <top>
             <MenuBar BorderPane.alignment="CENTER">
               <menus>
-                <Menu mnemonicParsing="false" text="Editor">
+                <Menu mnemonicParsing="false" text="Game">
                   <items>
-                    <MenuItem mnemonicParsing="false" text="launch editor" />
-                        <MenuItem mnemonicParsing="false" text="Credits" />
+                    <MenuItem mnemonicParsing="false" onAction="#launchGameEditor" text="Game editor" />
+                        <MenuItem id="quitButton" fx:id="quitMenuItem" mnemonicParsing="false" onAction="#quit" text="Quit" />
                   </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Help">
@@ -39,7 +38,7 @@
             </MenuBar>
          </top>
          <bottom>
-            <Button mnemonicParsing="false" prefHeight="54.0" prefWidth="106.0" text="Start Game" BorderPane.alignment="CENTER">
+            <Button mnemonicParsing="false" onAction="#launchGame" prefHeight="54.0" prefWidth="106.0" text="Start Game" BorderPane.alignment="CENTER">
                <BorderPane.margin>
                   <Insets bottom="10.0" top="10.0" />
                </BorderPane.margin>

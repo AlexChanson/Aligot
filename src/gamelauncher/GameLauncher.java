@@ -1,4 +1,4 @@
-package gameprompt;/**
+package gamelauncher;/**
  * Created by ben on 14/04/17.
  */
 
@@ -7,8 +7,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
-import java.io.IOException;
 
 public class GameLauncher extends Application {
 
@@ -23,7 +21,9 @@ public class GameLauncher extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("launcher.fxml"));
         Parent root = fxmlLoader.load();
 
-        Scene scene = new Scene(root, 300, 275);
+        Scene scene = new Scene(root, 450, 400);
+        primaryStage.setMinWidth(450);
+        primaryStage.setMinHeight(400);
 
         primaryStage.setTitle("FXML Welcome");
         primaryStage.setScene(scene);
