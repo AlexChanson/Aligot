@@ -246,7 +246,9 @@ public class Window {
             boolean charrReturn = false;
             byte code;
             int indexOf, lineOffset = 0, line = 0;
+            ArrayList<ArrayList<Character>> lineList = new ArrayList<>();
 
+            lineList.add(new ArrayList<>());
             words.addAll(Arrays.asList(text.split(" ")));
 
             for (int i = 0; i < words.size(); i++) {
@@ -255,6 +257,7 @@ public class Window {
                 if (word.length() + lineOffset >= maxLineOffset && lineOffset > 0 || charrReturn) {
                     line++;
                     lineOffset = 0;
+                    lineList.add(new ArrayList<>());
                     charrReturn = false;
                 }
 
@@ -281,12 +284,21 @@ public class Window {
                     code = (byte) c;
 
                     if (code >= 32 && code < 128 || code >= 160) {
-                        drawTexture(texture, x + lineOffset * size, y + line * size, size, size, 0f, 1f, (code % 16) * 256, ((int) (code / 16)) * 256, 256, 256, r, g, b);
+                        lineList.get(line).add(c);
                         lineOffset++;
                     }
                 }
 
+                lineList.get(line).add(' ');
                 lineOffset++;
+            }
+
+            for (line = 0; line < lineList.size(); line++) {
+                for (lineOffset = 0; lineOffset < lineList.get(line).size(); lineOffset++) {
+                    code = (byte) (char) lineList.get(line).get(lineOffset);
+
+                    drawTexture(texture, x + lineOffset * size, y + line * size, size, size, 0f, 1f, (code % 16) * 256, ((int) (code / 16)) * 256, 256, 256, r, g, b);
+                }
             }
         }
     }
