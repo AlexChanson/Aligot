@@ -1,5 +1,6 @@
 package graphics;
 
+import org.lwjgl.BufferUtils;
 import org.lwjgl.system.MemoryStack;
 import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
@@ -76,12 +77,10 @@ public class Texture {
     }
 
     private void generate() {
-        MemoryStack stack = MemoryStack.stackPush();
-
         IntBuffer w, h, comp;
-        w = stack.mallocInt(1);
-        h = stack.mallocInt(1);
-        comp = stack.mallocInt(1);
+        w = BufferUtils.createIntBuffer(1);
+        h = BufferUtils.createIntBuffer(1);
+        comp = BufferUtils.createIntBuffer(1);
 
         ByteBuffer image = stbi_load(this.path, w, h, comp, 4);
 

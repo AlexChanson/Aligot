@@ -1,8 +1,13 @@
 package graphics;
 
+import org.lwjgl.BufferUtils;
 import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.opengl.GL;
+import org.lwjgl.system.MemoryStack;
+
 import java.awt.Color;
+import java.nio.ByteOrder;
+import java.nio.IntBuffer;
 import java.util.HashMap;
 
 import static org.lwjgl.glfw.GLFW.*;
@@ -16,6 +21,7 @@ import static org.lwjgl.opengl.GL11.*;
  */
 public class Window {
     private static long window;
+    private static int monitor = 1;
     private static HashMap<Character, Integer> charWidth;
 
     /**
@@ -28,7 +34,7 @@ public class Window {
                 System.exit(1);
             }
 
-            window = glfwCreateWindow(getWidth(), getHeight(), title, glfwGetPrimaryMonitor(), 0);
+            window = glfwCreateWindow(getWidth(), getHeight(), title, getMonitorId(), 0);
             glfwShowWindow(window);
             glfwMakeContextCurrent(window);
             glfwSwapInterval(1);
@@ -279,13 +285,28 @@ public class Window {
     }
 
     private static GLFWVidMode videoMode() {
-        return glfwGetVideoMode(getMonitor());
+        return glfwGetVideoMode(getMonitorId());
     }
 
-    private static long getMonitor() {
-        return glfwGetMonitors().get(0);
+    private static long getMonitorId() {
+        return glfwGetMonitors().get(monitor);
     }
 
+    public static void setMonitor(int m) {
+        if (m != monitor) {
+            monitor = m;
+
+            glfwSetWindowMonitor(window, getMonitorId(), 0, 0, getWidth(), getHeight(), 0);
+        }
+    }
+
+    public static int getMonitor() {
+        return monitor;
+    }
+
+    public static int countMonitors() {
+        return glfwGetMonitors().limit();
+    }
 
     /**
      * @return the window id
