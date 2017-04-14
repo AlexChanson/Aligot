@@ -7,4 +7,18 @@ import java.util.ArrayList;
  */
 public class ParticleSystemManager {
     private ArrayList<ParticleSystem> particleSystems;
+
+    public void updateAll(double dt){
+
+        for( ParticleSystem particleSystem : particleSystems ){
+            particleSystem.draw();
+        }
+
+    }
+
+    public void drawAll(){
+        for( ParticleSystem particleSystem : particleSystems ){
+            particleSystem.draw();
+        }
+    }
 }
