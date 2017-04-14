@@ -1,6 +1,7 @@
 package demo;
 
 import graphics.Window;
+import graphics.gui.Button;
 
 import java.awt.*;
 
@@ -16,6 +17,7 @@ import static org.lwjgl.glfw.GLFW.glfwTerminate;
 public class MainFrame {
     public static void main(String[] args) {
         Window.init("Space Shooter");
+        Button button = new Button ("earth.png", "lol", 100, 100, 0.5f);
         int i = 0;
 
         while (Window.shouldClose()) {
@@ -25,6 +27,7 @@ public class MainFrame {
             glOrtho(0, Window.getWidth(), Window.getHeight(), 0, -1, 1);
             glMatrixMode(GL_MODELVIEW);
 
+            Button.drawButton();
             Window.drawLine(100, 100, 300, 300, 180, 255, 128, 0);
             Window.drawRectangle(100, 200, 500 + (int) (Math.cos(i / 100.0) * 200), 540, 200, 0, 0, 0);
             Window.drawCircle(1000, 200, 100,0, i % 256, 64);

@@ -1,6 +1,7 @@
 package graphics.gui;
 
 import graphics.Texture;
+import graphics.Window;
 
 import static org.lwjgl.opengl.GL11.*;
 
@@ -10,15 +11,19 @@ import static org.lwjgl.opengl.GL11.*;
 public class Button {
     private String path;
     private String text;
+    private int posX;
+    private int posY;
+    private float scale;
 
-    public Button () {
-    }
-
-    public Button (String text){
+    public Button (String path, String text, int posX, int posY, float scale) {
+        this.path = path;
         this.text = text;
+        this.posX = posX;
+        this.posY = posY;
+        this.scale = scale;
     }
 
-    public static void drawTexture(Texture texture, int posX, int posY, float scale){
+    public void drawTexture(Texture texture){
         float relWidth = texture.getWidth() / 2, relHeight = texture.getHeight() / 2;
 
         glEnable(GL_TEXTURE_2D);
@@ -41,13 +46,12 @@ public class Button {
 
         glPopMatrix();
         glDisable(GL_TEXTURE_2D);
-
     }
 
-    public static void drawButton(String fileName, int posX, int posY, float scale) {
-        String path = System.getProperty("user.dir") + "/ressources/sprites/" + fileName;
+    public void drawButton() {
+        String path = System.getProperty("user.dir") + "/ressources/sprites/" + getPath();
         Texture texture = new Texture(path);
-        drawTexture(texture, posX, posY, scale);
+        drawTexture(texture);
     }
 
     public String getPath() {
@@ -64,5 +68,29 @@ public class Button {
 
     public void setText(String text) {
         this.text = text;
+    }
+
+    public int getPosX() {
+        return posX;
+    }
+
+    public void setPosX(int posX) {
+        this.posX = posX;
+    }
+
+    public int getPosY() {
+        return posY;
+    }
+
+    public void setPosY(int posY) {
+        this.posY = posY;
+    }
+
+    public float getScale() {
+        return scale;
+    }
+
+    public void setScale(float scale) {
+        this.scale = scale;
     }
 }
