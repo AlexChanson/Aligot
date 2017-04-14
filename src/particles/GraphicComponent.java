@@ -5,5 +5,5 @@ package particles;
  */
 public interface GraphicComponent {
 
-    public void draw(double x, double y, double rotation, double size);
+    public void draw(Particle particle);
 }

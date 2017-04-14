@@ -6,6 +6,6 @@ package particles;
 public interface Emitter {
 
     public boolean doneEmitting();
-    public void emitParticles(ParticleSystem particleSystem);
+    public void emitParticles(ParticleSystem particleSystem, double dt);
 
 }
