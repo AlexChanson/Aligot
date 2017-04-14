@@ -32,10 +32,10 @@ public class Button {
 
     public void drawButton() {
         if (text != null) {
-            Window.drawSprite(path, posX, posY, 0, Math.min(width, height) / Window.getHeight());
+            Window.drawSprite(path, posX, posY, width, height, 0);
         }
         else {
-            Window.drawSprite(path, posX, posY, 0, Math.min(width, height) / Window.getHeight());
+            Window.drawSprite(path, posX, posY, width, height, 0);
         }
     }
 
