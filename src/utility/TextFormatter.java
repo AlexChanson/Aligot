@@ -29,7 +29,7 @@ public class TextFormatter {
             for (int j = 0; j < i; ++j)
                 candidate += words[j] + " ";
             if(candidate.length() <= lineWidth){
-                System.out.println("Candidate valid !: " + candidate);
+                //System.out.println("Candidate valid !: " + candidate);
                 out.add(candidate);
                 String rest = "";
                 for (int k = i; k < words.length; ++k){

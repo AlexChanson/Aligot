@@ -37,9 +37,13 @@ public class GameLauncherController {
 
     @FXML
     public void launchGame(){
+        Thread t = new Thread(() -> {
+            String[] args = {};
+            MainFrame.main(args);
+        });
+        t.start();
+
         Platform.exit();
-        String[] args = {};
-        MainFrame.main(args);
     }
 
     @FXML
