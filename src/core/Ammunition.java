@@ -26,6 +26,11 @@ public class Ammunition {
         return false;
     }
 
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+        return new Ammunition(damageBonus,type,effect);
+    }
+
     public int getDamageBonus() {
         return damageBonus;
     }
@@ -37,4 +42,6 @@ public class Ammunition {
     public int getEffect() {
         return effect;
     }
+
+
 }
