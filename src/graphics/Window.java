@@ -2,7 +2,6 @@ package graphics;
 
 import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.opengl.GL;
-import java.awt.Color;
 import java.util.HashMap;
 
 import static org.lwjgl.glfw.GLFW.*;

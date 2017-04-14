@@ -15,7 +15,7 @@ import static org.lwjgl.glfw.GLFW.glfwTerminate;
 public class MainFrame {
     public static void main(String[] args) {
         Window.init("Space Shooter");
-        Button button = new Button ("ecranoption_boutonaccueil.png", 100, 100, 10, 15);
+        Button button = new Button ("ecranoption_boutonaccueil.png", "MDR",100, 100, Window.getTexture("ecranoption_boutonaccueil.png").getWidth(), Window.getTexture("ecranoption_boutonaccueil.png").getHeight());
         int i = 0;
 
         glEnable(GL_BLEND);
