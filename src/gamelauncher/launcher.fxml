@@ -45,7 +45,7 @@
             </Button>
          </bottom>
          <right>
-            <TextArea editable="false" minHeight="50.0" minWidth="150.0" prefHeight="200.0" prefWidth="200.0" text="Aligot est un jeu de tir 1VS1 au tour par tour en deux dimensions.&#10;&#10;" wrapText="true" BorderPane.alignment="CENTER">
+            <TextArea editable="false" minHeight="50.0" minWidth="150.0" prefHeight="200.0" prefWidth="200.0" text="Aligot est un jeu de tir 1VS1 au tour par tour en deux dimensions.&#10;&#10;Ce jeu nécessite LWJGL 3 ainsi qu'une carte graphique supportant OpenGL avec ses drivers graphiques a jour pour fonctionner.&#10;&#10;" wrapText="true" BorderPane.alignment="CENTER">
                <BorderPane.margin>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </BorderPane.margin>
