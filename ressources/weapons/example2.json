@@ -1,0 +1,16 @@
+{
+  "texture": "bfg.png",
+  "damageRange": [
+    12,
+    15
+  ],
+  "compatible": [
+    {
+      "damageBonus": 2,
+      "type": 42,
+      "effect": 40
+    }
+  ],
+  "name": "BFG",
+  "icon": "bfg_icon.png"
+}

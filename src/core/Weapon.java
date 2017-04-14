@@ -4,6 +4,17 @@ public class Weapon extends Item{
     private String texture;
     private int[] damageRange;
     private Magazine magazine = null;
+    /**
+     * Set to null by default the gun can shoot any ammo
+     */
+    private Ammunition[] compatible = null;
+
+    public Weapon(String name, String icon, String texture, int[] damageRange, Ammunition[] compatible) {
+        super(name, icon);
+        this.texture = texture;
+        this.damageRange = damageRange;
+        this.compatible = compatible;
+    }
 
     public Weapon(String name, String icon, String texture, int[] damageRange) {
         super(name, icon);
@@ -20,8 +31,21 @@ public class Weapon extends Item{
 
     }
 
-    public void reload(Magazine m){
-        this.magazine = m;
+    public boolean reload(Magazine m){
+        if(compatible == null){
+            this.magazine = m;
+            return true;
+        }
+        boolean isCompatible = false;
+        for (Ammunition aCompatible : compatible) {
+            if (aCompatible.equals(m.getAmmo()))
+                isCompatible = true;
+        }
+        if(isCompatible){
+            this.magazine = m;
+            return true;
+        }
+        return false;
     }
 
     public String getTexture() {
@@ -34,5 +58,13 @@ public class Weapon extends Item{
 
     public Magazine getMagazine() {
         return magazine;
+    }
+
+    public Ammunition[] getCompatible() {
+        return compatible;
+    }
+
+    public void setCompatible(Ammunition[] compatible) {
+        this.compatible = compatible;
     }
 }
