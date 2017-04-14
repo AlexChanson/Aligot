@@ -20,7 +20,7 @@ public class Weapon extends Item{
 
     }
 
-    private void reload(Magazine m){
+    public void reload(Magazine m){
         this.magazine = m;
     }
 

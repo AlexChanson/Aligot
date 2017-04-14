@@ -1,0 +1,9 @@
+{
+  "texture": "bfg.png",
+  "damageRange": [
+    12,
+    15
+  ],
+  "name": "BFG",
+  "icon": "bfg_icon.png"
+}
