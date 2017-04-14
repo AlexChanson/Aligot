@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="400.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gamelauncher.Credits">
+   <children>
+      <VBox layoutX="250.0" layoutY="100.0" prefHeight="200.0" prefWidth="100.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <HBox prefHeight="0.0" prefWidth="200.0">
+               <children>
+                  <Region prefHeight="0.0" prefWidth="10.0" HBox.hgrow="ALWAYS" />
+                  <Label text="Credits">
+                     <font>
+                        <Font name="System Bold" size="30.0" />
+                     </font>
+                  </Label>
+                  <Region prefHeight="0.0" prefWidth="10.0" HBox.hgrow="ALWAYS" />
+               </children>
+            </HBox>
+            <HBox layoutX="25.0" layoutY="25.0" prefHeight="0.0" prefWidth="200.0">
+               <children>
+                  <Region prefHeight="0.0" prefWidth="10.0" HBox.hgrow="ALWAYS" />
+                  <Label text="L1:">
+                     <font>
+                        <Font name="System Bold" size="22.0" />
+                     </font>
+                  </Label>
+                  <Region prefHeight="0.0" prefWidth="10.0" HBox.hgrow="ALWAYS" />
+               </children>
+            </HBox>
+            <HBox layoutX="25.0" layoutY="107.0" prefHeight="0.0" prefWidth="200.0">
+               <children>
+                  <Region prefHeight="0.0" prefWidth="10.0" HBox.hgrow="ALWAYS" />
+                  <Label text="Léo BRUNOT">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                     <tooltip>
+                        <Tooltip text="Physic Engine - Game Design" />
+                     </tooltip>
+                  </Label>
+                  <Region prefHeight="0.0" prefWidth="10.0" HBox.hgrow="ALWAYS" />
+               </children>
+            </HBox>
+            <HBox layoutX="25.0" layoutY="107.0" prefHeight="0.0" prefWidth="200.0">
+               <children>
+                  <Region prefHeight="0.0" prefWidth="10.0" HBox.hgrow="ALWAYS" />
+                  <Label text="Maël BODENANT">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                     <tooltip>
+                        <Tooltip text="Weapon design" />
+                     </tooltip>
+                  </Label>
+                  <Region prefHeight="0.0" prefWidth="10.0" HBox.hgrow="ALWAYS" />
+               </children>
+            </HBox>
+            <HBox layoutX="25.0" layoutY="142.0" prefHeight="0.0" prefWidth="200.0">
+               <children>
+                  <Region prefHeight="0.0" prefWidth="10.0" HBox.hgrow="ALWAYS" />
+                  <Label text="Pacôme BESNARD">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                     <tooltip>
+                        <Tooltip text="Artist - Sprites" />
+                     </tooltip>
+                  </Label>
+                  <Region prefHeight="0.0" prefWidth="10.0" HBox.hgrow="ALWAYS" />
+               </children>
+            </HBox>
+            <HBox layoutX="25.0" layoutY="71.0" prefHeight="0.0" prefWidth="200.0">
+               <children>
+                  <Region prefHeight="0.0" prefWidth="10.0" HBox.hgrow="ALWAYS" />
+                  <Label text="L2:">
+                     <font>
+                        <Font name="System Bold" size="22.0" />
+                     </font>
+                  </Label>
+                  <Region prefHeight="0.0" prefWidth="10.0" HBox.hgrow="ALWAYS" />
+               </children>
+            </HBox>
+            <HBox layoutX="25.0" layoutY="143.0" prefHeight="0.0" prefWidth="200.0">
+               <children>
+                  <Region prefHeight="0.0" prefWidth="20.0" HBox.hgrow="ALWAYS" />
+                  <Label text="Alexandre CHANSON">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                     <tooltip>
+                        <Tooltip text="Product Owner - Game Editor" />
+                     </tooltip>
+                  </Label>
+                  <Region prefHeight="0.0" prefWidth="20.0" HBox.hgrow="ALWAYS" />
+               </children>
+            </HBox>
+            <HBox prefHeight="0.0" prefWidth="200.0">
+               <children>
+                  <Region prefHeight="0.0" prefWidth="20.0" HBox.hgrow="ALWAYS" />
+                  <Label text="Ben CRULIS">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                     <tooltip>
+                        <Tooltip text="Scrum Master - Physic Engine" />
+                     </tooltip>
+                  </Label>
+                  <Region prefHeight="0.0" prefWidth="20.0" HBox.hgrow="ALWAYS" />
+               </children>
+            </HBox>
+            <HBox layoutX="25.0" layoutY="178.0" prefHeight="0.0" prefWidth="200.0">
+               <children>
+                  <Region prefHeight="0.0" prefWidth="20.0" HBox.hgrow="ALWAYS" />
+                  <Label text="Christopher VALLOT">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                     <tooltip>
+                        <Tooltip text="Graphic Engine - UI" />
+                     </tooltip>
+                  </Label>
+                  <Region prefHeight="0.0" prefWidth="20.0" HBox.hgrow="ALWAYS" />
+               </children>
+            </HBox>
+            <HBox layoutX="25.0" layoutY="178.0" prefHeight="0.0" prefWidth="200.0">
+               <children>
+                  <Region prefHeight="0.0" prefWidth="20.0" HBox.hgrow="ALWAYS" />
+                  <Label text="Clément DEROUET">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                     <tooltip>
+                        <Tooltip text="Graphic Engine - UI" />
+                     </tooltip>
+                  </Label>
+                  <Region prefHeight="0.0" prefWidth="20.0" HBox.hgrow="ALWAYS" />
+               </children>
+            </HBox>
+         </children>
+         <padding>
+            <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+         </padding>
+      </VBox>
+   </children>
+</AnchorPane>

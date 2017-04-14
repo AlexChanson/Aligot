@@ -25,7 +25,7 @@ public class GameLauncher extends Application {
         primaryStage.setMinWidth(450);
         primaryStage.setMinHeight(400);
 
-        primaryStage.setTitle("FXML Welcome");
+        primaryStage.setTitle("Launcher");
         primaryStage.setScene(scene);
         primaryStage.show();
 

@@ -30,8 +30,8 @@
                 </Menu>
                 <Menu mnemonicParsing="false" text="Help">
                   <items>
-                    <MenuItem mnemonicParsing="false" text="About" />
-                        <MenuItem mnemonicParsing="false" text="controls" />
+                    <MenuItem mnemonicParsing="false" onAction="#creditsWindow" text="Credits" />
+                        <MenuItem mnemonicParsing="false" text="Controls" />
                   </items>
                 </Menu>
               </menus>
