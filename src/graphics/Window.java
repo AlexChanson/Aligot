@@ -22,6 +22,8 @@ public class Window {
     private static boolean fullscreenEnabled;
     private static HashMap<Character, Integer> charWidth;
 
+    public static final int TEXT_ALIGN_LEFT = 0, TEXT_ALIGN_CENTER = 1, TEXT_ALIGN_RIGHT = 2;
+
     /**
      * Initializes the window
      * @param title the window title (not visible in fullscreen)
@@ -235,7 +237,7 @@ public class Window {
         glPopMatrix();
     }
 
-    public static void drawText(String text, float x, float y, float size, int maxLineOffset, int r, int g, int b) {
+    public static void drawText(String text, float x, float y, float size, int maxLineOffset, int align, int r, int g, int b) {
         if (maxLineOffset > 0) {
             String path = System.getProperty("user.dir") + "/ressources/font/verdana.png";
 
@@ -246,6 +248,7 @@ public class Window {
             boolean charrReturn = false;
             byte code;
             int indexOf, lineOffset = 0, line = 0;
+            float shift;
             ArrayList<ArrayList<Character>> lineList = new ArrayList<>();
 
             lineList.add(new ArrayList<>());
@@ -294,10 +297,20 @@ public class Window {
             }
 
             for (line = 0; line < lineList.size(); line++) {
+                if (align == 2) {
+                    shift = size * (maxLineOffset - lineList.get(line).size());
+                }
+                else if (align == 1) {
+                    shift = size * (maxLineOffset - lineList.get(line).size()) / 2;
+                }
+                else {
+                    shift = 0;
+                }
+
                 for (lineOffset = 0; lineOffset < lineList.get(line).size(); lineOffset++) {
                     code = (byte) (char) lineList.get(line).get(lineOffset);
 
-                    drawTexture(texture, x + lineOffset * size, y + line * size, size, size, 0f, 1f, (code % 16) * 256, ((int) (code / 16)) * 256, 256, 256, r, g, b);
+                    drawTexture(texture, shift + x + lineOffset * size, y + line * size, size, size, 0f, 1f, (code % 16) * 256, ((int) (code / 16)) * 256, 256, 256, r, g, b);
                 }
             }
         }
