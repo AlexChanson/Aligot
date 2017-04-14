@@ -5,8 +5,6 @@ import org.lwjgl.opengl.GL;
 import java.awt.Color;
 import java.util.HashMap;
 
-import java.awt.*;
-
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.*;
 
