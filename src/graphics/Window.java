@@ -4,7 +4,6 @@ import org.lwjgl.BufferUtils;
 import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.opengl.GL;
 
-import java.lang.reflect.Array;
 import java.nio.IntBuffer;
 import java.util.*;
 
@@ -53,10 +52,16 @@ public class Window {
      * @param texture the texture
      * @param posX the position x
      * @param posY the position y
+     * @param width
+     * @param height
      * @param rotate the degree of rotation
      * @param scale the scale parameter
+     * @param textureX
+     * @param textureY
+     * @param textureWidth
+     * @param textureHeight
      */
-    public static void drawTexture(Texture texture, int posX, int posY, int width, int height, float rotate, float scale, int textureX, int textureY, int textureWidth, int textureHeight, int r, int g, int b) {
+    public static void drawTexture(Texture texture, float posX, float posY, float width, float height, float rotate, float scale, float textureX, float textureY, float textureWidth, float textureHeight, int r, int g, int b) {
         glEnable(GL_TEXTURE_2D);
         glPushMatrix();
 
@@ -68,14 +73,14 @@ public class Window {
         glBindTexture(GL_TEXTURE_2D, texture.getId());
 
         glBegin(GL_QUADS);
-        glTexCoord2f((float) textureX / texture.getWidth(), (float) textureY / texture.getHeight());
-        glVertex2f(-width, -height);
-        glTexCoord2f((float) (textureX + textureWidth) / texture.getWidth(), (float) textureY / texture.getHeight());
-        glVertex2f(width, -height);
-        glTexCoord2f((float) (textureX + textureWidth) / texture.getWidth(), (float) (textureY + textureHeight) / texture.getHeight());
-        glVertex2f(width, height);
-        glTexCoord2f( (float) textureX / texture.getWidth(), (float) (textureY + textureHeight) / texture.getHeight());
-        glVertex2f(-width, height);
+        glTexCoord2f(textureX / texture.getWidth(), textureY / texture.getHeight());
+        glVertex2f(-0.5f * width, -0.5f * height);
+        glTexCoord2f((textureX + textureWidth) / texture.getWidth(), textureY / texture.getHeight());
+        glVertex2f(0.5f * width, -0.5f * height);
+        glTexCoord2f((textureX + textureWidth) / texture.getWidth(), (textureY + textureHeight) / texture.getHeight());
+        glVertex2f(0.5f * width, 0.5f * height);
+        glTexCoord2f( textureX / texture.getWidth(), (textureY + textureHeight) / texture.getHeight());
+        glVertex2f(-0.5f * width, 0.5f * height);
         glEnd();
 
         glPopMatrix();
@@ -87,10 +92,16 @@ public class Window {
      * @param fileName the name of the file
      * @param posX the position on the x axis
      * @param posY the position on the y axis
+     * @param width
+     * @param height
      * @param rotate the degree of rotation
      * @param scale the scale parameter
+     * @param textureX
+     * @param textureY
+     * @param textureWidth
+     * @param textureHeight
      */
-    public static void drawSprite(String fileName, int posX, int posY, int width, int height, float rotate, float scale, int textureX, int textureY, int textureWidth, int textureHeight) {
+    public static void drawSprite(String fileName, float posX, float posY, float width, float height, float rotate, float scale, float textureX, float textureY, float textureWidth, float textureHeight) {
         String path = System.getProperty("user.dir") + "/ressources/sprites/" + fileName;
 
         Texture texture = new Texture(path);
@@ -98,7 +109,7 @@ public class Window {
         drawTexture(texture, posX, posY, width, height, rotate, scale, textureX, textureY, textureWidth, textureHeight, 255, 255, 255);
     }
 
-    public static void drawSprite(String fileName, int posX, int posY, int width, int height, float rotate) {
+    public static void drawSprite(String fileName, float posX, float posY, float width, float height, float rotate) {
         String path = System.getProperty("user.dir") + "/ressources/sprites/" + fileName;
 
         Texture texture = new Texture(path);
@@ -106,7 +117,7 @@ public class Window {
         drawTexture(texture, posX, posY, width, height, rotate, 1f, 0, 0, texture.getWidth(), texture.getHeight(), 255, 255, 255);
     }
 
-    public static void drawSprite(String fileName, int posX, int posY, float rotate, float scale) {
+    public static void drawSprite(String fileName, float posX, float posY, float rotate, float scale) {
         String path = System.getProperty("user.dir") + "/ressources/sprites/" + fileName;
 
         Texture texture = new Texture(path);
@@ -114,7 +125,7 @@ public class Window {
         drawTexture(texture, posX, posY, texture.getWidth(), texture.getHeight(), rotate, scale, 0, 0, texture.getWidth(), texture.getHeight(), 255, 255, 255);
     }
 
-    public static void drawSprite(String fileName, int posX, int posY, int width, int height, float scale, int textureX, int textureY, int textureWidth, int textureHeight) {
+    public static void drawSprite(String fileName, float posX, float posY, float width, float height, float scale, float textureX, float textureY, float textureWidth, float textureHeight) {
         String path = System.getProperty("user.dir") + "/ressources/sprites/" + fileName;
 
         Texture texture = new Texture(path);
@@ -141,8 +152,8 @@ public class Window {
      * @param G the proportion of green (0 to 255)
      * @param B the proportion of blue (0 to 255)
      */
-    public static void drawLine(int x1, int y1, int x2, int y2, float thickness, int R, int G, int B){
-        int minX, minY;
+    public static void drawLine(float x1, float y1, float x2, float y2, float thickness, int R, int G, int B){
+        float minX, minY;
 
         minX = Math.min(x1, x2);
         minY = Math.min(y1, y2);
@@ -178,7 +189,7 @@ public class Window {
      * @param B the proportion of blue
      * @param rotate the degree of rotation
      */
-    public static void drawRectangle(int width, int height, int posX, int posY, int R, int G, int B, float rotate){
+    public static void drawRectangle(float width, float height, float posX, float posY, int R, int G, int B, float rotate){
         glPushMatrix();
 
         glBindTexture(0, 0);
@@ -204,7 +215,7 @@ public class Window {
      * @param G the proportion of green
      * @param B the proportion of blue
      */
-    public static void drawCircle(int posX, int posY, int radius, int R, int G, int B) {
+    public static void drawCircle(float posX, float posY, float radius, int R, int G, int B) {
         double a = 1.0 / radius;
 
         glPushMatrix();
@@ -224,7 +235,7 @@ public class Window {
         glPopMatrix();
     }
 
-    public static void drawText(String text, int x, int y, int size, int maxLineOffset, int r, int g, int b) {
+    public static void drawText(String text, float x, float y, float size, int maxLineOffset, int r, int g, int b) {
         if (maxLineOffset > 0) {
             String path = System.getProperty("user.dir") + "/ressources/font/verdana.png";
 
