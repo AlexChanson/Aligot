@@ -20,7 +20,7 @@ import static org.lwjgl.opengl.GL11.*;
  */
 public class Window {
     private static long window;
-    private static int monitor = 1;
+    private static int monitor = 0;
     private static HashMap<Character, Integer> charWidth;
 
     /**
@@ -284,13 +284,32 @@ public class Window {
     }
 
     private static GLFWVidMode videoMode() {
-        return glfwGetVideoMode(getMonitor());
+        return glfwGetVideoMode(getMonitorId());
     }
 
-    private static long getMonitor() {
-        return glfwGetMonitors().get(0);
+    private static long getMonitorId() {
+        return glfwGetMonitors().get(monitor);
     }
 
+    public static void setMonitor(int m) {
+        if (m != monitor) {
+            monitor = m;
+
+            glfwSetWindowMonitor(window, getMonitorId(), 0, 0, getWidth(), getHeight(), 0);
+        }
+    }
+
+    public static int getMonitor() {
+        return monitor;
+    }
+
+    public static int countMonitors() {
+        return glfwGetMonitors().limit();
+    }
+
+    public static Texture getTexture(String fileName){
+        return Texture.getTexture(System.getProperty("user.dir") + "/ressources/sprites/" + fileName);
+    }
 
     /**
      * @return the window id
