@@ -76,13 +76,13 @@ public class Window {
 
         glBegin(GL_QUADS);
         glTexCoord2f(textureX / texture.getWidth(), textureY / texture.getHeight());
-        glVertex2f(-0.5f * width, -0.5f * height);
+        glVertex2f(0, 0);
         glTexCoord2f((textureX + textureWidth) / texture.getWidth(), textureY / texture.getHeight());
-        glVertex2f(0.5f * width, -0.5f * height);
+        glVertex2f(width, 0);
         glTexCoord2f((textureX + textureWidth) / texture.getWidth(), (textureY + textureHeight) / texture.getHeight());
-        glVertex2f(0.5f * width, 0.5f * height);
+        glVertex2f(width, height);
         glTexCoord2f( textureX / texture.getWidth(), (textureY + textureHeight) / texture.getHeight());
-        glVertex2f(-0.5f * width, 0.5f * height);
+        glVertex2f(0, height);
         glEnd();
 
         glPopMatrix();
@@ -191,18 +191,17 @@ public class Window {
      * @param B the proportion of blue
      * @param rotate the degree of rotation
      */
-    public static void drawRectangle(float width, float height, float posX, float posY, int R, int G, int B, float rotate){
+    public static void drawRectangle(float posX, float posY, float width, float height, int R, int G, int B, float rotate){
         glPushMatrix();
 
-        glBindTexture(0, 0);
         glTranslatef(posX, posY, 0);
         glColor3f(((float) R) / 255.0f, ((float) G) / 255.0f, ((float) B) / 255.0f);
 
         glBegin(GL_QUADS);
-        glVertex2f(-width, -height);
-        glVertex2f(-width, height);
+        glVertex2f(0, 0);
+        glVertex2f(0, height);
         glVertex2f(width, height);
-        glVertex2f(width, -height);
+        glVertex2f(width, 0);
         glEnd();
 
         glPopMatrix();

@@ -40,9 +40,10 @@ public class MainFrame {
                 Window.drawSprite("carre.png", 22 + j * 4, 22 + j * 4, 20, 20, 0, 1, 50, 50, 20, 20);
             }
             Window.drawSprite("dammier.png", 720, 270, 160, 160, 0, 1f, 160, 160, 320, 320);
-            Window.drawText("test 1\ntest 2 ut ornare urna ullamcorper nec. Donec in massa suscipit, ullamcorper orci eu, facilisis ante. Fusce eleifend eget neque ac blandit", 128, 128, 16, 10, Window.TEXT_ALIGN_CENTER, 0, 255, 255);
+            Window.drawRectangle(20, 20, 0, 0, 255, 0, 0, 0);
+            Window.drawText("test 1\ntest 2 ut ornare urna ullamcorper nec. Donec in massa suscipit, ullamcorper orci eu, facilisis ante. Fusce eleifend eget neque ac blandit", 0, 0, 16, 10, Window.TEXT_ALIGN_CENTER, 0, 255, 255);
 
-            Button b = new Button("coucou", 1600, 800, 80, 50);
+            Button b = new Button("coucou", 300, 300, 80, 50);
             b.draw();
 
             Window.swapBuffers();
