@@ -2,11 +2,11 @@ package graphics.gui;
 
 import graphics.Window;
 
-/**
- * Created by Christopher on 10/04/2017.
- */
+import java.util.ArrayList;
+
 public class Button {
-    private String path;
+    private ArrayList<ButtonGUIListener> listeners;
+    private String texture;
     private String text;
     private int posX;
     private int posY;
@@ -14,6 +14,7 @@ public class Button {
     private int height;
 
     public Button (String text, int posX, int posY, int width, int height){
+        listeners = new ArrayList<>();
         this.text = text;
         this.posX = posX;
         this.posY = posY;
@@ -21,8 +22,9 @@ public class Button {
         this.height = height;
     }
 
-    public Button (String path, String text, int posX, int posY, int width, int height) {
-        this.path = path;
+    public Button (String texture, String text, int posX, int posY, int width, int height) {
+        listeners = new ArrayList<>();
+        this.texture = texture;
         this.text = text;
         this.posX = posX;
         this.posY = posY;
@@ -31,20 +33,29 @@ public class Button {
     }
 
     public void draw() {
-        if(path != null)
-            Window.drawSprite(path, posX, posY, width, height, 0);
+        if(texture != null)
+            Window.drawSprite(texture, posX, posY, width, height, 0);
         else
-            Window.drawRectangle(posX, posY, width, height, 128, 128, 128, 0f);
+            Window.drawRectangle(posX, posY, width, height,128, 128, 128, 0f);
         if (text != null)
-            Window.drawText(text, posX, posY, height, 16, Window.TEXT_ALIGN_LEFT, 10, 0, 100);
+            Window.drawText(text, posX, posY + this.height / 4, this.height / 2, this.width, Window.TEXT_ALIGN_LEFT, 10, 0, 100, true);
     }
 
-    public String getPath() {
-        return path;
+    public void addListener(GUIListener guiListener){
+        listeners.add(new ButtonGUIListener(posX, posX + width,posY, posY + height) {
+            @Override
+            public void execute() {
+                guiListener.execute();
+            }
+        });
     }
 
-    public void setPath(String path) {
-        this.path = path;
+    public String getTexture() {
+        return texture;
+    }
+
+    public void setTexture(String texture) {
+        this.texture = texture;
     }
 
     public String getText() {

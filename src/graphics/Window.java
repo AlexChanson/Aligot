@@ -1,6 +1,8 @@
 package graphics;
 
+import graphics.gui.ButtonGUIListener;
 import org.lwjgl.BufferUtils;
+import org.lwjgl.glfw.GLFWMouseButtonCallback;
 import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.opengl.GL;
 
@@ -21,6 +23,7 @@ public class Window {
     private static int monitor = 0, width = 1024, height = 640;
     private static boolean fullscreenEnabled;
     private static HashMap<Character, Integer> charWidth;
+    private static ArrayList<ButtonGUIListener> buttonListeners = new ArrayList<>();
 
     public static final int TEXT_ALIGN_LEFT = 0, TEXT_ALIGN_CENTER = 1, TEXT_ALIGN_RIGHT = 2;
 
@@ -47,6 +50,23 @@ public class Window {
         } catch (IllegalStateException e) {
             System.out.println("Failed to create window");
         }
+
+        glfwSetMouseButtonCallback(window, new GLFWMouseButtonCallback() {
+            @Override
+            public void invoke(long fenetre, int button, int action, int mods) {
+                if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS){
+                    buttonListeners.forEach(buttonGUIListener -> {
+                        //TODO call the execute method if the button is under the cursor
+                    });
+                }
+            }
+        });
+
+        System.out.println("Window initialisation complete !");
+    }
+
+    public static void registerButtonListener(ButtonGUIListener listener){
+        buttonListeners.add(listener);
     }
 
     /**
@@ -236,13 +256,15 @@ public class Window {
         glPopMatrix();
     }
 
-    public static void drawText(String text, float x, float y, float size, int maxLineOffset, int align, int r, int g, int b) {
-        if (maxLineOffset > 0) {
-            String path = System.getProperty("user.dir") + "/ressources/font/ubuntu_mono.png";
+    public static void drawText(String text, float x, float y, float size, float lineWidth, int align, int r, int g, int b, boolean monoline) {
+        String path = System.getProperty("user.dir") + "/ressources/font/ubuntu_mono.png";
 
-            Texture texture = new Texture(path);
+        Texture texture = new Texture(path);
 
-            float charWidth = texture.getWidth() / 16, charHeight = texture.getHeight() / 16, displayCharWidth = size * charWidth / charHeight;
+        float charHeight = texture.getHeight() / 16, charWidth = texture.getWidth() / 16, displayCharWidth = size * charWidth / charHeight;
+
+        if (lineWidth >= displayCharWidth) {
+            int maxLineOffset = (int) (lineWidth / displayCharWidth);
             ArrayList<String> words = new ArrayList<>();
             String word, substr1, substr2;
             boolean charrReturn = false;
@@ -294,7 +316,7 @@ public class Window {
                 lineOffset++;
             }
 
-            for (line = 0; line < lineList.size(); line++) {
+            for (line = 0; line < lineList.size() && !monoline || line < 1; line++) {
                 if (align == 2) {
                     shift = displayCharWidth * (maxLineOffset - lineList.get(line).size());
                 }
