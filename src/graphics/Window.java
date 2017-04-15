@@ -155,13 +155,6 @@ public class Window {
         drawTexture(texture, posX, posY, width, height,0, scale, textureX, textureY, textureWidth, textureHeight, 255, 255, 255);
     }
 
-    /*public static void drawSprite(String fileName, int posX, int posY, float rotate, float scale, Color tint) {
-        String path = System.getProperty("user.dir") + "/ressources/sprites/" + fileName;
-
-        Texture texture = new Texture(path, tint);
-
-        drawTexture(texture, posX, posY, texture.getWidth(), texture.getHeight(), rotate, scale, 0, 0, texture.getWidth(), texture.getHeight(), 255, 255, 255);
-    }*/
 
     /**
      * Draws a line in the window
