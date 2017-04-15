@@ -10,6 +10,7 @@
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
@@ -31,7 +32,7 @@
                 <Menu mnemonicParsing="false" text="Help">
                   <items>
                     <MenuItem mnemonicParsing="false" onAction="#creditsWindow" text="Credits" />
-                        <MenuItem mnemonicParsing="false" text="Controls" />
+                        <MenuItem mnemonicParsing="false" onAction="#controlsWindow" text="Controls" />
                   </items>
                 </Menu>
               </menus>
@@ -89,7 +90,10 @@
                                        <children>
                                           <Label text="Fullscreen:" />
                                           <Region prefHeight="0.0" prefWidth="0.0" HBox.hgrow="ALWAYS" />
-                                          <CheckBox minHeight="18.0" minWidth="18.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="18.0" />
+                                          <CheckBox minHeight="18.0" minWidth="18.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="18.0">
+                                             <tooltip>
+                                                <Tooltip text="Warning: can cause problems with multiple monitors" />
+                                             </tooltip></CheckBox>
                                        </children>
                                     </HBox>
                                  </children>

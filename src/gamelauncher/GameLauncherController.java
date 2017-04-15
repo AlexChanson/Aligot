@@ -58,6 +58,26 @@ public class GameLauncherController {
     }
 
     @FXML
+    public void controlsWindow(){
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("controls.fxml"));
+        Parent root = null;
+        try {
+            root = fxmlLoader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        Scene scene = new Scene(root, 400, 400);
+        Stage primaryStage = new Stage();
+        primaryStage.setMinWidth(400);
+        primaryStage.setMinHeight(400);
+
+        primaryStage.setTitle("Controls");
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
+
+    @FXML
     public void creditsWindow(){
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("credits.fxml"));
         Parent root = null;
