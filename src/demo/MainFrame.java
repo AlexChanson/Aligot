@@ -15,16 +15,22 @@ import static org.lwjgl.glfw.GLFW.glfwTerminate;
 public class MainFrame {
     public static void main(String[] args) {
         Window.init("Space Shooter", false);
-        Button button = new Button ("ecranoption_boutonaccueil.png", "MDR",100, 100, Window.getTexture("ecranoption_boutonaccueil.png").getWidth(), Window.getTexture("ecranoption_boutonaccueil.png").getHeight());
+        Button button = new Button ("ecranoption_boutonaccueil.png", "MDR",500, 500, Window.getTexture("ecranoption_boutonaccueil.png").getWidth(), Window.getTexture("ecranoption_boutonaccueil.png").getHeight());
+        button.addListener(() -> System.out.println("Hello Button !"));
+        Window.registerButtonListener(button.getListeners());
         int i = 0;
 
         glEnable(GL_BLEND);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
         while (Window.shouldClose()) {
-            Window.loopStart();
+            glClear(GL_COLOR_BUFFER_BIT);
+            glMatrixMode(GL_PROJECTION);
+            glLoadIdentity();
+            glOrtho(0, Window.getWidth(), Window.getHeight(), 0, -1, 1);
 
-            button.draw();
+            glViewport(0, 0, Window.getWidth(), Window.getHeight());
+            glMatrixMode(GL_MODELVIEW);
 
             Window.drawLine(100, 100, 300, 300, 180, 255, 128, 0);
             Window.drawRectangle(100, 200, 500 + (int) (Math.cos(i / 100.0) * 200), 540, 200, 0, 0, 0);
@@ -37,11 +43,10 @@ public class MainFrame {
             Window.drawSprite("dammier.png", 720, 270, 160, 160, 0, 1f, 160, 160, 320, 320);
             Window.drawRectangle(20, 20, 0, 0, 255, 0, 0, 0);
             Window.drawText("test 1\ntest 2 ut ornare urna ullamcorper nec. Donec in massa suscipit, ullamcorper orci eu, facilisis ante. Fusce eleifend eget neque ac blandit", 0, 0, 16, 300, Window.TEXT_ALIGN_CENTER, 0, 255, 255, false);
+            button.draw();
 
-            Button b = new Button("coucou", 300, 300, 80, 50);
-            b.draw();
-
-            Window.loopEnd();
+            Window.swapBuffers();
+            glfwPollEvents();
 
             i++;
         }

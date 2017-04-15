@@ -1,6 +1,7 @@
 package graphics;
 
 import graphics.gui.ButtonGUIListener;
+import graphics.gui.GUIListener;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.glfw.GLFWMouseButtonCallback;
 import org.lwjgl.glfw.GLFWVidMode;
@@ -25,7 +26,7 @@ public class Window {
     private static int monitor = 0, width = 1024, height = 640;
     private static boolean fullscreenEnabled;
     private static HashMap<Character, Integer> charWidth;
-    private static ArrayList<ButtonGUIListener> buttonListeners = new ArrayList<>();
+    public static ArrayList<ButtonGUIListener> buttonListeners = new ArrayList<>();
 
     public static final int TEXT_ALIGN_LEFT = 0, TEXT_ALIGN_CENTER = 1, TEXT_ALIGN_RIGHT = 2;
 
@@ -56,9 +57,12 @@ public class Window {
         glfwSetMouseButtonCallback(window, new GLFWMouseButtonCallback() {
             @Override
             public void invoke(long fenetre, int button, int action, int mods) {
+                int[] cursor = getMousePos();
                 if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS){
                     buttonListeners.forEach(buttonGUIListener -> {
-                        //TODO call the execute method if the button is under the cursor
+                        if(cursor[0] >= buttonGUIListener.button.getPosX() && cursor[0] <= buttonGUIListener.button.getPosX() + buttonGUIListener.button.getWidth())
+                            if(cursor[1] >= buttonGUIListener.button.getPosY() && cursor[1] <= buttonGUIListener.button.getPosY() + buttonGUIListener.button.getHeight())
+                                buttonGUIListener.execute();
                     });
                 }
             }
@@ -88,8 +92,12 @@ public class Window {
         return new int[] { (int) x.get(), (int) y.get() };
     }
 
-    public static void registerButtonListener(ButtonGUIListener listener){
-        buttonListeners.add(listener);
+    public static void registerButtonListener(ButtonGUIListener... listeners){
+        buttonListeners.addAll(Arrays.asList(listeners));
+    }
+
+    public static void registerButtonListener(ArrayList<ButtonGUIListener> listeners){
+        buttonListeners.addAll(listeners);
     }
 
     /**

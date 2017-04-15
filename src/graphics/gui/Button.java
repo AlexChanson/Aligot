@@ -62,4 +62,7 @@ public class Button extends GUIComponent{
         this.text = text;
     }
 
+    public ArrayList<ButtonGUIListener> getListeners() {
+        return listeners;
+    }
 }
