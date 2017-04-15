@@ -42,7 +42,7 @@ public class Button {
     }
 
     public void addListener(GUIListener guiListener){
-        listeners.add(new ButtonGUIListener(posX, posX + width,posY, posY + height) {
+        listeners.add(new ButtonGUIListener(this) {
             @Override
             public void execute() {
                 guiListener.execute();
