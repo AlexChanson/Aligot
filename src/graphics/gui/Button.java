@@ -36,7 +36,7 @@ public class Button {
         else
             Window.drawRectangle(posX, posY, width, height, 128, 128, 128, 0f);
         if (text != null)
-            Window.drawText(text, posX, posY, height, 16, Window.TEXT_ALIGN_LEFT, 10, 0, 100);
+            Window.drawText(text, posX, posY + this.height / 4, this.height / 2, this.width, Window.TEXT_ALIGN_LEFT, 10, 0, 100, true);
     }
 
     public String getPath() {

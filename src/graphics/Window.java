@@ -236,13 +236,15 @@ public class Window {
         glPopMatrix();
     }
 
-    public static void drawText(String text, float x, float y, float size, int maxLineOffset, int align, int r, int g, int b) {
-        if (maxLineOffset > 0) {
-            String path = System.getProperty("user.dir") + "/ressources/font/ubuntu_mono.png";
+    public static void drawText(String text, float x, float y, float size, float lineWidth, int align, int r, int g, int b, boolean monoline) {
+        String path = System.getProperty("user.dir") + "/ressources/font/ubuntu_mono.png";
 
-            Texture texture = new Texture(path);
+        Texture texture = new Texture(path);
 
-            float charWidth = texture.getWidth() / 16, charHeight = texture.getHeight() / 16, displayCharWidth = size * charWidth / charHeight;
+        float charHeight = texture.getHeight() / 16, charWidth = texture.getWidth() / 16, displayCharWidth = size * charWidth / charHeight;
+
+        if (lineWidth >= displayCharWidth) {
+            int maxLineOffset = (int) (lineWidth / displayCharWidth);
             ArrayList<String> words = new ArrayList<>();
             String word, substr1, substr2;
             boolean charrReturn = false;
@@ -294,7 +296,7 @@ public class Window {
                 lineOffset++;
             }
 
-            for (line = 0; line < lineList.size(); line++) {
+            for (line = 0; line < lineList.size() && !monoline || line < 1; line++) {
                 if (align == 2) {
                     shift = displayCharWidth * (maxLineOffset - lineList.get(line).size());
                 }
