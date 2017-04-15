@@ -239,10 +239,11 @@ public class Window {
 
     public static void drawText(String text, float x, float y, float size, int maxLineOffset, int align, int r, int g, int b) {
         if (maxLineOffset > 0) {
-            String path = System.getProperty("user.dir") + "/ressources/font/verdana.png";
+            String path = System.getProperty("user.dir") + "/ressources/font/ubuntu_mono.png";
 
             Texture texture = new Texture(path);
 
+            float charWidth = texture.getWidth() / 16, charHeight = texture.getHeight() / 16, displayCharWidth = size * charWidth / charHeight;
             ArrayList<String> words = new ArrayList<>();
             String word, substr1, substr2;
             boolean charrReturn = false;
@@ -286,10 +287,8 @@ public class Window {
                 for (char c : word.toCharArray()) {
                     code = (byte) c;
 
-                    if (code >= 32 && code < 128 || code >= 160) {
-                        lineList.get(line).add(c);
-                        lineOffset++;
-                    }
+                    lineList.get(line).add(code >= 32 && code < 128 || code >= 160 ? c : (char) 127);
+                    lineOffset++;
                 }
 
                 lineList.get(line).add(' ');
@@ -298,10 +297,10 @@ public class Window {
 
             for (line = 0; line < lineList.size(); line++) {
                 if (align == 2) {
-                    shift = size * (maxLineOffset - lineList.get(line).size());
+                    shift = displayCharWidth * (maxLineOffset - lineList.get(line).size());
                 }
                 else if (align == 1) {
-                    shift = size * (maxLineOffset - lineList.get(line).size()) / 2;
+                    shift = displayCharWidth * (maxLineOffset - lineList.get(line).size()) / 2;
                 }
                 else {
                     shift = 0;
@@ -310,7 +309,7 @@ public class Window {
                 for (lineOffset = 0; lineOffset < lineList.get(line).size(); lineOffset++) {
                     code = (byte) (char) lineList.get(line).get(lineOffset);
 
-                    drawTexture(texture, shift + x + lineOffset * size, y + line * size, size, size, 0f, 1f, (code % 16) * 256, ((int) (code / 16)) * 256, 256, 256, r, g, b);
+                    drawTexture(texture, shift + x + lineOffset * displayCharWidth, y + line * size, displayCharWidth, size, 0f, 1f, (code % 16) * charWidth, ((int) (code / 16)) * charHeight, charWidth, charHeight, r, g, b);
                 }
             }
         }
