@@ -26,15 +26,19 @@ public class GraphicsEngine {
                 return 1;
             return 0;
         });
-        Window.buttonListeners.clear();
+        Window.callBackContainers.clear();
         guiComponents.forEach(guiComponent -> {
             if (guiComponent instanceof Button)
-                Window.buttonListeners.addAll(((Button) guiComponent).getListeners());
+                Window.callBackContainers.addAll(((Button) guiComponent).getListeners());
             guiComponent.draw();
         });
     }
 
     public void registerGUIComponents(GUIComponent... guiComponents){
         this.guiComponents.addAll(Arrays.asList(guiComponents));
+    }
+
+    public ArrayList<GUIComponent> getGuiComponents() {
+        return guiComponents;
     }
 }

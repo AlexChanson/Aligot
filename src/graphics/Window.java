@@ -1,13 +1,10 @@
 package graphics;
 
-import graphics.gui.ButtonGUIListener;
-import graphics.gui.GUIListener;
+import graphics.gui.CallBackContainer;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.glfw.GLFWMouseButtonCallback;
 import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.opengl.GL;
-
-import java.nio.ByteOrder;
 import java.nio.DoubleBuffer;
 import java.nio.IntBuffer;
 import java.util.*;
@@ -26,7 +23,7 @@ public class Window {
     private static int monitor = 0, width = 1024, height = 640;
     private static boolean fullscreenEnabled;
     private static HashMap<Character, Integer> charWidth;
-    public static ArrayList<ButtonGUIListener> buttonListeners = new ArrayList<>();
+    public static ArrayList<CallBackContainer> callBackContainers = new ArrayList<>();
 
     public static final int TEXT_ALIGN_LEFT = 0, TEXT_ALIGN_CENTER = 1, TEXT_ALIGN_RIGHT = 2;
 
@@ -59,10 +56,10 @@ public class Window {
             public void invoke(long fenetre, int button, int action, int mods) {
                 int[] cursor = getMousePos();
                 if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS){
-                    buttonListeners.forEach(buttonGUIListener -> {
-                        if(cursor[0] >= buttonGUIListener.button.getPosX() && cursor[0] <= buttonGUIListener.button.getPosX() + buttonGUIListener.button.getWidth())
-                            if(cursor[1] >= buttonGUIListener.button.getPosY() && cursor[1] <= buttonGUIListener.button.getPosY() + buttonGUIListener.button.getHeight())
-                                buttonGUIListener.execute();
+                    callBackContainers.forEach(container -> {
+                        if(cursor[0] >= container.getGuiComponent().getPosX() && cursor[0] <= container.getGuiComponent().getPosX() + container.getGuiComponent().getWidth())
+                            if(cursor[1] >= container.getGuiComponent().getPosY() && cursor[1] <= container.getGuiComponent().getPosY() + container.getGuiComponent().getHeight())
+                                container.execute();
                     });
                 }
             }
@@ -95,12 +92,12 @@ public class Window {
         return new int[] { (int) x.get(), (int) y.get() };
     }
 
-    public static void registerButtonListener(ButtonGUIListener... listeners){
-        buttonListeners.addAll(Arrays.asList(listeners));
+    public static void registerButtonListener(CallBackContainer... listeners){
+        callBackContainers.addAll(Arrays.asList(listeners));
     }
 
-    public static void registerButtonListener(ArrayList<ButtonGUIListener> listeners){
-        buttonListeners.addAll(listeners);
+    public static void registerButtonListener(ArrayList<CallBackContainer> listeners){
+        callBackContainers.addAll(listeners);
     }
 
     /**

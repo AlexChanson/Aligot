@@ -2,8 +2,8 @@ package demo;
 
 import graphics.Window;
 import graphics.gui.Button;
-
-import static org.lwjgl.opengl.GL11.*;
+import graphics.gui.CallBackContainer;
+import graphics.gui.GUIListener;
 
 import static org.lwjgl.glfw.GLFW.glfwTerminate;
 
@@ -13,9 +13,8 @@ public class MainFrame {
         Button button = new Button ("ecranoption_boutonaccueil.png", "MDR",500, 500, Window.getTexture("ecranoption_boutonaccueil.png").getWidth(), Window.getTexture("ecranoption_boutonaccueil.png").getHeight());
         button.addListener(() -> System.out.println("Hello Button !"));
         Window.registerButtonListener(button.getListeners());
-        int i = 0;
 
-        while (Window.shouldClose()) {
+        for (int i = 0; Window.shouldClose(); ++i) {
             Window.loopStart();
 
             Window.drawLine(100, 100, 300, 300, 180, 255, 128, 0);
@@ -32,7 +31,6 @@ public class MainFrame {
             button.draw();
 
             Window.loopEnd();
-            ++i;
         }
         glfwTerminate();
     }

@@ -5,7 +5,7 @@ import graphics.Window;
 import java.util.ArrayList;
 
 public class Button extends GUIComponent{
-    private ArrayList<ButtonGUIListener> listeners;
+    private ArrayList<CallBackContainer> listeners;
     private String texture;
     private String text;
 
@@ -38,12 +38,7 @@ public class Button extends GUIComponent{
     }
 
     public void addListener(GUIListener guiListener){
-        listeners.add(new ButtonGUIListener(this) {
-            @Override
-            public void execute() {
-                guiListener.execute();
-            }
-        });
+        listeners.add(new CallBackContainer(this, guiListener));
     }
 
     public String getTexture() {
@@ -62,7 +57,7 @@ public class Button extends GUIComponent{
         this.text = text;
     }
 
-    public ArrayList<ButtonGUIListener> getListeners() {
+    public ArrayList<CallBackContainer> getListeners() {
         return listeners;
     }
 }
