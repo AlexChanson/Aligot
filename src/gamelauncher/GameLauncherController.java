@@ -1,8 +1,10 @@
 package gamelauncher;
 
 import core.Event;
+import demo.Game;
 import demo.MainFrame;
 import editor.EditorRun;
+import editor.FxUtils;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -10,6 +12,9 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.TextField;
+import javafx.scene.control.TextFormatter;
 import javafx.scene.input.InputEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -25,9 +30,22 @@ public class GameLauncherController {
 
     @FXML
     private AnchorPane masterAnchor;
+    @FXML
+    private TextField screenWidthField;
+    @FXML
+    private TextField screenHeightField;
+    @FXML
+    private TextField player_1_Field;
+    @FXML
+    private TextField player_2_Field;
+    @FXML
+    private CheckBox fullscreenCheckBox;
+
+    private GameStart game;
 
     public void initialize(){
-
+        screenWidthField.setTextFormatter(new TextFormatter<>(FxUtils.filter));
+        game = new Game();
     }
 
     @FXML
@@ -38,8 +56,13 @@ public class GameLauncherController {
     @FXML
     public void launchGame(){
         Thread t = new Thread(() -> {
-            String[] args = {};
-            MainFrame.main(args);
+            int width = Integer.parseInt(screenWidthField.getText());
+            int height = Integer.parseInt(screenHeightField.getText());
+            boolean fullscreen = fullscreenCheckBox.isSelected();
+            String player1_name = player_1_Field.getText();
+            String player2_name = player_2_Field.getText();
+
+            game.start(height, width, fullscreen, player1_name, player2_name);
         });
         t.start();
 

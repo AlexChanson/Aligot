@@ -7,9 +7,9 @@ import javafx.util.StringConverter;
 
 import java.util.function.UnaryOperator;
 
-class FxUtils {
+public class FxUtils {
 
-    static UnaryOperator<TextFormatter.Change> filter = t -> {
+    public static UnaryOperator<TextFormatter.Change> filter = t -> {
 
         if (t.isReplaced())
             if(t.getText().matches("[^0-9]"))
@@ -23,7 +23,7 @@ class FxUtils {
         return t;
     };
 
-    static UnaryOperator<TextFormatter.Change> doubleFilter = t -> {
+    public static UnaryOperator<TextFormatter.Change> doubleFilter = t -> {
         if (t.isReplaced())
             if(t.getText().matches("[^0-9eE.]"))
                 t.setText(t.getControlText().substring(t.getRangeStart(), t.getRangeEnd()));
@@ -53,7 +53,7 @@ class FxUtils {
         return t;
     };
 
-    static StringConverter<Number> converter = new StringConverter<Number>() {
+    public static StringConverter<Number> converter = new StringConverter<Number>() {
         @Override
         public Integer fromString(String s) {
             try{
@@ -69,7 +69,7 @@ class FxUtils {
         }
     };
 
-    static void drawCursor(GraphicsContext gc, double x, double y) {
+    public static void drawCursor(GraphicsContext gc, double x, double y) {
         gc.setStroke(Color.YELLOW);
         gc.strokeLine(x-10,y,x+10,y);
         gc.strokeLine(x,y-10,x,y+10);

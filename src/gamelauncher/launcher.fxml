@@ -68,7 +68,7 @@
                                        <children>
                                           <Label text="Game width:" />
                                           <Region prefHeight="0.0" prefWidth="0.0" HBox.hgrow="ALWAYS" />
-                                          <TextField alignment="TOP_RIGHT" prefHeight="26.0" prefWidth="102.0" text="1280">
+                                          <TextField fx:id="screenWidthField" alignment="TOP_RIGHT" prefHeight="26.0" prefWidth="102.0" text="1280">
                                              <HBox.margin>
                                                 <Insets />
                                              </HBox.margin>
@@ -79,7 +79,7 @@
                                        <children>
                                           <Label text="Game height:" />
                                           <Region prefHeight="0.0" prefWidth="0.0" HBox.hgrow="ALWAYS" />
-                                          <TextField alignment="TOP_RIGHT" prefHeight="26.0" prefWidth="102.0" text="720">
+                                          <TextField fx:id="screenHeightField" alignment="TOP_RIGHT" prefHeight="26.0" prefWidth="102.0" text="720">
                                              <HBox.margin>
                                                 <Insets />
                                              </HBox.margin>
@@ -90,7 +90,7 @@
                                        <children>
                                           <Label text="Fullscreen:" />
                                           <Region prefHeight="0.0" prefWidth="0.0" HBox.hgrow="ALWAYS" />
-                                          <CheckBox minHeight="18.0" minWidth="18.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="18.0">
+                                          <CheckBox fx:id="fullscreenCheckBox" minHeight="18.0" minWidth="18.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="18.0">
                                              <tooltip>
                                                 <Tooltip text="Warning: can cause problems with multiple monitors" />
                                              </tooltip></CheckBox>
@@ -112,7 +112,7 @@
                                        <children>
                                           <Label text="Player 1 name:" />
                                           <Region prefHeight="0.0" prefWidth="0.0" HBox.hgrow="ALWAYS" />
-                                          <TextField alignment="TOP_RIGHT" prefHeight="26.0" prefWidth="102.0" text="player_1">
+                                          <TextField fx:id="player_1_Field" alignment="TOP_RIGHT" prefHeight="26.0" prefWidth="102.0" text="player_1">
                                              <HBox.margin>
                                                 <Insets />
                                              </HBox.margin>
@@ -123,7 +123,7 @@
                                        <children>
                                           <Label text="Player 2 name:" />
                                           <Region prefHeight="0.0" prefWidth="0.0" HBox.hgrow="ALWAYS" />
-                                          <TextField alignment="TOP_RIGHT" prefHeight="26.0" prefWidth="102.0" text="player_2">
+                                          <TextField fx:id="player_2_Field" alignment="TOP_RIGHT" prefHeight="26.0" prefWidth="102.0" text="player_2">
                                              <HBox.margin>
                                                 <Insets />
                                              </HBox.margin>
