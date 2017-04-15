@@ -3,15 +3,9 @@ package demo;
 import gamelauncher.GameStart;
 import graphics.Window;
 import physics.*;
-
-import static org.lwjgl.glfw.GLFW.glfwPollEvents;
 import static org.lwjgl.glfw.GLFW.glfwTerminate;
-import static org.lwjgl.opengl.GL11.*;
-import static org.lwjgl.opengl.GL11.GL_MODELVIEW;
 
-/**
- * Created by ben on 15/04/17.
- */
+
 public class Game implements GameStart {
     @Override
     public void start(int screenHeight, int screenWidth, boolean fullscreen, String firstPlayerName, String secondPlayerName) {

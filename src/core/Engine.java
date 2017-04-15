@@ -15,6 +15,7 @@ import java.util.ArrayList;
  * @author Alexandre 
  */
 public class Engine {
+    private static Engine engine;
     private FiniteStateMachine gameState;
     private Simulator physicsEngine;
     private ArrayList<Solver> solvers;
@@ -28,6 +29,7 @@ public class Engine {
         this.p1 = p1;
         this.p2 = p2;
         initialize();
+        engine = this;
     }
 
     private void initialize(){
@@ -66,7 +68,7 @@ public class Engine {
      * Registers an event to the solvers
      * @param event The event to register
      */
-    public void registerEvent(Event event){
+    private void registerEvent(Event event){
         solvers.forEach(solver -> solver.registerEvent(event));
     }
 
@@ -96,5 +98,14 @@ public class Engine {
      */
     public void setTimeStep(double timeStep) {
         this.timeStep = timeStep;
+    }
+
+    public static void notify(Event event){
+        if (engine != null)
+            engine.registerEvent(event);
+    }
+
+    public static Engine getEngine(){
+        return engine;
     }
 }

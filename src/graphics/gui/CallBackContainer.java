@@ -3,6 +3,10 @@ package graphics.gui;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
+/**
+ * @author Alexandre
+ * A weird thing I made to store the callback code for the interface Buttons
+ */
 public class CallBackContainer {
     private GUIComponent guiComponent;
     private GUIListener guiListener;
@@ -26,10 +30,8 @@ public class CallBackContainer {
     public void execute() {
         try {
             run.invoke(guiListener);
-        } catch (IllegalAccessException e) {
+        } catch (IllegalAccessException | InvocationTargetException e) {
             e.printStackTrace();
-        } catch (InvocationTargetException e1) {
-            e1.printStackTrace();
         }
     }
 }
