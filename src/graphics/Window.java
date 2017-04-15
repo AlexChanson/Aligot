@@ -6,6 +6,8 @@ import org.lwjgl.glfw.GLFWMouseButtonCallback;
 import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.opengl.GL;
 
+import java.nio.ByteOrder;
+import java.nio.DoubleBuffer;
 import java.nio.IntBuffer;
 import java.util.*;
 
@@ -63,6 +65,13 @@ public class Window {
         });
 
         System.out.println("Window initialisation complete !");
+    }
+
+    public static int[] getMousePos() {
+        DoubleBuffer x = BufferUtils.createDoubleBuffer(1), y = BufferUtils.createDoubleBuffer(1);
+        glfwGetCursorPos(window, x, y);
+
+        return new int[] { (int) x.get(), (int) y.get() };
     }
 
     public static void registerButtonListener(ButtonGUIListener listener){
