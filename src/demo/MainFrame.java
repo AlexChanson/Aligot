@@ -5,11 +5,6 @@ import graphics.gui.Button;
 
 import static org.lwjgl.opengl.GL11.*;
 
-/**
- * Created by Christopher on 14/03/2017.
- */
-
-import static org.lwjgl.glfw.GLFW.glfwPollEvents;
 import static org.lwjgl.glfw.GLFW.glfwTerminate;
 
 public class MainFrame {
@@ -24,13 +19,7 @@ public class MainFrame {
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
         while (Window.shouldClose()) {
-            glClear(GL_COLOR_BUFFER_BIT);
-            glMatrixMode(GL_PROJECTION);
-            glLoadIdentity();
-            glOrtho(0, Window.getWidth(), Window.getHeight(), 0, -1, 1);
-
-            glViewport(0, 0, Window.getWidth(), Window.getHeight());
-            glMatrixMode(GL_MODELVIEW);
+            Window.loopStart();
 
             Window.drawLine(100, 100, 300, 300, 180, 255, 128, 0);
             Window.drawRectangle(100, 200, 500 + (int) (Math.cos(i / 100.0) * 200), 540, 200, 0, 0, 0);
@@ -45,10 +34,8 @@ public class MainFrame {
             Window.drawText("test 1\ntest 2 ut ornare urna ullamcorper nec. Donec in massa suscipit, ullamcorper orci eu, facilisis ante. Fusce eleifend eget neque ac blandit", 0, 0, 16, 300, Window.TEXT_ALIGN_CENTER, 0, 255, 255, false);
             button.draw();
 
-            Window.swapBuffers();
-            glfwPollEvents();
-
-            i++;
+            Window.loopEnd();
+            ++i;
         }
         glfwTerminate();
     }
