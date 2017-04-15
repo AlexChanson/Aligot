@@ -67,6 +67,20 @@ public class Window {
         System.out.println("Window initialisation complete !");
     }
 
+    public static void loopStart() {
+        glClear(GL_COLOR_BUFFER_BIT);
+        glMatrixMode(GL_PROJECTION);
+        glLoadIdentity();
+        glOrtho(0, Window.getWidth(), Window.getHeight(), 0, -1, 1);
+        glViewport(0, 0, Window.getWidth(), Window.getHeight());
+        glMatrixMode(GL_MODELVIEW);
+    }
+
+    public static void loopEnd() {
+        glfwSwapBuffers(window);
+        glfwPollEvents();
+    }
+
     public static int[] getMousePos() {
         DoubleBuffer x = BufferUtils.createDoubleBuffer(1), y = BufferUtils.createDoubleBuffer(1);
         glfwGetCursorPos(window, x, y);
@@ -343,15 +357,6 @@ public class Window {
      */
     public static boolean shouldClose() {
         return !glfwWindowShouldClose(window);
-    }
-
-    /**
-     * swaps the front buffer of the window with the back buffer
-     * it is necessary step to make render with OpenGL
-     * use this method at the end of the main loop
-     */
-    public static void swapBuffers(){
-        glfwSwapBuffers(window);
     }
 
     /**

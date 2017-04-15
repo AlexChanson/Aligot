@@ -32,11 +32,7 @@ public class PhysicDemo {
         sim.addBody(body2);
 
         while (Window.shouldClose()) {
-            glClear(GL_COLOR_BUFFER_BIT);
-            glMatrixMode(GL_PROJECTION);
-            glLoadIdentity();
-            glOrtho(0, Window.getWidth(), Window.getHeight(), 0, -1, 1);
-            glMatrixMode(GL_MODELVIEW);
+            Window.loopStart();
 
             sim.step(0.025);
             //Window.drawSprite("earth.jpg", (int)body2.getPosition().getX(), (int)body2.getPosition().getY(), i, 0.1f);
@@ -53,8 +49,7 @@ public class PhysicDemo {
                     (int) (pos.getY()+body1.getAcceleration().getY()/30), 3,255, 255,0);
             Window.drawLine((int)pos.getX(), (int)pos.getY(), (int) (pos.getX()+body1.getVelocity().getX()/5),
                     (int) (pos.getY()+body1.getVelocity().getY()/5), 3,0, 255,0);
-            Window.swapBuffers();
-            glfwPollEvents();
+            Window.loopEnd();
 
             i++;
         }

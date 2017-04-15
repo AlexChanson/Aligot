@@ -22,13 +22,8 @@ public class MainFrame {
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
         while (Window.shouldClose()) {
-            glClear(GL_COLOR_BUFFER_BIT);
-            glMatrixMode(GL_PROJECTION);
-            glLoadIdentity();
-            glOrtho(0, Window.getWidth(), Window.getHeight(), 0, -1, 1);
+            Window.loopStart();
 
-            glViewport(0, 0, Window.getWidth(), Window.getHeight());
-            glMatrixMode(GL_MODELVIEW);
             button.draw();
 
             Window.drawLine(100, 100, 300, 300, 180, 255, 128, 0);
@@ -46,8 +41,7 @@ public class MainFrame {
             Button b = new Button("coucou", 300, 300, 80, 50);
             b.draw();
 
-            Window.swapBuffers();
-            glfwPollEvents();
+            Window.loopEnd();
 
             i++;
         }

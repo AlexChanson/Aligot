@@ -64,8 +64,7 @@ public class ProceduralDemo {
             if(projectile != null)
                 Window.drawCircle((int)projectile.getPosition().getX(), (int)projectile.getPosition().getY(), 20, 0, 0, 255);
 
-            Window.swapBuffers();
-            glfwPollEvents();
+            Window.loopEnd();
 
         }
         glfwTerminate();
