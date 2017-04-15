@@ -29,7 +29,7 @@ public class MainFrame {
 
             glViewport(0, 0, Window.getWidth(), Window.getHeight());
             glMatrixMode(GL_MODELVIEW);
-            button.drawButton();
+            button.draw();
 
             Window.drawLine(100, 100, 300, 300, 180, 255, 128, 0);
             Window.drawRectangle(100, 200, 500 + (int) (Math.cos(i / 100.0) * 200), 540, 200, 0, 0, 0);
@@ -41,6 +41,9 @@ public class MainFrame {
             }
             Window.drawSprite("dammier.png", 720, 270, 160, 160, 0, 1f, 160, 160, 320, 320);
             Window.drawText("test 1\ntest 2 ut ornare urna ullamcorper nec. Donec in massa suscipit, ullamcorper orci eu, facilisis ante. Fusce eleifend eget neque ac blandit", 128, 128, 16, 10, Window.TEXT_ALIGN_CENTER, 0, 255, 255);
+
+            Button b = new Button("coucou", 1600, 800, 80, 50);
+            b.draw();
 
             Window.swapBuffers();
             glfwPollEvents();

@@ -13,8 +13,8 @@ public class Button {
     private int width;
     private int height;
 
-    public Button (String path, int posX, int posY, int width, int height){
-        this.path = path;
+    public Button (String text, int posX, int posY, int width, int height){
+        this.text = text;
         this.posX = posX;
         this.posY = posY;
         this.width = width;
@@ -30,14 +30,13 @@ public class Button {
         this.height = height;
     }
 
-    public void drawButton() {
-        if (text != null) {
+    public void draw() {
+        if(path != null)
             Window.drawSprite(path, posX, posY, width, height, 0);
+        else
+            Window.drawRectangle(width, height, posX, posY, 128, 128, 128, 0f);
+        if (text != null)
             Window.drawText(text, posX, posY, height, 16, Window.TEXT_ALIGN_CENTER, 10, 0, 100);
-        }
-        else {
-            Window.drawSprite(path, posX, posY, width, height, 0);
-        }
     }
 
     public String getPath() {
