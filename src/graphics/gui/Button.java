@@ -4,14 +4,10 @@ import graphics.Window;
 
 import java.util.ArrayList;
 
-public class Button {
+public class Button extends GUIComponent{
     private ArrayList<ButtonGUIListener> listeners;
     private String texture;
     private String text;
-    private int posX;
-    private int posY;
-    private int width;
-    private int height;
 
     public Button (String text, int posX, int posY, int width, int height){
         listeners = new ArrayList<>();
@@ -42,7 +38,7 @@ public class Button {
     }
 
     public void addListener(GUIListener guiListener){
-        listeners.add(new ButtonGUIListener(posX, posX + width,posY, posY + height) {
+        listeners.add(new ButtonGUIListener(this) {
             @Override
             public void execute() {
                 guiListener.execute();
@@ -66,35 +62,4 @@ public class Button {
         this.text = text;
     }
 
-    public int getPosX() {
-        return posX;
-    }
-
-    public void setPosX(int posX) {
-        this.posX = posX;
-    }
-
-    public int getPosY() {
-        return posY;
-    }
-
-    public void setPosY(int posY) {
-        this.posY = posY;
-    }
-
-    public int getWidth() {
-        return width;
-    }
-
-    public void setWidth(int width) {
-        this.width = width;
-    }
-
-    public int getHeight() {
-        return height;
-    }
-
-    public void setHeight(int height) {
-        this.height = height;
-    }
 }

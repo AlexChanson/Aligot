@@ -6,6 +6,8 @@ import org.lwjgl.glfw.GLFWMouseButtonCallback;
 import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.opengl.GL;
 
+import java.nio.ByteOrder;
+import java.nio.DoubleBuffer;
 import java.nio.IntBuffer;
 import java.util.*;
 
@@ -63,6 +65,13 @@ public class Window {
         });
 
         System.out.println("Window initialisation complete !");
+    }
+
+    public static int[] getMousePos() {
+        DoubleBuffer x = BufferUtils.createDoubleBuffer(1), y = BufferUtils.createDoubleBuffer(1);
+        glfwGetCursorPos(window, x, y);
+
+        return new int[] { (int) x.get(), (int) y.get() };
     }
 
     public static void registerButtonListener(ButtonGUIListener listener){
@@ -155,13 +164,6 @@ public class Window {
         drawTexture(texture, posX, posY, width, height,0, scale, textureX, textureY, textureWidth, textureHeight, 255, 255, 255);
     }
 
-    /*public static void drawSprite(String fileName, int posX, int posY, float rotate, float scale, Color tint) {
-        String path = System.getProperty("user.dir") + "/ressources/sprites/" + fileName;
-
-        Texture texture = new Texture(path, tint);
-
-        drawTexture(texture, posX, posY, texture.getWidth(), texture.getHeight(), rotate, scale, 0, 0, texture.getWidth(), texture.getHeight(), 255, 255, 255);
-    }*/
 
     /**
      * Draws a line in the window
