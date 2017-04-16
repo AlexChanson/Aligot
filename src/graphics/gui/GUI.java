@@ -14,6 +14,12 @@ public class GUI {
             if (components.get(i).getZ() > c.getZ()) {
                 components.add(i, c);
             }
+            else {
+                components.add(c);
+            }
+        }
+        if (components.size() == 0){
+            components.add(c);
         }
     }
 
