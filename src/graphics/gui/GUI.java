@@ -5,6 +5,10 @@ import java.util.ArrayList;
 public class GUI {
     private ArrayList<GUIComponent> components;
 
+    public GUI (){
+        components = new ArrayList<GUIComponent>();
+    }
+
     public void addComponent(GUIComponent c){
         for (int i = 0; i<components.size(); i++) {
             if (components.get(i).getZ() > c.getZ()) {
@@ -15,6 +19,12 @@ public class GUI {
 
     public void removeComponent(GUIComponent c){
         components.remove(c);
+    }
+
+    public void affiche(){
+        for (GUIComponent c: components){
+            System.out.println(c.getZ());
+        }
     }
 
     public ArrayList<GUIComponent> getComponents() {

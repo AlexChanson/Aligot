@@ -2,15 +2,17 @@ package demo;
 
 import graphics.Window;
 import graphics.gui.Button;
-import graphics.gui.CallBackContainer;
-import graphics.gui.GUIListener;
+import graphics.gui.GUI;
 
 import static org.lwjgl.glfw.GLFW.glfwTerminate;
 
 public class MainFrame {
     public static void main(String[] args) {
         Window.init("Space Shooter", false);
+        GUI guicomponent = new GUI();
         Button button = new Button ("gui_options_button_titles.png", "MDR",500, 500, Window.getTexture("gui_options_button_titles.png").getWidth(), Window.getTexture("gui_options_button_titles.png").getHeight());
+        guicomponent.addComponent(button);
+        guicomponent.affiche();
         button.addListener(() -> System.out.println("Hello Button !"));
         Window.registerButtonListener(button.getListeners());
 
