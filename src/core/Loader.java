@@ -74,7 +74,7 @@ public class Loader {
         return result.toArray(new String[result.size()]);
     }
 
-    private static void decompileAssets(){
+    public static void decompileAssets(){
         //TODO Decompile Assets in the jar directory if not present
     }
 

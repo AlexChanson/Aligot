@@ -6,6 +6,8 @@ import org.lwjgl.BufferUtils;
 import org.lwjgl.glfw.GLFWMouseButtonCallback;
 import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.opengl.GL;
+
+import java.io.File;
 import java.nio.DoubleBuffer;
 import java.nio.IntBuffer;
 import java.util.*;
@@ -25,7 +27,7 @@ public class Window {
     private static boolean fullscreenEnabled;
     private static HashMap<Character, Integer> charWidth;
     public static ArrayList<CallBackContainer> callBackContainers = new ArrayList<>();
-
+    public static String ressourcesFolderPath = System.getProperty("user.dir") + File.separator + "ressources" + File.separator + "sprites" + File.separator;
     public static final int TEXT_ALIGN_LEFT = 0, TEXT_ALIGN_CENTER = 1, TEXT_ALIGN_RIGHT = 2;
 
     /**
@@ -156,17 +158,17 @@ public class Window {
      * @param textureHeight
      */
     public static void drawSprite(String fileName, float posX, float posY, float width, float height, float rotate, float scale, float textureX, float textureY, float textureWidth, float textureHeight) {
-        Texture texture = new Texture(Loader.getSpriteFolderPath() + fileName);
+        Texture texture = new Texture(ressourcesFolderPath + fileName);
         drawTexture(texture, posX, posY, width, height, rotate, scale, textureX, textureY, textureWidth, textureHeight, 255, 255, 255);
     }
 
     public static void drawSprite(String fileName, float posX, float posY, float width, float height, float rotate) {
-        Texture texture = new Texture(Loader.getSpriteFolderPath() + fileName);
+        Texture texture = new Texture(ressourcesFolderPath + fileName);
         drawTexture(texture, posX, posY, width, height, rotate, 1f, 0, 0, texture.getWidth(), texture.getHeight(), 255, 255, 255);
     }
 
     public static void drawSprite(String fileName, float posX, float posY, float rotate, float scale) {
-        Texture texture = new Texture(Loader.getSpriteFolderPath() + fileName);
+        Texture texture = new Texture(ressourcesFolderPath + fileName);
         drawTexture(texture, posX, posY, texture.getWidth(), texture.getHeight(), rotate, scale, 0, 0, texture.getWidth(), texture.getHeight(), 255, 255, 255);
     }
 
@@ -266,7 +268,7 @@ public class Window {
     }
 
     public static void drawText(String text, float x, float y, float size, float lineWidth, int align, int r, int g, int b, boolean monoline) {
-        String path = System.getProperty("user.dir") + "/ressources/font/ubuntu_mono.png";
+        String path = ressourcesFolderPath + "font_mono.png";
 
         Texture texture = new Texture(path);
 
@@ -442,7 +444,7 @@ public class Window {
     }
 
     public static Texture getTexture(String fileName){
-        return Texture.getTexture(System.getProperty("user.dir") + "/ressources/sprites/" + fileName);
+        return Texture.getTexture(ressourcesFolderPath + fileName);
     }
 
     public static void enableFullscreen() {

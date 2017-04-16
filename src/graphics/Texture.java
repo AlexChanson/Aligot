@@ -17,7 +17,6 @@ import static org.lwjgl.opengl.GL13.GL_CLAMP_TO_BORDER;
 public class Texture {
     private static HashMap<String, Texture> generatedTexture = new HashMap<>();
     private String path;
-    //private BufferedImage img;
     private int id, height, width;
 
     /**
@@ -33,33 +32,6 @@ public class Texture {
     public int getHeight() {
         return this.height;
     }
-
-    /**
-     * Loads a sprite from a path, and applies a tint to it
-     * @param path the path of the sprite
-     */
-    /*public Texture(String path, Color tint) {
-        this.path = path;
-
-        if (generatedTexture.containsKey(path)) {
-            Texture t = generatedTexture.get(path);
-            this.id = t.id;
-            this.img = t.img;
-        }
-        else {
-            try {
-                File f = new File(path);
-                this.img = Colorizer.colorize(ImageIO.read(f), tint);
-
-                this.generate();
-
-                generatedTexture.put(path, this);
-            }
-            catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }*/
 
     public Texture(String path) {
         this.path = path;
@@ -115,14 +87,11 @@ public class Texture {
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, this.width, this.height, 0, GL_RGBA, GL_UNSIGNED_BYTE, image);
     }
 
-    /**
-     * Checks if Texture contains the path
-     * @param t the Texture
-     * @return boolean
-     * If boolean is true Texture contains the path
-     */
-    public boolean equals(Texture t) {
-        return t.path.equals(this.path);
+    @Override
+    public boolean equals(Object obj) {
+        if(obj instanceof Texture)
+            return ((Texture)obj).path.equals(this.path);
+        return false;
     }
 
     public int getId() {
