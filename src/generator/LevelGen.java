@@ -6,6 +6,8 @@ import core.Planet;
 import physics.RigidBody;
 import physics.Vector2D;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 import static java.lang.Math.*;
@@ -112,11 +114,11 @@ public class LevelGen {
         RigidBody rigidBody = new RigidBody(left, temp, temp2);
         rigidBody.setAttractive(true);
         rigidBody.setStaticObject(true);
-        worlds.add(Planet.spawn(rigidBody, ""));
+        worlds.add(Planet.spawn(rigidBody, "planet_spawn_1.png"));
         rigidBody = new RigidBody(right, temp, temp2);
         rigidBody.setAttractive(true);
         rigidBody.setStaticObject(true);
-        worlds.add(Planet.spawn(rigidBody, ""));
+        worlds.add(Planet.spawn(rigidBody, "planet_spawn_2.png"));
     }
 
     /**
@@ -124,14 +126,25 @@ public class LevelGen {
      * textures are randomized for each type
      */
     private void genPlanets() {
-        //TODO: implement more planet types and do random texture choices
-        String[] planetTypes = {"solid", "gaz"};
+        String[] planetTypes = {"rock", "gas", "star", "black_hole"},
+                 rockTextures = {"planet_rock_1.png"},
+                 gasTextures = {"planet_gas_1.png", "planet_gas_2.png"},
+                 starTextures = {"planet_star_1.png", "planet_star_2.png"},
+                 blackHolesTextures = {"placeholder.png"};
+        HashMap<String, String[]> textures = new HashMap<>();
+        textures.put("rock", rockTextures);
+        textures.put("gas", gasTextures);
+        textures.put("star", starTextures);
+        textures.put("black_hole", blackHolesTextures);
+
         for(Vector2D v : centers){
             double radius = getInt(minRadius, maxRadius);
             RigidBody rigidBody = new RigidBody(v, radius,massRef*(radius/minRadius));
             rigidBody.setAttractive(true);
             rigidBody.setStaticObject(true);
-            worlds.add(new Planet(rigidBody,"earth.jpg", planetTypes[gen.nextInt(2)]));
+
+            String type = planetTypes[gen.nextInt(planetTypes.length)];
+            worlds.add(new Planet(rigidBody,textures.get(type)[gen.nextInt(textures.get(type).length)], type));
         }
         result.getPlanets().addAll(worlds);
     }

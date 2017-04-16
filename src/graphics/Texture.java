@@ -97,7 +97,7 @@ public class Texture {
         ByteBuffer image = stbi_load(this.path, w, h, comp, 4);
 
         if (image == null) {
-            System.out.println("error: " + stbi_failure_reason());
+            System.out.println("Error: " + stbi_failure_reason() + " , file:" + this.path);
         }
 
         this.height = h.get();
