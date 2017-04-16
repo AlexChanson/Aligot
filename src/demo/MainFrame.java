@@ -10,7 +10,7 @@ import static org.lwjgl.glfw.GLFW.glfwTerminate;
 public class MainFrame {
     public static void main(String[] args) {
         Window.init("Space Shooter", false);
-        Button button = new Button ("ecranoption_boutonaccueil.png", "MDR",500, 500, Window.getTexture("ecranoption_boutonaccueil.png").getWidth(), Window.getTexture("ecranoption_boutonaccueil.png").getHeight());
+        Button button = new Button ("gui_options_button_titles.png", "MDR",500, 500, Window.getTexture("gui_options_button_titles.png").getWidth(), Window.getTexture("gui_options_button_titles.png").getHeight());
         button.addListener(() -> System.out.println("Hello Button !"));
         Window.registerButtonListener(button.getListeners());
 
