@@ -73,4 +73,13 @@ public class Loader {
 
         return result.toArray(new String[result.size()]);
     }
+
+    private static void decompileAssets(){
+        //TODO Decompile Assets in the jar directory if not present
+    }
+
+    public static String getSpriteFolderPath(){
+        //TODO do this dynamically
+        return System.getProperty("user.dir") + File.separator + "ressources" + File.separator + "sprites" + File.separator;
+    }
 }

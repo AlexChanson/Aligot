@@ -20,7 +20,7 @@ public class MainFrame {
             Window.drawLine(100, 100, 300, 300, 180, 255, 128, 0);
             Window.drawRectangle(100, 200, 500 + (int) (Math.cos(i / 100.0) * 200), 540, 200, 0, 0, 0);
             Window.drawCircle(1000, 200, 100,0, i % 256, 64);
-            Window.drawSprite("rubics_cube.jpg", 720, 270, 0, (float) (1.0 / (i % 250)));
+            //Window.drawSprite("rubics_cube.jpg", 720, 270, 0, (float) (1.0 / (i % 250)));
             Window.drawSprite("rubics_cube.jpg", 720, 270, 128, 128, 0, 1f, 64, 64, 64, 64);
             for (int j = 0; j < 10; j++) {
                 Window.drawSprite("carre.png", 22 + j * 4, 22 + j * 4, 20, 20, 0, 1, 50, 50, 20, 20);

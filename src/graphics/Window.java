@@ -1,5 +1,6 @@
 package graphics;
 
+import core.Loader;
 import graphics.gui.CallBackContainer;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.glfw.GLFWMouseButtonCallback;
@@ -155,36 +156,20 @@ public class Window {
      * @param textureHeight
      */
     public static void drawSprite(String fileName, float posX, float posY, float width, float height, float rotate, float scale, float textureX, float textureY, float textureWidth, float textureHeight) {
-        String path = System.getProperty("user.dir") + "/ressources/sprites/" + fileName;
-
-        Texture texture = new Texture(path);
-
+        Texture texture = new Texture(Loader.getSpriteFolderPath() + fileName);
         drawTexture(texture, posX, posY, width, height, rotate, scale, textureX, textureY, textureWidth, textureHeight, 255, 255, 255);
     }
 
     public static void drawSprite(String fileName, float posX, float posY, float width, float height, float rotate) {
-        String path = System.getProperty("user.dir") + "/ressources/sprites/" + fileName;
-
-        Texture texture = new Texture(path);
-
+        Texture texture = new Texture(Loader.getSpriteFolderPath() + fileName);
         drawTexture(texture, posX, posY, width, height, rotate, 1f, 0, 0, texture.getWidth(), texture.getHeight(), 255, 255, 255);
     }
 
     public static void drawSprite(String fileName, float posX, float posY, float rotate, float scale) {
-        String path = System.getProperty("user.dir") + "/ressources/sprites/" + fileName;
-
-        Texture texture = new Texture(path);
-
+        Texture texture = new Texture(Loader.getSpriteFolderPath() + fileName);
         drawTexture(texture, posX, posY, texture.getWidth(), texture.getHeight(), rotate, scale, 0, 0, texture.getWidth(), texture.getHeight(), 255, 255, 255);
     }
 
-    public static void drawSprite(String fileName, float posX, float posY, float width, float height, float scale, float textureX, float textureY, float textureWidth, float textureHeight) {
-        String path = System.getProperty("user.dir") + "/ressources/sprites/" + fileName;
-
-        Texture texture = new Texture(path);
-
-        drawTexture(texture, posX, posY, width, height,0, scale, textureX, textureY, textureWidth, textureHeight, 255, 255, 255);
-    }
 
 
     /**
