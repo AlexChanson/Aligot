@@ -2,6 +2,7 @@ package core;
 
 import graphics.Window;
 import graphics.gui.Button;
+import graphics.gui.GUI;
 import graphics.gui.GUIComponent;
 import physics.Vector2D;
 import java.util.ArrayList;
@@ -29,13 +30,13 @@ public class GraphicsEngine {
     }
 
     public void drawGui(){
-        guiComponents.sort((o1, o2) -> {
+        /*guiComponents.sort((o1, o2) -> {
             if(o1.getZ() < o2.getZ())
                 return -1;
             if(o1.getZ() > o2.getZ())
                 return 1;
             return 0;
-        });
+        });*/
         Window.callBackContainers.clear();
         guiComponents.forEach(guiComponent -> {
             if (guiComponent instanceof Button)
@@ -46,6 +47,11 @@ public class GraphicsEngine {
 
     public void registerGUIComponents(GUIComponent... guiComponents){
         this.guiComponents.addAll(Arrays.asList(guiComponents));
+    }
+
+    public void setGUI(GUI gui){
+        guiComponents.clear();
+        guiComponents.addAll(gui.getComponents());
     }
 
     public ArrayList<GUIComponent> getGuiComponents() {

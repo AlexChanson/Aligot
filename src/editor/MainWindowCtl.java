@@ -58,7 +58,7 @@ public class MainWindowCtl {
         graph.heightProperty().addListener(event -> drawLevel(graph));
         graph.setOnMouseClicked(this::mouseHandler);
         //choice box init
-        planetType.getItems().addAll("solid", "gas_giant", "black_hole");
+        planetType.getItems().addAll("rock", "gas", "black_hole", "star");
         //Initializing the coordinates
         xCoordinate.setText(Integer.toString(0));
         yCoordinate.setText(Integer.toString(0));
