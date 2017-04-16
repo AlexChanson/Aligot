@@ -1,21 +1,15 @@
 package gamelauncher;
 
-import core.Event;
-import demo.Game;
-import demo.MainFrame;
 import editor.EditorRun;
 import editor.FxUtils;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
-import javafx.scene.input.InputEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
