@@ -4,7 +4,7 @@ import graphics.Window;
 
 import java.util.ArrayList;
 
-public class GUI {
+public class GUI implements GUIListener{
     private ArrayList<GUIComponent> components;
 
     public GUI (){
@@ -31,8 +31,8 @@ public class GUI {
 
     public static GUI GetStart(){
         GUI GUIStart = new GUI ();
-        Button start = new Button ("gui_options_button_titles.png", Window.getWidth()/2, Window.getHeight()/4, Window.getTexture("gui_options_button_titles.png").getWidth(), Window.getTexture("gui_options_button_titles.png").getHeight());
-        Button exit = new Button("gui_options_button_titles.png", Window.getWidth()/2, Window.getHeight()/2, Window.getTexture("gui_options_button_titles.png").getWidth(), Window.getTexture("gui_options_button_titles.png").getHeight());
+        Button start = new Button ("gui_options_button_titles.png", Window.getWidth()/2 + Window.getTexture("gui_options_button_titles.png").getWidth(), Window.getHeight()/2+ Window.getTexture("gui_options_button_titles.png").getHeight(), Window.getTexture("gui_options_button_titles.png").getWidth(), Window.getTexture("gui_options_button_titles.png").getHeight());
+        Button exit = new Button("gui_options_button_titles.png", Window.getWidth()/2 + Window.getTexture("gui_options_button_titles.png").getWidth(), Window.getHeight()/2 + Window.getTexture("gui_options_button_titles.png").getHeight(), Window.getTexture("gui_options_button_titles.png").getWidth(), Window.getTexture("gui_options_button_titles.png").getHeight());
         GUIStart.addComponent(start);
         GUIStart.addComponent(exit);
         return GUIStart;
@@ -80,5 +80,10 @@ public class GUI {
 
     public void setComponents(ArrayList<GUIComponent> components) {
         this.components = components;
+    }
+
+    @Override
+    public void execute() {
+
     }
 }

@@ -8,6 +8,7 @@ public class Button extends GUIComponent{
     private ArrayList<CallBackContainer> listeners;
     private String texture;
     private String text;
+    private String id;
 
     public Button (String text, int posX, int posY, int width, int height){
         listeners = new ArrayList<>();
@@ -55,6 +56,20 @@ public class Button extends GUIComponent{
 
     public void setText(String text) {
         this.text = text;
+    }
+
+    public String getId() {
+        if (id == null) {
+            id = text;
+        }
+        if (text == null) {
+            id = texture;
+        }
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public ArrayList<CallBackContainer> getListeners() {
