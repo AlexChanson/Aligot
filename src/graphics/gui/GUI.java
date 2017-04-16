@@ -10,17 +10,22 @@ public class GUI {
     }
 
     public void addComponent(GUIComponent c){
-        for (int i = 0; i<components.size(); i++) {
-            if (components.get(i).getZ() > c.getZ()) {
-                components.add(i, c);
-            }
-            else {
-                components.add(c);
-            }
-        }
-        if (components.size() == 0){
+        if (components.isEmpty()){
             components.add(c);
         }
+        else{
+            boolean found = false;
+            for (int i = 0; i<components.size() && !found; i++) {
+                if (components.get(i).getZ() > c.getZ()) {
+                    components.add(i, c);
+                    found = true;
+                }
+            }
+            if (!found){
+                components.add(0, c);
+            }
+        }
+        System.out.println("liste: "+components.toString());
     }
 
     public void removeComponent(GUIComponent c){
