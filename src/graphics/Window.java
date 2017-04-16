@@ -1,17 +1,14 @@
 package graphics;
 
-import core.Loader;
 import graphics.gui.CallBackContainer;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.glfw.GLFWMouseButtonCallback;
 import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.opengl.GL;
-
 import java.io.File;
 import java.nio.DoubleBuffer;
 import java.nio.IntBuffer;
 import java.util.*;
-
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.*;
 
@@ -27,7 +24,7 @@ public class Window {
     private static boolean fullscreenEnabled;
     private static HashMap<Character, Integer> charWidth;
     public static ArrayList<CallBackContainer> callBackContainers = new ArrayList<>();
-    public static String ressourcesFolderPath = System.getProperty("user.dir") + File.separator + "ressources" + File.separator + "sprites" + File.separator;
+    private static String ressourcesFolderPath = System.getProperty("user.dir") + File.separator + "ressources" + File.separator + "sprites" + File.separator;
     public static final int TEXT_ALIGN_LEFT = 0, TEXT_ALIGN_CENTER = 1, TEXT_ALIGN_RIGHT = 2;
 
     /**
@@ -476,5 +473,13 @@ public class Window {
     public static void exit(){
         glfwDestroyWindow(window);
         glfwTerminate();
+    }
+
+    public static String getRessourcesFolderPath() {
+        return ressourcesFolderPath;
+    }
+
+    public static void setRessourcesFolderPath(String ressourcesFolderPath) {
+        Window.ressourcesFolderPath = ressourcesFolderPath;
     }
 }

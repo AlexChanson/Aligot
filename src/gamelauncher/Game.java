@@ -20,7 +20,7 @@ public class Game implements GameStart {
     public void start(int screenHeight, int screenWidth, boolean fullscreen, String firstPlayerName, String secondPlayerName) {
         //Load Assets and set resources folder path
         Loader.decompileAssets();
-        Window.ressourcesFolderPath = Loader.getSpriteFolderPath();
+        Window.setRessourcesFolderPath(Loader.getSpriteFolderPath());
 
         Window.init("Aligot", fullscreen);
         Window.setHeight(screenHeight);

@@ -1,8 +1,10 @@
 package core;
 
 import com.google.gson.Gson;
+import graphics.Window;
 
 import java.io.*;
+import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -13,7 +15,11 @@ import java.util.jar.JarFile;
 import java.util.stream.Collectors;
 
 public class Loader {
+    private static boolean jarMode = false;
+    private static String ressourcesPath = System.getProperty("user.dir") + File.separator + "ressources" + File.separator + "sprites" + File.separator;
+
     public static <T> ArrayList<T> loadAll(Class<T> type, String folder){
+        System.out.println("Loading all " + type.getName());
         ArrayList<T> stuff = new ArrayList<>();
         String[] source = null;
         Gson gson = new Gson();
@@ -75,11 +81,78 @@ public class Loader {
     }
 
     public static void decompileAssets(){
-        //TODO Decompile Assets in the jar directory if not present
+        JarFile jarFile = null;
+        String pathToJar = "";
+        try {
+            pathToJar = Loader.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath();
+        } catch (URISyntaxException e) {
+            System.out.println("Error: unable to locate jar context, this is a CRITICAL ERROR !");
+            e.printStackTrace();
+        }
+
+        try {
+            jarFile = new JarFile(pathToJar);
+        } catch (IOException ignored) {}
+        if(jarFile != null){
+            jarMode = true;
+            //This hack removes the first / in the file path on windows systems
+            int j = 0;
+            if(System.getProperty("os.name").toLowerCase().contains("win"))
+                ++j;
+
+            String[] temp = pathToJar.split("/");
+            String path = "";
+            for (int i = 0 + j; i < temp.length - 1; ++i){
+                path += temp[i];
+                if (i < temp.length - 2)
+                    path += File.separator;
+            }
+
+            path += File.separator + "ressources";
+
+            Window.setRessourcesFolderPath(path + File.separator);
+            ressourcesPath = path + File.separator;
+
+            File repertoire = new File(path);
+            if(repertoire.mkdir()){
+                System.out.println("Info: Decompiling Assets in " + path);
+
+                Enumeration<JarEntry> e = jarFile.entries();
+                while (e.hasMoreElements()) {
+                    JarEntry je = e.nextElement();
+                    if(!je.isDirectory()  && je.getName().startsWith("sprites")){
+                        //System.out.println(je.getName());
+                        InputStream in = ClassLoader.getSystemResourceAsStream(je.getName());
+                        File f = new File(path + File.separator + je.getName().replace("sprites/", ""));
+                        try {
+                            f.createNewFile();
+                            FileOutputStream out = new FileOutputStream(f);
+                            int read;
+                            byte[] bytes = new byte[1024];
+
+                            while ((read = in.read(bytes)) != -1) {
+                                out.write(bytes, 0, read);
+                            }
+                            in.close();
+                            System.out.println("Created : " + path + File.separator + je.getName().replace("sprites/", ""));
+                        } catch (IOException e1) {
+                            System.out.println("Unable to create File : " + path + File.separator + je.getName().replace("sprites/", ""));
+                        }
+                    }
+                }
+
+            }
+            else {
+                if(repertoire.exists())
+                    System.out.println("Assets Already decompiled !");
+                else
+                    System.out.println("Error creating " + path + " directory check your permissions !");
+            }
+        }
+
     }
 
     public static String getSpriteFolderPath(){
-        //TODO do this dynamically
-        return System.getProperty("user.dir") + File.separator + "ressources" + File.separator + "sprites" + File.separator;
+        return ressourcesPath;
     }
 }

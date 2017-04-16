@@ -1,11 +1,9 @@
 package core;
 
-import graphics.Texture;
 import graphics.Window;
 import graphics.gui.Button;
 import graphics.gui.GUIComponent;
 import physics.Vector2D;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -19,6 +17,8 @@ public class GraphicsEngine {
     public void drawLevel(Level level){
         double screenWidth = Window.getWidth(), screenHeight = Window.getHeight();
         double ratio = Math.max(screenHeight/level.getMapSize()[1], screenWidth/level.getMapSize()[0]);
+
+        //TODO: Draw Background
 
         level.getPlanets().forEach(planet -> {
             Vector2D planetPos = planet.getRigidBody().getPosition();
