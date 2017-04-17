@@ -23,20 +23,13 @@ public class GraphicsEngine {
 
         level.getPlanets().forEach(planet -> {
             Vector2D planetPos = planet.getRigidBody().getPosition();
-            double planetSize = planet.getRigidBody().getRadius()*2;
-            Window.drawSprite(planet.getTexture(), (float)(planetPos.getX()*ratio), (float)(planetPos.getY()*ratio), (float)planetSize, (float)planetSize, 0f);
+            float planetSize = (float) (planet.getRigidBody().getRadius()*2*ratio);
+            Window.drawSprite(planet.getTexture(), (float)(planetPos.getX()*ratio)-(planetSize/2), (float)(planetPos.getY()*ratio)-(planetSize/2), planetSize, planetSize, 0f);
         });
 
     }
 
     public void drawGui(){
-        /*guiComponents.sort((o1, o2) -> {
-            if(o1.getZ() < o2.getZ())
-                return -1;
-            if(o1.getZ() > o2.getZ())
-                return 1;
-            return 0;
-        });*/
         Window.callBackContainers.clear();
         guiComponents.forEach(guiComponent -> {
             if (guiComponent instanceof Button)
@@ -47,6 +40,13 @@ public class GraphicsEngine {
 
     public void registerGUIComponents(GUIComponent... guiComponents){
         this.guiComponents.addAll(Arrays.asList(guiComponents));
+        this.guiComponents.sort((o1, o2) -> {
+            if(o1.getZ() < o2.getZ())
+                return -1;
+            if(o1.getZ() > o2.getZ())
+                return 1;
+            return 0;
+        });
     }
 
     public void setGUI(GUI gui){
