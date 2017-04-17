@@ -114,11 +114,11 @@ public class LevelGen {
         RigidBody rigidBody = new RigidBody(left, temp, temp2);
         rigidBody.setAttractive(true);
         rigidBody.setStaticObject(true);
-        worlds.add(Planet.spawn(rigidBody, "planet_spawn_1.png"));
+        worlds.add(Planet.spawn(rigidBody, "placeholder.png"));
         rigidBody = new RigidBody(right, temp, temp2);
         rigidBody.setAttractive(true);
         rigidBody.setStaticObject(true);
-        worlds.add(Planet.spawn(rigidBody, "planet_spawn_2.png"));
+        worlds.add(Planet.spawn(rigidBody, "placeholder.png"));
     }
 
     /**
