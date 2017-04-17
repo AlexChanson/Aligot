@@ -1,9 +1,7 @@
 package demo;
 
-import FSM.FiniteStateMachine;
-import FSM.State;
-
-import java.util.Scanner;
+import fsm.FiniteStateMachine;
+import fsm.State;
 
 /**
  * Created by ben on 11/04/17.

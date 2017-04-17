@@ -1,4 +1,4 @@
-package core;
+package utility;
 
 import com.google.gson.Gson;
 import graphics.Window;

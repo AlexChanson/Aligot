@@ -7,6 +7,7 @@ import graphics.gui.GUIComponent;
 import physics.Vector2D;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 
 public class GraphicsEngine {
     private ArrayList<GUIComponent> guiComponents;
@@ -40,13 +41,7 @@ public class GraphicsEngine {
 
     public void registerGUIComponents(GUIComponent... guiComponents){
         this.guiComponents.addAll(Arrays.asList(guiComponents));
-        this.guiComponents.sort((o1, o2) -> {
-            if(o1.getZ() < o2.getZ())
-                return -1;
-            if(o1.getZ() > o2.getZ())
-                return 1;
-            return 0;
-        });
+        Collections.sort(this.guiComponents);
     }
 
     public void setGUI(GUI gui){

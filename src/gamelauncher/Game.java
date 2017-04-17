@@ -1,10 +1,11 @@
 package gamelauncher;
 
 import core.*;
-import generator.LevelGen;
+import core.LevelGen;
 import graphics.Window;
 import physics.RigidBody;
 import physics.Vector2D;
+import utility.Loader;
 
 import java.util.Random;
 

@@ -1,4 +1,4 @@
-package generator;
+package core;
 
 import core.Level;
 import core.Planet;

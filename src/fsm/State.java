@@ -1,4 +1,4 @@
-package FSM;
+package fsm;
 
 /**
  * Created by ben on 11/04/17.

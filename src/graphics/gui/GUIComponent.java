@@ -1,6 +1,6 @@
 package graphics.gui;
 
-public abstract class GUIComponent {
+public abstract class GUIComponent implements Comparable<GUIComponent>{
     protected int posX, posY, height, width, z = 0;
     public abstract void draw();
 
@@ -42,5 +42,16 @@ public abstract class GUIComponent {
 
     public void setZ(int z) {
         this.z = z;
+    }
+
+    @Override
+    public int compareTo(GUIComponent other) {
+        if(other == null)
+            return 0;
+        if(getZ() < other.getZ())
+            return -1;
+        if(getZ() > other.getZ())
+            return 1;
+        return 0;
     }
 }

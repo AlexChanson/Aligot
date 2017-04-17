@@ -2,7 +2,7 @@ package demo
 
 import com.google.gson.Gson
 import core.Level
-import generator.LevelGen
+import core.LevelGen
 
 class SaveLevel {
     static void main(String[] args){

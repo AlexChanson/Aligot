@@ -3,7 +3,7 @@ package editor;
 import com.google.gson.Gson;
 import core.Level;
 import core.Planet;
-import generator.LevelGen;
+import core.LevelGen;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;

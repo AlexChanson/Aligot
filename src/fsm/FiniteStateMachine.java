@@ -1,4 +1,4 @@
-package FSM;
+package fsm;
 
 import java.util.HashMap;
 
@@ -29,7 +29,7 @@ public class FiniteStateMachine {
     }
 
     /**
-     * set FSM actual state without triggering onEnter and onExit methods
+     * set fsm actual state without triggering onEnter and onExit methods
      * @param stateName name of state to set to actual state
      */
     public void setState(String stateName){

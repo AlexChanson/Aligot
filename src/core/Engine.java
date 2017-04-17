@@ -1,6 +1,6 @@
 package core;
 
-import FSM.FiniteStateMachine;
+import fsm.FiniteStateMachine;
 import core.solvers.Solver;
 import core.systems.CollisionSubSystem;
 import core.systems.SubSystem;

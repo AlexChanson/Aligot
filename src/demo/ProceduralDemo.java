@@ -1,7 +1,7 @@
 package demo;
 
 import core.Planet;
-import generator.LevelGen;
+import core.LevelGen;
 import graphics.Window;
 import physics.*;
 
