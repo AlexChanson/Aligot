@@ -49,10 +49,10 @@ public class GUI implements GUIListener{
 
     public static GUI GetChallenge(){
         GUI GUIChallenge = new GUI();
-        Button challenge1 = new Button("gui_main_button_play.png", Window.getWidth()/4 - Window.getTexture("gui_main_button_play.png").getWidth()/2, Window.getHeight()/4 - Window.getTexture("gui_main_button_play.png").getWidth()/4, Window.getTexture("gui_main_button_play.png").getWidth(), Window.getTexture("gui_main_button_play.png").getHeight());
-        Button challenge2 = new Button("gui_main_button_play.png", Window.getWidth()/4, Window.getHeight() - Window.getTexture("gui_main_button_play.png").getWidth()/4, Window.getTexture("gui_main_button_play.png").getWidth(), Window.getTexture("gui_main_button_play.png").getHeight());
-        Button challenge3 = new Button("gui_main_button_play.png", Window.getWidth() - Window.getWidth()/4, Window.getHeight()/4 - Window.getTexture("gui_main_button_play.png").getHeight(), Window.getTexture("gui_main_button_play.png").getWidth(), Window.getTexture("gui_main_button_play.png").getHeight());
-        Button challenge4 = new Button("gui_main_button_play.png", Window.getWidth() - Window.getHeight()/4, Window.getHeight() - Window.getTexture("gui_main_button_play.png").getHeight(), Window.getTexture("gui_main_button_play.png").getWidth(), Window.getTexture("gui_main_button_play.png").getHeight());
+        Button challenge1 = new Button("gui_main_button_play.png","", Window.getWidth()/4 - Window.getTexture("gui_main_button_play.png").getWidth()/2, Window.getHeight()/4 - Window.getTexture("gui_main_button_play.png").getWidth()/2, Window.getTexture("gui_main_button_play.png").getWidth(), Window.getTexture("gui_main_button_play.png").getHeight());
+        Button challenge2 = new Button("gui_main_button_play.png","", Window.getWidth()/4, Window.getHeight() - Window.getTexture("gui_main_button_play.png").getWidth()/4, Window.getTexture("gui_main_button_play.png").getWidth(), Window.getTexture("gui_main_button_play.png").getHeight());
+        Button challenge3 = new Button("gui_main_button_play.png","", Window.getWidth() - Window.getWidth()/4, Window.getHeight()/4 - Window.getTexture("gui_main_button_play.png").getHeight(), Window.getTexture("gui_main_button_play.png").getWidth(), Window.getTexture("gui_main_button_play.png").getHeight());
+        Button challenge4 = new Button("gui_main_button_play.png","", Window.getWidth() - Window.getHeight()/4, Window.getHeight() - Window.getTexture("gui_main_button_play.png").getHeight(), Window.getTexture("gui_main_button_play.png").getWidth(), Window.getTexture("gui_main_button_play.png").getHeight());
         GUIChallenge.addComponent(challenge1);
         GUIChallenge.addComponent(challenge2);
         GUIChallenge.addComponent(challenge3);
