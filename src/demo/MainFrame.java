@@ -15,7 +15,7 @@ public class MainFrame {
     public static void main(String[] args) {
         Window.init("Space Shooter", false);
         GraphicsEngine e = new GraphicsEngine();
-        e.registerGUIComponents(GUI.GetStart().getComponents().toArray(new GUIComponent[GUI.GetStart().getComponents().size()]));
+        e.registerGUIComponents(GUI.GetChallenge().getComponents().toArray(new GUIComponent[GUI.GetChallenge().getComponents().size()]));
         GUI guicomponent = new GUI();
         Button button = new Button ("gui_options_button_titles.png", "MDR",500, 500, Window.getTexture("gui_options_button_titles.png").getWidth(), Window.getTexture("gui_options_button_titles.png").getHeight());
         guicomponent.addComponent(button);

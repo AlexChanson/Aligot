@@ -23,7 +23,7 @@ import static org.lwjgl.opengl.GL11.*;
  */
 public class Window {
     private static long window;
-    private static int monitor = 0, width = 1024, height = 640;
+    private static int monitor = 0, width = 1920, height = 1080;
     private static boolean fullscreenEnabled;
     private static HashMap<Character, Integer> charWidth;
     public static ArrayList<CallBackContainer> callBackContainers = new ArrayList<>();
