@@ -45,6 +45,7 @@ public class MainFrame {
             Window.loopStart();
             e.drawGui();
             Window.loopEnd();
+            System.out.printf("Cocou %n");
         }
         glfwTerminate();
     }

@@ -1,14 +1,13 @@
 package graphics.gui;
 
 import graphics.Window;
-
 import java.util.ArrayList;
 
-public class GUI implements GUIListener{
+public class GUI{
     private ArrayList<GUIComponent> components;
 
     public GUI (){
-        components = new ArrayList<GUIComponent>();
+        components = new ArrayList<>();
     }
 
     public void addComponent(GUIComponent c){
@@ -60,6 +59,21 @@ public class GUI implements GUIListener{
         return GUIChallenge;
     }
 
+     public static GUI getMulti(){
+         GUI GUIMulti = new GUI();
+         Button challenge1 = new Button("gui_main_button_play.png", "", Window.getWidth()/4 - Window.getTexture("gui_main_button_play.png").getWidth()/2, Window.getHeight()/4 - Window.getTexture("gui_main_button_play.png").getWidth()/2, Window.getTexture("gui_main_button_play.png").getWidth(), Window.getTexture("gui_main_button_play.png").getHeight());
+         GUIMulti.addComponent(challenge1);
+
+         Button challenge2 = new Button("gui_main_button_play.png", "", 3*(Window.getWidth()/4) - Window.getTexture("gui_main_button_play.png").getWidth()/2, Window.getHeight()/4 - Window.getTexture("gui_main_button_play.png").getWidth()/2, Window.getTexture("gui_main_button_play.png").getWidth(), Window.getTexture("gui_main_button_play.png").getHeight());
+         GUIMulti.addComponent(challenge2);
+
+         Button challenge3 = new Button("gui_main_button_play.png", "", 3*(Window.getWidth()/4) - Window.getTexture("gui_main_button_play.png").getWidth()/2, 3*(Window.getHeight()/4) - Window.getTexture("gui_main_button_play.png").getWidth()/2, Window.getTexture("gui_main_button_play.png").getWidth(), Window.getTexture("gui_main_button_play.png").getHeight());
+         GUIMulti.addComponent(challenge3);
+
+         Button challenge4 = new Button("gui_main_button_play.png", "", 1*(Window.getWidth()/4) - Window.getTexture("gui_main_button_play.png").getWidth()/2, 3*(Window.getHeight()/4) - Window.getTexture("gui_main_button_play.png").getWidth()/2, Window.getTexture("gui_main_button_play.png").getWidth(), Window.getTexture("gui_main_button_play.png").getHeight());
+         GUIMulti.addComponent(challenge4);
+         return GUIMulti;
+     }
     /**
     public static GUI GetMulti(){
         GUI GUIMulti = new GUI();
@@ -84,8 +98,4 @@ public class GUI implements GUIListener{
         this.components = components;
     }
 
-    @Override
-    public void execute() {
-
-    }
 }

@@ -39,7 +39,8 @@ public class Game implements GameStart {
         engine = new Engine(currentLevel, p1, p2);
 
         graphicsEngine = new GraphicsEngine();
-        graphicsEngine.setGUI(GUI.GetChallenge());
+        graphicsEngine.setGUI(GUI.getMulti());
+
         //Main Game Loop
         while (Window.shouldClose()) {
             Window.loopStart();
