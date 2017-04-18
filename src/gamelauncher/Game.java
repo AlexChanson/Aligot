@@ -2,6 +2,7 @@ package gamelauncher;
 
 import core.*;
 import core.LevelGen;
+import fsm.FiniteStateMachine;
 import graphics.Window;
 import graphics.gui.GUI;
 import physics.RigidBody;
@@ -21,6 +22,7 @@ public class Game implements GameStart {
     @Override
     public void start(int screenHeight, int screenWidth, boolean fullscreen, String firstPlayerName, String secondPlayerName) {
         //Load Assets and set resources folder path
+        FiniteStateMachine myMachine = new FiniteStateMachine();
         Loader.decompileAssets();
         Window.setRessourcesFolderPath(Loader.getSpriteFolderPath());
 
@@ -39,7 +41,7 @@ public class Game implements GameStart {
         engine = new Engine(currentLevel, p1, p2);
 
         graphicsEngine = new GraphicsEngine();
-        graphicsEngine.setGUI(GUI.getMulti());
+        graphicsEngine.setGUI(GUI.getGameMods());
 
         //Main Game Loop
         while (Window.shouldClose()) {
