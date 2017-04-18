@@ -14,6 +14,10 @@ public class ChallengesState extends State{
     private GUIButtonListener challenge3ButtonListener = new GUIButtonListener();
     private GUIButtonListener challenge4ButtonListener = new GUIButtonListener();
 
+    public ChallengesState (GUI challenges){
+        this.challenges = challenges;
+    }
+
     @Override
     public String onUpdate() {
         if (challenge1ButtonListener.isClicked()) {

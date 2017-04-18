@@ -8,10 +8,14 @@ import graphics.gui.GUIButtonListener;
  * Created by Christopher on 18/04/2017.
  */
 public class GameModsState extends State {
-    private GUI gameMods = new GUI();
+    private GUI gameMods;
     private GUIButtonListener soloButtonListener = new GUIButtonListener();
     private GUIButtonListener multiButtonListener = new GUIButtonListener();
 
+    public GameModsState(GUI gameMods){
+        this.gameMods = gameMods;
+
+    }
     @Override
     public String onUpdate() {
         if (soloButtonListener.isClicked()) {
