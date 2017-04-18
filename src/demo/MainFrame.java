@@ -5,7 +5,10 @@ import graphics.Window;
 import graphics.gui.Button;
 import graphics.gui.GUI;
 import graphics.gui.GUIComponent;
+import org.lwjgl.glfw.GLFWKeyCallback;
 
+import static org.lwjgl.glfw.GLFW.GLFW_KEY_E;
+import static org.lwjgl.glfw.GLFW.glfwSetKeyCallback;
 import static org.lwjgl.glfw.GLFW.glfwTerminate;
 
 public class MainFrame {
@@ -28,6 +31,15 @@ public class MainFrame {
         guicomponent.affiche();
         button.addListener(() -> System.out.println("Hello Button !"));
         Window.registerButtonListener(button.getListeners());
+
+        glfwSetKeyCallback(Window.getWindow(), new GLFWKeyCallback() {
+            @Override
+            public void invoke(long window, int key, int scancode, int action, int mods) {
+                System.out.printf("Touche, %d , %d%n", key, action);
+                if(key == GLFW_KEY_E)
+                    System.out.println("cc");
+            }
+        });
 
         for (int i = 0; Window.shouldClose(); ++i) {
             Window.loopStart();

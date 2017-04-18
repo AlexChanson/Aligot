@@ -1,7 +1,10 @@
 package graphics;
 
+import core.Engine;
+import core.Event;
 import graphics.gui.CallBackContainer;
 import org.lwjgl.BufferUtils;
+import org.lwjgl.glfw.GLFWKeyCallback;
 import org.lwjgl.glfw.GLFWMouseButtonCallback;
 import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.opengl.GL;
@@ -481,5 +484,17 @@ public class Window {
 
     public static void setRessourcesFolderPath(String ressourcesFolderPath) {
         Window.ressourcesFolderPath = ressourcesFolderPath;
+    }
+
+    public static void setKeyCallbacks(Engine e){
+        glfwSetKeyCallback(window, new GLFWKeyCallback() {
+            @Override
+            public void invoke(long window, int key, int scancode, int action, int mods) {
+                if(action == 1)
+                    e.registerEvent(new Event("KEY_PRESSED", key));
+                else if(action == 0)
+                    e.registerEvent(new Event("KEY_RELEASED", key));
+            }
+        });
     }
 }
