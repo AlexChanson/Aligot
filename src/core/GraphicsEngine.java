@@ -17,36 +17,32 @@ public class GraphicsEngine {
     }
 
     public void drawLevel(Level level){
-        double screenWidth = Window.getWidth(), screenHeight = Window.getHeight();
-        double ratio = Math.max(screenHeight/level.getMapSize()[1], screenWidth/level.getMapSize()[0]);
+        if(level != null) {
+            float screenWidth = Window.getWidth(), screenHeight = Window.getHeight();
+            double ratio = Math.max(screenHeight / level.getMapSize()[1], screenWidth / level.getMapSize()[0]);
 
-        //TODO: Draw Background
+            Window.drawSprite(level.getBgTexture(), 0, 0, screenWidth, screenHeight, 0f);
 
-        level.getPlanets().forEach(planet -> {
-            Vector2D planetPos = planet.getRigidBody().getPosition();
-            float planetSize = (float) (planet.getRigidBody().getRadius()*2*ratio);
-            Window.drawSprite(planet.getTexture(), (float)(planetPos.getX()*ratio)-(planetSize/2), (float)(planetPos.getY()*ratio)-(planetSize/2), planetSize, planetSize, 0f);
-        });
-
+            level.getPlanets().forEach(planet -> {
+                Vector2D planetPos = planet.getRigidBody().getPosition();
+                float planetSize = (float) (planet.getRigidBody().getRadius() * 2 * ratio);
+                Window.drawSprite(planet.getTexture(), (float) (planetPos.getX() * ratio) - (planetSize / 2), (float) (planetPos.getY() * ratio) - (planetSize / 2), planetSize, planetSize, 0f);
+            });
+        }
     }
 
     public void drawGui(){
-        Window.callBackContainers.clear();
-        guiComponents.forEach(guiComponent -> {
-            if (guiComponent instanceof Button)
-                Window.callBackContainers.addAll(((Button) guiComponent).getListeners());
-            guiComponent.draw();
-        });
-    }
-
-    public void registerGUIComponents(GUIComponent... guiComponents){
-        this.guiComponents.addAll(Arrays.asList(guiComponents));
-        Collections.sort(this.guiComponents);
+        guiComponents.forEach(GUIComponent::draw);
     }
 
     public void setGUI(GUI gui){
         guiComponents.clear();
         guiComponents.addAll(gui.getComponents());
+        Window.callBackContainers.clear();
+        guiComponents.forEach(guiComponent -> {
+            if (guiComponent instanceof Button)
+                Window.callBackContainers.addAll(((Button) guiComponent).getListeners());
+        });
     }
 
     public ArrayList<GUIComponent> getGuiComponents() {
