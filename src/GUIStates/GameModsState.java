@@ -30,6 +30,9 @@ public class GameModsState extends State {
         Button multi = gameMods.getButtonById("multi");
         multi.addListener(multiButtonListener);
         graphicsEngine.setGUI(gameMods);
+        soloButtonListener.setNotClicked();
+        multiButtonListener.setNotClicked();
+
         System.out.println("Switching to Game Mode Screen");
     }
 
