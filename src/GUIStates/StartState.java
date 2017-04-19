@@ -2,6 +2,7 @@ package GUIStates;
 
 import core.GraphicsEngine;
 import fsm.State;
+import graphics.Window;
 import graphics.gui.Button;
 import graphics.gui.GUI;
 import graphics.gui.GUIButtonListener;
@@ -21,7 +22,7 @@ public class StartState extends State {
     }
 
     public void initialize(){
-        graphicsEngine.setGUI(start);
+        onEnter();
     }
 
     public void onEnter(){
@@ -30,6 +31,7 @@ public class StartState extends State {
         Button exit = start.getButtonById("exit");
         exit.addListener(exitButtonListener);
         graphicsEngine.setGUI(start);
+        System.out.println(Window.callBackContainers);
     }
 
     @Override

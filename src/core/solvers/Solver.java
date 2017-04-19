@@ -29,4 +29,11 @@ public abstract class Solver {
     public void registerEngine(Engine engine){
         this.engine = engine;
     }
+
+    public static ArrayList<Event> filterEvents(ArrayList<Event> pendingEvents,String... eventTypes){
+        ArrayList<Event> filtered = new ArrayList<>();
+
+
+        return filtered;
+    }
 }

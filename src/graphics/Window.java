@@ -59,10 +59,13 @@ public class Window {
             public void invoke(long fenetre, int button, int action, int mods) {
                 int[] cursor = getMousePos();
                 if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS){
-                    callBackContainers.forEach(container -> {
-                        if(cursor[0] >= container.getGuiComponent().getPosX() && cursor[0] <= container.getGuiComponent().getPosX() + container.getGuiComponent().getWidth())
-                            if(cursor[1] >= container.getGuiComponent().getPosY() && cursor[1] <= container.getGuiComponent().getPosY() + container.getGuiComponent().getHeight())
+                    Window.callBackContainers.forEach(container -> {
+                        System.out.println("loop");
+                        if(cursor[0] >= container.getGuiComponent().getPosX() && cursor[0] <= container.getGuiComponent().getPosX() + container.getGuiComponent().getWidth()) {
+                            if (cursor[1] >= container.getGuiComponent().getPosY() && cursor[1] <= container.getGuiComponent().getPosY() + container.getGuiComponent().getHeight()) {
                                 container.execute();
+                            }
+                        }
                     });
                 }
             }
