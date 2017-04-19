@@ -14,4 +14,8 @@ public class GUIButtonListener implements GUIListener{
     public boolean isClicked() {
         return clicked;
     }
+
+    public void setNotClicked(){
+        clicked = false;
+    }
 }

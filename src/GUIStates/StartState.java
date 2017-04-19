@@ -31,16 +31,17 @@ public class StartState extends State {
         Button exit = start.getButtonById("exit");
         exit.addListener(exitButtonListener);
         graphicsEngine.setGUI(start);
-        System.out.println(Window.callBackContainers);
+        System.out.println("Switching to Start Screen");
     }
 
     @Override
     public String onUpdate() {
         if(startButtonListener.isClicked()) {
-            System.out.println("mdr");
-            return "gameMods";
+            System.out.println("game modes button clicked");
+            return "gameModes";
         }
         else if (exitButtonListener.isClicked()) {
+            System.out.println("Exit button clicked");
             return "exit";
         }
         return "start";

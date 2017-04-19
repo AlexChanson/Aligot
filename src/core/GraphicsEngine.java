@@ -40,8 +40,9 @@ public class GraphicsEngine {
         guiComponents.addAll(gui.getComponents());
         Window.callBackContainers.clear();
         guiComponents.forEach(guiComponent -> {
-            if (guiComponent instanceof Button)
-                Window.callBackContainers.addAll(((Button) guiComponent).getListeners());
+            if (guiComponent instanceof Button){
+                Window.registerButtonListener(((Button) guiComponent).getListeners());
+            }
         });
     }
 

@@ -28,6 +28,9 @@ public class Game implements GameStart {
         Window.setRessourcesFolderPath(Loader.getSpriteFolderPath());
 
         Window.init("Aligot", fullscreen);
+        System.out.println("Fullscreen: "+fullscreen+", width: "+screenWidth+", height: "+screenHeight);
+
+
         Window.setHeight(screenHeight);
         Window.setWidth(screenWidth);
 
@@ -41,6 +44,7 @@ public class Game implements GameStart {
 
         engine = new Engine(currentLevel, p1, p2);
         GraphicsEngine graphicsEngine = new GraphicsEngine();
+
         FiniteStateMachine myMachine = new FiniteStateMachine();
         StartState startState = new StartState(GUI.getStart(), graphicsEngine);
         GameModsState gameModsState = new GameModsState(GUI.getGameMods(), graphicsEngine);
@@ -51,9 +55,11 @@ public class Game implements GameStart {
         while (Window.shouldClose()) {
             Window.loopStart();
             myMachine.update();
+
             engine.update();
-            if(currentLevel != null)
+            if(currentLevel != null){
                 graphicsEngine.drawLevel(currentLevel);
+            }
             graphicsEngine.drawGui();
 
             Window.loopEnd();

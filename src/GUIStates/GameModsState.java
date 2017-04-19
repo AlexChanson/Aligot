@@ -21,7 +21,7 @@ public class GameModsState extends State {
     }
 
     public void initialize(){
-        graphicsEngine.setGUI(gameMods);
+
     }
 
     public void onEnter(){
@@ -30,6 +30,7 @@ public class GameModsState extends State {
         Button multi = gameMods.getButtonById("multi");
         multi.addListener(multiButtonListener);
         graphicsEngine.setGUI(gameMods);
+        System.out.println("Switching to Game Mode Screen");
     }
 
     @Override
@@ -40,11 +41,11 @@ public class GameModsState extends State {
         else if (multiButtonListener.isClicked()) {
             return "multi";
         }
-        return "gameMods";
+        return "gameModes";
     }
 
     @Override
     public String getStateName() {
-        return "gameMods";
+        return "gameModes";
     }
 }

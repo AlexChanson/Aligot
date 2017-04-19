@@ -54,13 +54,21 @@ public class Window {
             System.out.println("Failed to create window");
         }
 
+        registerMouseCallbacks();
+
+        glEnable(GL_BLEND);
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+        System.out.println("Window initialisation complete !");
+    }
+
+    public static void registerMouseCallbacks(){
         glfwSetMouseButtonCallback(window, new GLFWMouseButtonCallback() {
             @Override
             public void invoke(long fenetre, int button, int action, int mods) {
                 int[] cursor = getMousePos();
                 if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS){
                     Window.callBackContainers.forEach(container -> {
-                        System.out.println("loop");
                         if(cursor[0] >= container.getGuiComponent().getPosX() && cursor[0] <= container.getGuiComponent().getPosX() + container.getGuiComponent().getWidth()) {
                             if (cursor[1] >= container.getGuiComponent().getPosY() && cursor[1] <= container.getGuiComponent().getPosY() + container.getGuiComponent().getHeight()) {
                                 container.execute();
@@ -70,14 +78,10 @@ public class Window {
                 }
             }
         });
-
-        glEnable(GL_BLEND);
-        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
-        System.out.println("Window initialisation complete !");
     }
 
     public static void loopStart() {
+        glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
         glMatrixMode(GL_PROJECTION);
         glLoadIdentity();
@@ -100,10 +104,22 @@ public class Window {
 
     public static void registerButtonListener(CallBackContainer... listeners){
         callBackContainers.addAll(Arrays.asList(listeners));
+        registerMouseCallbacks();
     }
 
     public static void registerButtonListener(ArrayList<CallBackContainer> listeners){
         callBackContainers.addAll(listeners);
+        registerMouseCallbacks();
+    }
+
+    public static void unregisterButtonListener(ArrayList<CallBackContainer> listeners){
+        callBackContainers.removeAll(listeners);
+        registerMouseCallbacks();
+    }
+
+    public static void unregisterButtonListener(CallBackContainer... listeners){
+        callBackContainers.removeAll(Arrays.asList(listeners));
+        registerMouseCallbacks();
     }
 
     /**
