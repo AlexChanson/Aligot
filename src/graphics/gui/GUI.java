@@ -72,7 +72,7 @@ public class GUI {
         return components;
     }
 
-    public Button getComponents(String id) {
+    public Button getButtonById(String id) {
         for(int i=0;i<components.size();i++) {
             if (components.get(i).getId() == id) {
                 Button button = (Button) components.get(i);

@@ -1,5 +1,6 @@
 package GUIStates;
 
+import core.GraphicsEngine;
 import fsm.State;
 import graphics.gui.Button;
 import graphics.gui.GUI;
@@ -10,18 +11,25 @@ import graphics.gui.GUIButtonListener;
  */
 public class StartState extends State {
     private GUI start;
+    private GraphicsEngine graphicsEngine;
     private GUIButtonListener startButtonListener = new GUIButtonListener();
     private GUIButtonListener exitButtonListener = new GUIButtonListener();
 
-    public StartState(GUI start){
+    public StartState(GUI start, GraphicsEngine graphicsEngine){
         this.start = start;
+        this.graphicsEngine = graphicsEngine;
+    }
+
+    public void initialize(){
+        graphicsEngine.setGUI(start);
     }
 
     public void onEnter(){
-        Button play = start.getComponents("play");
+        Button play = start.getButtonById("play");
         play.addListener(startButtonListener);
-        Button exit = start.getComponents("exit");
+        Button exit = start.getButtonById("exit");
         exit.addListener(exitButtonListener);
+        graphicsEngine.setGUI(start);
     }
 
     @Override

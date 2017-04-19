@@ -40,13 +40,10 @@ public class Game implements GameStart {
         Player p2 = new Player(new RigidBody(new Vector2D(screenWidth-100,screenHeight-100),2, 70), "doomguy.jpg", secondPlayerName, 100);
 
         engine = new Engine(currentLevel, p1, p2);
-
-        graphicsEngine = new GraphicsEngine();
-        graphicsEngine.setGUI(GUI.getGameMods());
-
+        GraphicsEngine graphicsEngine = new GraphicsEngine();
         FiniteStateMachine myMachine = new FiniteStateMachine();
-        StartState startState = new StartState(GUI.getStart());
-        GameModsState gameModsState = new GameModsState(GUI.getGameMods());
+        StartState startState = new StartState(GUI.getStart(), graphicsEngine);
+        GameModsState gameModsState = new GameModsState(GUI.getGameMods(), graphicsEngine);
         myMachine.addState(startState);
         myMachine.addState(gameModsState);
 
