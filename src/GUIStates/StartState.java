@@ -16,6 +16,11 @@ public class StartState extends State {
         this.start = start;
     }
 
+    public void onEnter(){
+        GUI.getStart().getPlay().addListener(startButtonListener);
+        GUI.getStart().getExit().addListener(exitButtonListener);
+    }
+
     @Override
     public String onUpdate() {
         if(startButtonListener.isClicked()) {

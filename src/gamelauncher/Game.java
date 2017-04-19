@@ -1,5 +1,7 @@
 package gamelauncher;
 
+import GUIStates.GameModsState;
+import GUIStates.StartState;
 import core.*;
 import core.LevelGen;
 import fsm.FiniteStateMachine;
@@ -23,6 +25,10 @@ public class Game implements GameStart {
     public void start(int screenHeight, int screenWidth, boolean fullscreen, String firstPlayerName, String secondPlayerName) {
         //Load Assets and set resources folder path
         FiniteStateMachine myMachine = new FiniteStateMachine();
+        StartState startState = new StartState(GUI.getStart());
+        GameModsState gameModsState = new GameModsState(GUI.getGameMods());
+        myMachine.addState(startState);
+        myMachine.addState(gameModsState);
         Loader.decompileAssets();
         Window.setRessourcesFolderPath(Loader.getSpriteFolderPath());
 
@@ -46,7 +52,7 @@ public class Game implements GameStart {
         //Main Game Loop
         while (Window.shouldClose()) {
             Window.loopStart();
-
+            myMachine.update();
             engine.update();
             if(currentLevel != null)
                 graphicsEngine.drawLevel(currentLevel);

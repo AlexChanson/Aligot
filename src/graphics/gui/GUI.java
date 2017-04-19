@@ -5,6 +5,11 @@ import java.util.ArrayList;
 
 public class GUI{
     private ArrayList<GUIComponent> components;
+    private Button play;
+    private Button exit;
+    private Button solo;
+    private Button multi;
+    private ArrayList<Button> challenges = new ArrayList<Button>();
 
     public GUI (){
         components = new ArrayList<>();
@@ -81,4 +86,39 @@ public class GUI{
         this.components = components;
     }
 
+    public Button getPlay() {
+        return play;
+    }
+
+    public void setPlay(Button play) {
+        this.play = play;
+    }
+
+    public Button getExit() {
+        return exit;
+    }
+
+    public void setExit(Button exit) {
+        this.exit = exit;
+    }
+
+    public Button getSolo() {
+        return solo;
+    }
+
+    public void setSolo(Button solo) {
+        this.solo = solo;
+    }
+
+    public Button getMulti() {
+        return multi;
+    }
+
+    public void setMulti(Button multi) {
+        this.multi = multi;
+    }
+
+    public void setChallenges(ArrayList<Button> challenges) {
+        this.challenges = challenges;
+    }
 }

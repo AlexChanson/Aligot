@@ -18,6 +18,10 @@ public class ChallengesState extends State{
         this.challenges = challenges;
     }
 
+    public void onEnter(){
+
+    }
+
     @Override
     public String onUpdate() {
         if (challenge1ButtonListener.isClicked()) {

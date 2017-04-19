@@ -14,8 +14,13 @@ public class GameModsState extends State {
 
     public GameModsState(GUI gameMods){
         this.gameMods = gameMods;
-
     }
+
+    public void onEnter(){
+        GUI.getGameMods().getSolo().addListener(soloButtonListener);
+        GUI.getGameMods().getMulti().addListener(multiButtonListener);
+    }
+
     @Override
     public String onUpdate() {
         if (soloButtonListener.isClicked()) {
