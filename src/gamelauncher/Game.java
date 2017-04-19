@@ -24,11 +24,6 @@ public class Game implements GameStart {
     @Override
     public void start(int screenHeight, int screenWidth, boolean fullscreen, String firstPlayerName, String secondPlayerName) {
         //Load Assets and set resources folder path
-        FiniteStateMachine myMachine = new FiniteStateMachine();
-        StartState startState = new StartState(GUI.getStart());
-        GameModsState gameModsState = new GameModsState(GUI.getGameMods());
-        myMachine.addState(startState);
-        myMachine.addState(gameModsState);
         Loader.decompileAssets();
         Window.setRessourcesFolderPath(Loader.getSpriteFolderPath());
 
@@ -48,6 +43,12 @@ public class Game implements GameStart {
 
         graphicsEngine = new GraphicsEngine();
         graphicsEngine.setGUI(GUI.getGameMods());
+
+        FiniteStateMachine myMachine = new FiniteStateMachine();
+        StartState startState = new StartState(GUI.getStart());
+        GameModsState gameModsState = new GameModsState(GUI.getGameMods());
+        myMachine.addState(startState);
+        myMachine.addState(gameModsState);
 
         //Main Game Loop
         while (Window.shouldClose()) {
