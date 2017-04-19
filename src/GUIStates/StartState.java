@@ -1,6 +1,7 @@
 package GUIStates;
 
 import fsm.State;
+import graphics.gui.Button;
 import graphics.gui.GUI;
 import graphics.gui.GUIButtonListener;
 
@@ -17,16 +18,20 @@ public class StartState extends State {
     }
 
     public void onEnter(){
-        GUI.getStart().getPlay().addListener(startButtonListener);
-        GUI.getStart().getExit().addListener(exitButtonListener);
+        Button play = start.getComponents("play");
+        play.addListener(startButtonListener);
+        Button exit = start.getComponents("exit");
+        exit.addListener(exitButtonListener);
     }
 
     @Override
     public String onUpdate() {
         if(startButtonListener.isClicked()) {
+            System.out.println("mdr");
             return "gameMods";
         }
         else if (exitButtonListener.isClicked()) {
+            return "exit";
         }
         return "start";
     }

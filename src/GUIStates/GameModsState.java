@@ -17,8 +17,7 @@ public class GameModsState extends State {
     }
 
     public void onEnter(){
-        GUI.getGameMods().getSolo().addListener(soloButtonListener);
-        GUI.getGameMods().getMulti().addListener(multiButtonListener);
+
     }
 
     @Override

@@ -2,6 +2,7 @@ package graphics.gui;
 
 public abstract class GUIComponent implements Comparable<GUIComponent>{
     protected int posX, posY, height, width, z = 0;
+    protected String id;
     public abstract void draw();
 
     public int getPosX() {
@@ -42,6 +43,12 @@ public abstract class GUIComponent implements Comparable<GUIComponent>{
 
     public void setZ(int z) {
         this.z = z;
+    }
+
+    public String getId() { return id; }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     @Override

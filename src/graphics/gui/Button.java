@@ -10,16 +10,17 @@ public class Button extends GUIComponent{
     private String text;
     private String id;
 
-    public Button (String text, int posX, int posY, int width, int height){
+    public Button (String text, int posX, int posY, int width, int height, String id){
         listeners = new ArrayList<>();
         this.text = text;
         this.posX = posX;
         this.posY = posY;
         this.width = width;
         this.height = height;
+        this.id = id;
     }
 
-    public Button (String texture, String text, int posX, int posY, int width, int height) {
+    public Button (String texture, String text, int posX, int posY, int width, int height, String id) {
         listeners = new ArrayList<>();
         this.texture = texture;
         this.text = text;
@@ -27,6 +28,7 @@ public class Button extends GUIComponent{
         this.posY = posY;
         this.width = width;
         this.height = height;
+        this.id = id;
     }
 
     public void draw() {
@@ -59,12 +61,6 @@ public class Button extends GUIComponent{
     }
 
     public String getId() {
-        if (id == null) {
-            id = text;
-        }
-        if (text == null) {
-            id = texture;
-        }
         return id;
     }
 

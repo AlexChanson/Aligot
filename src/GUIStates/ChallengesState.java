@@ -8,7 +8,7 @@ import graphics.gui.GUIButtonListener;
  * Created by Christopher on 18/04/2017.
  */
 public class ChallengesState extends State{
-    private GUI challenges = new GUI();
+    private GUI challenges;
     private GUIButtonListener challenge1ButtonListener = new GUIButtonListener();
     private GUIButtonListener challenge2ButtonListener = new GUIButtonListener();
     private GUIButtonListener challenge3ButtonListener = new GUIButtonListener();
