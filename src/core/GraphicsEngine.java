@@ -38,11 +38,10 @@ public class GraphicsEngine {
     public void setGUI(GUI gui){
         guiComponents.clear();
         guiComponents.addAll(gui.getComponents());
-        Window.callBackContainers.clear();
+        Window.getCallBackContainers().clear();
         guiComponents.forEach(guiComponent -> {
-            if (guiComponent instanceof Button){
-                Window.registerButtonListener(((Button) guiComponent).getListeners());
-            }
+            if (guiComponent instanceof Button)
+                Window.getCallBackContainers().addAll(((Button)guiComponent).getListeners());
         });
     }
 

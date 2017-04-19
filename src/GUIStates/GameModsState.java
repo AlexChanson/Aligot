@@ -6,9 +6,6 @@ import graphics.gui.Button;
 import graphics.gui.GUI;
 import graphics.gui.GUIButtonListener;
 
-/**
- * Created by Christopher on 18/04/2017.
- */
 public class GameModsState extends State {
     private GUI gameMods;
     private GraphicsEngine graphicsEngine;
@@ -32,8 +29,6 @@ public class GameModsState extends State {
         graphicsEngine.setGUI(gameMods);
         soloButtonListener.setNotClicked();
         multiButtonListener.setNotClicked();
-
-        System.out.println("Switching to Game Mode Screen");
     }
 
     @Override

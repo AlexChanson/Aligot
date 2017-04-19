@@ -52,7 +52,7 @@ public class LevelGen {
      * @return Returns the generated level
      */
     public Level create(){
-        String[] bgTextures = {"placeholder1.jpg", "placeholder2.jpg"};
+        String[] bgTextures = {"placeholder.png", "placeholder.png"};
         result = new Level(Long.toString(seed), "Generated procedurally", bgTextures[gen.nextInt(bgTextures.length)]);
         result.setMapSize(mapSize);
         System.out.println("Starting Procedural generator with seed " + seed);

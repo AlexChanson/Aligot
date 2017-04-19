@@ -26,7 +26,7 @@ public class Window {
     private static int monitor = 0, width = 1920, height = 1080;
     private static boolean fullscreenEnabled;
     private static HashMap<Character, Integer> charWidth;
-    public static ArrayList<CallBackContainer> callBackContainers = new ArrayList<>();
+    private static ArrayList<CallBackContainer> callBackContainers = new ArrayList<>();
     private static String ressourcesFolderPath = System.getProperty("user.dir") + File.separator + "ressources" + File.separator + "sprites" + File.separator;
     public static final int TEXT_ALIGN_LEFT = 0, TEXT_ALIGN_CENTER = 1, TEXT_ALIGN_RIGHT = 2;
 
@@ -100,26 +100,6 @@ public class Window {
         glfwGetCursorPos(window, x, y);
 
         return new int[] { (int) x.get(), (int) y.get() };
-    }
-
-    public static void registerButtonListener(CallBackContainer... listeners){
-        callBackContainers.addAll(Arrays.asList(listeners));
-        registerMouseCallbacks();
-    }
-
-    public static void registerButtonListener(ArrayList<CallBackContainer> listeners){
-        callBackContainers.addAll(listeners);
-        registerMouseCallbacks();
-    }
-
-    public static void unregisterButtonListener(ArrayList<CallBackContainer> listeners){
-        callBackContainers.removeAll(listeners);
-        registerMouseCallbacks();
-    }
-
-    public static void unregisterButtonListener(CallBackContainer... listeners){
-        callBackContainers.removeAll(Arrays.asList(listeners));
-        registerMouseCallbacks();
     }
 
     /**
@@ -515,5 +495,9 @@ public class Window {
                     e.registerEvent(new Event("KEY_RELEASED", key));
             }
         });
+    }
+
+    public static ArrayList<CallBackContainer> getCallBackContainers() {
+        return callBackContainers;
     }
 }
