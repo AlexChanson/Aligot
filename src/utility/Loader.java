@@ -94,7 +94,7 @@ public class Loader {
         } catch (IOException ignored) {}
 
         if(jarFile != null){
-            String path = tempPath + File.separator + "aligot_ressources";
+            String path = tempPath +  "aligot_ressources";
             Window.setRessourcesFolderPath(path + File.separator);
             ressourcesPath = path + File.separator;
 

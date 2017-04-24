@@ -28,6 +28,7 @@ public class Game implements GameStart {
         //Load Assets and set resources folder path
         Loader.decompileAssets();
         Window.setRessourcesFolderPath(Loader.getSpriteFolderPath());
+        System.out.println("Set assets folder to : " + Loader.getSpriteFolderPath());
 
         Window.init("Aligot", fullscreen);
         System.out.println("Fullscreen: "+fullscreen+", width: "+screenWidth+", height: "+screenHeight);
