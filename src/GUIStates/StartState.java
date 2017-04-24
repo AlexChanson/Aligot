@@ -2,7 +2,6 @@ package GUIStates;
 
 import core.GraphicsEngine;
 import fsm.State;
-import graphics.Window;
 import graphics.gui.Button;
 import graphics.gui.GUI;
 import graphics.gui.GUIButtonListener;

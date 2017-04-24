@@ -1,5 +1,6 @@
 package gamelauncher;
 
+import GUIStates.ExitState;
 import GUIStates.GameModsState;
 import GUIStates.StartState;
 import core.*;
@@ -49,8 +50,10 @@ public class Game implements GameStart {
         FiniteStateMachine myMachine = new FiniteStateMachine();
         StartState startState = new StartState(GUI.getStart(), graphicsEngine);
         GameModsState gameModsState = new GameModsState(GUI.getGameMods(), graphicsEngine);
+        ExitState exitState = new ExitState();
         myMachine.addState(startState);
         myMachine.addState(gameModsState);
+        myMachine.addState(exitState);
 
         //Main Game Loop
         while (Window.shouldClose()) {
