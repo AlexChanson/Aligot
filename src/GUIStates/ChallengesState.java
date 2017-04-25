@@ -1,6 +1,8 @@
 package GUIStates;
 
+import core.GraphicsEngine;
 import fsm.State;
+import graphics.gui.Button;
 import graphics.gui.GUI;
 import graphics.gui.GUIButtonListener;
 
@@ -9,33 +11,48 @@ import graphics.gui.GUIButtonListener;
  */
 public class ChallengesState extends State{
     private GUI challenges;
-    private GUIButtonListener challenge1ButtonListener = new GUIButtonListener();
-    private GUIButtonListener challenge2ButtonListener = new GUIButtonListener();
-    private GUIButtonListener challenge3ButtonListener = new GUIButtonListener();
-    private GUIButtonListener challenge4ButtonListener = new GUIButtonListener();
+    private GraphicsEngine graphicsEngine;
+    private GUIButtonListener easyChallengeButtonListener = new GUIButtonListener();
+    private GUIButtonListener mediumChallengeButtonListener = new GUIButtonListener();
+    private GUIButtonListener hardChallengeButtonListener = new GUIButtonListener();
+    private GUIButtonListener backButtonListener = new GUIButtonListener();
 
-    public ChallengesState (GUI challenges){
+    public ChallengesState (GUI challenges, GraphicsEngine graphicsEngine){
         this.challenges = challenges;
+        this.graphicsEngine = graphicsEngine;
     }
 
     public void onEnter(){
-
+        Button easy = challenges.getButtonById("easy");
+        easy.addListener(easyChallengeButtonListener);
+        Button medium = challenges.getButtonById("medium");
+        medium.addListener(mediumChallengeButtonListener);
+        Button hard = challenges.getButtonById("hard");
+        hard.addListener(hardChallengeButtonListener);
+        Button back = challenges.getButtonById("back");
+        //back.addListener(backButtonListener);
+        easyChallengeButtonListener.setNotClicked();
+        mediumChallengeButtonListener.setNotClicked();
+        hardChallengeButtonListener.setNotClicked();
+        //backButtonListener.setNotClicked();
+        graphicsEngine.setGUI(challenges);
+        System.out.println("Switching to Challenges Screen");
     }
 
     @Override
     public String onUpdate() {
-        if (challenge1ButtonListener.isClicked()) {
-            return "challenge1";
+        if (easyChallengeButtonListener.isClicked()) {
+            return "easyChallenge";
         }
-        else if (challenge2ButtonListener.isClicked()) {
-            return "challenge2";
+        else if (mediumChallengeButtonListener.isClicked()) {
+            return "mediumChallenge";
         }
-        else if (challenge3ButtonListener.isClicked()) {
-            return "challenge3";
+        else if (hardChallengeButtonListener.isClicked()) {
+            return "hardChallenge";
         }
-        else if (challenge4ButtonListener.isClicked()) {
-            return "challenge4";
-        }
+        //else if (backButtonListener.isClicked()) {
+        //    return "gameMods";
+        //}
         return "challenges";
     }
 

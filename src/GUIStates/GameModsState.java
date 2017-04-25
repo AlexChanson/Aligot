@@ -11,6 +11,7 @@ public class GameModsState extends State {
     private GraphicsEngine graphicsEngine;
     private GUIButtonListener soloButtonListener = new GUIButtonListener();
     private GUIButtonListener multiButtonListener = new GUIButtonListener();
+    private GUIButtonListener backButtonListener = new GUIButtonListener();
 
     public GameModsState(GUI gameMods, GraphicsEngine graphicsEngine){
         this.gameMods = gameMods;
@@ -26,19 +27,27 @@ public class GameModsState extends State {
         solo.addListener(soloButtonListener);
         Button multi = gameMods.getButtonById("multi");
         multi.addListener(multiButtonListener);
-        graphicsEngine.setGUI(gameMods);
+        //Button back = gameMods.getButtonById("back");
+        //back.addListener(backButtonListener);
         soloButtonListener.setNotClicked();
         multiButtonListener.setNotClicked();
+        //backButtonListener.setNotClicked();
+        graphicsEngine.setGUI(gameMods);
+        System.out.println("Switching to Game Mods Screen");
     }
 
     @Override
     public String onUpdate() {
         if (soloButtonListener.isClicked()) {
+            System.out.println("Solo is clicked");
             return "challenges";
         }
         else if (multiButtonListener.isClicked()) {
             return "multi";
         }
+        //else if (backButtonListener.isClicked()) {
+        //    return "start";
+        //}
         return "gameModes";
     }
 

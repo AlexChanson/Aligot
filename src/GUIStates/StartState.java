@@ -31,7 +31,6 @@ public class StartState extends State {
         exit.addListener(exitButtonListener);
         startButtonListener.setNotClicked();
         exitButtonListener.setNotClicked();
-
         graphicsEngine.setGUI(start);
         System.out.println("Switching to Start Screen");
     }
