@@ -57,6 +57,7 @@ public class MainWindowCtl {
         graph.widthProperty().addListener(event -> drawLevel(graph));
         graph.heightProperty().addListener(event -> drawLevel(graph));
         graph.setOnMouseClicked(this::mouseHandler);
+        //TODO add listeners for drag and drop stuff and things
         //choice box init
         planetType.getItems().addAll("rock", "gas", "black_hole", "star");
         //Initializing the coordinates
@@ -65,7 +66,7 @@ public class MainWindowCtl {
         //Setting the text filters
         xCoordinate.setTextFormatter(new TextFormatter<>(FxUtils.filter));
         yCoordinate.setTextFormatter(new TextFormatter<>(FxUtils.filter));
-        planetRadius.setTextFormatter(new TextFormatter<>(FxUtils.doubleFilter));
+        planetRadius.setTextFormatter(new TextFormatter<>(FxUtils.filter));
         planetMass.setTextFormatter(new TextFormatter<>(FxUtils.doubleFilter));
         //Set the bindings for the coordinates and the cursor
         Bindings.bindBidirectional(xCoordinate.textProperty(), cursorX, FxUtils.converter);
@@ -73,7 +74,7 @@ public class MainWindowCtl {
         //set listeners to move the cursor if the property is modified
         cursorX.addListener(observable -> drawLevel(graph));
         cursorY.addListener(observable -> drawLevel(graph));
-        //planet stuff
+        //Dynamic adjustments to planets
         currentLevel.addListener((observable, oldValue, newValue) -> {
             if(newValue == null)
                 currentPlanet.set(null);
@@ -83,7 +84,7 @@ public class MainWindowCtl {
                 isSpawnBox.setSelected(newValue.isSpawn());
                 planetType.setValue(currentPlanet.get().getType());
                 planetTexture.setText(currentPlanet.get().getTexture());
-                planetRadius.setText(Double.toString(currentPlanet.get().getRigidBody().getRadius()));
+                planetRadius.setText(String.valueOf((int)currentPlanet.get().getRigidBody().getRadius()));
                 planetMass.setText(Double.toString(currentPlanet.get().getRigidBody().getMass()));
             }else{
                 isSpawnBox.setSelected(false);
@@ -102,16 +103,22 @@ public class MainWindowCtl {
             }
         });
         planetTexture.textProperty().addListener(observable -> {
-            //TODO Update planet texture
+            if(currentPlanet.get() != null)
+                currentPlanet.get().setTexture(planetTexture.getText());
         });
         planetRadius.textProperty().addListener(observable -> {
-            //TODO update the planet radius
+            if(currentPlanet.get() != null && !planetRadius.getText().equals("")){
+                currentPlanet.get().getRigidBody().setRadius(Integer.parseInt(planetRadius.getText()));
+                drawLevel(graph);
+            }
         });
         planetMass.textProperty().addListener(observable -> {
-            //TODO update the planet mass
+            if(currentPlanet.get() != null)
+                currentPlanet.get().getRigidBody().setMass(Double.parseDouble(planetMass.getText()));
         });
         planetType.valueProperty().addListener(observable -> {
-            //TODO update planet type
+            if(currentPlanet.get() != null)
+                currentPlanet.get().setType(planetType.getValue());
         });
         drawLevel(graph);
     }
@@ -144,7 +151,7 @@ public class MainWindowCtl {
         FileChooser fc = new FileChooser();
         fc.setTitle("Open a level file");
         fc.setInitialDirectory(new File(System.getProperty("user.dir")));
-        fc.getExtensionFilters().add(new FileChooser.ExtensionFilter("Level File", "*.lvl"));
+        fc.getExtensionFilters().add(new FileChooser.ExtensionFilter("Level File", "*.lvl", "*.json"));
         File toOpen = fc.showOpenDialog(new Stage());
         Gson gson = new Gson();
         String content = "";
@@ -302,15 +309,22 @@ public class MainWindowCtl {
     private void addPlanet(){
         if (currentLevel.get() != null && planetRadius.getText() != null && planetTexture.getText() != null && planetMass.getText() != null && planetType.getValue() != null){
             if(cursorX.get() >= 0 && cursorX.get() <= currentLevel.get().getMapSize()[0] && cursorY.get() >= 0 && cursorY.get() <= currentLevel.get().getMapSize()[1]){
-                //TODO: check if the planet does not overlap with another one
-                try {
-                    double size = Double.parseDouble(planetRadius.getText());
-                    double mass = Double.parseDouble(planetMass.getText());
-                    Planet p = new Planet(new RigidBody(new Vector2D(cursorX.get(), cursorY.get()), size, mass), planetTexture.getText(), planetType.getValue());
-                    currentLevel.get().getPlanets().add(p);
-                    drawLevel(graph);
-                }catch (Exception e){
-                    e.printStackTrace();
+                boolean overlap = false;
+                Vector2D cursorPos = new Vector2D(cursorX.get(), cursorY.get());
+                for (Planet planet : currentLevel.get().getPlanets()) {
+                    if (planet.getRigidBody().getRadius() > cursorPos.distanceTo(currentPlanet.get().getRigidBody().getPosition()))
+                        overlap = true;
+                }
+                if(!overlap){
+                    try {
+                        double size = Double.parseDouble(planetRadius.getText());
+                        double mass = Double.parseDouble(planetMass.getText());
+                        Planet p = new Planet(new RigidBody(new Vector2D(cursorX.get(), cursorY.get()), size, mass), planetTexture.getText(), planetType.getValue());
+                        currentLevel.get().getPlanets().add(p);
+                        drawLevel(graph);
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
                 }
             }
         }

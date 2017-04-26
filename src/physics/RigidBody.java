@@ -115,6 +115,10 @@ public class RigidBody {
         return radius;
     }
 
+    public void setRadius(double radius) {
+        this.radius = radius;
+    }
+
     public void resetAppliedForces(){
         this.appliedForce = Vector2D.getNull();
     }
