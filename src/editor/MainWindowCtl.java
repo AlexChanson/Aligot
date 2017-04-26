@@ -191,7 +191,7 @@ public class MainWindowCtl {
         FileChooser fc = new FileChooser();
         fc.setTitle("Save a level file");
         fc.setInitialDirectory(new File(System.getProperty("user.dir")));
-        fc.getExtensionFilters().add(new FileChooser.ExtensionFilter("Level File", "*.lvl"));
+        fc.getExtensionFilters().add(new FileChooser.ExtensionFilter("Level File", "*.lvl", "*.json"));
         File toOpen = fc.showSaveDialog(new Stage());
         if(toOpen != null){
             try {
