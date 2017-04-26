@@ -1,0 +1,16 @@
+{
+  "texture": "weapon_tentacle.png",
+  "damageRange": [
+    10,
+    10
+  ],
+  "compatible": [
+    {
+      "damageBonus": 2,
+      "type": 3,
+      "effect": 3
+    }
+  ],
+  "name": "Tentakle",
+  "icon": ""
+}

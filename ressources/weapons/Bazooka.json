@@ -1,0 +1,16 @@
+{
+  "texture": "weapon_bazooka.png",
+  "damageRange": [
+    20,
+    10
+  ],
+  "compatible": [
+    {
+      "damageBonus": 1,
+      "type": 2,
+      "effect": 7
+    }
+  ],
+  "name": "Bazoo-K",
+  "icon": ""
+}
