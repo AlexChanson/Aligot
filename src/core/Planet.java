@@ -32,7 +32,7 @@ public class Planet extends GameObject{
     }
 
     public static Planet spawn(RigidBody rigidBody, String texture){
-        Planet planet = new Planet(rigidBody, texture, "solid");
+        Planet planet = new Planet(rigidBody, texture, "rock");
         planet.setAsSpawn();
         return planet;
     }

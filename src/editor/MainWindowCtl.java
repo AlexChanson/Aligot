@@ -52,7 +52,7 @@ public class MainWindowCtl {
     public void initialize(){
         //Setting up the canvas in the center of the border pane
         Pane wrapperPane = new Pane();
-        wrapperPane.setStyle("-fx-background-color: black");
+        wrapperPane.setStyle("-fx-background-color: lightgray");
         borderPane.setCenter(wrapperPane);
         graph = new Canvas();
         wrapperPane.getChildren().add(graph);
@@ -269,17 +269,25 @@ public class MainWindowCtl {
 
             currentLevel.get().getPlanets().forEach(planet -> {
                 RigidBody temp = planet.getRigidBody();
-                if (planet.isSpawn())
-                    gc.setFill(Color.RED);
-                else
-                    gc.setFill(Color.GREEN);
-                gc.fillOval(
-                        (temp.getPosition().getX() * widthRatio) - widthRatio * temp.getRadius(),
-                        (temp.getPosition().getY() * heightRatio) - heightRatio * temp.getRadius(),
-                        widthRatio * temp.getRadius() * 2,
-                        heightRatio * temp.getRadius() * 2);
-
-
+                switch (planet.getType()){
+                    case "rock":
+                        gc.setFill(Color.CHOCOLATE);
+                        break;
+                    case "gas":
+                        gc.setFill(Color.LIGHTBLUE);
+                        break;
+                    case "star":
+                        gc.setFill(Color.YELLOW);
+                        break;
+                    case "black_hole":
+                        gc.setFill(Color.BLACK);
+                        break;
+                }
+                gc.fillOval((temp.getPosition().getX() * widthRatio) - widthRatio * temp.getRadius(),(temp.getPosition().getY() * heightRatio) - heightRatio * temp.getRadius(),widthRatio * temp.getRadius() * 2,heightRatio * temp.getRadius() * 2);
+                if(planet.isSpawn()) {
+                    gc.setFill(Color.CRIMSON);
+                    gc.fillOval((temp.getPosition().getX() * widthRatio) - widthRatio * temp.getRadius()/2, (temp.getPosition().getY() * heightRatio) - heightRatio * temp.getRadius()/2, widthRatio * temp.getRadius(), heightRatio * temp.getRadius());
+                }
             });
             if(currentLevel.get().getChallenge() != null){
                 currentLevel.get().getChallenge().getTargets().forEach(target -> FxUtils.drawTarget(graph.getGraphicsContext2D(), target[0]*widthRatio, target[1]*heightRatio));
