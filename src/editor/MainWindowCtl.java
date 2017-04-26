@@ -422,20 +422,23 @@ public class MainWindowCtl {
 
    private void keyboardHandler(KeyEvent event){
         if (currentPlanet.get() != null){
-            System.out.println(event.toString());
             Vector2D original = currentPlanet.get().getRigidBody().getPosition();
             switch (event.getCode()){
                 case Z:
                     currentPlanet.get().getRigidBody().setPosition(original.add(0,-10));
+                    cursorY.set(cursorY.get() - 10);
                     break;
                 case Q:
                     currentPlanet.get().getRigidBody().setPosition(original.add(-10,0));
+                    cursorX.set(cursorX.get() - 10);
                     break;
                 case S:
                     currentPlanet.get().getRigidBody().setPosition(original.add(0,10));
+                    cursorY.set(cursorY.get() + 10);
                     break;
                 case D:
                     currentPlanet.get().getRigidBody().setPosition(original.add(10,0));
+                    cursorX.set(cursorX.get() + 10);
                     break;
             }
             drawLevel();
