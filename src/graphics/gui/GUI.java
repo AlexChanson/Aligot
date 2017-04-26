@@ -45,15 +45,15 @@ public class GUI {
         return GUIGameMods;
     }
 
-    public static GUI getChallenges() {
-        GUI GUIChallenge = new GUI();
+    public static GUI getSelectChallenge() {
+        GUI GUISelectChallenge = new GUI();
         Button easyChallenge = new Button("", "EASY", Window.getWidth() / 6 - Window.getTexture("gui_main_button_play.png").getWidth() / 2, Window.getHeight() / 2 - Window.getTexture("gui_main_button_play.png").getWidth() / 2, Window.getTexture("gui_main_button_play.png").getWidth(), Window.getTexture("gui_main_button_play.png").getHeight(), "easy");
-        GUIChallenge.addComponent(easyChallenge);
+        GUISelectChallenge.addComponent(easyChallenge);
         Button mediumChallenge = new Button("", "MEDIUM", 3* (Window.getWidth() / 6) - Window.getTexture("gui_main_button_play.png").getWidth() / 2, Window.getHeight() / 2 - Window.getTexture("gui_main_button_play.png").getWidth() / 2, Window.getTexture("gui_main_button_play.png").getWidth(), Window.getTexture("gui_main_button_play.png").getHeight(), "medium");
-        GUIChallenge.addComponent(mediumChallenge);
+        GUISelectChallenge.addComponent(mediumChallenge);
         Button hardChallenge = new Button("", "HARD", 5 * (Window.getWidth() / 6) - Window.getTexture("gui_main_button_play.png").getWidth() / 2, Window.getHeight() /2  - Window.getTexture("gui_main_button_play.png").getWidth() / 2, Window.getTexture("gui_main_button_play.png").getWidth(), Window.getTexture("gui_main_button_play.png").getHeight(), "hard");
-        GUIChallenge.addComponent(hardChallenge);
-        return GUIChallenge;
+        GUISelectChallenge.addComponent(hardChallenge);
+        return GUISelectChallenge;
     }
 
     /**
