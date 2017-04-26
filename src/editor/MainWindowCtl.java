@@ -16,6 +16,8 @@ import javafx.geometry.Insets;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
+import javafx.scene.input.DragEvent;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
@@ -25,7 +27,6 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import physics.RigidBody;
 import physics.Vector2D;
-import utility.Pair;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -37,7 +38,7 @@ public class MainWindowCtl {
     @FXML
     private BorderPane borderPane;
     @FXML
-    private TextField xCoordinate, yCoordinate, planetMass, planetRadius, planetTexture;
+    private TextField xCoordinate, yCoordinate, planetMass, planetRadius, planetTexture, bgTextureField;
     @FXML
     private CheckBox isSpawnBox;
     @FXML
@@ -59,26 +60,25 @@ public class MainWindowCtl {
         graph.widthProperty().bind(wrapperPane.widthProperty());
         graph.heightProperty().bind(wrapperPane.heightProperty());
         //setting the canvas event handlers
-        graph.widthProperty().addListener(event -> drawLevel(graph));
-        graph.heightProperty().addListener(event -> drawLevel(graph));
+        graph.widthProperty().addListener(event -> drawLevel());
+        graph.heightProperty().addListener(event -> drawLevel());
         graph.setOnMouseClicked(this::mouseHandler);
-        //TODO add listeners for drag and drop stuff and things
         //choice box init
         planetType.getItems().addAll("rock", "gas", "black_hole", "star");
         //Initializing the coordinates
         xCoordinate.setText(Integer.toString(0));
         yCoordinate.setText(Integer.toString(0));
         //Setting the text filters
-        xCoordinate.setTextFormatter(new TextFormatter<>(FxUtils.filter));
-        yCoordinate.setTextFormatter(new TextFormatter<>(FxUtils.filter));
-        planetRadius.setTextFormatter(new TextFormatter<>(FxUtils.filter));
+        xCoordinate.setTextFormatter(new TextFormatter<>(FxUtils.intFilter));
+        yCoordinate.setTextFormatter(new TextFormatter<>(FxUtils.intFilter));
+        planetRadius.setTextFormatter(new TextFormatter<>(FxUtils.intFilter));
         planetMass.setTextFormatter(new TextFormatter<>(FxUtils.doubleFilter));
         //Set the bindings for the coordinates and the cursor
         Bindings.bindBidirectional(xCoordinate.textProperty(), cursorX, FxUtils.converter);
         Bindings.bindBidirectional(yCoordinate.textProperty(), cursorY, FxUtils.converter);
         //set listeners to move the cursor if the property is modified
-        cursorX.addListener(observable -> drawLevel(graph));
-        cursorY.addListener(observable -> drawLevel(graph));
+        cursorX.addListener(observable -> drawLevel());
+        cursorY.addListener(observable -> drawLevel());
         //Dynamic adjustments to planets
         currentLevel.addListener((observable, oldValue, newValue) -> {
             if(newValue == null)
@@ -103,7 +103,7 @@ public class MainWindowCtl {
             if(currentPlanet.get() != null){
                 if(currentPlanet.get().isSpawn() != isSpawnBox.isSelected()){
                     currentPlanet.get().setSpawn(isSpawnBox.isSelected());
-                    drawLevel(graph);
+                    drawLevel();
                 }
             }
         });
@@ -114,7 +114,7 @@ public class MainWindowCtl {
         planetRadius.textProperty().addListener(observable -> {
             if(currentPlanet.get() != null && !planetRadius.getText().equals("")){
                 currentPlanet.get().getRigidBody().setRadius(Integer.parseInt(planetRadius.getText()));
-                drawLevel(graph);
+                drawLevel();
             }
         });
         planetMass.textProperty().addListener(observable -> {
@@ -125,10 +125,16 @@ public class MainWindowCtl {
             if(currentPlanet.get() != null)
                 currentPlanet.get().setType(planetType.getValue());
         });
-        drawLevel(graph);
+        bgTextureField.textProperty().addListener(observable -> {
+            if (currentLevel.get() != null)
+                currentLevel.get().setBgTexture(bgTextureField.getText());
+        });
+        borderPane.addEventHandler(KeyEvent.KEY_PRESSED, this::keyboardHandler);
+        drawLevel();
     }
 
     private void mouseHandler(MouseEvent event){
+        graph.requestFocus();
         if(currentLevel.get() != null) {
             cursorX.setValue((int) (event.getX() / (graph.getWidth() / currentLevel.get().getMapSize()[0])));
             cursorY.setValue((int) (event.getY() / (graph.getHeight() / currentLevel.get().getMapSize()[1])));
@@ -141,63 +147,14 @@ public class MainWindowCtl {
             cursorX.setValue(event.getX());
             cursorY.setValue(event.getY());
         }
-        drawLevel(graph);
+        drawLevel();
     }
 
     @FXML
     private void newFileDialog(){
-        Dialog<String[]> dialog = new Dialog<>();
-        dialog.setTitle("New Level");
-        dialog.setHeaderText("Enter a name, a description and the size of the map.");
-
-        ButtonType okButtonType = new ButtonType("OK", ButtonBar.ButtonData.OK_DONE);
-        dialog.getDialogPane().getButtonTypes().addAll(okButtonType, ButtonType.CANCEL);
-
-        GridPane grid = new GridPane();
-        grid.setHgap(10);
-        grid.setVgap(10);
-        grid.setPadding(new Insets(20, 150, 10, 10));
-
-        TextField height = new TextField();
-        height.setPromptText("1234");
-        height.setTextFormatter(new TextFormatter<>(FxUtils.filter));
-
-        TextField width = new TextField();
-        width.setPromptText("123");
-        width.setTextFormatter(new TextFormatter<>(FxUtils.filter));
-
-        TextField name = new TextField();
-        name.setPromptText("A level.");
-
-        TextField description = new TextField();
-        description.setPromptText("Yeah it's fun to play.");
-
-        grid.add(new Label("Height: "), 0, 0);
-        grid.add(height, 1, 0);
-
-        grid.add(new Label("Width: "), 0, 1);
-        grid.add(width, 1, 1);
-
-        grid.add(new Label("Name: "), 0, 2);
-        grid.add(name, 1, 2);
-
-        grid.add(new Label("Description: "), 0, 3);
-        grid.add(description, 1, 3);
-
-        dialog.getDialogPane().setContent(grid);
-
-        Platform.runLater(() -> height.requestFocus());
-
-        dialog.setResultConverter(dialogButton -> {
-            if (dialogButton == okButtonType) {
-                return new String[]{name.getText(), description.getText(), height.getText(), width.getText()};
-            }
-            return null;
-        });
-
+        Dialog<String[]> dialog = FxUtils.getNewLevelDialog();
         Optional<String[]> result = dialog.showAndWait();
-        System.out.println(result.isPresent());
-        result.ifPresent(infos -> currentLevel.set(new Level(infos[0], infos[1], "", new HashSet<>(), new int[]{Integer.parseInt(infos[3]), Integer.parseInt(infos[2])})));
+        result.ifPresent(infos -> currentLevel.set(new Level(infos[0], infos[1], "", new HashSet<>(), new int[]{Integer.parseInt(infos[2]), Integer.parseInt(infos[3])})));
     }
 
     @FXML
@@ -224,7 +181,7 @@ public class MainWindowCtl {
 
             alert.showAndWait();
         }
-        drawLevel(graph);
+        drawLevel();
     }
 
     @FXML
@@ -263,10 +220,12 @@ public class MainWindowCtl {
 
         Optional<ButtonType> result = alert.showAndWait();
 
-        if (Objects.equals(result.get(), ButtonType.OK))
+        if (Objects.equals(result.get(), ButtonType.OK)) {
+            currentPlanet.set(null);
             currentLevel.set(null);
+        }
 
-        drawLevel(graph);
+        drawLevel();
     }
 
     @FXML
@@ -294,13 +253,13 @@ public class MainWindowCtl {
             LevelGen gen = new LevelGen(new Random().nextLong(), mapSize);
             currentLevel.set(gen.getLevel());
         });
-        drawLevel(graph);
+        drawLevel();
     }
 
-    private void drawLevel(Canvas canvas){
-        double width = canvas.getWidth();
-        double height = canvas.getHeight();
-        GraphicsContext gc = canvas.getGraphicsContext2D();
+    private void drawLevel(){
+        double width = graph.getWidth();
+        double height = graph.getHeight();
+        GraphicsContext gc = graph.getGraphicsContext2D();
 
         gc.clearRect(0, 0, width, height);
 
@@ -358,7 +317,7 @@ public class MainWindowCtl {
         if(currentPlanet.get() != null){
             currentLevel.get().getPlanets().remove(currentPlanet.get());
             currentPlanet.set(null);
-            drawLevel(graph);
+            drawLevel();
         }
     }
 
@@ -368,22 +327,18 @@ public class MainWindowCtl {
             if(cursorX.get() >= 0 && cursorX.get() <= currentLevel.get().getMapSize()[0] && cursorY.get() >= 0 && cursorY.get() <= currentLevel.get().getMapSize()[1]){
                 boolean overlap = false;
                 Vector2D cursorPos = new Vector2D(cursorX.get(), cursorY.get());
-                /*
+                double size = Double.parseDouble(planetRadius.getText());
                 for (Planet planet : currentLevel.get().getPlanets()) {
-                    if (planet.getRigidBody().getRadius() > cursorPos.distanceTo(currentPlanet.get().getRigidBody().getPosition()))
+                    if (planet.getRigidBody().getRadius() + size > cursorPos.distanceTo(planet.getRigidBody().getPosition()))
                         overlap = true;
                 }
-                */
                 if(!overlap){
-                    try {
-                        double size = Double.parseDouble(planetRadius.getText());
                         double mass = Double.parseDouble(planetMass.getText());
                         Planet p = new Planet(new RigidBody(new Vector2D(cursorX.get(), cursorY.get()), size, mass), planetTexture.getText(), planetType.getValue());
+                        if(isSpawnBox.isSelected())
+                            p.setAsSpawn();
                         currentLevel.get().getPlanets().add(p);
-                        drawLevel(graph);
-                    }catch (Exception e){
-                        e.printStackTrace();
-                    }
+                        drawLevel();
                 }
             }
         }
@@ -397,7 +352,7 @@ public class MainWindowCtl {
             if(currentLevel.get() != null){
                 double[] temp = {cursorX.get(), cursorY.get()};
                 currentLevel.get().getChallenge().getTargets().add(temp);
-                drawLevel(graph);
+                drawLevel();
             }
         }
     }
@@ -418,10 +373,10 @@ public class MainWindowCtl {
 
         TextField difficulty = new TextField();
         difficulty.setPromptText("Difficulty");
-        difficulty.setTextFormatter(new TextFormatter<>(FxUtils.filter));
+        difficulty.setTextFormatter(new TextFormatter<>(FxUtils.intFilter));
         TextField shotsNb = new TextField();
         shotsNb.setPromptText("Nb. of Shots");
-        shotsNb.setTextFormatter(new TextFormatter<>(FxUtils.filter));
+        shotsNb.setTextFormatter(new TextFormatter<>(FxUtils.intFilter));
 
         grid.add(new Label("Difficulty:"), 0, 0);
         grid.add(difficulty, 1, 0);
@@ -433,10 +388,8 @@ public class MainWindowCtl {
         Platform.runLater(() -> difficulty.requestFocus());
 
         dialog.setResultConverter(dialogButton -> {
-            if (dialogButton == okButtonType) {
-                int[] result = {Integer.parseInt(difficulty.getText()), Integer.parseInt(shotsNb.getText())};
-                return result;
-            }
+            if (dialogButton == okButtonType)
+                return new int[]{Integer.parseInt(difficulty.getText()), Integer.parseInt(shotsNb.getText())};
             return null;
         });
 
@@ -463,7 +416,29 @@ public class MainWindowCtl {
                 }
                 currentLevel.get().getChallenge().getTargets().remove(selected);
             }
-            drawLevel(graph);
+            drawLevel();
+        }
+    }
+
+   private void keyboardHandler(KeyEvent event){
+        if (currentPlanet.get() != null){
+            System.out.println(event.toString());
+            Vector2D original = currentPlanet.get().getRigidBody().getPosition();
+            switch (event.getCode()){
+                case Z:
+                    currentPlanet.get().getRigidBody().setPosition(original.add(0,-10));
+                    break;
+                case Q:
+                    currentPlanet.get().getRigidBody().setPosition(original.add(-10,0));
+                    break;
+                case S:
+                    currentPlanet.get().getRigidBody().setPosition(original.add(0,10));
+                    break;
+                case D:
+                    currentPlanet.get().getRigidBody().setPosition(original.add(10,0));
+                    break;
+            }
+            drawLevel();
         }
     }
 }

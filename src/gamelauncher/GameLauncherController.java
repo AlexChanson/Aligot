@@ -38,7 +38,7 @@ public class GameLauncherController {
     private GameStart game;
 
     public void initialize(){
-        screenWidthField.setTextFormatter(new TextFormatter<>(FxUtils.filter));
+        screenWidthField.setTextFormatter(new TextFormatter<>(FxUtils.intFilter));
         game = new Game();
     }
 
