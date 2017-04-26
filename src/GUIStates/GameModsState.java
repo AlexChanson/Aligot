@@ -40,7 +40,7 @@ public class GameModsState extends State {
     public String onUpdate() {
         if (soloButtonListener.isClicked()) {
             System.out.println("Solo is clicked");
-            return "challenges";
+            return "selectChallenge";
         }
         else if (multiButtonListener.isClicked()) {
             return "multi";

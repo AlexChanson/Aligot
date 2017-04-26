@@ -1,6 +1,6 @@
 package gamelauncher;
 
-import GUIStates.ChallengesState;
+import GUIStates.SelectChallengeState;
 import GUIStates.ExitState;
 import GUIStates.GameModsState;
 import GUIStates.StartState;
@@ -52,11 +52,11 @@ public class Game implements GameStart {
         FiniteStateMachine myMachine = new FiniteStateMachine();
         StartState startState = new StartState(GUI.getStart(), graphicsEngine);
         GameModsState gameModsState = new GameModsState(GUI.getGameMods(), graphicsEngine);
-        ChallengesState challengesState = new ChallengesState(GUI.getChallenges(), graphicsEngine);
+        SelectChallengeState selectChallengeState = new SelectChallengeState(GUI.getSelectChallenge(), graphicsEngine);
         ExitState exitState = new ExitState();
         myMachine.addState(startState);
         myMachine.addState(gameModsState);
-        myMachine.addState(challengesState);
+        myMachine.addState(selectChallengeState);
         myMachine.addState(exitState);
 
         //Main Game Loop
