@@ -11,6 +11,7 @@ public class Level {
     private String name, info, bgTexture;
     private HashSet<Planet> planets = new HashSet<>();
     private int[] mapSize;
+    private Challenge challenge;
 
     public Level(String name) {
         this.name = name;
@@ -28,6 +29,15 @@ public class Level {
         this.bgTexture = bgTexture;
         this.planets = planets;
         this.mapSize = mapSize;
+    }
+
+    public Level(String name, String info, String bgTexture, HashSet<Planet> planets, int[] mapSize, Challenge challenge) {
+        this.name = name;
+        this.info = info;
+        this.bgTexture = bgTexture;
+        this.planets = planets;
+        this.mapSize = mapSize;
+        this.challenge = challenge;
     }
 
     public void addPlanet(Planet... elements){
@@ -68,5 +78,13 @@ public class Level {
 
     public int[] getMapSize() {
         return mapSize;
+    }
+
+    public Challenge getChallenge() {
+        return challenge;
+    }
+
+    public void setChallenge(Challenge challenge) {
+        this.challenge = challenge;
     }
 }

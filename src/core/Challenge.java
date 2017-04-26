@@ -2,13 +2,12 @@ package core;
 
 import java.util.HashSet;
 
-public class Challenge extends Level{
+public class Challenge{
     private int difficulty;
     private int shots;
-    private HashSet<int[]> targets;
+    private HashSet<double[]> targets;
 
-    public Challenge(String name, String info, String bgTexture, HashSet<Planet> planets, int[] mapSize, int difficulty, int shots, HashSet<int[]> targets) {
-        super(name, info, bgTexture, planets, mapSize);
+    public Challenge(int difficulty, int shots, HashSet<double[]> targets) {
         this.difficulty = difficulty;
         this.shots = shots;
         this.targets = targets;
@@ -30,11 +29,11 @@ public class Challenge extends Level{
         this.shots = shots;
     }
 
-    public HashSet<int[]> getTargets() {
+    public HashSet<double[]> getTargets() {
         return targets;
     }
 
-    public void setTargets(HashSet<int[]> targets) {
+    public void setTargets(HashSet<double[]> targets) {
         this.targets = targets;
     }
 }

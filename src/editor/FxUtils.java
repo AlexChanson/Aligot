@@ -74,4 +74,12 @@ public class FxUtils {
         gc.strokeLine(x-10,y,x+10,y);
         gc.strokeLine(x,y-10,x,y+10);
     }
+
+    public static void drawTarget(GraphicsContext gc, double x, double y) {
+        gc.setFill(Color.YELLOW);
+        gc.fillOval(x-8, y-8, 16, 16);
+        gc.setStroke(Color.ORANGE);
+        gc.strokeLine(x-20,y,x+20,y);
+        gc.strokeLine(x,y-20,x,y+20);
+    }
 }

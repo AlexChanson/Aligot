@@ -34,6 +34,11 @@
                     <MenuItem mnemonicParsing="false" onAction="#menuDelete" text="Delete" />
                   </items>
                 </Menu>
+                  <Menu mnemonicParsing="false" text="Challenge">
+                    <items>
+                      <MenuItem mnemonicParsing="false" onAction="#defineChallenge" text="Define" />
+                    </items>
+                  </Menu>
               </menus>
             </MenuBar>
          </top>
@@ -72,9 +77,9 @@
                                  </HBox.margin></TextField>
                            </children>
                         </HBox>
-                        <Label text="Planet">
+                        <Label text="Planets">
                            <font>
-                              <Font size="13.0" />
+                              <Font size="16.0" />
                            </font></Label>
                         <HBox alignment="CENTER">
                            <children>
@@ -156,7 +161,27 @@
                               <Insets />
                            </opaqueInsets>
                         </HBox>
-                        <Label text="Targets" />
+                        <Label text="Targets">
+                           <font>
+                              <Font size="16.0" />
+                           </font></Label>
+                        <HBox alignment="CENTER">
+                           <children>
+                              <Button mnemonicParsing="false" onAction="#addTarget" text="Add">
+                                 <HBox.margin>
+                                    <Insets left="5.0" right="5.0" />
+                                 </HBox.margin>
+                              </Button>
+                              <Button mnemonicParsing="false" onAction="#deleteTarget" text="Delete">
+                                 <HBox.margin>
+                                    <Insets left="5.0" right="5.0" />
+                                 </HBox.margin>
+                              </Button>
+                           </children>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                        </HBox>
                      </children></VBox>
                </children>
             </AnchorPane>
