@@ -123,7 +123,7 @@ public class FxUtils {
     };
 
     public static void drawCursor(GraphicsContext gc, double x, double y) {
-        gc.setStroke(Color.AQUA);
+        gc.setStroke(Color.RED);
         gc.strokeLine(x-10,y,x+10,y);
         gc.strokeLine(x,y-10,x,y+10);
     }

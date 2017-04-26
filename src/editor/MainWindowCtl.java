@@ -122,8 +122,10 @@ public class MainWindowCtl {
                 currentPlanet.get().getRigidBody().setMass(Double.parseDouble(planetMass.getText()));
         });
         planetType.valueProperty().addListener(observable -> {
-            if(currentPlanet.get() != null)
+            if(currentPlanet.get() != null) {
                 currentPlanet.get().setType(planetType.getValue());
+                drawLevel();
+            }
         });
         bgTextureField.textProperty().addListener(observable -> {
             if (currentLevel.get() != null)
