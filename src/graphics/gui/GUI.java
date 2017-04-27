@@ -1,6 +1,10 @@
 package graphics.gui;
 
+import core.Level;
 import graphics.Window;
+import sun.plugin.javascript.navig.Array;
+import utility.Loader;
+
 import java.util.ArrayList;
 
 public class GUI {
@@ -56,6 +60,40 @@ public class GUI {
         return GUISelectChallenge;
     }
 
+    public static GUI getChallenges() {
+        GUI GUIChallenges = new GUI();
+        ArrayList<Level> levels = Loader.loadAll(Level.class, "challenges");
+        ArrayList<Button> buttons = new ArrayList<>();
+        for (int i = levels.size()-1; i > 0; i--) {
+            if (levels.get(i).getChallenge().getDifficulty() > 1) {
+                levels.remove(levels.get(i));
+            }
+        }
+        int iterator = 0;
+        System.out.println(levels.size());
+        if (levels.size() <= 3) {
+            for (int i=0; i<levels.size(); i++) {
+                buttons.add(new Button("C"+i, (2 * i + 1) * (Window.getWidth() / 6) - Window.getTexture("gui_main_button_play.png").getWidth() / 2, Window.getHeight() / 2 - Window.getTexture("gui_main_button_play.png").getWidth() / 2, Window.getTexture("gui_main_button_play.png").getWidth(), Window.getTexture("gui_main_button_play.png").getHeight(), "easy"));
+                GUIChallenges.addComponent(buttons.get(i));
+            }
+        }
+        else if (levels.size()> 3) {
+            for (int i=0; i<2; i++) {
+                for (int j=0; j<3; j++){
+                    if (iterator < levels.size()){
+                        buttons.add(new Button("C"+iterator, (2 * j + 1) * (Window.getWidth() / 6) - Window.getTexture("gui_main_button_play.png").getWidth() / 2,(2*i+1)* Window.getHeight() / 4 - Window.getTexture("gui_main_button_play.png").getWidth() / 2, Window.getTexture("gui_main_button_play.png").getWidth(), Window.getTexture("gui_main_button_play.png").getHeight(), "easy"));
+                        GUIChallenges.addComponent(buttons.get(iterator));
+                        iterator++;
+                    }
+                    else {
+                        return GUIChallenges;
+                    }
+                }
+            }
+        }
+
+        return GUIChallenges;
+    }
     /**
      * public static GUI getMulti(){
      * // TODO Dynamic GUI
