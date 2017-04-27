@@ -46,7 +46,13 @@ public class SelectChallengeState extends State{
     @Override
     public String onUpdate() {
         if (easyChallengeButtonListener.isClicked()){
-            return "challenges";
+            return "easyChallenges";
+        }
+        if (mediumChallengeButtonListener.isClicked()){
+            return "mediumChallenges";
+        }
+        if (hardChallengeButtonListener.isClicked()) {
+            return "hardChallenges";
         }
 
         //else if (backButtonListener.isClicked()) {

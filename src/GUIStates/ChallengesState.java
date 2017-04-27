@@ -13,16 +13,29 @@ import java.util.ArrayList;
  */
 public class ChallengesState extends State {
     private GUI challenges;
+    private int difficulty;
     private GraphicsEngine graphicsEngine;
     private ArrayList<GUIButtonListener> guiButtonListeners = new ArrayList<GUIButtonListener>();
 
-    public ChallengesState (GUI challenges, GraphicsEngine graphicsEngine){
+    public ChallengesState (GUI challenges, GraphicsEngine graphicsEngine, int difficulty){
         this.challenges = challenges;
         this.graphicsEngine = graphicsEngine;
+        this.difficulty = difficulty;
     }
 
     public void onEnter(){
-        graphicsEngine.setGUI(challenges);
+        if (getStateName() == "easyChallenges") {
+            graphicsEngine.setGUI(challenges);
+        }
+        else if (getStateName() == "mediumChallenges") {
+            graphicsEngine.setGUI(challenges);
+        }
+        else if (getStateName() == "hardChallenges") {
+            graphicsEngine.setGUI(challenges);
+        }
+        else {
+            graphicsEngine.setGUI(challenges);
+        }
     }
 
     @Override
@@ -32,6 +45,19 @@ public class ChallengesState extends State {
 
     @Override
     public String getStateName() {
-        return "challenges";
+        if (difficulty == 1) {
+            return "easyChallenges";
+        }
+        else if (difficulty == 2) {
+            return "mediumChallenges";
+        }
+        else if (difficulty == 3) {
+            return "hardChallenges";
+        }
+        else {
+            return "challenges";
+        }
+
+
     }
 }

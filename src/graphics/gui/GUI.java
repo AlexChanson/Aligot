@@ -1,5 +1,6 @@
 package graphics.gui;
 
+import GUIStates.ChallengesState;
 import core.Level;
 import graphics.Window;
 import sun.plugin.javascript.navig.Array;
@@ -64,42 +65,49 @@ public class GUI {
         GUI GUIChallenges = new GUI();
         ArrayList<Level> levels = Loader.loadAll(Level.class, "challenges");
         ArrayList<Button> buttons = new ArrayList<>();
-        for (int i = levels.size()-1; i > 0; i--) {
-            if (levels.get(i).getChallenge().getDifficulty() > 1) {
-                levels.remove(levels.get(i));
-            }
-        }
-        int iterator = 0;
-        System.out.println(levels.size());
-        if (levels.size() <= 3) {
-            for (int i=0; i<levels.size(); i++) {
-                buttons.add(new Button("C"+i, (2 * i + 1) * (Window.getWidth() / 6) - Window.getTexture("gui_main_button_play.png").getWidth() / 2, Window.getHeight() / 2 - Window.getTexture("gui_main_button_play.png").getWidth() / 2, Window.getTexture("gui_main_button_play.png").getWidth(), Window.getTexture("gui_main_button_play.png").getHeight(), "easy"));
-                GUIChallenges.addComponent(buttons.get(i));
-            }
-        }
-        else if (levels.size()> 3) {
-            for (int i=0; i<2; i++) {
-                for (int j=0; j<3; j++){
-                    if (iterator < levels.size()){
-                        buttons.add(new Button("C"+iterator, (2 * j + 1) * (Window.getWidth() / 6) - Window.getTexture("gui_main_button_play.png").getWidth() / 2,(2*i+1)* Window.getHeight() / 4 - Window.getTexture("gui_main_button_play.png").getWidth() / 2, Window.getTexture("gui_main_button_play.png").getWidth(), Window.getTexture("gui_main_button_play.png").getHeight(), "easy"));
-                        GUIChallenges.addComponent(buttons.get(iterator));
-                        iterator++;
-                    }
-                    else {
-                        return GUIChallenges;
-                    }
-                }
-            }
-        }
-
+        GUIChallenges.removeChallengesByDifficulty(, levels);
+        GUIChallenges.getGUIButtonPlacements(buttons, GUIChallenges, levels);
         return GUIChallenges;
     }
+
     /**
      * public static GUI getMulti(){
      * // TODO Dynamic GUI
      * }
      */
-
+    private void removeChallengesByDifficulty (int difficulty, ArrayList<Level> levels){
+        if (difficulty == 1) {
+            levels.removeIf(level -> level.getChallenge().getDifficulty() > 1);
+        }
+        if (difficulty == 2) {
+            levels.removeIf(level -> level.getChallenge().getDifficulty() == 3 || level.getChallenge().getDifficulty() == 1);
+        }
+        if (difficulty == 3) {
+            levels.removeIf(level ->  level.getChallenge().getDifficulty() < 3);
+        }
+    }
+    private GUI getGUIButtonPlacements (ArrayList<Button> buttons, GUI GUIChallenges, ArrayList<Level> levels){
+        int iterator = 0;
+        if (levels.size() <= 3) {
+            for (int i = 0; i < levels.size(); i++) {
+                buttons.add(new Button("C" + i, (2 * i + 1) * (Window.getWidth() / 6) - Window.getTexture("gui_main_button_play.png").getWidth() / 2, Window.getHeight() / 2 - Window.getTexture("gui_main_button_play.png").getWidth() / 2, Window.getTexture("gui_main_button_play.png").getWidth(), Window.getTexture("gui_main_button_play.png").getHeight(), "easy"));
+                GUIChallenges.addComponent(buttons.get(i));
+            }
+        } else if (levels.size() > 3) {
+            for (int i = 0; i < 2; i++) {
+                for (int j = 0; j < 3; j++) {
+                    if (iterator < levels.size()) {
+                        buttons.add(new Button("C" + iterator, (2 * j + 1) * (Window.getWidth() / 6) - Window.getTexture("gui_main_button_play.png").getWidth() / 2, (2 * i + 1) * Window.getHeight() / 4 - Window.getTexture("gui_main_button_play.png").getWidth() / 2, Window.getTexture("gui_main_button_play.png").getWidth(), Window.getTexture("gui_main_button_play.png").getHeight(), "easy"));
+                        GUIChallenges.addComponent(buttons.get(iterator));
+                        iterator++;
+                    } else {
+                        return GUIChallenges;
+                    }
+                }
+            }
+        }
+        return GUIChallenges;
+    }
     public void removeComponent(GUIComponent c) {
         components.remove(c);
     }

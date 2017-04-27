@@ -50,12 +50,16 @@ public class Game implements GameStart {
         StartState startState = new StartState(GUI.getStart(), graphicsEngine);
         GameModsState gameModsState = new GameModsState(GUI.getGameMods(), graphicsEngine);
         SelectChallengeState selectChallengeState = new SelectChallengeState(GUI.getSelectChallenge(), graphicsEngine);
-        ChallengesState challengesState = new ChallengesState(GUI.getChallenges(), graphicsEngine);
+        ChallengesState challengesEasyState = new ChallengesState(GUI.getChallenges(1), graphicsEngine, 1);
+        ChallengesState challengesMediumState = new ChallengesState(GUI.getChallenges(2), graphicsEngine, 2);
+        ChallengesState challengesHardState = new ChallengesState(GUI.getChallenges(3), graphicsEngine, 3);
         ExitState exitState = new ExitState();
         myMachine.addState(startState);
         myMachine.addState(gameModsState);
         myMachine.addState(selectChallengeState);
-        myMachine.addState(challengesState);
+        myMachine.addState(challengesEasyState);
+        myMachine.addState(challengesMediumState);
+        myMachine.addState(challengesHardState);
         myMachine.addState(exitState);
 
         //Main Game Loop
