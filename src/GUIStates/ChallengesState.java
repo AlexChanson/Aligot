@@ -17,20 +17,31 @@ public class ChallengesState extends State {
     private GraphicsEngine graphicsEngine;
     private ArrayList<GUIButtonListener> guiButtonListeners = new ArrayList<GUIButtonListener>();
 
-    public ChallengesState (GUI challenges, GraphicsEngine graphicsEngine, int difficulty){
-        this.challenges = challenges;
+    public ChallengesState (GraphicsEngine graphicsEngine, int difficulty){
         this.graphicsEngine = graphicsEngine;
         this.difficulty = difficulty;
     }
 
+    public void initialize(){
+        if (difficulty == 1) {
+            challenges = GUI.getChallenges(1);
+        }
+        if (difficulty == 2) {
+            challenges = GUI.getChallenges(2);
+        }
+        if (difficulty == 3) {
+            challenges = GUI.getChallenges(3);
+        }
+    }
+
     public void onEnter(){
-        if (getStateName() == "easyChallenges") {
+        if (getStateName().equals("easyChallenges")) {
             graphicsEngine.setGUI(challenges);
         }
-        else if (getStateName() == "mediumChallenges") {
+        else if (getStateName().equals("mediumChallenges")) {
             graphicsEngine.setGUI(challenges);
         }
-        else if (getStateName() == "hardChallenges") {
+        else if (getStateName().equals("hardChallenges")) {
             graphicsEngine.setGUI(challenges);
         }
         else {
@@ -57,7 +68,5 @@ public class ChallengesState extends State {
         else {
             return "challenges";
         }
-
-
     }
 }

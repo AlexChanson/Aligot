@@ -61,12 +61,12 @@ public class GUI {
         return GUISelectChallenge;
     }
 
-    public static GUI getChallenges() {
+    public static GUI getChallenges(int difficulty) {
         GUI GUIChallenges = new GUI();
         ArrayList<Level> levels = Loader.loadAll(Level.class, "challenges");
         ArrayList<Button> buttons = new ArrayList<>();
-        GUIChallenges.removeChallengesByDifficulty(, levels);
-        GUIChallenges.getGUIButtonPlacements(buttons, GUIChallenges, levels);
+        levels.removeIf(level -> level.getChallenge().getDifficulty() != difficulty);
+        GUIChallenges.getGUIButtonsPlacements(buttons, GUIChallenges, levels);
         return GUIChallenges;
     }
 
@@ -75,18 +75,8 @@ public class GUI {
      * // TODO Dynamic GUI
      * }
      */
-    private void removeChallengesByDifficulty (int difficulty, ArrayList<Level> levels){
-        if (difficulty == 1) {
-            levels.removeIf(level -> level.getChallenge().getDifficulty() > 1);
-        }
-        if (difficulty == 2) {
-            levels.removeIf(level -> level.getChallenge().getDifficulty() == 3 || level.getChallenge().getDifficulty() == 1);
-        }
-        if (difficulty == 3) {
-            levels.removeIf(level ->  level.getChallenge().getDifficulty() < 3);
-        }
-    }
-    private GUI getGUIButtonPlacements (ArrayList<Button> buttons, GUI GUIChallenges, ArrayList<Level> levels){
+
+    private GUI getGUIButtonsPlacements (ArrayList<Button> buttons, GUI GUIChallenges, ArrayList<Level> levels){
         int iterator = 0;
         if (levels.size() <= 3) {
             for (int i = 0; i < levels.size(); i++) {

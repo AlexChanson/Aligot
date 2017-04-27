@@ -50,9 +50,9 @@ public class Game implements GameStart {
         StartState startState = new StartState(GUI.getStart(), graphicsEngine);
         GameModsState gameModsState = new GameModsState(GUI.getGameMods(), graphicsEngine);
         SelectChallengeState selectChallengeState = new SelectChallengeState(GUI.getSelectChallenge(), graphicsEngine);
-        ChallengesState challengesEasyState = new ChallengesState(GUI.getChallenges(1), graphicsEngine, 1);
-        ChallengesState challengesMediumState = new ChallengesState(GUI.getChallenges(2), graphicsEngine, 2);
-        ChallengesState challengesHardState = new ChallengesState(GUI.getChallenges(3), graphicsEngine, 3);
+        ChallengesState challengesEasyState = new ChallengesState(graphicsEngine, 1);
+        ChallengesState challengesMediumState = new ChallengesState(graphicsEngine, 2);
+        ChallengesState challengesHardState = new ChallengesState(graphicsEngine, 3);
         ExitState exitState = new ExitState();
         myMachine.addState(startState);
         myMachine.addState(gameModsState);
