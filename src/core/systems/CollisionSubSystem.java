@@ -1,6 +1,7 @@
 package core.systems;
 
 
+import core.Event;
 import physics.CollisionListener;
 import physics.RigidBody;
 import utility.Pair;
@@ -8,7 +9,7 @@ import utility.Pair;
 public class CollisionSubSystem extends SubSystem implements CollisionListener{
 
     @Override
-    public void update() {
+    public void handleEvent(Event event) {
 
     }
 

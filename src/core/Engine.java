@@ -4,6 +4,7 @@ import fsm.FiniteStateMachine;
 import core.solvers.Solver;
 import core.systems.CollisionSubSystem;
 import core.systems.SubSystem;
+import graphics.Window;
 import physics.AirDampingSolver;
 import physics.CollisionSolver;
 import physics.NewtonGravitationSolver;
@@ -33,7 +34,6 @@ public class Engine {
     private void initialize(){
         gameState = new FiniteStateMachine();
         physicsEngine = new Simulator();
-        solvers = new ArrayList<>();
         systems = new ArrayList<>();
         physicsEngine.addSolver(new NewtonGravitationSolver(6.67e-11));
         physicsEngine.addSolver(new AirDampingSolver(0.005,0.01));
@@ -52,41 +52,31 @@ public class Engine {
      */
     public void update(){
 
-        //Event processing
-        solvers.forEach(Solver::resolve);
-
-        //Sub Systems processing
-        systems.forEach(SubSystem::update);
+        //Throw an update Event
+        systems.forEach(subSystem -> subSystem.handleEvent(new Event("TICK", null)));
 
         //physics simulation
         physicsEngine.step(timeStep);
     }
 
-    /**
-     * Registers an event to the solvers
-     * @param event The event to register
-     */
-    public void registerEvent(Event event){
-        solvers.forEach(solver -> solver.registerEvent(event));
-    }
 
-    /**
-     * This method registers the solver(s) into the engine,
-     * if the order in which events are resolved matters to you you should register the solvers
-     * in the correct order according to your needs.
-     * @param solvers The solver(s) to add the the game engine
-     */
-    public void registerSolvers(Solver... solvers){
-        for(Solver s : solvers){
-            s.registerEngine(this);
-            this.solvers.add(s);
-        }
+    public void throwEvent(Event event){
+        systems.forEach(solver -> solver.handleEvent(event));
     }
 
     public void registerSubSystems(SubSystem... subSystems){
         for(SubSystem ss : subSystems){
             ss.setEngine(this);
+            ss.initialize();
             this.systems.add(ss);
+        }
+    }
+
+    public void registerSolvers(Solver... solvers){
+        for (Solver solv : solvers){
+            solv.setEngine(this);
+            this.solvers.add(solv);
+            solv.initialize();
         }
     }
 

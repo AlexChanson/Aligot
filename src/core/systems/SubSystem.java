@@ -2,6 +2,7 @@ package core.systems;
 
 
 import core.Engine;
+import core.Event;
 import physics.CollisionListener;
 
 public abstract class SubSystem implements CollisionListener {
@@ -11,7 +12,8 @@ public abstract class SubSystem implements CollisionListener {
 
     }
 
-    public abstract void update();
+    public abstract void initialize();
+    public abstract void handleEvent(Event event);
 
     public void setEngine(Engine engine) {
         this.engine = engine;

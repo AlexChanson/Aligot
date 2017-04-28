@@ -2,6 +2,8 @@ package graphics;
 
 import core.Engine;
 import core.Event;
+import core.solvers.KeyboardListener;
+import core.solvers.MouseListener;
 import graphics.gui.CallBackContainer;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.glfw.GLFWKeyCallback;
@@ -26,7 +28,12 @@ public class Window {
     private static int monitor = 0, width = 1920, height = 1080;
     private static boolean fullscreenEnabled;
     private static HashMap<Character, Integer> charWidth;
+
+    //Input listeners
     private static ArrayList<CallBackContainer> callBackContainers = new ArrayList<>();
+    private static ArrayList<MouseListener> mouseListeners = new ArrayList<>();
+    private static ArrayList<KeyboardListener> keyboardListeners = new ArrayList<>();
+
     private static String ressourcesFolderPath = System.getProperty("user.dir") + File.separator + "ressources" + File.separator + "sprites" + File.separator;
     public static final int TEXT_ALIGN_LEFT = 0, TEXT_ALIGN_CENTER = 1, TEXT_ALIGN_RIGHT = 2;
 
@@ -54,7 +61,7 @@ public class Window {
             System.out.println("Failed to create window");
         }
 
-        registerMouseCallbacks();
+        registerCallbacks();
 
         glEnable(GL_BLEND);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -62,10 +69,11 @@ public class Window {
         System.out.println("Window initialisation complete !");
     }
 
-    public static void registerMouseCallbacks(){
+    private static void registerCallbacks(){
         glfwSetMouseButtonCallback(window, new GLFWMouseButtonCallback() {
             @Override
             public void invoke(long fenetre, int button, int action, int mods) {
+                mouseListeners.forEach(mouseListener -> mouseListener.handleMouseEvent(fenetre, button, action, mods));
                 int[] cursor = getMousePos();
                 if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS){
                     Window.callBackContainers.forEach(container -> {
@@ -76,6 +84,12 @@ public class Window {
                         }
                     });
                 }
+            }
+        });
+        glfwSetKeyCallback(window, new GLFWKeyCallback() {
+            @Override
+            public void invoke(long window, int key, int scancode, int action, int mods) {
+                keyboardListeners.forEach(keyboardListener -> keyboardListener.handleKeyEvent(window, key, scancode, action, mods));
             }
         });
     }
@@ -490,14 +504,22 @@ public class Window {
             @Override
             public void invoke(long window, int key, int scancode, int action, int mods) {
                 if(action == 1)
-                    e.registerEvent(new Event("KEY_PRESSED", key));
+                    e.throwEvent(new Event("KEY_PRESSED", key));
                 else if(action == 0)
-                    e.registerEvent(new Event("KEY_RELEASED", key));
+                    e.throwEvent(new Event("KEY_RELEASED", key));
             }
         });
     }
 
     public static ArrayList<CallBackContainer> getCallBackContainers() {
         return callBackContainers;
+    }
+
+    public static ArrayList<MouseListener> getMouseListeners() {
+        return mouseListeners;
+    }
+
+    public static ArrayList<KeyboardListener> getKeyboardListeners() {
+        return keyboardListeners;
     }
 }

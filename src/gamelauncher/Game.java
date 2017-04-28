@@ -81,7 +81,7 @@ public class Game implements GameStart {
 
     public static void notifyEngine(Event event){
         if (engine != null)
-            engine.registerEvent(event);
+            engine.throwEvent(event);
     }
 
     public static void changeGUI(GUI gui){
