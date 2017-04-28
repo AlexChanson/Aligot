@@ -38,10 +38,34 @@ public class FiniteStateMachine {
         }
     }
 
+    /**
+     * set fsm actual state without triggering onEnter and onExit methods
+     * @param state state to set to actual state
+     */
     public void setState(State state){
         if ( states.containsValue(state) ){
             this.state = state.getStateName();
         }
+    }
+
+    /**
+     * @return the name of the active state
+     */
+    public String getActualStateName(){
+        if (this.state != null){
+            return this.states.get(this.state).getStateName();
+        }
+        return "";
+    }
+
+    /**
+     * @return the active state
+     */
+    public State getActualState(){
+        if (this.state != null){
+            return this.states.get(this.state);
+        }
+        return null;
     }
 
     /**
