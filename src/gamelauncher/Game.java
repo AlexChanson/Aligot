@@ -1,9 +1,6 @@
 package gamelauncher;
 
-import fsm.GUIStates.*;
 import core.*;
-import core.LevelGen;
-import fsm.FiniteStateMachine;
 import graphics.Window;
 import graphics.gui.GUI;
 import physics.RigidBody;
@@ -45,27 +42,11 @@ public class Game implements GameStart {
 
         initEngine();
         GraphicsEngine graphicsEngine = new GraphicsEngine();
-
-        FiniteStateMachine myMachine = new FiniteStateMachine();
-        StartState startState = new StartState(GUI.getStart(), graphicsEngine);
-        GameModsState gameModsState = new GameModsState(GUI.getGameMods(), graphicsEngine);
-        SelectChallengeState selectChallengeState = new SelectChallengeState(GUI.getSelectChallenge(), graphicsEngine);
-        ChallengesState challengesEasyState = new ChallengesState(graphicsEngine, 1);
-        ChallengesState challengesMediumState = new ChallengesState(graphicsEngine, 2);
-        ChallengesState challengesHardState = new ChallengesState(graphicsEngine, 3);
-        ExitState exitState = new ExitState();
-        myMachine.addState(startState);
-        myMachine.addState(gameModsState);
-        myMachine.addState(selectChallengeState);
-        myMachine.addState(challengesEasyState);
-        myMachine.addState(challengesMediumState);
-        myMachine.addState(challengesHardState);
-        myMachine.addState(exitState);
+        graphicsEngine.initGUI();
 
         //Main Game Loop
         while (Window.shouldClose()) {
             Window.loopStart();
-            myMachine.update();
 
             if(engine != null)
                 engine.update();
@@ -81,7 +62,8 @@ public class Game implements GameStart {
 
 
     public static void changeGUI(GUI gui){
-        graphicsEngine.setGUI(gui);
+        if (graphicsEngine != null)
+            graphicsEngine.setGUI(gui);
     }
 
     public static void setLevel(Level level){

@@ -1,19 +1,32 @@
 package core;
 
+import fsm.FiniteStateMachine;
+import fsm.GUIStates.*;
 import graphics.Window;
 import graphics.gui.Button;
 import graphics.gui.GUI;
 import graphics.gui.GUIComponent;
 import physics.Vector2D;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 
 public class GraphicsEngine {
     private ArrayList<GUIComponent> guiComponents;
+    private FiniteStateMachine guiFSM;
 
     public GraphicsEngine() {
         guiComponents = new ArrayList<>();
+    }
+
+    public void initGUI(){
+        guiFSM = new FiniteStateMachine();
+        guiFSM.addStates(
+                new StartState(GUI.getStart(), this),
+                new GameModsState(GUI.getGameMods(), this),
+                new SelectChallengeState(GUI.getSelectChallenge(),this),
+                new ChallengesState(this,1),
+                new ChallengesState(this,2),
+                new ChallengesState(this,3),
+                new ExitState());
     }
 
     public void drawLevel(Level level){
@@ -38,6 +51,7 @@ public class GraphicsEngine {
     }
 
     public void drawGui(){
+        guiFSM.update();
         guiComponents.forEach(GUIComponent::draw);
     }
 
