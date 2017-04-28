@@ -68,12 +68,6 @@ public class GUI {
         return GUIChallenges;
     }
 
-    /**
-     * public static GUI getMulti(){
-     * // TODO Dynamic GUI
-     * }
-     */
-
     private GUI getGUIButtonsPlacements (ArrayList<Button> buttons, GUI GUIChallenges, ArrayList<Level> levels){
         int iterator = 0;
         if (levels.size() <= 3) {
