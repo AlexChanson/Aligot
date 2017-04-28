@@ -1,5 +1,6 @@
 package fsm;
 
+import java.util.Arrays;
 import java.util.HashMap;
 
 /**
@@ -26,6 +27,10 @@ public class FiniteStateMachine {
             states.put(name, state);
             state.initialize();
         }
+    }
+
+    public void addStates(State... states){
+        Arrays.asList(states).forEach(this::addState);
     }
 
     /**
