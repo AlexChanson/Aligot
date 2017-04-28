@@ -61,12 +61,15 @@ public class Game implements GameStart {
         while (Window.shouldClose()) {
             Window.loopStart();
 
-            if(engine != null)
+            if(engine != null) {
                 engine.update();
-            if(currentLevel != null) {
-                graphicsEngine.drawLevel(currentLevel);
-                graphicsEngine.drawPlayers(p1, p2);
+                if(currentLevel != null) {
+                    graphicsEngine.drawLevel(currentLevel);
+                    graphicsEngine.drawPlayers(p1, p2);
+                    graphicsEngine.drawProjectiles(engine.getProjectiles());
+                }
             }
+
             graphicsEngine.drawGui();
 
             Window.loopEnd();

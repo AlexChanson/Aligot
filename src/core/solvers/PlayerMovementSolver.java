@@ -23,7 +23,7 @@ public class PlayerMovementSolver extends Solver implements KeyboardListener{
 
     @Override
     public void handleKeyEvent(long window, int key, int scancode, int action, int mods) {
-        if(action == GLFW.GLFW_PRESS) {
+        if(action == GLFW.GLFW_PRESS || action == GLFW.GLFW_REPEAT) {
             switch (key) {
                 case GLFW.GLFW_KEY_LEFT:
                 case GLFW.GLFW_KEY_A:

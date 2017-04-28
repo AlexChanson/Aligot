@@ -21,6 +21,7 @@ public class Engine {
     private int turns = 0;
     private Level level;
     private ArrayList<Player> players;
+    private ArrayList<Projectile> projectiles;
 
     public Engine(Level level, Player... players) {
         this.level = level;
@@ -33,6 +34,7 @@ public class Engine {
         gameState = new FiniteStateMachine();
         physicsEngine = new Simulator();
         systems = new ArrayList<>();
+        projectiles = new ArrayList<>();
         solvers = new ArrayList<>();
         physicsEngine.addSolver(new NewtonGravitationSolver(6.67e-11));
         physicsEngine.addSolver(new AirDampingSolver(0.005,0.01));
@@ -113,5 +115,9 @@ public class Engine {
 
     public Simulator getPhysicsEngine() {
         return physicsEngine;
+    }
+
+    public ArrayList<Projectile> getProjectiles() {
+        return projectiles;
     }
 }

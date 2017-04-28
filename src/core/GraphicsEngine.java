@@ -78,4 +78,11 @@ public class GraphicsEngine {
             Window.drawSprite(player.getTexture(), (float)position.getX(), (float)position.getY(), (float)player.getRotation(), 0.1f);
         });
     }
+
+    public void drawProjectiles(ArrayList<Projectile> projectiles) {
+        projectiles.forEach(projectile -> {
+            Vector2D position = projectile.getRigidBody().getPosition();
+            Window.drawCircle((float)position.getX(), (float)position.getY(), 10, 128,128,64);
+        });
+    }
 }
