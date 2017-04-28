@@ -56,7 +56,7 @@ public class Simulator {
                 body.updateAcceleration();
                 body.updateVelocity(dt);
                 // check for max speed and cap if needed
-                if (body.getVelocity().norm() > this.maxSpeed){
+                if ( (body.getVelocity().norm() > this.maxSpeed) && (this.maxSpeed != -1) ){
                     body.setVelocity(body.getVelocity().getNormalized().multiply(this.maxSpeed));
                 }
                 body.updatePosition(dt);
