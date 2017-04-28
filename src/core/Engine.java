@@ -35,6 +35,7 @@ public class Engine {
         gameState = new FiniteStateMachine();
         physicsEngine = new Simulator();
         systems = new ArrayList<>();
+        solvers = new ArrayList<>();
         physicsEngine.addSolver(new NewtonGravitationSolver(6.67e-11));
         physicsEngine.addSolver(new AirDampingSolver(0.005,0.01));
         CollisionSolver collisionSolver = new CollisionSolver();

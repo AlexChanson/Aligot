@@ -1,6 +1,8 @@
 package gamelauncher;
 
 import core.*;
+import core.solvers.PlayerMovementSolver;
+import core.systems.DebugSubSystem;
 import graphics.Window;
 import graphics.gui.GUI;
 import physics.RigidBody;
@@ -40,7 +42,13 @@ public class Game implements GameStart {
         p1 = new Player(new RigidBody(new Vector2D(100,100),2, 70), "doomguy.png", firstPlayerName, 100);
         p2 = new Player(new RigidBody(new Vector2D(screenWidth-100,screenHeight-100),2, 70), "doomguy.png", secondPlayerName, 100);
 
+        //Engine init
         initEngine();
+        engine.registerSubSystems(new DebugSubSystem());
+        engine.registerSolvers(new PlayerMovementSolver());
+
+
+        //Graphics Engine init
         graphicsEngine = new GraphicsEngine();
         //graphicsEngine.initGUI();
 
@@ -78,7 +86,7 @@ public class Game implements GameStart {
     }
 
     private static void initEngine(){
-        if(engine != null){
+        if(engine == null){
             try {
                 engine = new Engine(currentLevel, p1, p2);
             }catch (NullPointerException e){

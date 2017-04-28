@@ -10,6 +10,7 @@ public class DebugSubSystem  extends SubSystem{
 
     @Override
     protected void processEvent(Event event) {
-
+        if (!event.type.equals("TICK"))
+            System.out.printf("ENGINE EVENT { type='%s', data='%s' }%n", event.type, String.valueOf(event.data));
     }
 }
