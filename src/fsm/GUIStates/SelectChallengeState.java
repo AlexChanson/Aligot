@@ -1,14 +1,10 @@
-package GUIStates;
+package fsm.GUIStates;
 
 import core.GraphicsEngine;
-import core.Level;
 import fsm.State;
 import graphics.gui.Button;
 import graphics.gui.GUI;
 import graphics.gui.GUIButtonListener;
-import utility.Loader;
-
-import java.util.ArrayList;
 
 /**
  * Created by Christopher on 18/04/2017.

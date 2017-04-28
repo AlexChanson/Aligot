@@ -1,4 +1,4 @@
-package GUIStates;
+package fsm.GUIStates;
 
 import core.GraphicsEngine;
 import fsm.State;

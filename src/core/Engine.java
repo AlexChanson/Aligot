@@ -10,6 +10,7 @@ import physics.CollisionSolver;
 import physics.NewtonGravitationSolver;
 import physics.Simulator;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * The Game engine, binds the physics with the game mechanics and processes events
@@ -21,13 +22,14 @@ public class Engine {
     private ArrayList<Solver> solvers;
     private ArrayList<SubSystem> systems;
     private double timeStep = 1/60;
+    private int turns = 0;
     private Level level;
-    private Player p1, p2;
+    private ArrayList<Player> players;
 
-    public Engine(Level level, Player p1, Player p2) {
+    public Engine(Level level, Player... players) {
         this.level = level;
-        this.p1 = p1;
-        this.p2 = p2;
+        this.players = new ArrayList<>();
+        this.players.addAll(Arrays.asList(players));
         initialize();
     }
 
@@ -42,8 +44,7 @@ public class Engine {
         collisionSolver.registerCollisionListener(collisionSystem);
         physicsEngine.addSolver(collisionSolver);
         level.getPlanets().forEach(planet -> physicsEngine.addBody(planet.getRigidBody()));
-        physicsEngine.addBody(p1.getRigidBody());
-        physicsEngine.addBody(p2.getRigidBody());
+        players.forEach(player -> physicsEngine.addBody(player.getRigidBody()));
         //TODO initialize the finite state machine
     }
 
@@ -88,4 +89,19 @@ public class Engine {
         this.timeStep = timeStep;
     }
 
+    public FiniteStateMachine getGameState() {
+        return gameState;
+    }
+
+    public ArrayList<Player> getPlayers() {
+        return players;
+    }
+
+    public int getTurns() {
+        return turns;
+    }
+
+    public void setTurns(int turns) {
+        this.turns = turns;
+    }
 }

@@ -1,4 +1,4 @@
-package GUIStates;
+package fsm.GUIStates;
 
 import fsm.State;
 

@@ -1,6 +1,6 @@
 package gamelauncher;
 
-import GUIStates.*;
+import fsm.GUIStates.*;
 import core.*;
 import core.LevelGen;
 import fsm.FiniteStateMachine;
@@ -79,10 +79,6 @@ public class Game implements GameStart {
         glfwTerminate();
     }
 
-    public static void notifyEngine(Event event){
-        if (engine != null)
-            engine.throwEvent(event);
-    }
 
     public static void changeGUI(GUI gui){
         graphicsEngine.setGUI(gui);

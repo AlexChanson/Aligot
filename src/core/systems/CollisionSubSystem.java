@@ -9,6 +9,11 @@ import utility.Pair;
 public class CollisionSubSystem extends SubSystem implements CollisionListener{
 
     @Override
+    public void initialize() {
+
+    }
+
+    @Override
     public void handleEvent(Event event) {
 
     }

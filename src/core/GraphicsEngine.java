@@ -28,6 +28,12 @@ public class GraphicsEngine {
                 float planetSize = (float) (planet.getRigidBody().getRadius() * 2 * ratio);
                 Window.drawSprite(planet.getTexture(), (float) (planetPos.getX() * ratio) - (planetSize / 2), (float) (planetPos.getY() * ratio) - (planetSize / 2), planetSize, planetSize, 0f);
             });
+
+            if(level.getChallenge() != null){
+                level.getChallenge().getTargets().forEach((double[] target) -> {
+                    Window.drawCircle((float)(target[0] * ratio) ,(float)(target[1] * ratio), 25, 255, 0, 0);
+                });
+            }
         }
     }
 

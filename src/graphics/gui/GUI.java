@@ -1,6 +1,5 @@
 package graphics.gui;
 
-import GUIStates.ChallengesState;
 import core.Level;
 import graphics.Window;
 import utility.Loader;
