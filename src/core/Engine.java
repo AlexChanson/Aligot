@@ -2,9 +2,7 @@ package core;
 
 import fsm.FiniteStateMachine;
 import core.solvers.Solver;
-import core.systems.CollisionSubSystem;
 import core.systems.SubSystem;
-import graphics.Window;
 import physics.AirDampingSolver;
 import physics.CollisionSolver;
 import physics.NewtonGravitationSolver;
@@ -40,8 +38,6 @@ public class Engine {
         physicsEngine.addSolver(new NewtonGravitationSolver(6.67e-11));
         physicsEngine.addSolver(new AirDampingSolver(0.005,0.01));
         CollisionSolver collisionSolver = new CollisionSolver();
-        CollisionSubSystem collisionSystem = new CollisionSubSystem();
-        collisionSolver.registerCollisionListener(collisionSystem);
         physicsEngine.addSolver(collisionSolver);
         level.getPlanets().forEach(planet -> physicsEngine.addBody(planet.getRigidBody()));
         players.forEach(player -> physicsEngine.addBody(player.getRigidBody()));

@@ -37,12 +37,12 @@ public class Game implements GameStart {
         LevelGen gen = new LevelGen(new Random().nextLong(), mapSize);
         currentLevel = gen.getLevel();
 
-        p1 = new Player(new RigidBody(new Vector2D(100,100),2, 70), "doomguy.jpg", firstPlayerName, 100);
-        p2 = new Player(new RigidBody(new Vector2D(screenWidth-100,screenHeight-100),2, 70), "doomguy.jpg", secondPlayerName, 100);
+        p1 = new Player(new RigidBody(new Vector2D(100,100),2, 70), "doomguy.png", firstPlayerName, 100);
+        p2 = new Player(new RigidBody(new Vector2D(screenWidth-100,screenHeight-100),2, 70), "doomguy.png", secondPlayerName, 100);
 
         initEngine();
         graphicsEngine = new GraphicsEngine();
-        graphicsEngine.initGUI();
+        //graphicsEngine.initGUI();
 
         //Main Game Loop
         while (Window.shouldClose()) {
@@ -50,8 +50,10 @@ public class Game implements GameStart {
 
             if(engine != null)
                 engine.update();
-            if(currentLevel != null)
+            if(currentLevel != null) {
                 graphicsEngine.drawLevel(currentLevel);
+                graphicsEngine.drawPlayers(p1, p2);
+            }
             graphicsEngine.drawGui();
 
             Window.loopEnd();

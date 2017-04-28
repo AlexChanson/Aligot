@@ -6,8 +6,10 @@ import graphics.Window;
 import graphics.gui.Button;
 import graphics.gui.GUI;
 import graphics.gui.GUIComponent;
+import physics.RigidBody;
 import physics.Vector2D;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class GraphicsEngine {
     private ArrayList<GUIComponent> guiComponents;
@@ -51,7 +53,8 @@ public class GraphicsEngine {
     }
 
     public void drawGui(){
-        guiFSM.update();
+        if (guiFSM != null)
+            guiFSM.update();
         guiComponents.forEach(GUIComponent::draw);
     }
 
@@ -67,5 +70,12 @@ public class GraphicsEngine {
 
     public ArrayList<GUIComponent> getGuiComponents() {
         return guiComponents;
+    }
+
+    public void drawPlayers(Player... players) {
+        Arrays.asList(players).forEach(player -> {
+            Vector2D position = player.getRigidBody().getPosition();
+            Window.drawSprite(player.getTexture(), (float)position.getX(), (float)position.getY(), (float)player.getRotation(), 0.1f);
+        });
     }
 }
