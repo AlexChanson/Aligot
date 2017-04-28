@@ -21,7 +21,6 @@ public class PlayerMovementSystem extends SubSystem {
             Player player = engine.getActivePlayer();
             double orientation = player.getRotation();
 
-
             if ( direction == 0 ){
                 orientation += 90;
             }
@@ -29,7 +28,7 @@ public class PlayerMovementSystem extends SubSystem {
                 orientation -= 90;
             }
 
-            player.getRigidBody().setVelocity(Vector2D.createFromAngle( 5,orientation));
+            player.getRigidBody().setPosition(player.getRigidBody().getPosition().add(5,1));
         }
     }
 }

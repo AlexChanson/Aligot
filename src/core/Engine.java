@@ -3,10 +3,8 @@ package core;
 import fsm.FiniteStateMachine;
 import core.solvers.Solver;
 import core.systems.SubSystem;
-import physics.AirDampingSolver;
-import physics.CollisionSolver;
-import physics.NewtonGravitationSolver;
-import physics.Simulator;
+import physics.*;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -43,6 +41,9 @@ public class Engine {
         level.getPlanets().forEach(planet -> physicsEngine.addBody(planet.getRigidBody()));
         players.forEach(player -> physicsEngine.addBody(player.getRigidBody()));
         //TODO initialize the finite state machine
+
+
+        physicsEngine.addBody(new RigidBody(new Vector2D(500, 500), 10, 10));
     }
 
     /**
