@@ -82,8 +82,19 @@ public class GraphicsEngine {
             Vector2D position = player.getRigidBody().getPosition();
             Texture joueur = new Texture(Loader.getSpriteFolderPath() + "doomguy.png");
             double width = joueur.getWidth()/10, height = joueur.getWidth()/10;
+            float scale = 10f;
             Window.drawTexture(joueur, (float)(position.getX()*ratio - (width/2)),
-                    (float)(position.getY()*ratio - (height/2)), (float)width, (float)height, (float)player.getRotation(), 1f, 0,0,(float)width,(float)height, 255,255,255);
+                    (float)(position.getY()*ratio - (height/2)),
+                    (float)width,
+                    (float)height,
+                    (float)player.getRotation(),
+                    scale,
+                    0,
+                    0,
+                    (float)width,
+                    (float)height,
+                    255,255,255);
+            Window.drawCircle((float)(position.getX()*ratio), (float)(position.getY()*ratio), 10, 128,128,64);
         });
     }
 

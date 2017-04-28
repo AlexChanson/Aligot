@@ -28,7 +28,7 @@ public class PlayerMovementSystem extends SubSystem {
                 orientation -= 90;
             }
 
-            player.getRigidBody().setPosition(player.getRigidBody().getPosition().add(5,1));
+            player.getRigidBody().applyForce(Vector2D.createFromAngle(100, orientation));
         }
     }
 }

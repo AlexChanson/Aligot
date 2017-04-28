@@ -44,8 +44,10 @@ public class Game implements GameStart {
         LevelGen gen = new LevelGen(new Random().nextLong(), mapSize);
         currentLevel = gen.getLevel();
 
-        p1 = new Player(new RigidBody(new Vector2D(100,100),2, 70), "doomguy.png", firstPlayerName, 100);
-        p2 = new Player(new RigidBody(new Vector2D(screenWidth-100,screenHeight-100),2, 70), "doomguy.png", secondPlayerName, 100);
+        RigidBody bodyPlayer1 = new RigidBody(new Vector2D(100,100),10, 70);
+        RigidBody bodyPlayer2 = new RigidBody(new Vector2D(screenWidth-100,screenHeight-100),10, 70);
+        p1 = new Player(bodyPlayer1, "doomguy.png", firstPlayerName, 100);
+        p2 = new Player(bodyPlayer2, "doomguy.png", secondPlayerName, 100);
 
         //Engine init
         initEngine();

@@ -43,9 +43,6 @@ public class Engine {
         level.getPlanets().forEach(planet -> physicsEngine.addBody(planet.getRigidBody()));
         players.forEach(player -> physicsEngine.addBody(player.getRigidBody()));
         //TODO initialize the finite state machine
-
-
-        physicsEngine.addBody(new RigidBody(new Vector2D(500, 500), 10, 10));
     }
 
     /**
