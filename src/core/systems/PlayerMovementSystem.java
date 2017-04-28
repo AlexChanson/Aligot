@@ -1,29 +1,22 @@
 package core.systems;
 
-import core.Engine;
 import core.Event;
 import core.Player;
 import physics.Vector2D;
 
-/**
- * Created by ben on 28/04/17.
- */
+import java.util.logging.Logger;
+
 public class PlayerMovementSystem extends SubSystem {
-    private Engine engine;
-
-    public PlayerMovementSystem(Engine engine){
-        this.engine = engine;
-    }
-
+    private static final Logger LOGGER = Logger.getLogger( PlayerMovementSystem.class.getName() );
 
     @Override
     public void initialize() {
-
+        LOGGER.info("Init OK");
     }
 
     @Override
     protected void processEvent(Event event) {
-        if (event.type == "PLAYER_MOVEMENT"){
+        if (event.type.equals("PLAYER_MOVEMENT")){
             int direction = (int) event.data;
             Player player = engine.getActivePlayer();
             double orientation = player.getRotation();

@@ -5,6 +5,8 @@ import core.Level;
 import core.solvers.CollisionSolver;
 import core.solvers.PlayerMovementSolver;
 import core.systems.DebugSubSystem;
+import core.systems.PlayerMovementSystem;
+import core.systems.PlayerOrientationSystem;
 import graphics.Window;
 import graphics.gui.GUI;
 import physics.RigidBody;
@@ -47,7 +49,7 @@ public class Game implements GameStart {
 
         //Engine init
         initEngine();
-        engine.registerSubSystems(new DebugSubSystem());
+        engine.registerSubSystems(new DebugSubSystem(), new PlayerOrientationSystem(), new PlayerMovementSystem());
         engine.registerSolvers(new PlayerMovementSolver(), new CollisionSolver());
 
 

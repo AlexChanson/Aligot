@@ -17,7 +17,7 @@ public class PlayerOrientationSystem extends SubSystem {
 
     @Override
     protected void processEvent(Event event) {
-        if (event.type == "COLLISION"){
+        if (event.type.equals("COLLISION")){
             Pair<Pair<RigidBody, RigidBody>, Double> pair = (Pair<Pair<RigidBody, RigidBody>, Double>) event.data;
 
             RigidBody body1 = pair.getLeft().getLeft();
@@ -42,7 +42,7 @@ public class PlayerOrientationSystem extends SubSystem {
                 playerMatch = player;
                 break;
             }
-            if ( playerBody != null ){
+            if (playerBody != null && otherBody != null){
                 Vector2D unit = otherBody.getPosition().minus(playerBody.getPosition());
                 playerMatch.setRotation(unit.angle());
             }
