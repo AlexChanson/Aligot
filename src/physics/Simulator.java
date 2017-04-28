@@ -88,4 +88,8 @@ public class Simulator {
         if (maxSpeed > 0 || maxSpeed == -1)
             this.maxSpeed = maxSpeed;
     }
+
+    public ArrayList<PhysicSolver> getPhysicSolvers() {
+        return physicSolvers;
+    }
 }

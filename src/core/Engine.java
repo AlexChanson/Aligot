@@ -109,4 +109,8 @@ public class Engine {
     public void setTurns(int turns) { // this shouldn't be used, maybe delete it?
         this.turns = turns;
     }
+
+    public Simulator getPhysicsEngine() {
+        return physicsEngine;
+    }
 }

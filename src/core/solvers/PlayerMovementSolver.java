@@ -8,7 +8,12 @@ public class PlayerMovementSolver extends Solver implements KeyboardListener{
 
     @Override
     public void initialize() {
-        Window.getKeyboardListeners().add(this);
+        try {
+            Window.getKeyboardListeners().add(this);
+            System.out.println("Player Movement Solver : Init OK");
+        }catch (NullPointerException e){
+            System.out.println("Player Movement Solver : Init FAILED");
+        }
     }
 
 
@@ -17,7 +22,7 @@ public class PlayerMovementSolver extends Solver implements KeyboardListener{
         if(action == GLFW.GLFW_PRESS) {
             switch (key) {
                 case GLFW.GLFW_KEY_LEFT:
-                case GLFW.GLFW_KEY_Q:
+                case GLFW.GLFW_KEY_A:
                     engine.throwEvent(new Event("PLAYER_MOVEMENT", 0));
                     break;
                 case GLFW.GLFW_KEY_RIGHT:
