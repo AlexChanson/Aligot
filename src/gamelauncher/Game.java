@@ -65,8 +65,8 @@ public class Game implements GameStart {
                 engine.update();
                 if(currentLevel != null) {
                     graphicsEngine.drawLevel(currentLevel);
-                    graphicsEngine.drawPlayers(p1, p2);
-                    graphicsEngine.drawProjectiles(engine.getProjectiles());
+                    graphicsEngine.drawPlayers(currentLevel, p1, p2);
+                    graphicsEngine.drawProjectiles(currentLevel, engine.getProjectiles());
                 }
             }
 

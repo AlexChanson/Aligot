@@ -17,7 +17,7 @@ public class Engine {
     private Simulator physicsEngine;
     private ArrayList<Solver> solvers;
     private ArrayList<SubSystem> systems;
-    private double timeStep = 1/60;
+    private double timeStep = 1.0/60;
     private int turns = 0;
     private Level level;
     private ArrayList<Player> players;

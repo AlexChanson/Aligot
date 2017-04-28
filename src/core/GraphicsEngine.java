@@ -2,12 +2,15 @@ package core;
 
 import fsm.FiniteStateMachine;
 import fsm.GUIStates.*;
+import graphics.Texture;
 import graphics.Window;
 import graphics.gui.Button;
 import graphics.gui.GUI;
 import graphics.gui.GUIComponent;
 import physics.RigidBody;
 import physics.Vector2D;
+import utility.Loader;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -72,17 +75,24 @@ public class GraphicsEngine {
         return guiComponents;
     }
 
-    public void drawPlayers(Player... players) {
+    public void drawPlayers(Level level, Player... players) {
+        float screenWidth = Window.getWidth(), screenHeight = Window.getHeight();
+        double ratio = Math.max(screenHeight / level.getMapSize()[1], screenWidth / level.getMapSize()[0]);
         Arrays.asList(players).forEach(player -> {
             Vector2D position = player.getRigidBody().getPosition();
-            Window.drawSprite(player.getTexture(), (float)position.getX(), (float)position.getY(), (float)player.getRotation(), 0.1f);
+            Texture joueur = new Texture(Loader.getSpriteFolderPath() + "doomguy.png");
+            double width = joueur.getWidth()/10, height = joueur.getWidth()/10;
+            Window.drawTexture(joueur, (float)(position.getX()*ratio - (width/2)),
+                    (float)(position.getY()*ratio - (height/2)), (float)width, (float)height, (float)player.getRotation(), 1f, 0,0,(float)width,(float)height, 255,255,255);
         });
     }
 
-    public void drawProjectiles(ArrayList<Projectile> projectiles) {
+    public void drawProjectiles(Level level, ArrayList<Projectile> projectiles) {
+        float screenWidth = Window.getWidth(), screenHeight = Window.getHeight();
+        double ratio = Math.max(screenHeight / level.getMapSize()[1], screenWidth / level.getMapSize()[0]);
         projectiles.forEach(projectile -> {
             Vector2D position = projectile.getRigidBody().getPosition();
-            Window.drawCircle((float)position.getX(), (float)position.getY(), 10, 128,128,64);
+            Window.drawCircle((float)(position.getX()*ratio), (float)(position.getY()*ratio), 10, 128,128,64);
         });
     }
 }
