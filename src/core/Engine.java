@@ -79,6 +79,14 @@ public class Engine {
     }
 
     /**
+     * Calculates the active player with the turn count and the total number of players
+     * @return Active player
+     */
+    public Player getActivePlayer(){
+        return this.players.get(this.turns%this.players.size());
+    }
+
+    /**
      * Change the time stem for the physics simulation default 1/60 of a second
      * @param timeStep the new time step
      */
@@ -98,7 +106,7 @@ public class Engine {
         return turns;
     }
 
-    public void setTurns(int turns) {
+    public void setTurns(int turns) { // this shouldn't be used, maybe delete it?
         this.turns = turns;
     }
 }
