@@ -6,7 +6,12 @@ import physics.PhysicSolver;
 import physics.RigidBody;
 import utility.Pair;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 public class CollisionSolver extends Solver implements CollisionListener {
+    private final static Logger LOGGER = Logger.getLogger(CollisionSolver.class.getName());
+
     @Override
     public void handleCollision(Pair<RigidBody, RigidBody> pair, double distance) {
         engine.throwEvent(new Event("COLLISION", new Pair<>(pair, distance)));
@@ -23,9 +28,9 @@ public class CollisionSolver extends Solver implements CollisionListener {
         }
         if (collisionSolver != null) {
             collisionSolver.registerCollisionListener(this);
-            System.out.println("Collision Solver : Init OK");
+            LOGGER.log(Level.INFO, "Init OK");
             return;
         }
-        System.out.println("Collision Solver : Init FAILED");
+        LOGGER.log(Level.INFO, "Init Failed, couldn't find a physics.CollisionSolver registered to the Simulator.");
     }
 }

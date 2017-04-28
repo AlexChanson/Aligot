@@ -4,15 +4,19 @@ import core.Event;
 import graphics.Window;
 import org.lwjgl.glfw.GLFW;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 public class PlayerMovementSolver extends Solver implements KeyboardListener{
+    private final static Logger LOGGER = Logger.getLogger(PlayerMovementSolver.class.getName());
 
     @Override
     public void initialize() {
         try {
             Window.getKeyboardListeners().add(this);
-            System.out.println("Player Movement Solver : Init OK");
+            LOGGER.log(Level.INFO, "Init OK");
         }catch (NullPointerException e){
-            System.out.println("Player Movement Solver : Init FAILED");
+            LOGGER.log(Level.WARNING, "Init FAILED");
         }
     }
 

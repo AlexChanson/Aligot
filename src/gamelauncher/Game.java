@@ -1,6 +1,8 @@
 package gamelauncher;
 
 import core.*;
+import core.Level;
+import core.solvers.CollisionSolver;
 import core.solvers.PlayerMovementSolver;
 import core.systems.DebugSubSystem;
 import graphics.Window;
@@ -10,11 +12,13 @@ import physics.Vector2D;
 import utility.Loader;
 
 import java.util.Random;
+import java.util.logging.*;
 
 import static org.lwjgl.glfw.GLFW.glfwTerminate;
 
 
 public class Game implements GameStart {
+    private final static Logger LOGGER = Logger.getLogger(Game.class.getName());
     private static Engine engine;
     private static GraphicsEngine graphicsEngine;
     private static Level currentLevel;
@@ -25,11 +29,10 @@ public class Game implements GameStart {
         //Load Assets and set resources folder path
         Loader.decompileAssets();
         Window.setRessourcesFolderPath(Loader.getSpriteFolderPath());
-        System.out.println("Set assets folder to : " + Loader.getSpriteFolderPath());
+        LOGGER.log(java.util.logging.Level.CONFIG, "Set assets folder to : " + Loader.getSpriteFolderPath());
 
         Window.init("Aligot", fullscreen);
-        System.out.println("Fullscreen: "+fullscreen+", width: "+screenWidth+", height: "+screenHeight);
-
+        LOGGER.log(java.util.logging.Level.CONFIG, "Fullscreen: "+fullscreen+", width: "+screenWidth+", height: "+screenHeight);
 
         Window.setHeight(screenHeight);
         Window.setWidth(screenWidth);
@@ -45,7 +48,7 @@ public class Game implements GameStart {
         //Engine init
         initEngine();
         engine.registerSubSystems(new DebugSubSystem());
-        engine.registerSolvers(new PlayerMovementSolver());
+        engine.registerSolvers(new PlayerMovementSolver(), new CollisionSolver());
 
 
         //Graphics Engine init
@@ -90,7 +93,7 @@ public class Game implements GameStart {
             try {
                 engine = new Engine(currentLevel, p1, p2);
             }catch (NullPointerException e){
-                System.out.println("Engine Init Failed");
+                LOGGER.log(java.util.logging.Level.WARNING, "Engine Init Failed");
             }
         }
     }

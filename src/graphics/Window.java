@@ -14,6 +14,9 @@ import java.io.File;
 import java.nio.DoubleBuffer;
 import java.nio.IntBuffer;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.*;
 
@@ -24,6 +27,7 @@ import static org.lwjgl.opengl.GL11.*;
  * @author Christopher VALLOT
  */
 public class Window {
+    private final static Logger LOGGER = Logger.getLogger(Window.class.getName());
     private static long window;
     private static int monitor = 0, width = 1920, height = 1080;
     private static boolean fullscreenEnabled;
@@ -58,7 +62,7 @@ public class Window {
             glEnable(GL_TEXTURE_2D);
 
         } catch (IllegalStateException e) {
-            System.out.println("Failed to create window");
+            LOGGER.log(Level.SEVERE, "Failed to create window \n" + e.toString());
         }
 
         registerCallbacks();
@@ -66,7 +70,7 @@ public class Window {
         glEnable(GL_BLEND);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-        System.out.println("Window initialisation complete !");
+        LOGGER.log(Level.INFO, "Window initialisation complete.");
     }
 
     private static void registerCallbacks(){
@@ -497,18 +501,6 @@ public class Window {
 
     public static void setRessourcesFolderPath(String ressourcesFolderPath) {
         Window.ressourcesFolderPath = ressourcesFolderPath;
-    }
-
-    public static void setKeyCallbacks(Engine e){
-        glfwSetKeyCallback(window, new GLFWKeyCallback() {
-            @Override
-            public void invoke(long window, int key, int scancode, int action, int mods) {
-                if(action == 1)
-                    e.throwEvent(new Event("KEY_PRESSED", key));
-                else if(action == 0)
-                    e.throwEvent(new Event("KEY_RELEASED", key));
-            }
-        });
     }
 
     public static ArrayList<CallBackContainer> getCallBackContainers() {

@@ -1,14 +1,11 @@
 package core;
 
-import core.Level;
-import core.Planet;
-
 import physics.RigidBody;
 import physics.Vector2D;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.Random;
+import java.util.logging.Logger;
 
 import static java.lang.Math.*;
 
@@ -18,6 +15,7 @@ import static java.lang.Math.*;
  * Generates levels from a seed
  */
 public class LevelGen {
+    private final static Logger LOGGER = Logger.getLogger(LevelGen.class.getName());
     public static final int[] SMALL = {640,360}, MEDIUM = {1280,720}, LARGE = {1920,1080};
     private final long seed;
     private int[] mapSize = MEDIUM;
@@ -55,11 +53,11 @@ public class LevelGen {
         String[] bgTextures = {"placeholder.png", "placeholder.png"};
         result = new Level(Long.toString(seed), "Generated procedurally", bgTextures[gen.nextInt(bgTextures.length)]);
         result.setMapSize(mapSize);
-        System.out.println("Starting Procedural generator with seed " + seed);
+        LOGGER.log(java.util.logging.Level.CONFIG, "Starting Procedural generator with seed " + seed);
         genCenters();
         genSpawns();
         genPlanets();
-        System.out.println("Generation Done !, Planet number = " + centers.size());
+        LOGGER.log(java.util.logging.Level.INFO, "Generation Done !, Planet number = " + centers.size());
         return result;
     }
 
@@ -98,7 +96,6 @@ public class LevelGen {
                 centers.add(temp);
         }
         centers.remove(screenCenter);
-        System.out.println("Done in " + i + " tries.");
     }
 
     /**
