@@ -41,7 +41,7 @@ public class Game implements GameStart {
         p2 = new Player(new RigidBody(new Vector2D(screenWidth-100,screenHeight-100),2, 70), "doomguy.jpg", secondPlayerName, 100);
 
         initEngine();
-        GraphicsEngine graphicsEngine = new GraphicsEngine();
+        graphicsEngine = new GraphicsEngine();
         graphicsEngine.initGUI();
 
         //Main Game Loop
