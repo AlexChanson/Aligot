@@ -1,6 +1,7 @@
 package graphics.gui;
 
 import core.Level;
+import graphics.Texture;
 import graphics.Window;
 import utility.Loader;
 
@@ -76,18 +77,19 @@ public class GUI {
 
     private GUI getGUIButtonsPlacementsByDifficulty (ArrayList<Button> buttons, GUI GUIChallenges, ArrayList<Level> levels){
         int iterator = 0;
+        int buttonWidth = 100, buttonHeight = 100;
         if (levels.size() <= 3) {
             for (int i = 0; i < levels.size(); i++) {
                 if (levels.get(i).getChallenge().getDifficulty() == 1) {
-                    buttons.add(new Button("C" + i, (2 * i + 1) * (Window.getWidth() / 6) - Window.getTexture("button_start.png").getWidth() / 2, Window.getHeight() / 2 - Window.getTexture("button_start.png").getWidth() / 2, Window.getTexture("button_start.png").getWidth(), Window.getTexture("button_start.png").getHeight(), "easy" + i));
+                    buttons.add(new Button("C" + i, (2 * i + 1) * (Window.getWidth() / 6) - buttonWidth / 2, Window.getHeight() / 2 - buttonWidth / 2, buttonWidth, buttonHeight, "easy" + i));
                     GUIChallenges.addComponent(buttons.get(i));
                 }
                 else if (levels.get(i).getChallenge().getDifficulty() == 2) {
-                    buttons.add(new Button("C" + i, (2 * i + 1) * (Window.getWidth() / 6) - Window.getTexture("button_start.png").getWidth() / 2, Window.getHeight() / 2 - Window.getTexture("button_start.png").getWidth() / 2, Window.getTexture("button_start.png").getWidth(), Window.getTexture("button_start.png").getHeight(), "medium" + i));
+                    buttons.add(new Button("C" + i, (2 * i + 1) * (Window.getWidth() / 6) - buttonWidth / 2, Window.getHeight() / 2 - buttonWidth / 2, buttonWidth, buttonHeight, "medium" + i));
                     GUIChallenges.addComponent(buttons.get(i));
                 }
                 else if (levels.get(i).getChallenge().getDifficulty() == 3) {
-                    buttons.add(new Button("C" + i, (2 * i + 1) * (Window.getWidth() / 6) - Window.getTexture("button_start.png").getWidth() / 2, Window.getHeight() / 2 - Window.getTexture("button_start.png").getWidth() / 2, Window.getTexture("button_start.png").getWidth(), Window.getTexture("button_start.png").getHeight(), "hard" + i));
+                    buttons.add(new Button("C" + i, (2 * i + 1) * (Window.getWidth() / 6) - buttonWidth / 2, Window.getHeight() / 2 - buttonWidth / 2, buttonWidth, buttonHeight, "hard" + i));
                     GUIChallenges.addComponent(buttons.get(i));
                 }
             }
@@ -96,17 +98,17 @@ public class GUI {
                 for (int j = 0; j < 3; j++) {
                     if (iterator < levels.size()) {
                         if (levels.get(i).getChallenge().getDifficulty() == 1) {
-                            buttons.add(new Button("C" + iterator, (2 * j + 1) * (Window.getWidth() / 6) - Window.getTexture("button_start.png").getWidth() / 2, (2 * i + 1) * Window.getHeight() / 4 - Window.getTexture("button_start.png").getWidth() / 2, Window.getTexture("button_start.png").getWidth(), Window.getTexture("button_start.png").getHeight(), "easy" + iterator));
+                            buttons.add(new Button("C" + iterator, (2 * j + 1) * (Window.getWidth() / 6) - buttonWidth / 2, (2 * i + 1) * Window.getHeight() / 4 - buttonWidth / 2, buttonWidth, buttonHeight, "easy" + iterator));
                             GUIChallenges.addComponent(buttons.get(iterator));
                             iterator++;
                         }
                         else if (levels.get(i).getChallenge().getDifficulty() == 2) {
-                            buttons.add(new Button("C" + iterator, (2 * j + 1) * (Window.getWidth() / 6) - Window.getTexture("button_start.png").getWidth() / 2, (2 * i + 1) * Window.getHeight() / 4 - Window.getTexture("button_start.png").getWidth() / 2, Window.getTexture("button_start.png").getWidth(), Window.getTexture("button_start.png").getHeight(), "medium" + iterator));
+                            buttons.add(new Button("C" + iterator, (2 * j + 1) * (Window.getWidth() / 6) - buttonWidth / 2, (2 * i + 1) * Window.getHeight() / 4 - buttonWidth / 2, buttonWidth, buttonHeight, "medium" + iterator));
                             GUIChallenges.addComponent(buttons.get(iterator));
                             iterator++;
                         }
                         else if (levels.get(i).getChallenge().getDifficulty() == 3) {
-                            buttons.add(new Button("C" + iterator, (2 * j + 1) * (Window.getWidth() / 6) - Window.getTexture("button_start.png").getWidth() / 2, (2 * i + 1) * Window.getHeight() / 4 - Window.getTexture("button_start.png").getWidth() / 2, Window.getTexture("button_start.png").getWidth(), Window.getTexture("button_start.png").getHeight(), "hard" + iterator));
+                            buttons.add(new Button("C" + iterator, (2 * j + 1) * (Window.getWidth() / 6) - buttonWidth / 2, (2 * i + 1) * Window.getHeight() / 4 - buttonWidth / 2, buttonWidth, buttonHeight, "hard" + iterator));
                             GUIChallenges.addComponent(buttons.get(iterator));
                             iterator++;
                         }
