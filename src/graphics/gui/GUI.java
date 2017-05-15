@@ -32,7 +32,7 @@ public class GUI {
 
     public static GUI getStart() {
         GUI GUIStart = new GUI();
-        Button start = new Button("start.png", "", Window.getWidth() / 2 - Window.getTexture("gui_main_button_play.png").getWidth() / 2, Window.getHeight() / 4 - Window.getTexture("gui_main_button_play.png").getHeight() / 2, Window.getTexture("gui_main_button_play.png").getWidth(), Window.getTexture("gui_main_button_play.png").getHeight(),"play");
+        Button start = new Button("button_start.png", "", Window.getWidth() / 2 - Window.getTexture("gui_main_button_play.png").getWidth() / 2, Window.getHeight() / 4 - Window.getTexture("gui_main_button_play.png").getHeight() / 2, Window.getTexture("gui_main_button_play.png").getWidth(), Window.getTexture("gui_main_button_play.png").getHeight(),"play");
         GUIStart.addComponent(start);
         Button exit = new Button("gui_main_button_quit.png", "", Window.getWidth() / 2 - Window.getTexture("gui_main_button_quit.png").getWidth() / 2, 3 * (Window.getHeight() / 4) - Window.getTexture("gui_main_button_quit.png").getHeight() / 2, Window.getTexture("gui_main_button_quit.png").getWidth(), Window.getTexture("gui_main_button_quit.png").getHeight(),"exit");
         GUIStart.addComponent(exit);
@@ -64,11 +64,17 @@ public class GUI {
         ArrayList<Level> levels = Loader.loadAll(Level.class, "challenges");
         ArrayList<Button> buttons = new ArrayList<>();
         levels.removeIf(level -> level.getChallenge().getDifficulty() != difficulty);
-        GUIChallenges.getGUIButtonsPlacements(buttons, GUIChallenges, levels);
+        GUIChallenges.getGUIButtonsPlacementsByDifficulty(buttons, GUIChallenges, levels);
         return GUIChallenges;
     }
 
-    private GUI getGUIButtonsPlacements (ArrayList<Button> buttons, GUI GUIChallenges, ArrayList<Level> levels){
+    public static GUI getMulti () {
+        GUI GUIMulti = new GUI();
+
+        return GUIMulti;
+    }
+
+    private GUI getGUIButtonsPlacementsByDifficulty (ArrayList<Button> buttons, GUI GUIChallenges, ArrayList<Level> levels){
         int iterator = 0;
         if (levels.size() <= 3) {
             for (int i = 0; i < levels.size(); i++) {

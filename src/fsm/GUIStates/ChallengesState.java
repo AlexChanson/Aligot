@@ -1,10 +1,13 @@
 package fsm.GUIStates;
 
 import core.GraphicsEngine;
+import core.Level;
 import fsm.State;
+import gamelauncher.Game;
 import graphics.gui.Button;
 import graphics.gui.GUI;
 import graphics.gui.GUIButtonListener;
+import utility.Loader;
 
 import java.util.ArrayList;
 
@@ -35,20 +38,28 @@ public class ChallengesState extends State {
         for (int i=0; i<challenges.getComponents().size(); i++){
             guiButtonListeners.add(new GUIButtonListener());
         }
-        for (int i=0; i<guiButtonListeners.size();i++){
-            Button button = challenges.getButtonById("easy"+i);
-            if(button != null)
-                button.addListener(guiButtonListeners.get(i));
+        for (int i=0; i<guiButtonListeners.size();i++) {
+            Button button;
+            if (difficulty == 1) {
+                button = challenges.getButtonById("easy" + i);
+                if (button != null) {
+                    button.addListener(guiButtonListeners.get(i));
+                }
+            } else if (difficulty == 2) {
+                button = challenges.getButtonById("medium" + i);
+                if (button != null) {
+                    button.addListener(guiButtonListeners.get(i));
+                }
+            } else if (difficulty == 3) {
+                button = challenges.getButtonById("hard" + i);
+                if (button != null) {
+                    button.addListener(guiButtonListeners.get(i));
+                }
+            }
         }
     }
 
     public void onEnter(){
-        for (int i=0; i<guiButtonListeners.size(); i++){
-            if (getStateName().equals("easy"+i)){
-                graphicsEngine.setGUI(challenges);
-                System.out.println("NTM"+i);
-            }
-        }
         if (getStateName().equals("easyChallenges")) {
             graphicsEngine.setGUI(challenges);
         }
@@ -65,6 +76,14 @@ public class ChallengesState extends State {
 
     @Override
     public String onUpdate() {
+        ArrayList<Level> levels = Loader.loadAll(Level.class, "challenges");
+        levels.removeIf(level -> level.getChallenge().getDifficulty() != difficulty);
+        for (int i = 0; i < guiButtonListeners.size(); i++) {
+            if (guiButtonListeners.get(i).isClicked()) {
+                System.out.println("DONE");
+                Game.setLevel(levels.get(i));
+            }
+        }
         return "challenges";
     }
 
