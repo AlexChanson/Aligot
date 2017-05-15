@@ -9,6 +9,8 @@ import java.util.ArrayList;
 
 public class GUI {
     private ArrayList<GUIComponent> components;
+    private int buttonWidth = 250;
+    private int buttonHeight = 250;
 
     public GUI() {
         components = new ArrayList<>();
@@ -33,30 +35,37 @@ public class GUI {
 
     public static GUI getStart() {
         GUI GUIStart = new GUI();
-        Button start = new Button("button_start.png", "", Window.getWidth() / 2 - Window.getTexture("button_start.png").getWidth() / 2, Window.getHeight() / 4 - Window.getTexture("button_start.png").getHeight() / 2, Window.getTexture("button_start.png").getWidth(), Window.getTexture("button_start.png").getHeight(),"play");
+        int buttonWidth = 600, buttonHeight = 250;
+        Button start = new Button("button_start.png", "", Window.getWidth() / 2 - buttonWidth / 2, Window.getHeight() / 4 - buttonHeight / 2, buttonWidth, buttonHeight,"play");
         GUIStart.addComponent(start);
-        Button exit = new Button("button_exit.png", "", Window.getWidth() / 2 - Window.getTexture("button_exit.png").getWidth() / 2, 3 * (Window.getHeight() / 4) - Window.getTexture("button_exit.png").getHeight() / 2, Window.getTexture("button_exit.png").getWidth(), Window.getTexture("button_exit.png").getHeight(),"exit");
+        Button exit = new Button("button_exit.png", "", Window.getWidth() / 2 - buttonWidth / 2, 3 * (Window.getHeight() / 4) - buttonHeight / 2, buttonWidth, buttonHeight,"exit");
         GUIStart.addComponent(exit);
         return GUIStart;
     }
 
     public static GUI getGameMods() {
         GUI GUIGameMods = new GUI();
-        Button solo = new Button("", "SOLO", Window.getWidth() / 2 - Window.getTexture("button_start.png").getWidth() / 2, Window.getHeight() / 4 - Window.getTexture("button_start.png").getHeight() / 2, Window.getTexture("button_start.png").getWidth(), Window.getTexture("button_start.png").getHeight(),"solo");
+        int buttonWidth = 600, buttonHeight = 250;
+        Button solo = new Button("button_solo.png", "", Window.getWidth() / 2 - buttonWidth / 2, Window.getHeight() / 4 - buttonHeight / 2, buttonWidth, buttonHeight,"solo");
         GUIGameMods.addComponent(solo);
-        Button multi = new Button("", "MULTI", Window.getWidth() / 2 - Window.getTexture("button_exit.png").getWidth() / 2, 3 * (Window.getHeight() / 4) - Window.getTexture("button_exit.png").getHeight() / 2, Window.getTexture("button_exit.png").getWidth(), Window.getTexture("button_exit.png").getHeight(),"multi");
+        Button multi = new Button("button_multi.png", "", Window.getWidth() / 2 - buttonWidth / 2, 3 * (Window.getHeight() / 4) - buttonHeight / 2, buttonWidth, buttonHeight,"multi");
         GUIGameMods.addComponent(multi);
+        Button back = new Button("button_back.png","", 50, Window.getHeight() - 100, 100, 50, "back");
+        GUIGameMods.addComponent(back);
         return GUIGameMods;
     }
 
     public static GUI getSelectChallenge() {
         GUI GUISelectChallenge = new GUI();
-        Button easyChallenge = new Button("", "EASY", Window.getWidth() / 6 - Window.getTexture("button_start.png").getWidth() / 2, Window.getHeight() / 2 - Window.getTexture("button_start.png").getWidth() / 2, Window.getTexture("button_start.png").getWidth(), Window.getTexture("button_start.png").getHeight(), "easy");
+        int buttonWidth = 400, buttonHeight = 200;
+        Button easyChallenge = new Button("button_easy.png", "", Window.getWidth() / 6 - buttonWidth / 2, Window.getHeight() / 2 - buttonHeight / 2, buttonWidth, buttonHeight, "easy");
         GUISelectChallenge.addComponent(easyChallenge);
-        Button mediumChallenge = new Button("", "MEDIUM", 3* (Window.getWidth() / 6) - Window.getTexture("button_start.png").getWidth() / 2, Window.getHeight() / 2 - Window.getTexture("button_start.png").getWidth() / 2, Window.getTexture("button_start.png").getWidth(), Window.getTexture("button_start.png").getHeight(), "medium");
+        Button mediumChallenge = new Button("button_medium.png", "", 3* (Window.getWidth() / 6) - buttonWidth / 2, Window.getHeight() / 2 - buttonHeight / 2, buttonWidth, buttonHeight, "medium");
         GUISelectChallenge.addComponent(mediumChallenge);
-        Button hardChallenge = new Button("", "HARD", 5 * (Window.getWidth() / 6) - Window.getTexture("button_start.png").getWidth() / 2, Window.getHeight() /2  - Window.getTexture("button_start.png").getWidth() / 2, Window.getTexture("button_start.png").getWidth(), Window.getTexture("button_start.png").getHeight(), "hard");
+        Button hardChallenge = new Button("button_hard.png", "", 5 * (Window.getWidth() / 6) - buttonWidth / 2, Window.getHeight() /2  - buttonHeight / 2, buttonWidth, buttonHeight, "hard");
         GUISelectChallenge.addComponent(hardChallenge);
+        Button back = new Button("button_back.png","", 50, Window.getHeight() - 100, 100, 50, "back");
+        GUISelectChallenge.addComponent(back);
         return GUISelectChallenge;
     }
 
@@ -66,6 +75,8 @@ public class GUI {
         ArrayList<Button> buttons = new ArrayList<>();
         levels.removeIf(level -> level.getChallenge().getDifficulty() != difficulty);
         GUIChallenges.getGUIButtonsPlacementsByDifficulty(buttons, GUIChallenges, levels);
+        Button back = new Button("button_back.png","", 50, Window.getHeight() - 100, 100, 50, "back");
+        GUIChallenges.addComponent(back);
         return GUIChallenges;
     }
 
@@ -77,7 +88,7 @@ public class GUI {
 
     private GUI getGUIButtonsPlacementsByDifficulty (ArrayList<Button> buttons, GUI GUIChallenges, ArrayList<Level> levels){
         int iterator = 0;
-        int buttonWidth = 100, buttonHeight = 100;
+        int buttonWidth = 250, buttonHeight = 250;
         if (levels.size() <= 3) {
             for (int i = 0; i < levels.size(); i++) {
                 if (levels.get(i).getChallenge().getDifficulty() == 1) {

@@ -9,7 +9,7 @@ import graphics.gui.GUIButtonListener;
 /**
  * Created by Christopher on 18/04/2017.
  */
-public class SelectChallengeState extends State{
+public class ChallengeDifficultyState extends State{
     private GUI selectChallenge;
     private GraphicsEngine graphicsEngine;
     private GUIButtonListener easyChallengeButtonListener = new GUIButtonListener();
@@ -17,7 +17,7 @@ public class SelectChallengeState extends State{
     private GUIButtonListener hardChallengeButtonListener = new GUIButtonListener();
     private GUIButtonListener backButtonListener = new GUIButtonListener();
 
-    public SelectChallengeState(GUI selectChallenge, GraphicsEngine graphicsEngine){
+    public ChallengeDifficultyState(GUI selectChallenge, GraphicsEngine graphicsEngine){
         this.selectChallenge = selectChallenge;
         this.graphicsEngine = graphicsEngine;
     }
@@ -30,11 +30,11 @@ public class SelectChallengeState extends State{
         Button hard = selectChallenge.getButtonById("hard");
         hard.addListener(hardChallengeButtonListener);
         Button back = selectChallenge.getButtonById("back");
-        //back.addListener(backButtonListener);
+        back.addListener(backButtonListener);
         easyChallengeButtonListener.setNotClicked();
         mediumChallengeButtonListener.setNotClicked();
         hardChallengeButtonListener.setNotClicked();
-        //backButtonListener.setNotClicked();
+        backButtonListener.setNotClicked();
         graphicsEngine.setGUI(selectChallenge);
         System.out.println("Switching to Select Challenge Screen");
     }
@@ -44,21 +44,20 @@ public class SelectChallengeState extends State{
         if (easyChallengeButtonListener.isClicked()){
             return "easyChallenges";
         }
-        if (mediumChallengeButtonListener.isClicked()){
+        else if (mediumChallengeButtonListener.isClicked()){
             return "mediumChallenges";
         }
-        if (hardChallengeButtonListener.isClicked()) {
+        else if (hardChallengeButtonListener.isClicked()) {
             return "hardChallenges";
         }
-
-        //else if (backButtonListener.isClicked()) {
-        //    return "gameMods";
-        //}
-        return "selectChallenge";
+        else if (backButtonListener.isClicked()) {
+            return "gameMods";
+        }
+        return "challengeDifficulty";
     }
 
     @Override
     public String getStateName() {
-        return "selectChallenge";
+        return "challengeDifficulty";
     }
 }

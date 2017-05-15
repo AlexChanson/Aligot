@@ -32,17 +32,14 @@ public class StartState extends State {
         startButtonListener.setNotClicked();
         exitButtonListener.setNotClicked();
         graphicsEngine.setGUI(start);
-        System.out.println("Switching to Start Screen");
     }
 
     @Override
     public String onUpdate() {
         if(startButtonListener.isClicked()) {
-            System.out.println("game modes button clicked");
-            return "gameModes";
+            return "gameMods";
         }
         else if (exitButtonListener.isClicked()) {
-            System.out.println("Exit button clicked");
             return "exit";
         }
         return "start";

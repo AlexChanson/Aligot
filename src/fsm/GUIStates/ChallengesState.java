@@ -19,13 +19,16 @@ public class ChallengesState extends State {
     private int difficulty;
     private GraphicsEngine graphicsEngine;
     private ArrayList<GUIButtonListener> guiButtonListeners = new ArrayList<GUIButtonListener>();
+    private GUIButtonListener backButtonListener = new GUIButtonListener();
+    ArrayList<Level> levels = Loader.loadAll(Level.class, "challenges");
 
     public ChallengesState (GraphicsEngine graphicsEngine, int difficulty){
         this.graphicsEngine = graphicsEngine;
         this.difficulty = difficulty;
     }
 
-    public void initialize(){
+    public void initialize() {
+        levels.removeIf(level -> level.getChallenge().getDifficulty() != difficulty);
         if (difficulty == 1) {
             challenges = GUI.getChallenges(1);
         }
@@ -60,6 +63,8 @@ public class ChallengesState extends State {
     }
 
     public void onEnter(){
+        Button back = challenges.getButtonById("back");
+        back.addListener(backButtonListener);
         if (getStateName().equals("easyChallenges")) {
             graphicsEngine.setGUI(challenges);
         }
@@ -76,13 +81,13 @@ public class ChallengesState extends State {
 
     @Override
     public String onUpdate() {
-        ArrayList<Level> levels = Loader.loadAll(Level.class, "challenges");
-        levels.removeIf(level -> level.getChallenge().getDifficulty() != difficulty);
         for (int i = 0; i < guiButtonListeners.size(); i++) {
             if (guiButtonListeners.get(i).isClicked()) {
-                System.out.println("DONE");
                 Game.setLevel(levels.get(i));
             }
+        }
+        if (backButtonListener.isClicked()) {
+            return "challengeDifficulty";
         }
         return "challenges";
     }

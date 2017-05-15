@@ -7,7 +7,6 @@ import graphics.Window;
 import graphics.gui.Button;
 import graphics.gui.GUI;
 import graphics.gui.GUIComponent;
-import physics.RigidBody;
 import physics.Vector2D;
 import utility.Loader;
 
@@ -27,7 +26,7 @@ public class GraphicsEngine {
         guiFSM.addStates(
                 new StartState(GUI.getStart(), this),
                 new GameModsState(GUI.getGameMods(), this),
-                new SelectChallengeState(GUI.getSelectChallenge(),this),
+                new ChallengeDifficultyState(GUI.getSelectChallenge(),this),
                 new ChallengesState(this,1),
                 new ChallengesState(this,2),
                 new ChallengesState(this,3),
