@@ -37,7 +37,8 @@ public class ChallengesState extends State {
         }
         for (int i=0; i<guiButtonListeners.size();i++){
             Button button = challenges.getButtonById("easy"+i);
-            button.addListener(guiButtonListeners.get(i));
+            if(button != null)
+                button.addListener(guiButtonListeners.get(i));
         }
     }
 
