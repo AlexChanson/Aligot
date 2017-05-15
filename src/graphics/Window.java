@@ -140,7 +140,6 @@ public class Window {
 
         glTranslatef(posX, posY, 0);
         glRotatef(rotate, 0, 0f, 1f);
-        glScalef(scale, scale, 1);
         glColor3f(((float) r) / 255.0f, ((float) g) / 255.0f, ((float) b) / 255.0f);
 
         glBindTexture(GL_TEXTURE_2D, texture.getId());
@@ -149,11 +148,11 @@ public class Window {
         glTexCoord2f(textureX / texture.getWidth(), textureY / texture.getHeight());
         glVertex2f(0, 0);
         glTexCoord2f((textureX + textureWidth) / texture.getWidth(), textureY / texture.getHeight());
-        glVertex2f(width, 0);
+        glVertex2f(width * scale, 0);
         glTexCoord2f((textureX + textureWidth) / texture.getWidth(), (textureY + textureHeight) / texture.getHeight());
-        glVertex2f(width, height);
+        glVertex2f(width * scale, height * scale);
         glTexCoord2f( textureX / texture.getWidth(), (textureY + textureHeight) / texture.getHeight());
-        glVertex2f(0, height);
+        glVertex2f(0, height * scale);
         glEnd();
 
         glPopMatrix();
