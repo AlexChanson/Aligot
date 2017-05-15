@@ -57,7 +57,7 @@ public class Game implements GameStart {
 
         //Graphics Engine init
         graphicsEngine = new GraphicsEngine();
-        //graphicsEngine.initGUI();
+        graphicsEngine.initGUI();
 
         //Main Game Loop
         while (Window.shouldClose()) {
