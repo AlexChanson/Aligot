@@ -32,29 +32,29 @@ public class GUI {
 
     public static GUI getStart() {
         GUI GUIStart = new GUI();
-        Button start = new Button("button_start.png", "", Window.getWidth() / 2 - Window.getTexture("gui_main_button_play.png").getWidth() / 2, Window.getHeight() / 4 - Window.getTexture("gui_main_button_play.png").getHeight() / 2, Window.getTexture("gui_main_button_play.png").getWidth(), Window.getTexture("gui_main_button_play.png").getHeight(),"play");
+        Button start = new Button("button_start.png", "", Window.getWidth() / 2 - Window.getTexture("button_start.png").getWidth() / 2, Window.getHeight() / 4 - Window.getTexture("button_start.png").getHeight() / 2, Window.getTexture("button_start.png").getWidth(), Window.getTexture("button_start.png").getHeight(),"play");
         GUIStart.addComponent(start);
-        Button exit = new Button("gui_main_button_quit.png", "", Window.getWidth() / 2 - Window.getTexture("gui_main_button_quit.png").getWidth() / 2, 3 * (Window.getHeight() / 4) - Window.getTexture("gui_main_button_quit.png").getHeight() / 2, Window.getTexture("gui_main_button_quit.png").getWidth(), Window.getTexture("gui_main_button_quit.png").getHeight(),"exit");
+        Button exit = new Button("button_exit.png", "", Window.getWidth() / 2 - Window.getTexture("button_exit.png").getWidth() / 2, 3 * (Window.getHeight() / 4) - Window.getTexture("button_exit.png").getHeight() / 2, Window.getTexture("button_exit.png").getWidth(), Window.getTexture("button_exit.png").getHeight(),"exit");
         GUIStart.addComponent(exit);
         return GUIStart;
     }
 
     public static GUI getGameMods() {
         GUI GUIGameMods = new GUI();
-        Button solo = new Button("", "SOLO", Window.getWidth() / 2 - Window.getTexture("gui_main_button_play.png").getWidth() / 2, Window.getHeight() / 4 - Window.getTexture("gui_main_button_play.png").getHeight() / 2, Window.getTexture("gui_main_button_play.png").getWidth(), Window.getTexture("gui_main_button_play.png").getHeight(),"solo");
+        Button solo = new Button("", "SOLO", Window.getWidth() / 2 - Window.getTexture("button_start.png").getWidth() / 2, Window.getHeight() / 4 - Window.getTexture("button_start.png").getHeight() / 2, Window.getTexture("button_start.png").getWidth(), Window.getTexture("button_start.png").getHeight(),"solo");
         GUIGameMods.addComponent(solo);
-        Button multi = new Button("", "MULTI", Window.getWidth() / 2 - Window.getTexture("gui_main_button_quit.png").getWidth() / 2, 3 * (Window.getHeight() / 4) - Window.getTexture("gui_main_button_quit.png").getHeight() / 2, Window.getTexture("gui_main_button_quit.png").getWidth(), Window.getTexture("gui_main_button_quit.png").getHeight(),"multi");
+        Button multi = new Button("", "MULTI", Window.getWidth() / 2 - Window.getTexture("button_exit.png").getWidth() / 2, 3 * (Window.getHeight() / 4) - Window.getTexture("button_exit.png").getHeight() / 2, Window.getTexture("button_exit.png").getWidth(), Window.getTexture("button_exit.png").getHeight(),"multi");
         GUIGameMods.addComponent(multi);
         return GUIGameMods;
     }
 
     public static GUI getSelectChallenge() {
         GUI GUISelectChallenge = new GUI();
-        Button easyChallenge = new Button("", "EASY", Window.getWidth() / 6 - Window.getTexture("gui_main_button_play.png").getWidth() / 2, Window.getHeight() / 2 - Window.getTexture("gui_main_button_play.png").getWidth() / 2, Window.getTexture("gui_main_button_play.png").getWidth(), Window.getTexture("gui_main_button_play.png").getHeight(), "easy");
+        Button easyChallenge = new Button("", "EASY", Window.getWidth() / 6 - Window.getTexture("button_start.png").getWidth() / 2, Window.getHeight() / 2 - Window.getTexture("button_start.png").getWidth() / 2, Window.getTexture("button_start.png").getWidth(), Window.getTexture("button_start.png").getHeight(), "easy");
         GUISelectChallenge.addComponent(easyChallenge);
-        Button mediumChallenge = new Button("", "MEDIUM", 3* (Window.getWidth() / 6) - Window.getTexture("gui_main_button_play.png").getWidth() / 2, Window.getHeight() / 2 - Window.getTexture("gui_main_button_play.png").getWidth() / 2, Window.getTexture("gui_main_button_play.png").getWidth(), Window.getTexture("gui_main_button_play.png").getHeight(), "medium");
+        Button mediumChallenge = new Button("", "MEDIUM", 3* (Window.getWidth() / 6) - Window.getTexture("button_start.png").getWidth() / 2, Window.getHeight() / 2 - Window.getTexture("button_start.png").getWidth() / 2, Window.getTexture("button_start.png").getWidth(), Window.getTexture("button_start.png").getHeight(), "medium");
         GUISelectChallenge.addComponent(mediumChallenge);
-        Button hardChallenge = new Button("", "HARD", 5 * (Window.getWidth() / 6) - Window.getTexture("gui_main_button_play.png").getWidth() / 2, Window.getHeight() /2  - Window.getTexture("gui_main_button_play.png").getWidth() / 2, Window.getTexture("gui_main_button_play.png").getWidth(), Window.getTexture("gui_main_button_play.png").getHeight(), "hard");
+        Button hardChallenge = new Button("", "HARD", 5 * (Window.getWidth() / 6) - Window.getTexture("button_start.png").getWidth() / 2, Window.getHeight() /2  - Window.getTexture("button_start.png").getWidth() / 2, Window.getTexture("button_start.png").getWidth(), Window.getTexture("button_start.png").getHeight(), "hard");
         GUISelectChallenge.addComponent(hardChallenge);
         return GUISelectChallenge;
     }
@@ -79,15 +79,15 @@ public class GUI {
         if (levels.size() <= 3) {
             for (int i = 0; i < levels.size(); i++) {
                 if (levels.get(i).getChallenge().getDifficulty() == 1) {
-                    buttons.add(new Button("C" + i, (2 * i + 1) * (Window.getWidth() / 6) - Window.getTexture("gui_main_button_play.png").getWidth() / 2, Window.getHeight() / 2 - Window.getTexture("gui_main_button_play.png").getWidth() / 2, Window.getTexture("gui_main_button_play.png").getWidth(), Window.getTexture("gui_main_button_play.png").getHeight(), "easy" + i));
+                    buttons.add(new Button("C" + i, (2 * i + 1) * (Window.getWidth() / 6) - Window.getTexture("button_start.png").getWidth() / 2, Window.getHeight() / 2 - Window.getTexture("button_start.png").getWidth() / 2, Window.getTexture("button_start.png").getWidth(), Window.getTexture("button_start.png").getHeight(), "easy" + i));
                     GUIChallenges.addComponent(buttons.get(i));
                 }
                 else if (levels.get(i).getChallenge().getDifficulty() == 2) {
-                    buttons.add(new Button("C" + i, (2 * i + 1) * (Window.getWidth() / 6) - Window.getTexture("gui_main_button_play.png").getWidth() / 2, Window.getHeight() / 2 - Window.getTexture("gui_main_button_play.png").getWidth() / 2, Window.getTexture("gui_main_button_play.png").getWidth(), Window.getTexture("gui_main_button_play.png").getHeight(), "medium" + i));
+                    buttons.add(new Button("C" + i, (2 * i + 1) * (Window.getWidth() / 6) - Window.getTexture("button_start.png").getWidth() / 2, Window.getHeight() / 2 - Window.getTexture("button_start.png").getWidth() / 2, Window.getTexture("button_start.png").getWidth(), Window.getTexture("button_start.png").getHeight(), "medium" + i));
                     GUIChallenges.addComponent(buttons.get(i));
                 }
                 else if (levels.get(i).getChallenge().getDifficulty() == 3) {
-                    buttons.add(new Button("C" + i, (2 * i + 1) * (Window.getWidth() / 6) - Window.getTexture("gui_main_button_play.png").getWidth() / 2, Window.getHeight() / 2 - Window.getTexture("gui_main_button_play.png").getWidth() / 2, Window.getTexture("gui_main_button_play.png").getWidth(), Window.getTexture("gui_main_button_play.png").getHeight(), "hard" + i));
+                    buttons.add(new Button("C" + i, (2 * i + 1) * (Window.getWidth() / 6) - Window.getTexture("button_start.png").getWidth() / 2, Window.getHeight() / 2 - Window.getTexture("button_start.png").getWidth() / 2, Window.getTexture("button_start.png").getWidth(), Window.getTexture("button_start.png").getHeight(), "hard" + i));
                     GUIChallenges.addComponent(buttons.get(i));
                 }
             }
@@ -96,17 +96,17 @@ public class GUI {
                 for (int j = 0; j < 3; j++) {
                     if (iterator < levels.size()) {
                         if (levels.get(i).getChallenge().getDifficulty() == 1) {
-                            buttons.add(new Button("C" + iterator, (2 * j + 1) * (Window.getWidth() / 6) - Window.getTexture("gui_main_button_play.png").getWidth() / 2, (2 * i + 1) * Window.getHeight() / 4 - Window.getTexture("gui_main_button_play.png").getWidth() / 2, Window.getTexture("gui_main_button_play.png").getWidth(), Window.getTexture("gui_main_button_play.png").getHeight(), "easy" + iterator));
+                            buttons.add(new Button("C" + iterator, (2 * j + 1) * (Window.getWidth() / 6) - Window.getTexture("button_start.png").getWidth() / 2, (2 * i + 1) * Window.getHeight() / 4 - Window.getTexture("button_start.png").getWidth() / 2, Window.getTexture("button_start.png").getWidth(), Window.getTexture("button_start.png").getHeight(), "easy" + iterator));
                             GUIChallenges.addComponent(buttons.get(iterator));
                             iterator++;
                         }
                         else if (levels.get(i).getChallenge().getDifficulty() == 2) {
-                            buttons.add(new Button("C" + iterator, (2 * j + 1) * (Window.getWidth() / 6) - Window.getTexture("gui_main_button_play.png").getWidth() / 2, (2 * i + 1) * Window.getHeight() / 4 - Window.getTexture("gui_main_button_play.png").getWidth() / 2, Window.getTexture("gui_main_button_play.png").getWidth(), Window.getTexture("gui_main_button_play.png").getHeight(), "medium" + iterator));
+                            buttons.add(new Button("C" + iterator, (2 * j + 1) * (Window.getWidth() / 6) - Window.getTexture("button_start.png").getWidth() / 2, (2 * i + 1) * Window.getHeight() / 4 - Window.getTexture("button_start.png").getWidth() / 2, Window.getTexture("button_start.png").getWidth(), Window.getTexture("button_start.png").getHeight(), "medium" + iterator));
                             GUIChallenges.addComponent(buttons.get(iterator));
                             iterator++;
                         }
                         else if (levels.get(i).getChallenge().getDifficulty() == 3) {
-                            buttons.add(new Button("C" + iterator, (2 * j + 1) * (Window.getWidth() / 6) - Window.getTexture("gui_main_button_play.png").getWidth() / 2, (2 * i + 1) * Window.getHeight() / 4 - Window.getTexture("gui_main_button_play.png").getWidth() / 2, Window.getTexture("gui_main_button_play.png").getWidth(), Window.getTexture("gui_main_button_play.png").getHeight(), "hard" + iterator));
+                            buttons.add(new Button("C" + iterator, (2 * j + 1) * (Window.getWidth() / 6) - Window.getTexture("button_start.png").getWidth() / 2, (2 * i + 1) * Window.getHeight() / 4 - Window.getTexture("button_start.png").getWidth() / 2, Window.getTexture("button_start.png").getWidth(), Window.getTexture("button_start.png").getHeight(), "hard" + iterator));
                             GUIChallenges.addComponent(buttons.get(iterator));
                             iterator++;
                         }
