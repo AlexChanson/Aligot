@@ -50,9 +50,8 @@ public class Game implements GameStart {
         p2 = new Player(bodyPlayer2, "doomguy.png", secondPlayerName, 100);
 
         //Engine init
-        initEngine();
-        engine.registerSubSystems(new DebugSubSystem(), new PlayerOrientationSystem(), new PlayerMovementSystem());
-        engine.registerSolvers(new PlayerMovementSolver(), new CollisionSolver());
+        //initEngine();
+
 
 
         //Graphics Engine init
@@ -102,6 +101,8 @@ public class Game implements GameStart {
             }catch (NullPointerException e){
                 LOGGER.log(java.util.logging.Level.WARNING, "Engine Init Failed");
             }
+            engine.registerSubSystems(new DebugSubSystem(), new PlayerOrientationSystem(), new PlayerMovementSystem());
+            engine.registerSolvers(new PlayerMovementSolver(), new CollisionSolver());
         }
     }
 }
