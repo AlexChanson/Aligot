@@ -32,7 +32,7 @@ public class GUI {
 
     public static GUI getStart() {
         GUI GUIStart = new GUI();
-        Button start = new Button("gui_main_button_play.png", "", Window.getWidth() / 2 - Window.getTexture("gui_main_button_play.png").getWidth() / 2, Window.getHeight() / 4 - Window.getTexture("gui_main_button_play.png").getHeight() / 2, Window.getTexture("gui_main_button_play.png").getWidth(), Window.getTexture("gui_main_button_play.png").getHeight(),"play");
+        Button start = new Button("start.png", "", Window.getWidth() / 2 - Window.getTexture("gui_main_button_play.png").getWidth() / 2, Window.getHeight() / 4 - Window.getTexture("gui_main_button_play.png").getHeight() / 2, Window.getTexture("gui_main_button_play.png").getWidth(), Window.getTexture("gui_main_button_play.png").getHeight(),"play");
         GUIStart.addComponent(start);
         Button exit = new Button("gui_main_button_quit.png", "", Window.getWidth() / 2 - Window.getTexture("gui_main_button_quit.png").getWidth() / 2, 3 * (Window.getHeight() / 4) - Window.getTexture("gui_main_button_quit.png").getHeight() / 2, Window.getTexture("gui_main_button_quit.png").getWidth(), Window.getTexture("gui_main_button_quit.png").getHeight(),"exit");
         GUIStart.addComponent(exit);
@@ -72,16 +72,38 @@ public class GUI {
         int iterator = 0;
         if (levels.size() <= 3) {
             for (int i = 0; i < levels.size(); i++) {
-                buttons.add(new Button("C" + i, (2 * i + 1) * (Window.getWidth() / 6) - Window.getTexture("gui_main_button_play.png").getWidth() / 2, Window.getHeight() / 2 - Window.getTexture("gui_main_button_play.png").getWidth() / 2, Window.getTexture("gui_main_button_play.png").getWidth(), Window.getTexture("gui_main_button_play.png").getHeight(), "easy"));
-                GUIChallenges.addComponent(buttons.get(i));
+                if (levels.get(i).getChallenge().getDifficulty() == 1) {
+                    buttons.add(new Button("C" + i, (2 * i + 1) * (Window.getWidth() / 6) - Window.getTexture("gui_main_button_play.png").getWidth() / 2, Window.getHeight() / 2 - Window.getTexture("gui_main_button_play.png").getWidth() / 2, Window.getTexture("gui_main_button_play.png").getWidth(), Window.getTexture("gui_main_button_play.png").getHeight(), "easy" + i));
+                    GUIChallenges.addComponent(buttons.get(i));
+                }
+                else if (levels.get(i).getChallenge().getDifficulty() == 2) {
+                    buttons.add(new Button("C" + i, (2 * i + 1) * (Window.getWidth() / 6) - Window.getTexture("gui_main_button_play.png").getWidth() / 2, Window.getHeight() / 2 - Window.getTexture("gui_main_button_play.png").getWidth() / 2, Window.getTexture("gui_main_button_play.png").getWidth(), Window.getTexture("gui_main_button_play.png").getHeight(), "medium" + i));
+                    GUIChallenges.addComponent(buttons.get(i));
+                }
+                else if (levels.get(i).getChallenge().getDifficulty() == 3) {
+                    buttons.add(new Button("C" + i, (2 * i + 1) * (Window.getWidth() / 6) - Window.getTexture("gui_main_button_play.png").getWidth() / 2, Window.getHeight() / 2 - Window.getTexture("gui_main_button_play.png").getWidth() / 2, Window.getTexture("gui_main_button_play.png").getWidth(), Window.getTexture("gui_main_button_play.png").getHeight(), "hard" + i));
+                    GUIChallenges.addComponent(buttons.get(i));
+                }
             }
         } else if (levels.size() > 3) {
             for (int i = 0; i < 2; i++) {
                 for (int j = 0; j < 3; j++) {
                     if (iterator < levels.size()) {
-                        buttons.add(new Button("C" + iterator, (2 * j + 1) * (Window.getWidth() / 6) - Window.getTexture("gui_main_button_play.png").getWidth() / 2, (2 * i + 1) * Window.getHeight() / 4 - Window.getTexture("gui_main_button_play.png").getWidth() / 2, Window.getTexture("gui_main_button_play.png").getWidth(), Window.getTexture("gui_main_button_play.png").getHeight(), "easy"));
-                        GUIChallenges.addComponent(buttons.get(iterator));
-                        iterator++;
+                        if (levels.get(i).getChallenge().getDifficulty() == 1) {
+                            buttons.add(new Button("C" + iterator, (2 * j + 1) * (Window.getWidth() / 6) - Window.getTexture("gui_main_button_play.png").getWidth() / 2, (2 * i + 1) * Window.getHeight() / 4 - Window.getTexture("gui_main_button_play.png").getWidth() / 2, Window.getTexture("gui_main_button_play.png").getWidth(), Window.getTexture("gui_main_button_play.png").getHeight(), "easy" + iterator));
+                            GUIChallenges.addComponent(buttons.get(iterator));
+                            iterator++;
+                        }
+                        else if (levels.get(i).getChallenge().getDifficulty() == 2) {
+                            buttons.add(new Button("C" + iterator, (2 * j + 1) * (Window.getWidth() / 6) - Window.getTexture("gui_main_button_play.png").getWidth() / 2, (2 * i + 1) * Window.getHeight() / 4 - Window.getTexture("gui_main_button_play.png").getWidth() / 2, Window.getTexture("gui_main_button_play.png").getWidth(), Window.getTexture("gui_main_button_play.png").getHeight(), "medium" + iterator));
+                            GUIChallenges.addComponent(buttons.get(iterator));
+                            iterator++;
+                        }
+                        else if (levels.get(i).getChallenge().getDifficulty() == 3) {
+                            buttons.add(new Button("C" + iterator, (2 * j + 1) * (Window.getWidth() / 6) - Window.getTexture("gui_main_button_play.png").getWidth() / 2, (2 * i + 1) * Window.getHeight() / 4 - Window.getTexture("gui_main_button_play.png").getWidth() / 2, Window.getTexture("gui_main_button_play.png").getWidth(), Window.getTexture("gui_main_button_play.png").getHeight(), "hard" + iterator));
+                            GUIChallenges.addComponent(buttons.get(iterator));
+                            iterator++;
+                        }
                     } else {
                         return GUIChallenges;
                     }

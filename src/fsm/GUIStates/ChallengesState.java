@@ -2,6 +2,7 @@ package fsm.GUIStates;
 
 import core.GraphicsEngine;
 import fsm.State;
+import graphics.gui.Button;
 import graphics.gui.GUI;
 import graphics.gui.GUIButtonListener;
 
@@ -31,9 +32,22 @@ public class ChallengesState extends State {
         if (difficulty == 3) {
             challenges = GUI.getChallenges(3);
         }
+        for (int i=0; i<challenges.getComponents().size(); i++){
+            guiButtonListeners.add(new GUIButtonListener());
+        }
+        for (int i=0; i<guiButtonListeners.size();i++){
+            Button button = challenges.getButtonById("easy"+i);
+            button.addListener(guiButtonListeners.get(i));
+        }
     }
 
     public void onEnter(){
+        for (int i=0; i<guiButtonListeners.size(); i++){
+            if (getStateName().equals("easy"+i)){
+                graphicsEngine.setGUI(challenges);
+                System.out.println("NTM"+i);
+            }
+        }
         if (getStateName().equals("easyChallenges")) {
             graphicsEngine.setGUI(challenges);
         }
