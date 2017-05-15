@@ -8,6 +8,7 @@ import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.Objects;
 import java.util.jar.JarEntry;
@@ -18,7 +19,10 @@ public class Loader {
     private static String ressourcesPath = System.getProperty("user.dir") + File.separator + "ressources" + File.separator + "sprites" + File.separator;
 
     public static <T> ArrayList<T> loadAll(Class<T> type, String folder){
-        System.out.println("Loading all " + type.getName());
+        System.out.println("LOADER: Loading all " + type.getName());
+        System.out.println("--- --- Reporting CallStack --- ---");
+        Arrays.asList(Thread.currentThread().getStackTrace()).forEach(System.out::println);
+        System.out.println("--- --- CallStack Ends --- ---");
         ArrayList<T> stuff = new ArrayList<>();
         String[] source = null;
         Gson gson = new Gson();
