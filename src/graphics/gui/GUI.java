@@ -83,9 +83,9 @@ public class GUI {
     public static GUI getMulti () {
         GUI GUIMulti = new GUI();
         int buttonWidth = 150, buttonHeight = 150;
-        Label text = new Label("NUMBER OF PLANETS", Window.getWidth()/2 - 300,Window.getHeight()/2 - 100, 500, 100, "text");
+        Label text = new Label("NUMBER OF PLANETS", Window.getWidth()/2 - 300,Window.getHeight()/2 - 100, 450, 100, "text");
         GUIMulti.addComponent(text);
-        Label count = new Label ("2", 2*(Window.getWidth()/3 - 5), 3*(Window.getHeight() /8 - 3), 125, 100, "count");
+        Label count = new Label ("2", 2*(Window.getWidth()/3 - 12), 3*(Window.getHeight() /8 - 3), 50, 100, "count");
         GUIMulti.addComponent(count);
         Button up = new Button("button_up.png", "", 2*(Window.getWidth() / 3) - buttonWidth / 2, 2*(Window.getHeight() /8) - buttonHeight /2, buttonWidth, buttonHeight, "up");
         GUIMulti.addComponent(up);
@@ -96,6 +96,11 @@ public class GUI {
         Button back = new Button("button_back.png","", 50, Window.getHeight() - 100, 100, 50, "back");
         GUIMulti.addComponent(back);
         return GUIMulti;
+    }
+
+    public static GUI getMultiPlay() {
+        GUI GUIMultiPlay = new GUI();
+        return GUIMultiPlay;
     }
 
     private static GUI getGUIButtonsPlacementsByDifficulty (GUI GUIChallenges, ArrayList<Level> levels){

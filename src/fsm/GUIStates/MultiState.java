@@ -1,7 +1,10 @@
 package fsm.GUIStates;
 
 import core.GraphicsEngine;
+import core.Level;
+import core.LevelGen;
 import fsm.State;
+import graphics.Window;
 import graphics.gui.Button;
 import graphics.gui.GUI;
 import graphics.gui.GUIButtonListener;
@@ -15,6 +18,8 @@ public class MultiState extends State {
     private GraphicsEngine graphicsEngine;
     private int i;
     private Label count;
+    LevelGen levelGen = new LevelGen(100, SMALL);
+    public static final int[] SMALL = {640,360}, MEDIUM = {1280,720}, LARGE = {1920,1080};
     private GUIButtonListener upButtonListener = new GUIButtonListener();
     private GUIButtonListener downButtonListener = new GUIButtonListener();
     private GUIButtonListener fightButtonListener = new GUIButtonListener();
@@ -59,7 +64,10 @@ public class MultiState extends State {
             downButtonListener.setNotClicked();
         }
         else if (fightButtonListener.isClicked()){
-            return "multi";
+            levelGen.setPlanetNumber(i);
+            Level level = levelGen.create();
+            graphicsEngine.drawLevel(level);
+            return "multiPlay";
         }
         else if (backButtonListener.isClicked()){
             return "gameMods";
