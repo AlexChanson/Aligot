@@ -101,7 +101,7 @@ public class Game implements GameStart {
             }catch (NullPointerException e){
                 LOGGER.log(java.util.logging.Level.WARNING, "Engine Init Failed");
             }
-            engine.registerSubSystems(new DebugSubSystem(), new PlayerOrientationSystem(), new PlayerMovementSystem());
+            engine.registerSubSystems(new DebugSubSystem().ignore("TICK", "COLLISION"), new PlayerOrientationSystem(), new PlayerMovementSystem());
             engine.registerSolvers(new PlayerMovementSolver(), new CollisionSolver());
         }
     }

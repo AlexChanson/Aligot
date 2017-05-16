@@ -6,7 +6,7 @@ import core.Level;
 import java.util.ArrayList;
 
 public class Challenges {
-    private static ArrayList<Level> challenges;
+    private static final ArrayList<Level> challenges;
 
     static {
         challenges = Loader.loadAll(Level.class, "challenges");
