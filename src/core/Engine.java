@@ -117,4 +117,13 @@ public class Engine {
     public ArrayList<Projectile> getProjectiles() {
         return projectiles;
     }
+
+    public double getTimeStep() {
+        return timeStep;
+    }
+
+    public Level getLevel() {
+        return level;
+    }
+
 }
