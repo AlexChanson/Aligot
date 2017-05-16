@@ -284,6 +284,8 @@ public class Window {
     }
 
     public static void drawText(String text, float x, float y, float size, float lineWidth, int align, int r, int g, int b, boolean monoline) {
+        if(text.equals(""))
+            return;
         String path = ressourcesFolderPath + "font_mono.png";
 
         Texture texture = new Texture(path);
