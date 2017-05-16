@@ -87,6 +87,7 @@ public class ChallengesState extends State {
             }
         }
         if (backButtonListener.isClicked()) {
+            backButtonListener.setNotClicked();
             return "challengeDifficulty";
         }
         return "challenges";
