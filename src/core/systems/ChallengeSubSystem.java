@@ -1,6 +1,7 @@
 package core.systems;
 
 import core.Event;
+import core.Projectile;
 import physics.*;
 import utility.Pair;
 
@@ -12,7 +13,31 @@ public class ChallengeSubSystem extends SubSystem implements CollisionListener {
 
     @Override
     public void handleCollision(Pair<RigidBody, RigidBody> pair, double distance) {
-        //TODO check if projectile collided with target
+        RigidBody cible, other;
+        if(targets.contains(pair.getLeft())){
+            cible = pair.getLeft();
+            other = pair.getRight();
+        }
+        else if(targets.contains(pair.getRight())){
+            cible = pair.getRight();
+            other = pair.getLeft();
+        }
+        else {
+            return;
+        }
+        Projectile found = null;
+        for (Projectile projectile : engine.getProjectiles()) {
+            if (projectile.getRigidBody().equals(other)) {
+                found = projectile;
+            }
+        }
+        if(found != null){
+            score += 1;
+            Simulator physics = engine.getPhysicsEngine();
+            physics.removeBody(cible);
+            physics.removeBody(other);
+            engine.getProjectiles().remove(found);
+        }
     }
 
     @Override
