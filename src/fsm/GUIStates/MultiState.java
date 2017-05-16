@@ -27,7 +27,8 @@ public class MultiState extends State {
     }
 
     public void initialize(){
-
+        count = multi.getLabelById("count");
+        count.setText(String.valueOf(i));
     }
 
     public void onEnter() {
@@ -39,7 +40,6 @@ public class MultiState extends State {
         fight.addListener(fightButtonListener);
         Button back = multi.getButtonById("back");
         back.addListener(backButtonListener);
-        count = multi.getLabelById("count");
         upButtonListener.setNotClicked();
         downButtonListener.setNotClicked();
         fightButtonListener.setNotClicked();
@@ -55,8 +55,10 @@ public class MultiState extends State {
             upButtonListener.setNotClicked();
         }
         else if (downButtonListener.isClicked()){
-            i-=1;
-            count.setText(Integer.toString(i));
+            if(i > 2) {
+                i -= 1;
+                count.setText(Integer.toString(i));
+            }
             downButtonListener.setNotClicked();
         }
         else if (fightButtonListener.isClicked()){
