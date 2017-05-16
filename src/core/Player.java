@@ -9,6 +9,8 @@ public class Player extends GameObject{
     private int health, maxHealth;
     private ArrayList<Item> inventory;
     private double position, rotation;
+    private boolean looking_right;
+    private boolean on_ground;
 
     public Player(RigidBody rigidBody, String texture, String name, int health) {
         super(rigidBody, texture);
@@ -16,6 +18,16 @@ public class Player extends GameObject{
         this.health = health;
         this.maxHealth = health;
         inventory = new ArrayList<>();
+        looking_right = true;
+        on_ground = false;
+    }
+
+    public boolean isOn_ground() {
+        return on_ground;
+    }
+
+    public void setOn_ground(boolean on_ground) {
+        this.on_ground = on_ground;
     }
 
     public String getName() {
@@ -52,5 +64,13 @@ public class Player extends GameObject{
 
     public void setRotation(double rotation) {
         this.rotation = rotation;
+    }
+
+    public boolean isLooking_right() {
+        return looking_right;
+    }
+
+    public void setLooking_right(boolean looking_right) {
+        this.looking_right = looking_right;
     }
 }

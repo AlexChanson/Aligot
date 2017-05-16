@@ -17,6 +17,23 @@ public class CollisionSolver extends Solver implements CollisionListener {
         engine.throwEvent(new Event("COLLISION", new Pair<>(pair, distance)));
     }
 
+    public static boolean inPair(Pair<RigidBody, RigidBody> pair, RigidBody bodyA, RigidBody bodyB){
+        if ( pair.getLeft() == bodyA ){
+            if (pair.getRight() == bodyB){
+                return true;
+            }
+        }
+        else if ( pair.getLeft() == bodyB ){
+            if ( pair.getRight() == bodyA ){
+                return true;
+            }
+            return false;
+        }
+
+
+        return false;
+    }
+
     @Override
     public void initialize() {
         physics.CollisionSolver collisionSolver = null;

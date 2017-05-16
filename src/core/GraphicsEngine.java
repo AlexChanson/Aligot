@@ -46,7 +46,25 @@ public class GraphicsEngine {
             level.getPlanets().forEach(planet -> {
                 Vector2D planetPos = planet.getRigidBody().getPosition();
                 float planetSize = (float) (planet.getRigidBody().getRadius() * 2 * ratio);
-                Window.drawSprite(planet.getTexture(), (float) (planetPos.getX() * ratio) - (planetSize / 2), (float) (planetPos.getY() * ratio) - (planetSize / 2), planetSize, planetSize, 0f);
+                float posX = (float) (planetPos.getX() * ratio) - (planetSize / 2);
+                float posY = (float) (planetPos.getY() * ratio) - (planetSize / 2);
+
+
+                if( Texture.textureLoaded(planet.getTexture()) ){
+                    Window.drawSprite(planet.getTexture(),
+                            posX,
+                            posY,
+                            planetSize, planetSize, 0f);
+                }
+                else{
+                    Window.drawCircle((float) (planetPos.getX() * ratio),
+                            (float) (planetPos.getY() * ratio),
+                            planetSize/2f,
+                            255,0,0);
+                }
+
+
+
             });
 
             if(level.getChallenge() != null){
@@ -85,7 +103,38 @@ public class GraphicsEngine {
         double ratio = Math.max(screenHeight / level.getMapSize()[1], screenWidth / level.getMapSize()[0]);
         Arrays.asList(players).forEach(player -> {
             Vector2D position = player.getRigidBody().getPosition();
-            Window.drawCircle((float)(position.getX()*ratio), (float)(position.getY()*ratio), (float) (player.getRigidBody().getRadius()*ratio), 128,128,64);
+            float posX = (float) position.getX();
+            float posY = (float) position.getX();
+            Texture playerTexture = Texture.getTexture(player.getTexture());
+            float widthHeightRatio = (((float)playerTexture.getHeight())/(float)(playerTexture.getWidth()));
+
+            int facing;
+
+            if ( player.isLooking_right() ){
+                facing = 1;
+            }
+            else{
+                facing = -1;
+            }
+
+            float sizeX = (float) (facing*player.getRigidBody().getRadius()*ratio/widthHeightRatio);
+            float sizeY = (float) (player.getRigidBody().getRadius()*ratio);
+
+            Window.drawTexture(playerTexture,
+                    posX, posY,
+                    sizeX, sizeY,
+                    (float)(player.getRotation()),
+                    1f,
+                    0, 0,
+                    playerTexture.getWidth(), playerTexture.getHeight(),
+                    255,255,255);
+
+
+
+            Window.drawCircle((float)(position.getX()*ratio),
+                    (float)(position.getY()*ratio),
+                    (float) (player.getRigidBody().getRadius()*ratio),
+                    128,128,64);
         });
     }
 

@@ -2,6 +2,8 @@ package graphics;
 
 import org.lwjgl.BufferUtils;
 import org.lwjgl.system.MemoryStack;
+import utility.Loader;
+
 import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
 import java.util.HashMap;
@@ -60,6 +62,10 @@ public class Texture {
         }
     }
 
+    public static boolean textureLoaded(String path){
+        return generatedTexture.containsKey(path);
+    }
+
     private void generate() {
         IntBuffer w, h, comp;
         w = BufferUtils.createIntBuffer(1);
@@ -69,7 +75,10 @@ public class Texture {
         ByteBuffer image = stbi_load(this.path, w, h, comp, 4);
 
         if (image == null) {
-            System.out.println("Error: " + stbi_failure_reason() + " , file:" + this.path);
+            image = stbi_load(Loader.getSpriteFolderPath()+this.path, w, h, comp, 4);
+            if ( image == null){
+                System.out.println("Error: " + stbi_failure_reason() + " , file:" + this.path);
+            }
         }
 
         this.height = h.get();
