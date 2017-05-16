@@ -12,7 +12,22 @@ public class ChallengeSubSystem extends SubSystem implements CollisionListener {
 
     @Override
     public void handleCollision(Pair<RigidBody, RigidBody> pair, double distance) {
-        //TODO check if projectile collided with target
+        RigidBody cible, other;
+        if(targets.contains(pair.getLeft())){
+            cible = pair.getLeft();
+            other = pair.getRight();
+        }
+        else if(targets.contains(pair.getRight())){
+            cible = pair.getRight();
+            other = pair.getLeft();
+        }
+        else {
+            return;
+        }
+        score += 1;
+        Simulator physics = engine.getPhysicsEngine();
+        physics.removeBody(cible);
+        physics.removeBody(other);
     }
 
     @Override
