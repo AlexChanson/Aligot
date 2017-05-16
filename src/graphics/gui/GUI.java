@@ -7,6 +7,7 @@ import utility.Challenges;
 import utility.Loader;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 public class GUI {
     private ArrayList<GUIComponent> components;
@@ -72,10 +73,8 @@ public class GUI {
 
     public static GUI getChallenges(int difficulty) {
         GUI GUIChallenges = new GUI();
-        ArrayList<Level> levels = Challenges.get();
-        ArrayList<Button> buttons = new ArrayList<>();
-        levels.removeIf(level -> level.getChallenge().getDifficulty() != difficulty);
-        GUIChallenges.getGUIButtonsPlacementsByDifficulty(buttons, GUIChallenges, levels);
+        ArrayList<Level> levels = Challenges.get().stream().filter(level -> level.getChallenge().getDifficulty() == difficulty).collect(Collectors.toCollection(ArrayList::new));
+        getGUIButtonsPlacementsByDifficulty(GUIChallenges, levels);
         Button back = new Button("button_back.png","", 50, Window.getHeight() - 100, 100, 50, "back");
         GUIChallenges.addComponent(back);
         return GUIChallenges;
@@ -87,43 +86,29 @@ public class GUI {
         return GUIMulti;
     }
 
-    private GUI getGUIButtonsPlacementsByDifficulty (ArrayList<Button> buttons, GUI GUIChallenges, ArrayList<Level> levels){
+    private static GUI getGUIButtonsPlacementsByDifficulty (GUI GUIChallenges, ArrayList<Level> levels){
         int iterator = 0;
         int buttonWidth = 250, buttonHeight = 250;
         if (levels.size() <= 3) {
             for (int i = 0; i < levels.size(); i++) {
-                if (levels.get(i).getChallenge().getDifficulty() == 1) {
-                    buttons.add(new Button("C" + i, (2 * i + 1) * (Window.getWidth() / 6) - buttonWidth / 2, Window.getHeight() / 2 - buttonWidth / 2, buttonWidth, buttonHeight, "easy" + i));
-                    GUIChallenges.addComponent(buttons.get(i));
-                }
-                else if (levels.get(i).getChallenge().getDifficulty() == 2) {
-                    buttons.add(new Button("C" + i, (2 * i + 1) * (Window.getWidth() / 6) - buttonWidth / 2, Window.getHeight() / 2 - buttonWidth / 2, buttonWidth, buttonHeight, "medium" + i));
-                    GUIChallenges.addComponent(buttons.get(i));
-                }
-                else if (levels.get(i).getChallenge().getDifficulty() == 3) {
-                    buttons.add(new Button("C" + i, (2 * i + 1) * (Window.getWidth() / 6) - buttonWidth / 2, Window.getHeight() / 2 - buttonWidth / 2, buttonWidth, buttonHeight, "hard" + i));
-                    GUIChallenges.addComponent(buttons.get(i));
-                }
+                if (levels.get(i).getChallenge().getDifficulty() == 1)
+                    GUIChallenges.addComponent(new Button("C" + i, (2 * i + 1) * (Window.getWidth() / 6) - buttonWidth / 2, Window.getHeight() / 2 - buttonWidth / 2, buttonWidth, buttonHeight, "easy" + i));
+                else if (levels.get(i).getChallenge().getDifficulty() == 2)
+                    GUIChallenges.addComponent(new Button("C" + i, (2 * i + 1) * (Window.getWidth() / 6) - buttonWidth / 2, Window.getHeight() / 2 - buttonWidth / 2, buttonWidth, buttonHeight, "medium" + i));
+                else if (levels.get(i).getChallenge().getDifficulty() == 3)
+                    GUIChallenges.addComponent(new Button("C" + i, (2 * i + 1) * (Window.getWidth() / 6) - buttonWidth / 2, Window.getHeight() / 2 - buttonWidth / 2, buttonWidth, buttonHeight, "hard" + i));
             }
         } else if (levels.size() > 3) {
             for (int i = 0; i < 2; i++) {
                 for (int j = 0; j < 3; j++) {
                     if (iterator < levels.size()) {
-                        if (levels.get(i).getChallenge().getDifficulty() == 1) {
-                            buttons.add(new Button("C" + iterator, (2 * j + 1) * (Window.getWidth() / 6) - buttonWidth / 2, (2 * i + 1) * Window.getHeight() / 4 - buttonWidth / 2, buttonWidth, buttonHeight, "easy" + iterator));
-                            GUIChallenges.addComponent(buttons.get(iterator));
-                            iterator++;
-                        }
-                        else if (levels.get(i).getChallenge().getDifficulty() == 2) {
-                            buttons.add(new Button("C" + iterator, (2 * j + 1) * (Window.getWidth() / 6) - buttonWidth / 2, (2 * i + 1) * Window.getHeight() / 4 - buttonWidth / 2, buttonWidth, buttonHeight, "medium" + iterator));
-                            GUIChallenges.addComponent(buttons.get(iterator));
-                            iterator++;
-                        }
-                        else if (levels.get(i).getChallenge().getDifficulty() == 3) {
-                            buttons.add(new Button("C" + iterator, (2 * j + 1) * (Window.getWidth() / 6) - buttonWidth / 2, (2 * i + 1) * Window.getHeight() / 4 - buttonWidth / 2, buttonWidth, buttonHeight, "hard" + iterator));
-                            GUIChallenges.addComponent(buttons.get(iterator));
-                            iterator++;
-                        }
+                        if (levels.get(i).getChallenge().getDifficulty() == 1)
+                            GUIChallenges.addComponent(new Button("C" + iterator, (2 * j + 1) * (Window.getWidth() / 6) - buttonWidth / 2, (2 * i + 1) * Window.getHeight() / 4 - buttonWidth / 2, buttonWidth, buttonHeight, "easy" + iterator));
+                        else if (levels.get(i).getChallenge().getDifficulty() == 2)
+                            GUIChallenges.addComponent(new Button("C" + iterator, (2 * j + 1) * (Window.getWidth() / 6) - buttonWidth / 2, (2 * i + 1) * Window.getHeight() / 4 - buttonWidth / 2, buttonWidth, buttonHeight, "medium" + iterator));
+                        else if (levels.get(i).getChallenge().getDifficulty() == 3)
+                            GUIChallenges.addComponent(new Button("C" + iterator, (2 * j + 1) * (Window.getWidth() / 6) - buttonWidth / 2, (2 * i + 1) * Window.getHeight() / 4 - buttonWidth / 2, buttonWidth, buttonHeight, "hard" + iterator));
+                        iterator++;
                     } else {
                         return GUIChallenges;
                     }
