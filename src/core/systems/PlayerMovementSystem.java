@@ -23,17 +23,17 @@ public class PlayerMovementSystem extends SubSystem {
             double orientation = player.getRotation();
 
             if ( direction == 0 ){
-                orientation += 90;
+                orientation += Math.PI/2;
                 player.setLooking_right(true);
             }
             else {
                 player.setLooking_right(false);
-                orientation -= 90;
+                orientation -= Math.PI/2;
             }
 
             RigidBody body = player.getRigidBody();
             player.getRigidBody().applyForce(Vector2D.createFromAngle(1000, orientation));
-            body.setPosition(body.getPosition().add(Vector2D.createFromAngle(10, orientation)));
+            body.setPosition(body.getPosition().add(Vector2D.createFromAngle(2, orientation)));
         }
     }
 }

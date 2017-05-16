@@ -138,8 +138,16 @@ public class Window {
         glEnable(GL_TEXTURE_2D);
         glPushMatrix();
 
+        float halftextureWidth = width * scale/2;
+        float halftextureHeight = height* scale/2;
+
         glTranslatef(posX, posY, 0);
+
+        glTranslatef(halftextureWidth, halftextureHeight, 0);
         glRotatef(rotate, 0, 0f, 1f);
+        glTranslatef(-halftextureWidth, -halftextureHeight, 0);
+
+
         glColor3f(((float) r) / 255.0f, ((float) g) / 255.0f, ((float) b) / 255.0f);
 
         glBindTexture(GL_TEXTURE_2D, texture.getId());

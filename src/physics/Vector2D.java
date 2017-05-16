@@ -41,7 +41,7 @@ public class Vector2D {
     /**
      *
      * @param norm norm of the vector to be created
-     * @param angle angle on the unit circle
+     * @param angle angle on the unit circle in radians
      * @return a Vector2D created in the polar plane
      */
     public static Vector2D createFromAngle(double norm, double angle){
@@ -103,11 +103,7 @@ public class Vector2D {
      * @return the angle on the unit circle in radiants
      */
     public double angle(){
-        if (x >= 0){
-            return Math.acos(this.x/this.norm());
-        }
-
-        return Math.PI+Math.acos(this.x/this.norm());
+        return Math.atan2(this.y, this.x);
     }
 
     /**
@@ -115,10 +111,7 @@ public class Vector2D {
      * @return the angle on the unit circle in degrees
      */
     public double angleDegree(){
-        if ( x >= 0 ){
-            return 180*Math.atan(this.y/this.x)/Math.PI;
-        }
-        return 180+180*Math.atan(this.y/this.x)/Math.PI;
+        return 180*Math.atan2(this.y, this.x)/Math.PI;
     }
 
     /**
@@ -127,15 +120,15 @@ public class Vector2D {
      * @return the angle between the two vectors in radiants
      */
     public double angleBetween(Vector2D other){
-        double angle = Math.atan(this.y/this.x);
-        double otherAngle = Math.atan(other.y/other.x);
+        double angle = Math.atan2(this.y, this.x);
+        double otherAngle = Math.atan2(other.y, other.x);
 
         return angle-otherAngle;
     }
 
     public double angleBetweenAbs(Vector2D other){
-        double angle = Math.atan(this.y/this.x);
-        double otherAngle = Math.atan(other.y/other.x);
+        double angle = Math.atan2(this.y, this.x);
+        double otherAngle = Math.atan2(other.y, other.x);
 
         return Math.abs(angle-otherAngle);
     }

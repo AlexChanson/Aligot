@@ -49,19 +49,18 @@ public class GraphicsEngine {
                 float posX = (float) (planetPos.getX() * ratio) - (planetSize / 2);
                 float posY = (float) (planetPos.getY() * ratio) - (planetSize / 2);
 
+                Window.drawSprite(planet.getTexture(),
+                        posX,
+                        posY,
+                        planetSize, planetSize, 0f);
 
-                if( Texture.textureLoaded(planet.getTexture()) ){
-                    Window.drawSprite(planet.getTexture(),
-                            posX,
-                            posY,
-                            planetSize, planetSize, 0f);
-                }
-                else{
+                if( !Texture.textureLoaded(planet.getTexture()) ){
                     Window.drawCircle((float) (planetPos.getX() * ratio),
                             (float) (planetPos.getY() * ratio),
                             planetSize/2f,
                             255,0,0);
                 }
+
 
 
 
@@ -103,22 +102,19 @@ public class GraphicsEngine {
         double ratio = Math.max(screenHeight / level.getMapSize()[1], screenWidth / level.getMapSize()[0]);
         Arrays.asList(players).forEach(player -> {
             Vector2D position = player.getRigidBody().getPosition();
-            float posX = (float) (position.getX()*ratio);
-            float posY = (float) (position.getY()*ratio);
             Texture playerTexture = Texture.getTexture(player.getTexture());
+
             float widthHeightRatio = (((float)playerTexture.getHeight())/(float)(playerTexture.getWidth()));
 
-            int facing;
-
-            if ( player.isLooking_right() ){
-                facing = 1;
-            }
-            else{
-                facing = -1;
-            }
-
-            float sizeX = (float) (facing*player.getRigidBody().getRadius()*ratio/widthHeightRatio);
+            float sizeX = (float) (player.getRigidBody().getRadius()*ratio/widthHeightRatio);
             float sizeY = (float) (player.getRigidBody().getRadius()*ratio);
+
+            float posX = (float) (position.getX()*ratio - sizeX);
+            float posY = (float) (position.getY()*ratio - sizeY);
+
+            if ( !player.isLooking_right() ){
+                sizeX *=1;
+            }
 
             Window.drawCircle((float)(position.getX()*ratio),
                     (float)(position.getY()*ratio),
@@ -127,8 +123,8 @@ public class GraphicsEngine {
 
             Window.drawTexture(playerTexture,
                     posX, posY,
-                    sizeX, sizeY,
-                    (float)(player.getRotation()*180),
+                    sizeX*2, sizeY*2,
+                    (float)((player.getRotation()-Math.PI/2)*180/Math.PI),
                     1f,
                     0, 0,
                     playerTexture.getWidth(), playerTexture.getHeight(),
