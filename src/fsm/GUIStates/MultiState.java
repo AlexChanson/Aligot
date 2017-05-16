@@ -51,10 +51,12 @@ public class MultiState extends State {
         if (upButtonListener.isClicked()){
             i+=1;
             count.setText(Integer.toString(i));
+            upButtonListener.setNotClicked();
         }
         else if (downButtonListener.isClicked()){
             i-=1;
             count.setText(Integer.toString(i));
+            downButtonListener.setNotClicked();
         }
         else if (fightButtonListener.isClicked()){
             return "multi";
