@@ -55,6 +55,25 @@ public class Engine {
 
         //physics simulation
         physicsEngine.step(timeStep);
+
+        //check for projectiles that are to old
+        handleProjectiles();
+    }
+
+    /**
+     * This method is used to destroy projectiles that have exceeded their maximum lifespan
+     */
+    private void handleProjectiles() {
+        ArrayList<Projectile> toDestroy = new ArrayList<>();
+        projectiles.forEach(projectile -> {
+            projectile.increaseLifetime(timeStep);
+            if (projectile.lifetime > projectile.timeToLive)
+                toDestroy.add(projectile);
+        });
+        toDestroy.forEach(projectile -> {
+            projectiles.remove(projectile);
+            physicsEngine.removeBody(projectile.getRigidBody());
+        });
     }
 
 
