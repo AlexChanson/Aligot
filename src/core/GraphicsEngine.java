@@ -103,8 +103,8 @@ public class GraphicsEngine {
         double ratio = Math.max(screenHeight / level.getMapSize()[1], screenWidth / level.getMapSize()[0]);
         Arrays.asList(players).forEach(player -> {
             Vector2D position = player.getRigidBody().getPosition();
-            float posX = (float) position.getX();
-            float posY = (float) position.getX();
+            float posX = (float) (position.getX()*ratio);
+            float posY = (float) (position.getY()*ratio);
             Texture playerTexture = Texture.getTexture(player.getTexture());
             float widthHeightRatio = (((float)playerTexture.getHeight())/(float)(playerTexture.getWidth()));
 
@@ -120,10 +120,15 @@ public class GraphicsEngine {
             float sizeX = (float) (facing*player.getRigidBody().getRadius()*ratio/widthHeightRatio);
             float sizeY = (float) (player.getRigidBody().getRadius()*ratio);
 
+            Window.drawCircle((float)(position.getX()*ratio),
+                    (float)(position.getY()*ratio),
+                    (float) (player.getRigidBody().getRadius()*ratio),
+                    128,128,64);
+
             Window.drawTexture(playerTexture,
                     posX, posY,
                     sizeX, sizeY,
-                    (float)(player.getRotation()),
+                    (float)(player.getRotation()*180),
                     1f,
                     0, 0,
                     playerTexture.getWidth(), playerTexture.getHeight(),
@@ -131,10 +136,7 @@ public class GraphicsEngine {
 
 
 
-            Window.drawCircle((float)(position.getX()*ratio),
-                    (float)(position.getY()*ratio),
-                    (float) (player.getRigidBody().getRadius()*ratio),
-                    128,128,64);
+
         });
     }
 
