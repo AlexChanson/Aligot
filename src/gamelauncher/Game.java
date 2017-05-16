@@ -12,8 +12,6 @@ import graphics.gui.GUI;
 import physics.RigidBody;
 import physics.Vector2D;
 import utility.Loader;
-
-import java.util.Random;
 import java.util.logging.*;
 
 import static org.lwjgl.glfw.GLFW.glfwTerminate;
