@@ -77,6 +77,10 @@ public class Game implements GameStart {
             graphicsEngine.setGUI(gui);
     }
 
+    public static Level getCurrentLevel() {
+        return currentLevel;
+    }
+
     public static void setLevel(Level level){
         currentLevel = level;
         //TODO reset players properly

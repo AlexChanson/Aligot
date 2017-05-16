@@ -1,10 +1,10 @@
 package graphics.gui;
 
+import core.Challenge;
 import core.Level;
-import graphics.Texture;
+import gamelauncher.Game;
 import graphics.Window;
 import utility.Challenges;
-import utility.Loader;
 
 import java.util.ArrayList;
 import java.util.stream.Collectors;
@@ -100,11 +100,33 @@ public class GUI {
 
     public static GUI getMultiPlay() {
         GUI GUIMultiPlay = new GUI();
+        int buttonWidth = 100, buttonHeight = 40;
+        Label player_1 = new Label ("Player_1", 10, 10, buttonWidth, buttonHeight, "player_1");
+        GUIMultiPlay.addComponent(player_1);
+        Label health_1 = new Label ("Health: ", 10, 50, buttonWidth, buttonHeight, "health_1");
+        GUIMultiPlay.addComponent(health_1);
+        Label weapon_1 = new Label ("Weapon: ", 10, 90, buttonWidth, buttonHeight, "weapon_1");
+        GUIMultiPlay.addComponent(weapon_1);
+        Label damage_1 = new Label ("Damage: ", 10, 130, buttonWidth, buttonHeight, "damage_1");
+        GUIMultiPlay.addComponent(damage_1);
+        Label player_2 = new Label ("Player_2", Window.getWidth() - buttonWidth - 10, 10, buttonWidth, buttonHeight, "player_2");
+        GUIMultiPlay.addComponent(player_2);
+        Label health_2 = new Label ("Health: ", Window.getWidth() - buttonWidth - 10, 50, buttonWidth, buttonHeight, "health_2");
+        GUIMultiPlay.addComponent(health_2);
+        Label weapon_2 = new Label ("Weapon: ", Window.getWidth() - buttonWidth - 10, 90, buttonWidth, buttonHeight, "weapond_2");
+        GUIMultiPlay.addComponent(weapon_2);
+        Label damage_2 = new Label ("Damage: ", Window.getWidth() - buttonWidth - 10, 130, buttonWidth, buttonHeight, "damage_2");
+        GUIMultiPlay.addComponent(damage_2);
         return GUIMultiPlay;
     }
 
     public static GUI getChallengePlay(){
         GUI GUIChallengePlay = new GUI();
+        int buttonWidth = 150, buttonHeight = 40;
+        Label targets = new Label("Targets: ", 10, 10, buttonWidth, buttonHeight, "targets");
+        GUIChallengePlay.addComponent(targets);
+        Label shots = new Label("Shots: ", 10, 50, buttonWidth, buttonHeight, "shots");
+        GUIChallengePlay.addComponent(shots);
         return GUIChallengePlay;
     }
 
