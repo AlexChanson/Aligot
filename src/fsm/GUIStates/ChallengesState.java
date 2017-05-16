@@ -7,20 +7,19 @@ import gamelauncher.Game;
 import graphics.gui.Button;
 import graphics.gui.GUI;
 import graphics.gui.GUIButtonListener;
+import utility.Challenges;
 import utility.Loader;
 
 import java.util.ArrayList;
 
-/**
- * Created by Christopher on 25/04/2017.
- */
+
 public class ChallengesState extends State {
     private GUI challenges;
     private int difficulty;
     private GraphicsEngine graphicsEngine;
     private ArrayList<GUIButtonListener> guiButtonListeners = new ArrayList<GUIButtonListener>();
     private GUIButtonListener backButtonListener = new GUIButtonListener();
-    ArrayList<Level> levels = Loader.loadAll(Level.class, "challenges");
+    private ArrayList<Level> levels = Challenges.get();
 
     public ChallengesState (GraphicsEngine graphicsEngine, int difficulty){
         this.graphicsEngine = graphicsEngine;

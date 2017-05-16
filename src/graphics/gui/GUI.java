@@ -3,6 +3,7 @@ package graphics.gui;
 import core.Level;
 import graphics.Texture;
 import graphics.Window;
+import utility.Challenges;
 import utility.Loader;
 
 import java.util.ArrayList;
@@ -71,7 +72,7 @@ public class GUI {
 
     public static GUI getChallenges(int difficulty) {
         GUI GUIChallenges = new GUI();
-        ArrayList<Level> levels = Loader.loadAll(Level.class, "challenges");
+        ArrayList<Level> levels = Challenges.get();
         ArrayList<Button> buttons = new ArrayList<>();
         levels.removeIf(level -> level.getChallenge().getDifficulty() != difficulty);
         GUIChallenges.getGUIButtonsPlacementsByDifficulty(buttons, GUIChallenges, levels);
