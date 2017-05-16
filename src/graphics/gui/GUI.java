@@ -103,6 +103,11 @@ public class GUI {
         return GUIMultiPlay;
     }
 
+    public static GUI getChallengePlay(){
+        GUI GUIChallengePlay = new GUI();
+        return GUIChallengePlay;
+    }
+
     private static GUI getGUIButtonsPlacementsByDifficulty (GUI GUIChallenges, ArrayList<Level> levels){
         int iterator = 0;
         int buttonWidth = 250, buttonHeight = 250;

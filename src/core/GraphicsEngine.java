@@ -28,6 +28,7 @@ public class GraphicsEngine {
                 new GameModsState(GUI.getGameMods(), this),
                 new MultiState(GUI.getMulti(), this),
                 new MultiPlayState(GUI.getMultiPlay(), this),
+                new ChallengePlayState(GUI.getChallengePlay(), this),
                 new ChallengeDifficultyState(GUI.getSelectChallenge(),this),
                 new ChallengesState(this,1),
                 new ChallengesState(this,2),

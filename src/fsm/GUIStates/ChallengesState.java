@@ -83,6 +83,7 @@ public class ChallengesState extends State {
         for (int i = 0; i < guiButtonListeners.size(); i++) {
             if (guiButtonListeners.get(i).isClicked()) {
                 Game.setLevel(levels.get(i));
+                return "challengePlay";
             }
         }
         if (backButtonListener.isClicked()) {
