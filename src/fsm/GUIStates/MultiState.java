@@ -13,6 +13,7 @@ import graphics.gui.Label;
 public class MultiState extends State {
     private GUI multi;
     private GraphicsEngine graphicsEngine;
+    private int i;
     private Label count;
     private GUIButtonListener upButtonListener = new GUIButtonListener();
     private GUIButtonListener downButtonListener = new GUIButtonListener();
@@ -48,10 +49,12 @@ public class MultiState extends State {
     @Override
     public String onUpdate() {
         if (upButtonListener.isClicked()){
-            count.setText(count.getText()+1);
+            i+=1;
+            count.setText(Integer.toString(i));
         }
         else if (downButtonListener.isClicked()){
-            count.setText(count.getText()+(-1));
+            i-=1;
+            count.setText(Integer.toString(i));
         }
         else if (fightButtonListener.isClicked()){
             return "multi";
