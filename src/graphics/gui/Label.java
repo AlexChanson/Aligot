@@ -30,9 +30,9 @@ public class Label extends GUIComponent {
         if (texture != null)
             Window.drawSprite(texture, posX, posY, width, height, 0);
         else
-            Window.drawRectangle(posX, posY, width, height, 128, 128, 128, 0f);
+            Window.drawRectangle(posX, posY, width, height, 0, 0, 0, 0f);
         if (text != null)
-            Window.drawText(text, posX, posY + this.height / 4, this.height / 2, this.width, Window.TEXT_ALIGN_LEFT, 10, 0, 100, true);
+            Window.drawText(text, posX, posY + this.height / 4, this.height / 2, this.width, Window.TEXT_ALIGN_LEFT, 255, 255, 255, true);
     }
 
     public String getTexture() {
