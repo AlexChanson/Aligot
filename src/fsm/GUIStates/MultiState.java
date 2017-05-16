@@ -1,25 +1,21 @@
 package fsm.GUIStates;
 
 import core.GraphicsEngine;
-import core.Level;
 import core.LevelGen;
 import fsm.State;
-import graphics.Window;
+import gamelauncher.Game;
 import graphics.gui.Button;
 import graphics.gui.GUI;
 import graphics.gui.GUIButtonListener;
 import graphics.gui.Label;
 
-/**
- * Created by Christopher on 18/04/2017.
- */
+import java.util.Random;
+
 public class MultiState extends State {
     private GUI multi;
     private GraphicsEngine graphicsEngine;
-    private int i;
+    private int i = 2;
     private Label count;
-    LevelGen levelGen = new LevelGen(100, SMALL);
-    public static final int[] SMALL = {640,360}, MEDIUM = {1280,720}, LARGE = {1920,1080};
     private GUIButtonListener upButtonListener = new GUIButtonListener();
     private GUIButtonListener downButtonListener = new GUIButtonListener();
     private GUIButtonListener fightButtonListener = new GUIButtonListener();
@@ -64,9 +60,9 @@ public class MultiState extends State {
             downButtonListener.setNotClicked();
         }
         else if (fightButtonListener.isClicked()){
+            LevelGen levelGen = new LevelGen(new Random().nextLong(), LevelGen.SMALL);
             levelGen.setPlanetNumber(i);
-            Level level = levelGen.create();
-            graphicsEngine.drawLevel(level);
+            Game.setLevel(levelGen.create());
             return "multiPlay";
         }
         else if (backButtonListener.isClicked()){
