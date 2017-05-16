@@ -13,6 +13,6 @@ public class Challenges {
     }
 
     public static ArrayList<Level> get(){
-            return challenges;
+            return new ArrayList<>(challenges);
     }
 }
