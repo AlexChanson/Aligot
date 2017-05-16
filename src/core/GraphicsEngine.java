@@ -55,7 +55,6 @@ public class GraphicsEngine {
                     float x = (float) (target[0]*ratio - size/2);
                     float y = (float) (target[1]*ratio - size/2);
                     Window.drawSprite("target.png", x, y, size, size,0f);
-                    //Window.drawCircle((float)(target[0] * ratio) ,(float)(target[1] * ratio), 25, 255, 0, 0);
                 });
             }
         }
@@ -86,21 +85,7 @@ public class GraphicsEngine {
         double ratio = Math.max(screenHeight / level.getMapSize()[1], screenWidth / level.getMapSize()[0]);
         Arrays.asList(players).forEach(player -> {
             Vector2D position = player.getRigidBody().getPosition();
-            Texture joueur = new Texture(Loader.getSpriteFolderPath() + "doomguy.png");
-            double width = joueur.getWidth()/10, height = joueur.getWidth()/10;
-            float scale = 10f;
-            Window.drawTexture(joueur, (float)(position.getX()*ratio - (width/2)),
-                    (float)(position.getY()*ratio - (height/2)),
-                    (float)width,
-                    (float)height,
-                    (float)player.getRotation(),
-                    scale,
-                    0,
-                    0,
-                    (float)width,
-                    (float)height,
-                    255,255,255);
-            Window.drawCircle((float)(position.getX()*ratio), (float)(position.getY()*ratio), 10, 128,128,64);
+            Window.drawCircle((float)(position.getX()*ratio), (float)(position.getY()*ratio), (float) (player.getRigidBody().getRadius()*ratio), 128,128,64);
         });
     }
 
