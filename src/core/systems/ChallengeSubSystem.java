@@ -1,6 +1,7 @@
 package core.systems;
 
 import core.Event;
+import core.Projectile;
 import physics.*;
 import utility.Pair;
 
@@ -24,10 +25,19 @@ public class ChallengeSubSystem extends SubSystem implements CollisionListener {
         else {
             return;
         }
-        score += 1;
-        Simulator physics = engine.getPhysicsEngine();
-        physics.removeBody(cible);
-        physics.removeBody(other);
+        Projectile found = null;
+        for (Projectile projectile : engine.getProjectiles()) {
+            if (projectile.getRigidBody().equals(other)) {
+                found = projectile;
+            }
+        }
+        if(found != null){
+            score += 1;
+            Simulator physics = engine.getPhysicsEngine();
+            physics.removeBody(cible);
+            physics.removeBody(other);
+            engine.getProjectiles().remove(found);
+        }
     }
 
     @Override
