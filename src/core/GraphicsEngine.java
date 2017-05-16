@@ -26,11 +26,11 @@ public class GraphicsEngine {
         guiFSM.addStates(
                 new StartState(GUI.getStart(), this),
                 new GameModsState(GUI.getGameMods(), this),
+                new MultiState(GUI.getMulti(), this),
                 new ChallengeDifficultyState(GUI.getSelectChallenge(),this),
                 new ChallengesState(this,1),
                 new ChallengesState(this,2),
                 new ChallengesState(this,3),
-                new MultiState(GUI.getMulti(), this),
                 new ExitState());
     }
 
