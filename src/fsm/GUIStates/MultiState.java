@@ -5,6 +5,7 @@ import fsm.State;
 import graphics.gui.Button;
 import graphics.gui.GUI;
 import graphics.gui.GUIButtonListener;
+import graphics.gui.Label;
 
 /**
  * Created by Christopher on 18/04/2017.
@@ -12,6 +13,7 @@ import graphics.gui.GUIButtonListener;
 public class MultiState extends State {
     private GUI multi;
     private GraphicsEngine graphicsEngine;
+    private Label count;
     private GUIButtonListener upButtonListener = new GUIButtonListener();
     private GUIButtonListener downButtonListener = new GUIButtonListener();
     private GUIButtonListener fightButtonListener = new GUIButtonListener();
@@ -35,6 +37,7 @@ public class MultiState extends State {
         fight.addListener(fightButtonListener);
         Button back = multi.getButtonById("back");
         back.addListener(backButtonListener);
+        count = multi.getLabelById("count");
         upButtonListener.setNotClicked();
         downButtonListener.setNotClicked();
         fightButtonListener.setNotClicked();
@@ -45,10 +48,10 @@ public class MultiState extends State {
     @Override
     public String onUpdate() {
         if (upButtonListener.isClicked()){
-            return "multi";
+            count.setText(count.getText()+1);
         }
         else if (downButtonListener.isClicked()){
-            return "multi";
+            count.setText(count.getText()+(-1));
         }
         else if (fightButtonListener.isClicked()){
             return "multi";

@@ -83,6 +83,8 @@ public class GUI {
     public static GUI getMulti () {
         GUI GUIMulti = new GUI();
         int buttonWidth = 150, buttonHeight = 150;
+        Label count = new Label ("1", 100, 100, 100, 100, "count");
+        GUIMulti.addComponent(count);
         Button up = new Button("button_up.png", "", 2*(Window.getWidth() / 3) - buttonWidth / 2, 2*(Window.getHeight() /8) - buttonHeight /2, buttonWidth, buttonHeight, "up");
         GUIMulti.addComponent(up);
         Button down = new Button("button_down.png", "", 2*(Window.getWidth()/3) - buttonWidth / 2, 5*(Window.getHeight() /8) - buttonHeight/2, buttonWidth, buttonHeight,"down");
@@ -137,6 +139,15 @@ public class GUI {
         for(int i=0;i<components.size();i++) {
             if (components.get(i).getId().equals(id)) {
                 return (Button) components.get(i);
+            }
+        }
+        return null;
+    }
+
+    public Label getLabelById(String id) {
+        for (int i=0; i<components.size(); i++) {
+            if(components.get(i).getId().equals(id)) {
+                return (Label) components.get(i);
             }
         }
         return null;
