@@ -1,5 +1,6 @@
 package core.systems;
 
+import core.Challenge;
 import core.Event;
 import core.Projectile;
 import physics.*;
@@ -46,7 +47,7 @@ public class ChallengeSubSystem extends SubSystem implements CollisionListener {
         if(engine.getLevel().getChallenge() != null){
             targets = new ArrayList<>();
             engine.getLevel().getChallenge().getTargets().forEach(target -> {
-                RigidBody temp = new RigidBody(new Vector2D(target[0], target[1]), 50, 0);
+                RigidBody temp = new RigidBody(new Vector2D(target[0], target[1]), Challenge.TARGET_SIZE, 0);
                 temp.setAttractive(false);
                 temp.setStaticObject(true);
                 targets.add(temp);

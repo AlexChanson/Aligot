@@ -50,8 +50,12 @@ public class GraphicsEngine {
             });
 
             if(level.getChallenge() != null){
+                float size = (float) Challenge.TARGET_SIZE;
                 level.getChallenge().getTargets().forEach((double[] target) -> {
-                    Window.drawCircle((float)(target[0] * ratio) ,(float)(target[1] * ratio), 25, 255, 0, 0);
+                    float x = (float) (target[0]*ratio - size/2);
+                    float y = (float) (target[1]*ratio - size/2);
+                    Window.drawSprite("target.png", x, y, size, size,0f);
+                    //Window.drawCircle((float)(target[0] * ratio) ,(float)(target[1] * ratio), 25, 255, 0, 0);
                 });
             }
         }
