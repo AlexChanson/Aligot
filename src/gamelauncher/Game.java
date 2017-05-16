@@ -77,10 +77,6 @@ public class Game implements GameStart {
             graphicsEngine.setGUI(gui);
     }
 
-    public static Level getCurrentLevel() {
-        return currentLevel;
-    }
-
     public static void setLevel(Level level){
         currentLevel = level;
         //TODO reset players properly
@@ -88,6 +84,18 @@ public class Game implements GameStart {
         p2.setHealth(p2.getMaxHealth());
         engine = null;
         initEngine();
+    }
+
+    public static Player getP1() {
+        return p1;
+    }
+
+    public static Player getP2() {
+        return p2;
+    }
+
+    public static Level getCurrentLevel() {
+        return currentLevel;
     }
 
     private static void initEngine(){

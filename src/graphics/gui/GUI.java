@@ -100,7 +100,7 @@ public class GUI {
 
     public static GUI getMultiPlay() {
         GUI GUIMultiPlay = new GUI();
-        int buttonWidth = 100, buttonHeight = 40;
+        int buttonWidth = 150, buttonHeight = 40;
         Label player_1 = new Label ("Player_1", 10, 10, buttonWidth, buttonHeight, "player_1");
         GUIMultiPlay.addComponent(player_1);
         Label health_1 = new Label ("Health: ", 10, 50, buttonWidth, buttonHeight, "health_1");
@@ -113,7 +113,7 @@ public class GUI {
         GUIMultiPlay.addComponent(player_2);
         Label health_2 = new Label ("Health: ", Window.getWidth() - buttonWidth - 10, 50, buttonWidth, buttonHeight, "health_2");
         GUIMultiPlay.addComponent(health_2);
-        Label weapon_2 = new Label ("Weapon: ", Window.getWidth() - buttonWidth - 10, 90, buttonWidth, buttonHeight, "weapond_2");
+        Label weapon_2 = new Label ("Weapon: ", Window.getWidth() - buttonWidth - 10, 90, buttonWidth, buttonHeight, "weapon_2");
         GUIMultiPlay.addComponent(weapon_2);
         Label damage_2 = new Label ("Damage: ", Window.getWidth() - buttonWidth - 10, 130, buttonWidth, buttonHeight, "damage_2");
         GUIMultiPlay.addComponent(damage_2);
