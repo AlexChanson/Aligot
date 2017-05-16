@@ -33,7 +33,6 @@ public class GameModsState extends State {
         multiButtonListener.setNotClicked();
         backButtonListener.setNotClicked();
         graphicsEngine.setGUI(gameMods);
-        System.out.println("Switching to Game Mods Screen");
     }
 
     @Override
@@ -42,6 +41,7 @@ public class GameModsState extends State {
             return "challengeDifficulty";
         }
         else if (multiButtonListener.isClicked()) {
+            System.out.println("MultiClicked");
             return "multi";
         }
         else if (backButtonListener.isClicked()) {

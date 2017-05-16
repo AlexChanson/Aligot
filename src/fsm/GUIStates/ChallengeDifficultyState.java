@@ -36,7 +36,6 @@ public class ChallengeDifficultyState extends State{
         hardChallengeButtonListener.setNotClicked();
         backButtonListener.setNotClicked();
         graphicsEngine.setGUI(selectChallenge);
-        System.out.println("Switching to Select Challenge Screen");
     }
 
     @Override

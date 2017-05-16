@@ -82,7 +82,15 @@ public class GUI {
 
     public static GUI getMulti () {
         GUI GUIMulti = new GUI();
-
+        int buttonWidth = 200, buttonHeight = 200;
+        Button up = new Button("button_up.png", "", Window.getWidth() / 3 - buttonWidth / 2, Window.getHeight() /6 - buttonHeight /2, buttonWidth, buttonHeight, "up");
+        GUIMulti.addComponent(up);
+        Button down = new Button("button_down.png", "", 0,0,0,0,"down");
+        GUIMulti.addComponent(down);
+        Button fight = new Button("button_fight.png", "",0,0,0,0, "fight");
+        GUIMulti.addComponent(fight);
+        Button back = new Button("button_back.png","", 50, Window.getHeight() - 100, 100, 50, "back");
+        GUIMulti.addComponent(back);
         return GUIMulti;
     }
 

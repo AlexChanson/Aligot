@@ -30,6 +30,7 @@ public class GraphicsEngine {
                 new ChallengesState(this,1),
                 new ChallengesState(this,2),
                 new ChallengesState(this,3),
+                new MultiState(GUI.getMulti(), this),
                 new ExitState());
     }
 
