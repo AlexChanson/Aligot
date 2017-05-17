@@ -23,6 +23,7 @@ public class Engine {
     private Level level;
     private ArrayList<Player> players;
     private ArrayList<Projectile> projectiles;
+    private boolean endGame = false;
 
     public Engine(Level level, Player... players) {
         this.level = level;
@@ -44,6 +45,10 @@ public class Engine {
         level.getPlanets().forEach(planet -> physicsEngine.addBody(planet.getRigidBody()));
         players.forEach(player -> physicsEngine.addBody(player.getRigidBody()));
         //TODO initialize the finite state machine
+        gameState = new FiniteStateMachine();
+        gameState.addStates(new PlayerActingState(this),
+                new SimulationState(),
+                new EndGameState());
 
         putPlayersOnSpawns();
     }
@@ -56,10 +61,14 @@ public class Engine {
         //Throw an update Event
         systems.forEach(subSystem -> subSystem.handleEvent(new Event("TICK", null)));
 
+        if ( gameState.update() ){
+            endGame = true;
+        }
+
         //physics simulation
         physicsEngine.step(timeStep);
 
-        //check for projectiles that are to old
+        //check for projectiles that are too old
         handleProjectiles();
     }
 
