@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 public class Player extends GameObject{
     private String name;
+    private Weapon currentWeapon;
     private int health, maxHealth;
     private ArrayList<Item> inventory;
     private double position, rotation;
@@ -72,5 +73,13 @@ public class Player extends GameObject{
 
     public void setLooking_right(boolean looking_right) {
         this.looking_right = looking_right;
+    }
+
+    public Weapon getCurrentWeapon() {
+        return currentWeapon;
+    }
+
+    public void setCurrentWeapon(Weapon currentWeapon) {
+        this.currentWeapon = currentWeapon;
     }
 }
