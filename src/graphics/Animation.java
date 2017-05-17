@@ -4,7 +4,7 @@ import com.google.gson.annotations.Expose;
 import java.util.Iterator;
 import java.util.List;
 
-class Animation {
+public class Animation {
     private List<String> sprites;
     private List<Double> durations;
 
