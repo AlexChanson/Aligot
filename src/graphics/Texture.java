@@ -1,16 +1,16 @@
 package graphics;
 
 import org.lwjgl.BufferUtils;
-import org.lwjgl.system.MemoryStack;
 import utility.Loader;
 
 import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
 import java.util.HashMap;
 
-import static org.lwjgl.stb.STBImage.*;
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.opengl.GL13.GL_CLAMP_TO_BORDER;
+import static org.lwjgl.stb.STBImage.stbi_failure_reason;
+import static org.lwjgl.stb.STBImage.stbi_load;
 
 /**
  * Texture is used to load a sprite who will be drawn in the window
@@ -96,7 +96,6 @@ public class Texture {
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, this.width, this.height, 0, GL_RGBA, GL_UNSIGNED_BYTE, image);
     }
 
-    @Override
     public boolean equals(Object obj) {
         if(obj instanceof Texture)
             return ((Texture)obj).path.equals(this.path);
