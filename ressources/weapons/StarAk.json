@@ -4,13 +4,13 @@
     10,
     15
   ],
-  "compatible": [
+  "ammo":
     {
       "damageBonus": 2,
       "type": 1,
       "effect": 2
     }
-  ],
+  ,
   "name": "StarAK",
   "icon": ""
   }

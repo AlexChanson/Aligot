@@ -3,49 +3,18 @@ package core;
 public class Weapon extends Item{
     private String texture;
     private int[] damageRange;
-    private Magazine magazine = null;
-    /**
-     * Set to null by default the gun can shoot any ammo
-     */
-    private Ammunition[] compatible = null;
+    private Ammunition ammo;
 
-    public Weapon(String name, String icon, String texture, int[] damageRange, Ammunition[] compatible) {
+    public Weapon(String name, String icon, String texture, int[] damageRange, Ammunition ammo) {
         super(name, icon);
         this.texture = texture;
         this.damageRange = damageRange;
-        this.compatible = compatible;
-    }
-
-    public Weapon(String name, String icon, String texture, int[] damageRange) {
-        super(name, icon);
-        this.texture = texture;
-        this.damageRange = damageRange;
+        this.ammo = ammo;
     }
 
     @Override
     public void use(Player user) {
-        this.fire(user);
-    }
 
-    private void fire(Player shooter) {
-
-    }
-
-    public boolean reload(Magazine m){
-        if(compatible == null){
-            this.magazine = m;
-            return true;
-        }
-        boolean isCompatible = false;
-        for (Ammunition aCompatible : compatible) {
-            if (aCompatible.equals(m.getAmmo()))
-                isCompatible = true;
-        }
-        if(isCompatible){
-            this.magazine = m;
-            return true;
-        }
-        return false;
     }
 
     public String getTexture() {
@@ -56,23 +25,15 @@ public class Weapon extends Item{
         return damageRange;
     }
 
-    public Magazine getMagazine() {
-        return magazine;
+    public Ammunition getAmmo() {
+        return ammo;
     }
 
-    public Ammunition[] getCompatible() {
-        return compatible;
+    public void setAmmo(Ammunition ammo) {
+        this.ammo = ammo;
     }
-
-    public void setCompatible(Ammunition[] compatible) {
-        this.compatible = compatible;
-    }
-
 
     public Object copy() {
-        Ammunition[] temp = new Ammunition[compatible.length];
-        for (int i = 0; i < compatible.length; i++)
-            temp[i] = compatible[i].copy();
-        return new Weapon(name, icon, texture, damageRange, temp);
+        return new Weapon(name, icon, texture, damageRange, ammo);
     }
 }

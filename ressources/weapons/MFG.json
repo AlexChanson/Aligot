@@ -4,13 +4,13 @@
     28,
     12
   ],
-  "compatible": [
+  "ammo":
     {
       "damageBonus": 6,
       "type": 54,
       "effect": 70
     }
-  ],
+  ,
   "name": "MFG",
   "icon": "weapon_bfg.png"
 }

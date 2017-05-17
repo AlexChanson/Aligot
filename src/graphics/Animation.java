@@ -1,9 +1,6 @@
 package graphics;
 
-import com.google.gson.Gson;
 import com.google.gson.annotations.Expose;
-
-import java.io.File;
 import java.util.Iterator;
 import java.util.List;
 
@@ -19,14 +16,6 @@ class Animation {
     private double totalDuration = 0;
     @Expose(serialize = false, deserialize = false)
     private boolean loop = false;
-
-    private static final String animationsDir = System.getProperty("user.dir") + File.separator + "ressources" + File.separator + "animations" + File.separator;
-
-    public static Animation load(String res) {
-        Gson gson = new Gson();
-
-        return gson.fromJson(animationsDir + res + ".json", Animation.class);
-    }
 
     public void pastTime(double dt) {
         if (this.playing) {
