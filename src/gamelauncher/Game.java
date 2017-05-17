@@ -5,6 +5,7 @@ import core.Level;
 import core.solvers.CollisionSolver;
 import core.solvers.PlayerMovementSolver;
 import core.systems.DebugSubSystem;
+import core.systems.FireSubSystem;
 import core.systems.PlayerMovementSystem;
 import core.systems.PlayerOrientationSystem;
 import graphics.Window;
@@ -105,7 +106,7 @@ public class Game implements GameStart {
             }catch (NullPointerException e){
                 LOGGER.log(java.util.logging.Level.WARNING, "Engine Init Failed");
             }
-            engine.registerSubSystems(new DebugSubSystem().ignore("TICK", "COLLISION"), new PlayerOrientationSystem(), new PlayerMovementSystem());
+            engine.registerSubSystems(new DebugSubSystem().ignore("TICK", "COLLISION"), new PlayerOrientationSystem(), new PlayerMovementSystem(), new FireSubSystem());
             engine.registerSolvers(new PlayerMovementSolver(), new CollisionSolver());
         }
     }
