@@ -1,7 +1,5 @@
 package graphics;
 
-import core.Engine;
-import core.Event;
 import core.solvers.KeyboardListener;
 import core.solvers.MouseListener;
 import graphics.gui.CallBackContainer;
@@ -10,10 +8,13 @@ import org.lwjgl.glfw.GLFWKeyCallback;
 import org.lwjgl.glfw.GLFWMouseButtonCallback;
 import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.opengl.GL;
+
 import java.io.File;
 import java.nio.DoubleBuffer;
 import java.nio.IntBuffer;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -306,7 +307,7 @@ public class Window {
     public static void drawText(String text, float x, float y, float size, float lineWidth, int align, int r, int g, int b, boolean monoline) {
         if(text.equals(""))
             return;
-        String path = ressourcesFolderPath + "font_mono.png";
+        String path = ressourcesFolderPath + "font_share_tech_mono.png";
 
         Texture texture = new Texture(path);
 
