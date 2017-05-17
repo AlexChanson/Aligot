@@ -50,16 +50,18 @@ public class MultiState extends State {
     @Override
     public String onUpdate() {
         if (upButtonListener.isClicked()){
-            i+=1;
-            count.setText(Integer.toString(i));
             upButtonListener.setNotClicked();
+            if (i<10){
+                i += 1;
+                count.setText(Integer.toString(i));
+            }
         }
         else if (downButtonListener.isClicked()){
+            downButtonListener.setNotClicked();
             if(i > 2) {
                 i -= 1;
                 count.setText(Integer.toString(i));
             }
-            downButtonListener.setNotClicked();
         }
         else if (fightButtonListener.isClicked()){
             LevelGen levelGen = new LevelGen(new Random().nextLong(), LevelGen.SMALL);

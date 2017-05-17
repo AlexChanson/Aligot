@@ -20,9 +20,20 @@ public class ChallengePlayState extends State {
 
     public void onEnter(){
         Label targets = challengePlay.getLabelById("targets");
-        targets.setText("Targets: " + Game.getCurrentLevel().getChallenge().getTargets().size());
+        if (Game.getCurrentLevel().getChallenge().getTargets().size() != 0) {
+            targets.setText("Targets: " + Game.getCurrentLevel().getChallenge().getTargets().size());
+        }
+        else {
+            targets.setText("Targets: 0");
+        }
+
         Label shots = challengePlay.getLabelById("shots");
-        shots.setText("Shots: " + Game.getCurrentLevel().getChallenge().getShots());
+        if (Game.getCurrentLevel().getChallenge().getShots() != 0) {
+            shots.setText("Shots: " + Game.getCurrentLevel().getChallenge().getShots());
+        }
+        else {
+            shots.setText("Shots: 0");
+        }
         graphicsEngine.setGUI(challengePlay);
     }
 

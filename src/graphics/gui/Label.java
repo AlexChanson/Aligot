@@ -17,7 +17,7 @@ public class Label extends GUIComponent {
 
     public void draw() {
         if (text != null)
-            Window.drawText(text, posX, posY + this.height / 4, this.height / 2, this.width, Window.TEXT_ALIGN_LEFT, 0, 150, 200, true);
+            Window.drawText(text, posX, posY + this.height / 4, this.height / 2, this.width, Window.TEXT_ALIGN_CENTER, 255, 255, 255, false);
     }
 
     public String getText() {

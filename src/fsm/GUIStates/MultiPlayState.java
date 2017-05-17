@@ -20,21 +20,49 @@ public class MultiPlayState extends State {
 
     public void onEnter(){
         Label player_1 = multiPlay.getLabelById("player_1");
-        player_1.setText(Game.getP1().getName());
         Label health_1 = multiPlay.getLabelById("health_1");
-        health_1.setText("Health: " + Game.getP1().getHealth());
+        if (Game.getP1() != null) {
+            player_1.setText(Game.getP1().getName());
+            health_1.setText("Health: " + Game.getP1().getHealth());
+        }
+        else {
+            player_1.setText("Mort");
+            health_1.setText("Health: 0");
+        }
+
         Label weapon_1 = multiPlay.getLabelById("weapon_1");
-        weapon_1.setText("Weapon: ");
         Label damage_1 = multiPlay.getLabelById("damage_1");
-        damage_1.setText("Damage: ");
+        if (Game.getP1().getCurrentWeapon() != null) {
+            weapon_1.setText(Game.getP1().getCurrentWeapon().getName());
+            damage_1.setText("Damage: " + Game.getP1().getCurrentWeapon().getDamageRange());
+        }
+        else {
+            weapon_1.setText("Bare Hands");
+            damage_1.setText("Damage: 0");
+        }
+
+
         Label player_2 = multiPlay.getLabelById("player_2");
-        player_2.setText(Game.getP2().getName());
         Label health_2 = multiPlay.getLabelById("health_2");
-        health_2.setText("Health: " + Game.getP2().getHealth());
+        if(Game.getP2() != null) {
+            player_2.setText(Game.getP2().getName());
+            health_2.setText("Health: " + Game.getP2().getHealth());
+        }
+        else {
+            player_2.setText("Mort");
+            health_2.setText("Health: 0");
+        }
+
         Label weapon_2 = multiPlay.getLabelById("weapon_2");
-        weapon_2.setText("Weapon: ");
         Label damage_2 = multiPlay.getLabelById("damage_2");
-        damage_2.setText("Damage: ");
+        if (Game.getP2().getCurrentWeapon() != null) {
+            weapon_2.setText(Game.getP2().getCurrentWeapon().getName());
+            damage_2.setText("Damage: " + Game.getP2().getCurrentWeapon().getDamageRange());
+        }
+        else {
+            weapon_2.setText("Bare Hands");
+            damage_2.setText("Damage: 0");
+        }
         graphicsEngine.setGUI(multiPlay);
     }
 
