@@ -16,7 +16,7 @@ import java.util.jar.JarFile;
 import java.util.stream.Collectors;
 
 public class Loader {
-    private static String ressourcesPath = System.getProperty("user.dir") + File.separator + "ressources" + File.separator + "sprites" + File.separator;
+    private static String ressourcesPath = System.getProperty("user.dir") + File.separator + "ressources" + File.separator + "assets" + File.separator;
 
     public static <T> ArrayList<T> loadAll(Class<T> type, String folder){
         System.out.println("LOADER: Loading all " + type.getName());
@@ -98,7 +98,7 @@ public class Loader {
         } catch (IOException ignored) {}
 
         if(jarFile != null){
-            String path = tempPath +  "aligot_ressources";
+            String path = tempPath +  "aligot_assets";
             Window.setRessourcesFolderPath(path + File.separator);
             ressourcesPath = path + File.separator;
 
@@ -110,8 +110,8 @@ public class Loader {
                 Enumeration<JarEntry> e = jarFile.entries();
                 while (e.hasMoreElements()) {
                     JarEntry je = e.nextElement();
-                    if(!je.isDirectory()  && je.getName().startsWith("sprites")){
-                        String fileName = je.getName().replace("sprites/", "");
+                    if(!je.isDirectory()  && je.getName().startsWith("assets")){
+                        String fileName = je.getName().replace("assets/", "");
                         InputStream in = ClassLoader.getSystemResourceAsStream(je.getName());
                         File f = new File(path + File.separator + fileName);
                         try {

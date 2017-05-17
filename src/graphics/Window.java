@@ -39,7 +39,7 @@ public class Window {
     private static ArrayList<MouseListener> mouseListeners = new ArrayList<>();
     private static ArrayList<KeyboardListener> keyboardListeners = new ArrayList<>();
 
-    private static String ressourcesFolderPath = System.getProperty("user.dir") + File.separator + "ressources" + File.separator + "sprites" + File.separator;
+    private static String ressourcesFolderPath = System.getProperty("user.dir") + File.separator + "ressources" + File.separator + "assets" + File.separator;
     public static final int TEXT_ALIGN_LEFT = 0, TEXT_ALIGN_CENTER = 1, TEXT_ALIGN_RIGHT = 2;
 
     /**

@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="400.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <VBox layoutX="250.0" layoutY="100.0" prefHeight="200.0" prefWidth="100.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -134,6 +134,31 @@
                <children>
                   <Region prefHeight="0.0" prefWidth="20.0" HBox.hgrow="ALWAYS" />
                   <Label text="Clément DEROUET">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                     <tooltip>
+                        <Tooltip text="Graphic Engine - UI" />
+                     </tooltip>
+                  </Label>
+                  <Region prefHeight="0.0" prefWidth="20.0" HBox.hgrow="ALWAYS" />
+               </children>
+            </HBox>
+            <HBox prefHeight="0.0" prefWidth="200.0">
+               <children>
+                  <Region prefHeight="0.0" prefWidth="10.0" HBox.hgrow="ALWAYS" />
+                  <Label text="Son:">
+                     <font>
+                        <Font name="System Bold" size="22.0" />
+                     </font>
+                  </Label>
+                  <Region prefHeight="0.0" prefWidth="10.0" HBox.hgrow="ALWAYS" />
+               </children>
+            </HBox>
+            <HBox prefHeight="0.0" prefWidth="200.0">
+               <children>
+                  <Region prefHeight="0.0" prefWidth="20.0" HBox.hgrow="ALWAYS" />
+                  <Label text="Maia CECCOTTI">
                      <font>
                         <Font size="20.0" />
                      </font>
