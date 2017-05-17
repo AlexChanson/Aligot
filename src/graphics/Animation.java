@@ -28,7 +28,7 @@ class Animation {
         return gson.fromJson(animationsDir + res + ".json", Animation.class);
     }
 
-    public void pastTime(double dt) {
+    public void passTime(double dt) {
         if (this.playing) {
             this.time += dt;
 
