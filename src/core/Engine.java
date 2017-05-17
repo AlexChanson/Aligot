@@ -7,6 +7,7 @@ import physics.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 
 /**
  * The Game engine, binds the physics with the game mechanics and processes events
@@ -22,6 +23,7 @@ public class Engine {
     private Level level;
     private ArrayList<Player> players;
     private ArrayList<Projectile> projectiles;
+    private boolean endGame = false;
 
     public Engine(Level level, Player... players) {
         this.level = level;
@@ -43,6 +45,12 @@ public class Engine {
         level.getPlanets().forEach(planet -> physicsEngine.addBody(planet.getRigidBody()));
         players.forEach(player -> physicsEngine.addBody(player.getRigidBody()));
         //TODO initialize the finite state machine
+        gameState = new FiniteStateMachine();
+        gameState.addStates(new PlayerActingState(this),
+                new SimulationState(),
+                new EndGameState());
+
+        putPlayersOnSpawns();
     }
 
     /**
@@ -53,10 +61,14 @@ public class Engine {
         //Throw an update Event
         systems.forEach(subSystem -> subSystem.handleEvent(new Event("TICK", null)));
 
+        if ( gameState.update() ){
+            endGame = true;
+        }
+
         //physics simulation
         physicsEngine.step(timeStep);
 
-        //check for projectiles that are to old
+        //check for projectiles that are too old
         handleProjectiles();
     }
 
@@ -94,6 +106,25 @@ public class Engine {
             solv.setEngine(this);
             this.solvers.add(solv);
             solv.initialize();
+        }
+    }
+
+    private void putPlayersOnSpawns(){
+        if(level != null && players.size() > 0){
+            HashSet<Planet> spawns = new HashSet<>();
+            level.getPlanets().forEach(planet -> {
+                if(planet.isSpawn())
+                    spawns.add(planet);
+            });
+            int i = 0;
+            for(Planet spawn : spawns){
+                if(i < players.size()){
+                    Player p = players.get(i);
+                    RigidBody s = spawn.getRigidBody();
+                    p.getRigidBody().setPosition(new Vector2D(s.getPosition().getX(), s.getPosition().getY() - s.getRadius() - 1));
+                }
+                ++i;
+            }
         }
     }
 

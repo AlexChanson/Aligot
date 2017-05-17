@@ -7,6 +7,11 @@ import fsm.State;
  */
 public class PlayerActingState extends State {
     private boolean playerTurnEnded;
+    private Engine engine;
+
+    public PlayerActingState( Engine engine ){
+        this.engine = engine;
+    }
 
     @Override
     public void initialize(){
@@ -24,6 +29,7 @@ public class PlayerActingState extends State {
     @Override
     public void onEnter(){
         playerTurnEnded = false;
+        engine.throwEvent(new Event("PLAYER_CHANGED"));
     }
 
     @Override
