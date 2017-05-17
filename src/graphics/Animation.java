@@ -17,7 +17,7 @@ class Animation {
     @Expose(serialize = false, deserialize = false)
     private boolean loop = false;
 
-    public void pastTime(double dt) {
+    public void passTime(double dt) {
         if (this.playing) {
             this.time += dt;
 
