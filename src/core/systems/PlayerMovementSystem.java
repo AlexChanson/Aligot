@@ -17,11 +17,11 @@ public class PlayerMovementSystem extends SubSystem {
 
     @Override
     protected void processEvent(Event event) {
+        Player player = engine.getActivePlayer();
         if (event.type.equals("PLAYER_MOVEMENT")){
             int direction = (int) event.data;
-            Player player = engine.getActivePlayer();
-            double orientation = player.getRotation();
 
+            double orientation = player.getRotation();
             if ( direction == 0 ){
                 orientation += Math.PI/2;
                 player.setLooking_right(true);
@@ -32,8 +32,12 @@ public class PlayerMovementSystem extends SubSystem {
             }
 
             RigidBody body = player.getRigidBody();
-            player.getRigidBody().applyForce(Vector2D.createFromAngle(1000, orientation));
-            body.setPosition(body.getPosition().add(Vector2D.createFromAngle(2, orientation)));
+            if ( player.isOn_ground() ){
+                body.setVelocity(Vector2D.createFromAngle(40, orientation));
+            }
+        }
+        if ( event.type.equals("TICK") ){
+            player.setOn_ground(false);
         }
     }
 }

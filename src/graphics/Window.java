@@ -138,6 +138,17 @@ public class Window {
         glEnable(GL_TEXTURE_2D);
         glPushMatrix();
 
+        int fliph = 1;
+        int flipv = 1;
+        if ( width < 0 ){
+            fliph = -1;
+            width = Math.abs(width);
+        }
+        if ( height < 0 ){
+            flipv = -1;
+            height = Math.abs(height);
+        }
+
         float halftextureWidth = width * scale/2;
         float halftextureHeight = height* scale/2;
 
@@ -145,6 +156,7 @@ public class Window {
 
         glTranslatef(halftextureWidth, halftextureHeight, 0);
         glRotatef(rotate, 0, 0f, 1f);
+        glScalef(fliph, flipv, 1);
         glTranslatef(-halftextureWidth, -halftextureHeight, 0);
 
 

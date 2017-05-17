@@ -49,12 +49,14 @@ public class GraphicsEngine {
                 float posX = (float) (planetPos.getX() * ratio) - (planetSize / 2);
                 float posY = (float) (planetPos.getY() * ratio) - (planetSize / 2);
 
+
+
                 Window.drawSprite(planet.getTexture(),
                         posX,
                         posY,
                         planetSize, planetSize, 0f);
 
-                if( !Texture.textureLoaded(planet.getTexture()) ){
+                if( planet.getTexture().equals("placeholder.png") ){
                     Window.drawCircle((float) (planetPos.getX() * ratio),
                             (float) (planetPos.getY() * ratio),
                             planetSize/2f,
@@ -112,14 +114,14 @@ public class GraphicsEngine {
             float posX = (float) (position.getX()*ratio - sizeX);
             float posY = (float) (position.getY()*ratio - sizeY);
 
-            if ( !player.isLooking_right() ){
-                sizeX *=1;
+            if ( player.isLooking_right() ){
+                sizeX *= -1;
             }
 
-            Window.drawCircle((float)(position.getX()*ratio),
+            /*Window.drawCircle((float)(position.getX()*ratio),
                     (float)(position.getY()*ratio),
                     (float) (player.getRigidBody().getRadius()*ratio),
-                    128,128,64);
+                    128,128,64);*/
 
             Window.drawTexture(playerTexture,
                     posX, posY,

@@ -56,6 +56,11 @@ public class Texture {
             return generatedTexture.get(path);
         }
         else{
+            String fullpath = Loader.getSpriteFolderPath()+path;
+            if ( generatedTexture.containsKey(fullpath) ){
+                return generatedTexture.get(fullpath);
+            }
+
             Texture tex = new Texture(path);
             generatedTexture.put(path, tex);
             return tex;
@@ -63,7 +68,7 @@ public class Texture {
     }
 
     public static boolean textureLoaded(String path){
-        return generatedTexture.containsKey(path);
+        return generatedTexture.containsKey(path) | generatedTexture.containsKey(Loader.getSpriteFolderPath()+path);
     }
 
     private void generate() {
