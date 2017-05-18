@@ -1,7 +1,7 @@
 package core.model;
 
 public class Ammunition {
-    public static int LASER = 2, BULLET = 1, TENTACULE = 3, MISSILE = 4, EFFECT_FIRE = 40;
+    public static int LASER = 2, BULLET = 1, TENTACULE = 3, MISSILE = 4, EFFECT_FIRE = 40, EFFECT_LIFE_STEAL = 41;
     public static float EPLOSION_SMALL = 5.0f, EXPLOSION_MEDIUM = 10.0f;
     private int damageBonus, type, effect;
     private float explosionRadius;
@@ -24,7 +24,7 @@ public class Ammunition {
     public boolean equals(Object obj) {
         if(obj instanceof Ammunition){
             Ammunition other = (Ammunition) obj;
-            if (other.getDamageBonus() == damageBonus && other.getEffect() == effect && other.getType() == type)
+            if (other.getDamageBonus() == damageBonus && other.getEffect() == effect && other.getType() == type && (other.explosionRadius - explosionRadius) < 0.0001)
                 return true;
         }
         return false;
@@ -49,6 +49,6 @@ public class Ammunition {
 
     @Override
     public String toString() {
-        return "Ammo:\n{Bonus=" + damageBonus + ", Type=" + type + ", Effect=" + effect + ", ExplosionRadius=" + explosionRadius;
+        return "Ammo:\n{Bonus=" + damageBonus + ", Type=" + type + ", Effect=" + effect + ", ExplosionRadius=" + explosionRadius + "}";
     }
 }
