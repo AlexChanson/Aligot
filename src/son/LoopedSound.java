@@ -48,11 +48,7 @@ public class LoopedSound implements Runnable {
             else{
                 bytesRead = 0;
                 bytes = new byte[BUFFER_SIZE];
-                try {
-                    audioStream.reset();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                audioStream = SoundBank.get(name);
             }
         }
 
