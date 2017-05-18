@@ -4,6 +4,7 @@ import utility.Loader;
 
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.util.HashMap;
 
@@ -17,7 +18,7 @@ class SoundBank {
     }
 
     static AudioInputStream get(String filename){
-        return data.computeIfAbsent(filename, key -> {
+        AudioInputStream temp = data.computeIfAbsent(filename, key -> {
             File soundFile = new File(Loader.getSpriteFolderPath() + key + ".wav");
             try {
                 return AudioSystem.getAudioInputStream(soundFile);
@@ -28,5 +29,6 @@ class SoundBank {
             }
 
         });
+        return null;
     }
 }

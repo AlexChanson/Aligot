@@ -44,8 +44,7 @@ public class GUI {
 
     public Button getButtonById(String id) {
         for(int i=0;i<components.size();i++) {
-            if (components.get(i).getId().equals(id)) {
-                if(components.get(i) instanceof Button)
+            if (components.get(i) instanceof Button && components.get(i).getId().equals(id)) {
                     return (Button) components.get(i);
             }
         }
@@ -54,8 +53,7 @@ public class GUI {
 
     public Label getLabelById(String id) {
         for (int i=0; i<components.size(); i++) {
-            if(components.get(i).getId().equals(id)) {
-                if (components.get(i) instanceof Label)
+            if(components.get(i) instanceof Label && components.get(i).getId().equals(id)) {
                     return (Label) components.get(i);
             }
         }

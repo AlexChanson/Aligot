@@ -10,6 +10,7 @@ import java.util.HashMap;
 public class SoundPlayer {
     private static HashMap<String, PlaySound> playing = new HashMap<>();
     private static HashMap<String, PlaySound> paused = new HashMap<>();
+    private static HashMap<String, LoopedSound> looped = new HashMap<>();
 
     public static void play(String soundName){
         AudioInputStream audio = SoundBank.get(soundName);
@@ -23,6 +24,16 @@ public class SoundPlayer {
         PlaySound p = new PlaySound(audio, soundName);
         Thread t = new Thread(p);
         playing.put(soundName, p);
+        t.start();
+    }
+
+    public static void playLoop(String soundName){
+        AudioInputStream audio = SoundBank.get(soundName);
+        if (audio == null || looped.get(soundName) != null)
+            return;
+        LoopedSound l = new LoopedSound(audio, soundName);
+        Thread t = new Thread(l);
+        looped.put(soundName, l);
         t.start();
     }
 
