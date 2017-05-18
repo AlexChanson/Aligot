@@ -1,8 +1,8 @@
 {
   "texture": "weapon_bazooka.png",
   "damageRange": [
-    20,
-    10
+    10,
+    20
   ],
   "ammo":
     {

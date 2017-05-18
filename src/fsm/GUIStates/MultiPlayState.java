@@ -34,7 +34,7 @@ public class MultiPlayState extends State {
         Label damage_1 = multiPlay.getLabelById("damage_1");
         if (Game.getP1().getCurrentWeapon() != null) {
             weapon_1.setText(Game.getP1().getCurrentWeapon().getName());
-            damage_1.setText("Damage: " + Game.getP1().getCurrentWeapon().getDamageRange());
+            damage_1.setText("Damage: " + Game.getP1().getCurrentWeapon().getDamageRange()[0] + "-" + Game.getP1().getCurrentWeapon().getDamageRange()[1]);
         }
         else {
             weapon_1.setText("Bare Hands");
@@ -56,9 +56,9 @@ public class MultiPlayState extends State {
         Label weapon_2 = multiPlay.getLabelById("weapon_2");
         Label damage_2 = multiPlay.getLabelById("damage_2");
         if (Game.getP2().getCurrentWeapon() != null) {
-            weapon_2.setText(Game.getP2().getCurrentWeapon().getName());
-            damage_2.setText("Damage: " + Game.getP2().getCurrentWeapon().getDamageRange());
-        }
+                weapon_2.setText(Game.getP2().getCurrentWeapon().getName());
+                damage_2.setText("Damage: " + Game.getP2().getCurrentWeapon().getDamageRange()[0] + "-" + Game.getP2().getCurrentWeapon().getDamageRange()[1]);
+            }
         else {
             weapon_2.setText("Bare Hands");
             damage_2.setText("Damage: 0");

@@ -1,0 +1,16 @@
+{
+  "texture": "weapon_bfg.png",
+  "damageRange": [
+    12,
+    28
+  ],
+  "ammo":
+    {
+      "damageBonus": 6,
+      "type": 54,
+      "effect": 70
+    }
+  ,
+  "name": "MFG",
+  "icon": "weapon_bfg.png"
+}

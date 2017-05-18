@@ -37,7 +37,7 @@ public class Button extends GUIComponent{
         else
             Window.drawRectangle(posX, posY, width, height,128, 128, 128, 0f);
         if (text != null)
-            Window.drawText(text, posX, posY + this.height / 4, this.height / 2, this.width, Window.TEXT_ALIGN_LEFT, 255, 255, 255, true);
+            Window.drawText(text, posX, posY + this.height / 4, this.height / 2, this.width, Window.TEXT_ALIGN_CENTER, 255, 255, 255, false);
     }
 
     public void addListener(GUIListener guiListener){
