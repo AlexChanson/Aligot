@@ -13,10 +13,10 @@ public class GUIBuilder {
 
     public static GUI getStart() {
         GUI GUIStart = new GUI();
-        int buttonWidth = 600, buttonHeight = 250;
-        Button start = new Button("button_start.png", "", Window.getWidth() / 2 - buttonWidth / 2, Window.getHeight() / 4 - buttonHeight / 2, buttonWidth, buttonHeight,"play");
+        int buttonWidth = (int)(Window.getWidth()*0.40), buttonHeight = (int)(Window.getHeight()*0.25);
+        Button start = new Button("button_start.png", "", Window.getWidth() / 2 - buttonWidth / 2, 4 * (Window.getHeight() / 7) - buttonHeight /2, buttonWidth, buttonHeight,"play");
         GUIStart.addComponent(start);
-        Button exit = new Button("button_exit.png", "", Window.getWidth() / 2 - buttonWidth / 2, 3 * (Window.getHeight() / 4) - buttonHeight / 2, buttonWidth, buttonHeight,"exit");
+        Button exit = new Button("button_exit.png", "", Window.getWidth() / 2 - buttonWidth / 2, 6 * (Window.getHeight() / 7) - buttonHeight/2 , buttonWidth, buttonHeight,"exit");
         GUIStart.addComponent(exit);
         return GUIStart;
     }

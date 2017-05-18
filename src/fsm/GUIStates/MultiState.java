@@ -51,7 +51,7 @@ public class MultiState extends State {
     public String onUpdate() {
         if (upButtonListener.isClicked()){
             upButtonListener.setNotClicked();
-            if (i<10){
+            if (i<9){
                 i += 1;
                 count.setText(Integer.toString(i));
             }
