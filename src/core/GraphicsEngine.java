@@ -133,7 +133,7 @@ public class GraphicsEngine {
                     playerTexture.getWidth(), playerTexture.getHeight(),
                     255,255,255);
 
-
+            //TODO Weapon rendering
 
 
         });

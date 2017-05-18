@@ -158,7 +158,7 @@
             <HBox prefHeight="0.0" prefWidth="200.0">
                <children>
                   <Region prefHeight="0.0" prefWidth="20.0" HBox.hgrow="ALWAYS" />
-                  <Label text="Maia CECCOTTI">
+                  <Label text="Maïa CECCOTTI">
                      <font>
                         <Font size="20.0" />
                      </font>

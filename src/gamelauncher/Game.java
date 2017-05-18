@@ -59,13 +59,11 @@ public class Game implements GameStart {
         while (Window.shouldClose()) {
             Window.loopStart();
 
-            if(engine != null) {
+            if(engine != null && currentLevel != null) {
                 engine.update();
-                if(currentLevel != null) {
-                    graphicsEngine.drawLevel(currentLevel);
-                    graphicsEngine.drawPlayers(currentLevel, p1, p2);
-                    graphicsEngine.drawProjectiles(currentLevel, engine.getProjectiles());
-                }
+                graphicsEngine.drawLevel(currentLevel);
+                graphicsEngine.drawPlayers(currentLevel, p1, p2);
+                graphicsEngine.drawProjectiles(currentLevel, engine.getProjectiles());
             }
 
             graphicsEngine.drawGui();
@@ -96,9 +94,9 @@ public class Game implements GameStart {
             p1.setHealth(p1.getMaxHealth());
             p2.setHealth(p2.getMaxHealth());
             p1.getInventory().clear();
-            p1.getInventory().addAll(Weapons.get());
+            Weapons.equip(p1);
             p2.getInventory().clear();
-            p2.getInventory().addAll(Weapons.get());
+            Weapons.equip(p2);
             engine = null;
             initEngine();
         } else {
@@ -128,5 +126,9 @@ public class Game implements GameStart {
             engine.registerSubSystems(new DebugSubSystem().ignore("TICK", "COLLISION"), new PlayerOrientationSystem(), new PlayerMovementSystem(), new FireSubSystem());
             engine.registerSolvers(new PlayerMovementSolver(), new CollisionSolver());
         }
+    }
+
+    private static void initSoloEngine(){
+        //TODO init the engine for solo play
     }
 }
