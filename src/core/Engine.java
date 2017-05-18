@@ -129,7 +129,7 @@ public class Engine {
                 if(i < players.size()){
                     Player p = players.get(i);
                     RigidBody s = spawn.getRigidBody();
-                    p.getRigidBody().setPosition(new Vector2D(s.getPosition().getX(), s.getPosition().getY() - s.getRadius() - 1));
+                    p.getRigidBody().setPosition(new Vector2D(s.getPosition().getX(), s.getPosition().getY() - s.getRadius() - p.getRigidBody().getRadius() - 2));
                 }
                 ++i;
             }
