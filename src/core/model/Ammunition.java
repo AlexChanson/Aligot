@@ -1,7 +1,7 @@
 package core.model;
 
 public class Ammunition {
-    public static int LASER = 2, BULLET = 1, TENTACULE = 3, EFFECT_FIRE = 40;
+    public static int LASER = 2, BULLET = 1, TENTACULE = 3, MISSILE = 4, EFFECT_FIRE = 40;
     public static float EPLOSION_SMALL = 5.0f, EXPLOSION_MEDIUM = 10.0f;
     private int damageBonus, type, effect;
     private float explosionRadius;

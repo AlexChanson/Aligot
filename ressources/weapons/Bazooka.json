@@ -1,14 +1,15 @@
 {
   "texture": "weapon_bazooka.png",
   "damageRange": [
-    10,
-    20
+    15,
+    25
   ],
   "ammo":
     {
-      "damageBonus": 1,
-      "type": 2,
-      "effect": 7
+      "damageBonus": 0,
+      "type": 4,
+      "effect": 7,
+      "explosionRadius": 10
     }
   ,
   "name": "Bazoo-K",

@@ -84,13 +84,13 @@ public class GUIBuilder {
         GUIMulti.addComponent(description);
         Label text = new Label("Number of celestial bodies", 4*(Window.getWidth()/10) - (int)(Window.getWidth()*0.17), Window.getHeight()/2 - (int)(Window.getHeight()*0.07), (int)(Window.getWidth()*0.35), (int)(Window.getHeight()*0.14), "text");
         GUIMulti.addComponent(text);
-        Label count = new Label ("---", 7*(Window.getWidth()/10), Window.getHeight() /2 - 75, 50, 200, "count");
+        Label count = new Label ("---", 7*(Window.getWidth()/10), Window.getHeight() /2 - (int)(Window.getHeight()*0.10), (int)(Window.getWidth()*0.039), (int)(Window.getHeight()*0.27), "count");
         GUIMulti.addComponent(count);
-        Button up = new Button("button_up.png", "", 8*(Window.getWidth()/10) - buttonWidth / 2, Window.getHeight() /2 - buttonHeight /2 + 20, buttonWidth, buttonHeight, "up");
+        Button up = new Button("button_up.png", "", 8*(Window.getWidth()/10) - buttonWidth / 2, Window.getHeight() /2 - buttonHeight /2 + (int)(Window.getHeight()*0.027), buttonWidth, buttonHeight, "up");
         GUIMulti.addComponent(up);
-        Button down = new Button("button_down.png", "", 6*(Window.getWidth()/10) - buttonWidth / 2, Window.getHeight() /2 - buttonHeight/2 + 20, buttonWidth, buttonHeight,"down");
+        Button down = new Button("button_down.png", "", 6*(Window.getWidth()/10) - buttonWidth / 2, Window.getHeight() /2 - buttonHeight/2 + (int)(Window.getHeight()*0.027), buttonWidth, buttonHeight,"down");
         GUIMulti.addComponent(down);
-        Button fight = new Button("button_fight.png", "",Window.getWidth() - 200, Window.getHeight() - 125, 150, 75, "fight");
+        Button fight = new Button("button_fight.png", "",Window.getWidth() - (int)(Window.getWidth()*0.15), Window.getHeight() - (int)(Window.getHeight()*0.17), (int)(Window.getWidth()*0.11), (int)(Window.getHeight()*0.1), "fight");
         GUIMulti.addComponent(fight);
         Button back = new Button("button_back.png","", (int)(Window.getWidth()*0.03), Window.getHeight() - (int)(Window.getHeight()*0.12), (int)(Window.getWidth()*0.08),(int)(Window.getHeight()*0.07), "back");
         GUIMulti.addComponent(back);
