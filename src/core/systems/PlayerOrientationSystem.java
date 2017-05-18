@@ -1,6 +1,7 @@
 package core.systems;
 
 import core.Event;
+import core.model.Planet;
 import core.model.Player;
 import physics.RigidBody;
 import physics.Vector2D;
@@ -42,7 +43,15 @@ public class PlayerOrientationSystem extends SubSystem {
                 playerMatch = player;
                 break;
             }
-            if (playerBody != null && otherBody != null){
+            boolean isPlanet = false;
+            for (Planet planet : engine.getLevel().getPlanets()){
+                if (planet.getRigidBody() == otherBody){
+                    isPlanet = true;
+                    break;
+                }
+            }
+
+            if ( isPlanet && playerBody != null ){
                 Vector2D unit = otherBody.getPosition().minus(playerBody.getPosition());
                 playerMatch.setRotation(unit.angle());
                 playerMatch.setOn_ground(true);

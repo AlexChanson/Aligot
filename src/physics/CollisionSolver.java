@@ -80,7 +80,7 @@ public class CollisionSolver extends PhysicSolver {
                     impulse = (-(1+totalRestitution)*relativeSpeed.scalarProduct(unitOffset))/
                             ((1/pair.getLeft().getMass())+(1/pair.getRight().getMass()));
                     if ( !pair.getLeft().getStaticObject()){
-                        finalSpeedVector = pair.getLeft().getVelocity().add(unitOffset.multiply(impulse/pair.getLeft().getMass()));
+                        finalSpeedVector = pair.getLeft().getVelocity().minus(unitOffset.multiply(impulse/pair.getLeft().getMass()));
                         pair.getLeft().setVelocity(finalSpeedVector);
                         pair.getLeft().applyForce(pair.getLeft().getAppliedForce().projectOn(unitOffset).getOpposite());
                     }
