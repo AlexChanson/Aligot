@@ -11,9 +11,7 @@ import fsm.FiniteStateMachine;
 import core.solvers.Solver;
 import core.systems.SubSystem;
 import physics.*;
-
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashSet;
 
 /**

@@ -1,19 +1,23 @@
 package core.model;
 
 public class Ammunition {
-    public static int LASER = 2, BULLET = 1, EFFECT_FIRE = 40;
+    public static int LASER = 2, BULLET = 1, TENTACULE = 3, EFFECT_FIRE = 40;
+    public static float EPLOSION_SMALL = 5.0f, EXPLOSION_MEDIUM = 10.0f;
     private int damageBonus, type, effect;
+    private float explosionRadius;
 
-    public Ammunition(int damageBonus, int type, int effect) {
+    public Ammunition(int damageBonus, int type, int effect, float explosionRadius) {
         this.damageBonus = damageBonus;
         this.type = type;
         this.effect = effect;
+        this.explosionRadius = explosionRadius;
     }
 
     public Ammunition(int damageBonus) {
         this.damageBonus = damageBonus;
         type = 1;
         effect = -1;
+        explosionRadius = 0f;
     }
 
     @Override
@@ -28,7 +32,7 @@ public class Ammunition {
 
 
     public Ammunition copy(){
-        return new Ammunition(damageBonus,type,effect);
+        return new Ammunition(damageBonus,type,effect,explosionRadius);
     }
 
     public int getDamageBonus() {
@@ -43,5 +47,8 @@ public class Ammunition {
         return effect;
     }
 
-
+    @Override
+    public String toString() {
+        return "Ammo:\n{Bonus=" + damageBonus + ", Type=" + type + ", Effect=" + effect + ", ExplosionRadius=" + explosionRadius;
+    }
 }
