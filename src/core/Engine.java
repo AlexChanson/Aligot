@@ -35,7 +35,11 @@ public class Engine {
     public Engine(Level level, Player... players) {
         this.level = level;
         this.players = new ArrayList<>();
-        this.players.addAll(Arrays.asList(players));
+        for (Player p :
+                players) {
+            if (p != null)
+                this.players.add(p);
+        }
         initialize();
     }
 
@@ -51,7 +55,6 @@ public class Engine {
         physicsEngine.addSolver(collisionSolver);
         level.getPlanets().forEach(planet -> physicsEngine.addBody(planet.getRigidBody()));
         players.forEach(player -> physicsEngine.addBody(player.getRigidBody()));
-        //TODO initialize the finite state machine
         gameState = new FiniteStateMachine();
         gameState.addStates(new PlayerActingState(this),
                 new SimulationState(),

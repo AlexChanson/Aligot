@@ -107,6 +107,8 @@ public class GraphicsEngine {
         float screenWidth = Window.getWidth(), screenHeight = Window.getHeight();
         double ratio = Math.max(screenHeight / level.getMapSize()[1], screenWidth / level.getMapSize()[0]);
         Arrays.asList(players).forEach(player -> {
+            if (player == null)
+                return;
             Vector2D position = player.getRigidBody().getPosition();
             Texture playerTexture = Texture.getTexture(player.getTexture());
 

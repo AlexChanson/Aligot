@@ -14,6 +14,8 @@ import graphics.gui.GUI;
 import physics.RigidBody;
 import physics.Vector2D;
 import utility.Loader;
+import utility.Weapons;
+
 import java.util.logging.*;
 
 import static org.lwjgl.glfw.GLFW.glfwTerminate;
@@ -33,18 +35,19 @@ public class Game implements GameStart {
         Window.setRessourcesFolderPath(Loader.getSpriteFolderPath());
         LOGGER.log(java.util.logging.Level.CONFIG, "Set assets folder to : " + Loader.getSpriteFolderPath());
 
-        Window.init("Aligot", fullscreen);
+        Window.init("Space Warz - Gravity Fall", fullscreen);
         LOGGER.log(java.util.logging.Level.CONFIG, "Fullscreen: "+fullscreen+", width: "+screenWidth+", height: "+screenHeight);
 
         Window.setHeight(screenHeight);
         Window.setWidth(screenWidth);
 
+        // Setting up Two players
         RigidBody bodyPlayer1 = new RigidBody(new Vector2D(100,100),10, 70);
         RigidBody bodyPlayer2 = new RigidBody(new Vector2D(screenWidth-100,screenHeight-100),10, 70);
         bodyPlayer1.setFriction(0.95);
         bodyPlayer2.setFriction(0.95);
-        p1 = new Player(bodyPlayer1, "doomguy.png", firstPlayerName, 100);
-        p2 = new Player(bodyPlayer2, "doomguy.png", secondPlayerName, 100);
+        p1 = new Player(bodyPlayer1, "guy_ref.png", firstPlayerName, 100);
+        p2 = new Player(bodyPlayer2, "chick_ref.png", secondPlayerName, 100);
 
 
 
@@ -81,11 +84,26 @@ public class Game implements GameStart {
 
     public static void setLevel(Level level){
         currentLevel = level;
-        //TODO reset players properly
-        p1.setHealth(p1.getMaxHealth());
-        p2.setHealth(p2.getMaxHealth());
-        engine = null;
-        initEngine();
+        if(level != null && level.getChallenge() != null){
+            p1.setHealth(p1.getMaxHealth());
+            p2 = null;
+            p1.getInventory().clear();
+            //TODO Give Player challenge weapon
+            //p1.setCurrentWeapon();
+            engine = null;
+            initEngine();
+        } else if (level != null && level.getChallenge() == null){
+            p1.setHealth(p1.getMaxHealth());
+            p2.setHealth(p2.getMaxHealth());
+            p1.getInventory().clear();
+            p1.getInventory().addAll(Weapons.get());
+            p2.getInventory().clear();
+            p2.getInventory().addAll(Weapons.get());
+            engine = null;
+            initEngine();
+        } else {
+            engine = null;
+        }
     }
 
     public static Player getP1() {
