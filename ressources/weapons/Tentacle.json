@@ -1,16 +1,16 @@
 {
   "texture": "weapon_tentacle.png",
   "damageRange": [
-    10,
-    10
+    35,
+    40
   ],
   "ammo":
     {
-      "damageBonus": 2,
+      "damageBonus": 0,
       "type": 3,
-      "effect": 3
+      "effect": 0
     }
   ,
-  "name": "Tentakle",
-  "icon": ""
+  "name": "Tentacle",
+  "icon": "weapon_tentacle.png"
 }

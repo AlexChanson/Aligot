@@ -84,11 +84,11 @@ public class GUIBuilder {
         GUIMulti.addComponent(description);
         Label text = new Label("Number of celestial bodies", 4*(Window.getWidth()/10) - (int)(Window.getWidth()*0.17), Window.getHeight()/2 - (int)(Window.getHeight()*0.07), (int)(Window.getWidth()*0.35), (int)(Window.getHeight()*0.14), "text");
         GUIMulti.addComponent(text);
-        Label count = new Label ("---", 7*(Window.getWidth()/10), Window.getHeight() /2 - (int)(Window.getHeight()*0.10), (int)(Window.getWidth()*0.039), (int)(Window.getHeight()*0.27), "count");
+        Label count = new Label ("---", 7*(Window.getWidth()/10) -5, Window.getHeight() /2 - (int)(Window.getHeight()*0.08), (int)(Window.getWidth()*0.039), (int)(Window.getHeight()*0.27), "count");
         GUIMulti.addComponent(count);
-        Button up = new Button("button_up.png", "", 8*(Window.getWidth()/10) - buttonWidth / 2, Window.getHeight() /2 - buttonHeight /2 + (int)(Window.getHeight()*0.027), buttonWidth, buttonHeight, "up");
+        Button up = new Button("button_right.png", "", 8*(Window.getWidth()/10) - buttonWidth / 2, Window.getHeight() /2 - buttonHeight /2 + (int)(Window.getHeight()*0.06), buttonWidth - 15, buttonHeight - 20, "up");
         GUIMulti.addComponent(up);
-        Button down = new Button("button_down.png", "", 6*(Window.getWidth()/10) - buttonWidth / 2, Window.getHeight() /2 - buttonHeight/2 + (int)(Window.getHeight()*0.027), buttonWidth, buttonHeight,"down");
+        Button down = new Button("button_left.png", "", 6*(Window.getWidth()/10) - buttonWidth / 2, Window.getHeight() /2 - buttonHeight/2 + (int)(Window.getHeight()*0.06), buttonWidth - 15, buttonHeight - 20,"down");
         GUIMulti.addComponent(down);
         Button fight = new Button("button_fight.png", "",Window.getWidth() - (int)(Window.getWidth()*0.15), Window.getHeight() - (int)(Window.getHeight()*0.17), (int)(Window.getWidth()*0.11), (int)(Window.getHeight()*0.1), "fight");
         GUIMulti.addComponent(fight);
@@ -130,15 +130,15 @@ public class GUIBuilder {
             for (int i = 0; i < levels.size(); i++) {
                 if (levels.get(i).getChallenge().getDifficulty() == 1) {
                     GUIChallenges.addComponent(new Label("You chose easy mode, if you fail eternal shame will be brought upon you.", Window.getWidth() / 2 - (int) (Window.getWidth() * 0.33), Window.getHeight() / 7 - (int) (Window.getHeight() * 0.05), (int) (Window.getWidth() * 0.70), (int) (Window.getHeight() * 0.13), "description"));
-                    GUIChallenges.addComponent(new Button("button_blank.png", Integer.toString(i), (2 * i + 1) * (Window.getWidth() / 6) - buttonWidth / 2, Window.getHeight() / 2 - buttonHeight / 2, buttonWidth, buttonHeight, "easy" + i));
+                    GUIChallenges.addComponent(new Button("button_"+(i+1)+".png", "", (2 * i + 1) * (Window.getWidth() / 6) - buttonWidth / 2, Window.getHeight() / 2 - buttonHeight / 2, buttonWidth, buttonHeight, "easy" + i));
                 }
                 else if (levels.get(i).getChallenge().getDifficulty() == 2) {
                     GUIChallenges.addComponent(new Label("You chose medium mode, I'm not sure you'r worth better anyway", Window.getWidth() / 2 - (int) (Window.getWidth() * 0.33), Window.getHeight() / 7 - (int) (Window.getHeight() * 0.05), (int) (Window.getWidth() * 0.70), (int) (Window.getHeight() * 0.13), "description"));
-                    GUIChallenges.addComponent(new Button("button_blank.png", Integer.toString(i), (2 * i + 1) * (Window.getWidth() / 6) - buttonWidth / 2, Window.getHeight() / 2 - buttonHeight / 2, buttonWidth, buttonHeight, "medium" + i));
+                    GUIChallenges.addComponent(new Button("button_"+(i+1)+".png", "", (2 * i + 1) * (Window.getWidth() / 6) - buttonWidth / 2, Window.getHeight() / 2 - buttonHeight / 2, buttonWidth, buttonHeight, "medium" + i));
                 }
                 else if (levels.get(i).getChallenge().getDifficulty() == 3) {
                     GUIChallenges.addComponent(new Label("You chose hard, at least you enjoy a real challenge, but will you succeed ?", Window.getWidth() / 2 - (int) (Window.getWidth() * 0.33), Window.getHeight() / 7 - (int) (Window.getHeight() * 0.05), (int) (Window.getWidth() * 0.70), (int) (Window.getHeight() * 0.13), "description"));
-                    GUIChallenges.addComponent(new Button("button_blank.png", Integer.toString(i), (2 * i + 1) * (Window.getWidth() / 6) - buttonWidth / 2, Window.getHeight() / 2 - buttonHeight / 2, buttonWidth, buttonHeight, "hard" + i));
+                    GUIChallenges.addComponent(new Button("button_"+(i+1)+".png", "", (2 * i + 1) * (Window.getWidth() / 6) - buttonWidth / 2, Window.getHeight() / 2 - buttonHeight / 2, buttonWidth, buttonHeight, "hard" + i));
                 }
             }
         } else if (levels.size() > 3) {
@@ -158,8 +158,6 @@ public class GUIBuilder {
                             GUIChallenges.addComponent(new Button("button_blank.png", Integer.toString(iterator), (2 * j + 1) * (Window.getWidth() / 6) - buttonWidth / 2, (2 * i + 1) * Window.getHeight() / 4 - buttonHeight / 2, buttonWidth, buttonHeight, "hard" + iterator));
                         }
                         iterator++;
-                    } else {
-                        return;
                     }
                 }
             }

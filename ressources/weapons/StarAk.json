@@ -1,16 +1,16 @@
 {
   "texture": "weapon_ak47.png",
   "damageRange": [
-    10,
-    15
+    8,
+    10
   ],
   "ammo":
     {
-      "damageBonus": 2,
+      "damageBonus": 0,
       "type": 1,
-      "effect": 2
+      "effect": 0
     }
   ,
-  "name": "StarAK",
-  "icon": ""
+  "name": "Ak-47",
+  "icon": "weapon_ak47.png"
   }

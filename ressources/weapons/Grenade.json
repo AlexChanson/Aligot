@@ -1,16 +1,17 @@
 {
   "texture": "weapon_grenade.png",
   "damageRange": [
-    5,
+    15,
     20
   ],
   "ammo":
     {
-      "damageBonus": 2,
+      "damageBonus": 1,
       "type": 4,
-      "effect": 1
+      "effect": 0,
+      "explosionRadius": 3
     }
   ,
-  "name": "Fragor",
-  "icon": ""
+  "name": "Grenade",
+  "icon": "weapon_grenade.png"
 }

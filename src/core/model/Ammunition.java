@@ -11,7 +11,7 @@ public class Ammunition {
         this.type = type;
         this.effect = effect;
         this.explosionRadius = explosionRadius;
-    }
+}
 
     public Ammunition(int damageBonus) {
         this.damageBonus = damageBonus;
