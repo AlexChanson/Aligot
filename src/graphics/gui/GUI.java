@@ -1,6 +1,8 @@
 package graphics.gui;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 
 
 public class GUI {
@@ -27,6 +29,11 @@ public class GUI {
         }
     }
 
+    public void addComponents(GUIComponent ... guiComponents){
+        components.addAll(Arrays.asList(guiComponents));
+        Collections.sort(components);
+    }
+
     public void removeComponent(GUIComponent c) {
         components.remove(c);
     }
@@ -38,7 +45,8 @@ public class GUI {
     public Button getButtonById(String id) {
         for(int i=0;i<components.size();i++) {
             if (components.get(i).getId().equals(id)) {
-                return (Button) components.get(i);
+                if(components.get(i) instanceof Button)
+                    return (Button) components.get(i);
             }
         }
         return null;
@@ -47,7 +55,8 @@ public class GUI {
     public Label getLabelById(String id) {
         for (int i=0; i<components.size(); i++) {
             if(components.get(i).getId().equals(id)) {
-                return (Label) components.get(i);
+                if (components.get(i) instanceof Label)
+                    return (Label) components.get(i);
             }
         }
         return null;
@@ -55,5 +64,6 @@ public class GUI {
 
     public void setComponents(ArrayList<GUIComponent> components) {
         this.components = components;
+        Collections.sort(this.components);
     }
 }
