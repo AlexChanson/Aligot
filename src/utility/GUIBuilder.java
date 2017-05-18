@@ -4,6 +4,7 @@ import core.model.Level;
 import graphics.Window;
 import graphics.gui.Button;
 import graphics.gui.GUI;
+import graphics.gui.Image;
 import graphics.gui.Label;
 
 import java.util.ArrayList;
@@ -14,6 +15,9 @@ public class GUIBuilder {
     public static GUI getStart() {
         GUI GUIStart = new GUI();
         int buttonWidth = (int)(Window.getWidth()*0.40), buttonHeight = (int)(Window.getHeight()*0.25);
+        Image menu = new Image("menu_bg.png");
+        menu.setZ(-1);
+        GUIStart.addComponent(menu);
         Button start = new Button("button_start.png", "", Window.getWidth() / 2 - buttonWidth / 2, 4 * (Window.getHeight() / 7) - buttonHeight /2, buttonWidth, buttonHeight,"play");
         GUIStart.addComponent(start);
         Button exit = new Button("button_exit.png", "", Window.getWidth() / 2 - buttonWidth / 2, 6 * (Window.getHeight() / 7) - buttonHeight/2 , buttonWidth, buttonHeight,"exit");
