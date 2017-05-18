@@ -1,9 +1,11 @@
 package physics;
 
+import core.GraphicsEngine;
 import utility.Pair;
 
 import java.util.ArrayList;
 
+import static java.lang.Math.abs;
 import static java.lang.Math.min;
 import static jdk.nashorn.internal.objects.NativeMath.max;
 
@@ -12,7 +14,7 @@ import static jdk.nashorn.internal.objects.NativeMath.max;
  */
 public class CollisionSolver extends PhysicSolver {
     private ArrayList<CollisionListener> collisionListeners;
-    private double correctionAmount = 0.3;
+    private double correctionAmount = 0.9;
     private int iterrations=10;
 
     public CollisionSolver(){
@@ -23,77 +25,43 @@ public class CollisionSolver extends PhysicSolver {
     public void compute(Simulator sim, double dt) {
         ArrayList<Pair<RigidBody, RigidBody>> pairs = PhysicSolver.getCombination(sim.getBodies());
 
-        double distance;
-        double collisionTreshold;
-        double overlap;
-        double totalFriction;
-        double totalRestitution;
-        double impulse;
+        double distance = 0;
+        double collisionTreshold = 0;
+        double overlap = 0;
+        double totalFriction = 0;
+        double totalRestitution = 0;
+        double impulse = 0;
 
         Vector2D positionOffset;
         Vector2D correctionOffset;
-        Vector2D unitOffset;
+        Vector2D unitOffset = Vector2D.getNull();
         Vector2D finalSpeedVector;
-        Vector2D relativeSpeed; // B - A
+        Vector2D relativeSpeed = Vector2D.getNull(); // B - A
         Vector2D AVel;
         Vector2D BVel;
-        Vector2D tangent;
+        Vector2D tangent = Vector2D.getNull();
 
-        for (int i = 0; i < iterrations; i++){
-            for (Pair<RigidBody, RigidBody> pair: pairs){ // we are searching for all possible pairs of object colliding
-                positionOffset = pair.getRight().getPosition().minus(pair.getLeft().getPosition());
-                distance = positionOffset.norm();
-                collisionTreshold = pair.getLeft().getRadius() + pair.getRight().getRadius(); // the treshold is the sum of radiuses
-                overlap = distance - collisionTreshold; // how much the objects have penetrated each other
 
-                if ( distance <= collisionTreshold ){ // collision detected
+        for (Pair<RigidBody, RigidBody> pair: pairs){ // we are searching for all possible pairs of object colliding
+            positionOffset = pair.getRight().getPosition().minus(pair.getLeft().getPosition());
+            distance = positionOffset.norm();
+            collisionTreshold = pair.getLeft().getRadius() + pair.getRight().getRadius(); // the treshold is the sum of radiuses
+            overlap = distance - collisionTreshold; // how much the objects have penetrated each other
+
+            if ( distance <= collisionTreshold ){ // collision detected
+                for (int i = 0; i < iterrations; i++){
+                    positionOffset = pair.getRight().getPosition().minus(pair.getLeft().getPosition());
                     unitOffset = positionOffset.getNormalized();
                     tangent = new Vector2D(unitOffset); // used to calculate tangent friction
                     tangent.rotate90(true);
 
 
-                    totalRestitution = pair.getLeft().getRestitution()*pair.getRight().getRestitution();
+                    totalRestitution = min(pair.getLeft().getRestitution(), pair.getRight().getRestitution());
 
                     AVel = pair.getLeft().getVelocity();
                     BVel = pair.getRight().getVelocity();
                     relativeSpeed = BVel.minus(AVel);
                     correctionOffset = unitOffset.multiply(overlap).multiply(correctionAmount*0.5);
-
-                    if (relativeSpeed.scalarProduct(unitOffset) < 0){
-                        // impulse calculation
-                        impulse = (-(1+totalRestitution)*relativeSpeed.scalarProduct(unitOffset))/((1/pair.getLeft().getMass())+(1/pair.getRight().getMass()));
-                        if ( !pair.getLeft().getStaticObject()){
-                            finalSpeedVector = pair.getLeft().getVelocity().minus(unitOffset.multiply(impulse/pair.getLeft().getMass()));
-                            pair.getLeft().setVelocity(finalSpeedVector);
-                            pair.getLeft().applyForce(pair.getLeft().getAppliedForce().projectOn(unitOffset).getOpposite());
-                        }
-
-                        if ( !pair.getRight().getStaticObject()){
-                            finalSpeedVector = pair.getRight().getVelocity().add(unitOffset.multiply(impulse/pair.getRight().getMass()));
-                            pair.getRight().setVelocity(finalSpeedVector);
-                            pair.getRight().applyForce(pair.getRight().getAppliedForce().projectOn(unitOffset));
-                        }
-                    }
-
-
-
-                    totalFriction = pair.getLeft().getFriction()*pair.getRight().getFriction();
-                    double scalar = pair.getRight().getAppliedForce().scalarProduct(tangent);
-
-                    pair.getRight().applyForce(
-                            unitOffset.multiply(
-                                    -scalar).add(
-                                            pair.getRight().getVelocity().getOpposite().multiply(totalFriction*pair.getRight().getMass())
-                            )
-                    );
-
-                    scalar = pair.getLeft().getAppliedForce().scalarProduct(tangent);
-                    pair.getLeft().applyForce(
-                            unitOffset.multiply(
-                                    -scalar).add(
-                                        pair.getLeft().getVelocity().getOpposite().multiply(totalFriction*pair.getLeft().getMass())
-                            )
-                    );
 
                     if (!pair.getLeft().getStaticObject()){
                         pair.getLeft().setPosition(pair.getLeft().getPosition().add(correctionOffset.multiply(10/pair.getLeft().getMass())));
@@ -102,9 +70,61 @@ public class CollisionSolver extends PhysicSolver {
                         pair.getRight().setPosition(pair.getRight().getPosition().add(correctionOffset.getOpposite().multiply(10/pair.getRight().getMass())));
                     }
 
-                    for ( CollisionListener collisionListener : collisionListeners){
-                        collisionListener.handleCollision(pair, distance);
+
+                }
+                double scalarNormalSpeed = relativeSpeed.scalarProduct(unitOffset);
+
+                if (scalarNormalSpeed < 0){
+                    // impulse calculation
+                    impulse = (-(1+totalRestitution)*relativeSpeed.scalarProduct(unitOffset))/((1/pair.getLeft().getMass())+(1/pair.getRight().getMass()));
+                    if ( !pair.getLeft().getStaticObject()){
+                        finalSpeedVector = pair.getLeft().getVelocity().minus(unitOffset.multiply(impulse/pair.getLeft().getMass()));
+                        pair.getLeft().setVelocity(finalSpeedVector);
+                        pair.getLeft().applyForce(pair.getLeft().getAppliedForce().projectOn(unitOffset).getOpposite());
                     }
+
+                    if ( !pair.getRight().getStaticObject()){
+                        finalSpeedVector = pair.getRight().getVelocity().add(unitOffset.multiply(impulse/pair.getRight().getMass()));
+                        pair.getRight().setVelocity(finalSpeedVector);
+                        pair.getRight().applyForce(pair.getRight().getAppliedForce().projectOn(unitOffset));
+                    }
+                }
+                // impulse calculation
+                    /*
+                    Vector2D finalForce = positionOffset;
+                    if ( !pair.getLeft().getStaticObject()){
+                        pair.getLeft().applyForce(pair.getLeft().getAppliedForce().projectOn(unitOffset));
+                        pair.getLeft().setVelocity(pair.getLeft().getVelocity().projectOn(unitOffset.rotate90(true)));
+                        pair.getLeft().applyForce(positionOffset);
+                    }
+
+                    if ( !pair.getRight().getStaticObject()){
+                        pair.getRight().applyForce(pair.getRight().getAppliedForce().projectOn(unitOffset).getOpposite());
+                        pair.getRight().setVelocity(pair.getRight().getVelocity().projectOn(unitOffset.rotate90(true)));
+                        pair.getRight().applyForce(positionOffset.getOpposite());
+                    }
+                    */
+
+                totalFriction = pair.getLeft().getFriction()*pair.getRight().getFriction();
+                double scalar = abs(pair.getRight().getAppliedForce().scalarProduct(tangent));
+
+                pair.getRight().applyForce(
+                        unitOffset.multiply(
+                                -scalar).add(
+                                pair.getRight().getVelocity().getOpposite().multiply(totalFriction*pair.getRight().getMass())
+                        )
+                );
+
+                scalar = pair.getLeft().getAppliedForce().scalarProduct(tangent);
+                pair.getLeft().applyForce(
+                        unitOffset.multiply(
+                                -scalar).add(
+                                pair.getLeft().getVelocity().getOpposite().multiply(totalFriction*pair.getLeft().getMass())
+                        )
+                );
+
+                for ( CollisionListener collisionListener : collisionListeners){
+                    collisionListener.handleCollision(pair, distance);
                 }
             }
         }

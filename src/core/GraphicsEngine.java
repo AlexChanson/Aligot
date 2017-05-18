@@ -11,6 +11,7 @@ import graphics.Window;
 import graphics.gui.Button;
 import graphics.gui.GUI;
 import graphics.gui.GUIComponent;
+import physics.RigidBody;
 import physics.Vector2D;
 import utility.GUIBuilder;
 
@@ -20,6 +21,8 @@ import java.util.Arrays;
 public class GraphicsEngine {
     private ArrayList<GUIComponent> guiComponents;
     private FiniteStateMachine guiFSM;
+    public static boolean debugDisplay = true;
+    private static float screenLevelRatio;
 
     public GraphicsEngine() {
         guiComponents = new ArrayList<>();
@@ -40,18 +43,22 @@ public class GraphicsEngine {
                 new ExitState());
     }
 
+    public static float getScreenLevelRatio(){
+        return screenLevelRatio;
+    }
+
     public void drawLevel(Level level){
         if(level != null) {
             float screenWidth = Window.getWidth(), screenHeight = Window.getHeight();
-            double ratio = Math.max(screenHeight / level.getMapSize()[1], screenWidth / level.getMapSize()[0]);
+            screenLevelRatio = Math.max(screenHeight / level.getMapSize()[1], screenWidth / level.getMapSize()[0]);
 
             Window.drawSprite(level.getBgTexture(), 0, 0, screenWidth, screenHeight, 0f);
 
             level.getPlanets().forEach(planet -> {
                 Vector2D planetPos = planet.getRigidBody().getPosition();
-                float planetSize = (float) (planet.getRigidBody().getRadius() * 2 * ratio);
-                float posX = (float) (planetPos.getX() * ratio) - (planetSize / 2);
-                float posY = (float) (planetPos.getY() * ratio) - (planetSize / 2);
+                float planetSize = (float) (planet.getRigidBody().getRadius() * 2 * screenLevelRatio);
+                float posX = (float) (planetPos.getX() * screenLevelRatio) - (planetSize / 2);
+                float posY = (float) (planetPos.getY() * screenLevelRatio) - (planetSize / 2);
 
 
 
@@ -61,8 +68,8 @@ public class GraphicsEngine {
                         planetSize, planetSize, 0f);
 
                 if( planet.getTexture().equals("placeholder.png") ){
-                    Window.drawCircle((float) (planetPos.getX() * ratio),
-                            (float) (planetPos.getY() * ratio),
+                    Window.drawCircle((float) (planetPos.getX() * screenLevelRatio),
+                            (float) (planetPos.getY() * screenLevelRatio),
                             planetSize/2f,
                             255,0,0);
                 }
@@ -75,8 +82,8 @@ public class GraphicsEngine {
             if(level.getChallenge() != null){
                 float size = (float) Challenge.TARGET_SIZE;
                 level.getChallenge().getTargets().forEach((double[] target) -> {
-                    float x = (float) (target[0]*ratio - size/2);
-                    float y = (float) (target[1]*ratio - size/2);
+                    float x = (float) (target[0]*screenLevelRatio - size/2);
+                    float y = (float) (target[1]*screenLevelRatio - size/2);
                     Window.drawSprite("target.png", x, y, size, size,0f);
                 });
             }
@@ -133,18 +140,38 @@ public class GraphicsEngine {
                     playerTexture.getWidth(), playerTexture.getHeight(),
                     255,255,255);
 
+            if (debugDisplay){
+                RigidBody body = player.getRigidBody();
+                Vector2D pos = body.getPosition();
+                Vector2D velOffset = pos.add(body.getVelocity());
+                Vector2D accOffset = pos.add(body.getAcceleration().multiply(0.05));
+                Window.drawLine((float) (pos.getX()*ratio),
+                        (float)(pos.getY()*ratio),
+                        (float) (velOffset.getX()*ratio),
+                        (float) (velOffset.getY()*ratio), 1f, 0, 255, 0);
+                Window.drawLine((float) (pos.getX()*ratio),
+                        (float)(pos.getY()*ratio),
+                        (float) (accOffset.getX()*ratio),
+                        (float) (accOffset.getY()*ratio), 1f, 0, 0, 255);
+            }
+
             //TODO Weapon rendering
 
 
         });
     }
 
+
+
     public void drawProjectiles(Level level, ArrayList<Projectile> projectiles) {
         float screenWidth = Window.getWidth(), screenHeight = Window.getHeight();
         double ratio = Math.max(screenHeight / level.getMapSize()[1], screenWidth / level.getMapSize()[0]);
         projectiles.forEach(projectile -> {
             Vector2D position = projectile.getRigidBody().getPosition();
-            Window.drawCircle((float)(position.getX()*ratio), (float)(position.getY()*ratio), 10, 128,128,64);
+            Window.drawCircle((float)(position.getX()*ratio),
+                    (float)(position.getY()*ratio),
+                    (float) (projectile.getRigidBody().getRadius()*ratio),
+                    128,128,64);
         });
     }
 }

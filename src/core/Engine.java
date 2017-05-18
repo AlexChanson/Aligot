@@ -58,6 +58,16 @@ public class Engine {
                 new SimulationState(),
                 new EndGameState());
 
+        RigidBody r1 = new RigidBody(new Vector2D(100,100), 10, 50);
+        RigidBody r2 = new RigidBody(new Vector2D(300,100), 10, 50);
+        r1.setVelocity(new Vector2D(10, 0));
+        Projectile p1 = new Projectile(r1, "igroned", null, null, null);
+        Projectile p2 = new Projectile(r2, "igroned", null, null, null);
+        physicsEngine.addBody(r1);
+        physicsEngine.addBody(r2);
+        projectiles.add(p1);
+        projectiles.add(p2);
+
         putPlayersOnSpawns();
     }
 
@@ -117,7 +127,8 @@ public class Engine {
         }
     }
 
-    private void putPlayersOnSpawns(){
+    public void putPlayersOnSpawns(){
+        turns = 0;
         if(level != null && players.size() > 0){
             HashSet<Planet> spawns = new HashSet<>();
             level.getPlanets().forEach(planet -> {

@@ -5,10 +5,8 @@ import core.model.Level;
 import core.model.Player;
 import core.solvers.CollisionSolver;
 import core.solvers.PlayerMovementSolver;
-import core.systems.DebugSubSystem;
-import core.systems.FireSubSystem;
-import core.systems.PlayerMovementSystem;
-import core.systems.PlayerOrientationSystem;
+import core.solvers.RestartKeySolver;
+import core.systems.*;
 import graphics.Window;
 import graphics.gui.GUI;
 import physics.RigidBody;
@@ -123,8 +121,14 @@ public class Game implements GameStart {
             }catch (NullPointerException e){
                 LOGGER.log(java.util.logging.Level.WARNING, "Engine Init Failed");
             }
-            engine.registerSubSystems(new DebugSubSystem().ignore("TICK", "COLLISION"), new PlayerOrientationSystem(), new PlayerMovementSystem(), new FireSubSystem());
-            engine.registerSolvers(new PlayerMovementSolver(), new CollisionSolver());
+            engine.registerSubSystems(new DebugSubSystem().ignore("TICK", "COLLISION"),
+                    new PlayerOrientationSystem(),
+                    new PlayerMovementSystem(),
+                    new FireSubSystem(),
+                    new RestartSubSystem());
+            engine.registerSolvers(new PlayerMovementSolver(),
+                    new CollisionSolver(),
+                    new RestartKeySolver());
         }
     }
 

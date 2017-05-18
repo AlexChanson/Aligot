@@ -155,13 +155,14 @@ public class Vector2D {
      *
      * @param angle angle used to rotate in radiants, positive goes is the opposite rotation of a clock's
      */
-    public void rotate(double angle){
+    public Vector2D rotate(double angle){
         double x = this.x;
         this.x = this.x * Math.cos(angle) - this.y * Math.sin(angle);
         this.y =      x * Math.sin(angle) + this.y * Math.cos(angle);
+        return this;
     }
 
-    public void rotate90(boolean b){
+    public Vector2D rotate90(boolean b){
         double x = this.x;
         if (b){
             this.x = -this.y;
@@ -171,6 +172,7 @@ public class Vector2D {
             this.x = this.y;
             this.y =     -x;
         }
+        return this;
     }
 
     /**

@@ -26,7 +26,7 @@ public class RigidBody {
         this.position = position;
         this.radius = radius;
         this.mass = mass;
-        this.friction = 0.3;
+        this.friction = 0.8;
         velocity = new Vector2D(0, 0);
         acceleration = new Vector2D(0 , 0);
         appliedForce = new Vector2D(0,0);

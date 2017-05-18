@@ -61,8 +61,9 @@ public class Simulator {
                 }
                 body.updatePosition(dt);
 
-                body.resetAppliedForces(); // set forces applied to object to 0
+
             }
+            body.resetAppliedForces(); // set forces applied to object to 0
         }
     }
 

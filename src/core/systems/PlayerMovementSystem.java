@@ -28,7 +28,6 @@ public class PlayerMovementSystem extends SubSystem {
                 break;
             }
             case "PLAYER_MOVEMENT_ENDED": {
-                int direction = (int) event.data;
                 playerMovements.put(player, -1);
                 break;
             }
@@ -39,11 +38,11 @@ public class PlayerMovementSystem extends SubSystem {
                     int direction = playerMovements.get(player);
                     double orientation = player.getRotation();
                     if (direction == 0) {
-                        orientation += Math.PI / 2;
+                        orientation += 0.7+Math.PI / 2;
                         player.setLooking_right(true);
                     } else if (direction == 1) {
                         player.setLooking_right(false);
-                        orientation -= Math.PI / 2;
+                        orientation -= 0.7+Math.PI / 2;
                     }
                     RigidBody body = player.getRigidBody();
                     if (player.isOn_ground()) {
