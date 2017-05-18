@@ -39,7 +39,10 @@ public class LoopedSound implements Runnable {
             if (stop)
                 break;
             try {
-                bytesRead = audioStream.read(bytes, 0, bytes.length);
+                if (audioStream != null) {
+                    bytesRead = audioStream.read(bytes, 0, bytes.length);
+                }else
+                    break;
             } catch (IOException ignored) {
                 //Should not happen as we are reading from memory
             }

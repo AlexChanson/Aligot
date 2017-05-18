@@ -51,6 +51,7 @@ class PlaySound implements Runnable{
                     bytesRead = audioStream.read(bytes, 0, bytes.length);
                 } catch (IOException ignored) {
                     //Should not happen as we are reading from memory
+                    ignored.printStackTrace();
                 }
                 if (bytesRead >= 0)
                     sourceDataLine.write(bytes, 0, bytesRead);
