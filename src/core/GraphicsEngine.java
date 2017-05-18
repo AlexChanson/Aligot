@@ -1,5 +1,9 @@
 package core;
 
+import core.model.Challenge;
+import core.model.Level;
+import core.model.Player;
+import core.model.Projectile;
 import fsm.FiniteStateMachine;
 import fsm.GUIStates.*;
 import graphics.Texture;
@@ -8,7 +12,7 @@ import graphics.gui.Button;
 import graphics.gui.GUI;
 import graphics.gui.GUIComponent;
 import physics.Vector2D;
-import utility.Loader;
+import utility.GUIBuilder;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -24,12 +28,12 @@ public class GraphicsEngine {
     public void initGUI(){
         guiFSM = new FiniteStateMachine();
         guiFSM.addStates(
-                new StartState(GUI.getStart(), this),
-                new GameModsState(GUI.getGameMods(), this),
-                new MultiState(GUI.getMulti(), this),
-                new MultiPlayState(GUI.getMultiPlay(), this),
-                new ChallengePlayState(GUI.getChallengePlay(), this),
-                new ChallengeDifficultyState(GUI.getSelectChallenge(),this),
+                new StartState(GUIBuilder.getStart(), this),
+                new GameModsState(GUIBuilder.getGameMods(), this),
+                new MultiState(GUIBuilder.getMulti(), this),
+                new MultiPlayState(GUIBuilder.getMultiPlay(), this),
+                new ChallengePlayState(GUIBuilder.getChallengePlay(), this),
+                new ChallengeDifficultyState(GUIBuilder.getSelectChallenge(),this),
                 new ChallengesState(this,1),
                 new ChallengesState(this,2),
                 new ChallengesState(this,3),
@@ -117,11 +121,6 @@ public class GraphicsEngine {
             if ( player.isLooking_right() ){
                 sizeX *= -1;
             }
-
-            /*Window.drawCircle((float)(position.getX()*ratio),
-                    (float)(position.getY()*ratio),
-                    (float) (player.getRigidBody().getRadius()*ratio),
-                    128,128,64);*/
 
             Window.drawTexture(playerTexture,
                     posX, posY,

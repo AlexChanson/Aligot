@@ -1,4 +1,4 @@
-package core;
+package core.gamestates;
 
 import fsm.State;
 

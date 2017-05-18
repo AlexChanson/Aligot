@@ -1,5 +1,7 @@
 package core;
 
+import core.model.Level;
+import core.model.Planet;
 import physics.RigidBody;
 import physics.Vector2D;
 import java.util.ArrayList;

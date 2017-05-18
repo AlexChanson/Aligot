@@ -1,4 +1,4 @@
-package core;
+package core.model;
 
 public abstract class Item {
     protected String name, icon;

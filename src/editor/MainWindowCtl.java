@@ -1,9 +1,9 @@
 package editor;
 
 import com.google.gson.Gson;
-import core.Challenge;
-import core.Level;
-import core.Planet;
+import core.model.Challenge;
+import core.model.Level;
+import core.model.Planet;
 import core.LevelGen;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
@@ -16,7 +16,6 @@ import javafx.geometry.Insets;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
-import javafx.scene.input.DragEvent;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;

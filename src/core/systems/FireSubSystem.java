@@ -1,12 +1,8 @@
 package core.systems;
 
 import core.Event;
-import core.Player;
-import core.Projectile;
-import core.Weapon;
+import core.model.Player;
 import core.solvers.PlayerMovementSolver;
-import physics.RigidBody;
-import physics.Vector2D;
 
 import java.util.logging.Logger;
 

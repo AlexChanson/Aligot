@@ -1,6 +1,6 @@
 package utility;
 
-import core.Weapon;
+import core.model.Weapon;
 import java.util.ArrayList;
 
 public class Weapons {

@@ -1,7 +1,7 @@
 package core.systems;
 
 import core.Event;
-import core.Player;
+import core.model.Player;
 import physics.RigidBody;
 import physics.Vector2D;
 import utility.Pair;

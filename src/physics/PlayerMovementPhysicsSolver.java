@@ -1,8 +1,6 @@
 package physics;
 
-import core.Player;
-
-import java.util.ArrayList;
+import core.model.Player;
 
 /**
  * Created by ben on 16/05/17.

@@ -1,4 +1,4 @@
-package core;
+package core.model;
 
 public class Ammunition {
     public static int LASER = 2, BULLET = 1, EFFECT_FIRE = 40;

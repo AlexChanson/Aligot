@@ -1,5 +1,7 @@
-package core;
+package core.gamestates;
 
+import core.Engine;
+import core.Event;
 import fsm.State;
 
 /**

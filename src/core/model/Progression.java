@@ -1,4 +1,4 @@
-package core;
+package core.model;
 
 public class Progression {
 

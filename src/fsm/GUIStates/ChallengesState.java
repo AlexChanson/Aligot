@@ -1,14 +1,14 @@
 package fsm.GUIStates;
 
 import core.GraphicsEngine;
-import core.Level;
+import core.model.Level;
 import fsm.State;
 import gamelauncher.Game;
 import graphics.gui.Button;
 import graphics.gui.GUI;
 import graphics.gui.GUIButtonListener;
 import utility.Challenges;
-import utility.Loader;
+import utility.GUIBuilder;
 
 import java.util.ArrayList;
 
@@ -29,13 +29,13 @@ public class ChallengesState extends State {
     public void initialize() {
         levels.removeIf(level -> level.getChallenge().getDifficulty() != difficulty);
         if (difficulty == 1) {
-            challenges = GUI.getChallenges(1);
+            challenges = GUIBuilder.getChallenges(1);
         }
         if (difficulty == 2) {
-            challenges = GUI.getChallenges(2);
+            challenges = GUIBuilder.getChallenges(2);
         }
         if (difficulty == 3) {
-            challenges = GUI.getChallenges(3);
+            challenges = GUIBuilder.getChallenges(3);
         }
         for (int i=0; i<challenges.getComponents().size(); i++){
             guiButtonListeners.add(new GUIButtonListener());

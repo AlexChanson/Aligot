@@ -1,4 +1,4 @@
-package core;
+package core.model;
 
 public class Weapon extends Item{
     private String texture;

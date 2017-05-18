@@ -1,4 +1,4 @@
-package core;
+package core.model;
 
 import java.util.HashSet;
 

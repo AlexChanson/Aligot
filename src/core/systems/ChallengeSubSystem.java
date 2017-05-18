@@ -1,8 +1,8 @@
 package core.systems;
 
-import core.Challenge;
+import core.model.Challenge;
 import core.Event;
-import core.Projectile;
+import core.model.Projectile;
 import physics.*;
 import utility.Pair;
 

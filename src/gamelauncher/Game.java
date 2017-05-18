@@ -1,7 +1,8 @@
 package gamelauncher;
 
 import core.*;
-import core.Level;
+import core.model.Level;
+import core.model.Player;
 import core.solvers.CollisionSolver;
 import core.solvers.PlayerMovementSolver;
 import core.systems.DebugSubSystem;

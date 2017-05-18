@@ -1,7 +1,7 @@
 package utility;
 
 
-import core.Level;
+import core.model.Level;
 
 import java.util.ArrayList;
 
