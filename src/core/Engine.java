@@ -104,6 +104,8 @@ public class Engine {
         toDestroy.forEach(projectile -> {
             projectiles.remove(projectile);
             physicsEngine.removeBody(projectile.getRigidBody());
+            if(projectiles.size() == 0)
+                throwEvent(new Event("REMOVED_LAST_PROJECTILE"));
         });
     }
 
