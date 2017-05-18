@@ -24,6 +24,7 @@ public class PlayerMovementSolver extends Solver implements KeyboardListener{
     @Override
     public void handleKeyEvent(long window, int key, int scancode, int action, int mods) {
         if(action == GLFW.GLFW_PRESS) {
+            engine.throwEvent(new Event("KEY_PRESSED", key));
             switch (key) {
                 case GLFW.GLFW_KEY_LEFT:
                 case GLFW.GLFW_KEY_A:
@@ -35,6 +36,7 @@ public class PlayerMovementSolver extends Solver implements KeyboardListener{
                     break;
             }
         } else if (action == GLFW.GLFW_RELEASE){
+            engine.throwEvent(new Event("KEY_RELEASED", key));
             switch (key) {
                 case GLFW.GLFW_KEY_LEFT:
                 case GLFW.GLFW_KEY_A:

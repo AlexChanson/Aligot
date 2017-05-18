@@ -45,8 +45,10 @@ public class PlayerMovementSystem extends SubSystem {
                         orientation -= 0.7+Math.PI / 2;
                     }
                     RigidBody body = player.getRigidBody();
-                    if (player.isOn_ground()) {
-                        body.setVelocity(Vector2D.createFromAngle(40, orientation));
+                    if ( direction != -1 ){
+                        if (player.isOn_ground()) {
+                            body.setVelocity(Vector2D.createFromAngle(40, orientation));
+                        }
                     }
                 }
                 player.setOn_ground(false);

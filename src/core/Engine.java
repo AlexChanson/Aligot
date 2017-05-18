@@ -48,9 +48,10 @@ public class Engine {
         projectiles = new ArrayList<>();
         solvers = new ArrayList<>();
         physicsEngine.addSolver(new NewtonGravitationSolver(6.67e-11));
-        physicsEngine.addSolver(new AirDampingSolver(0.005,0.01));
+
         CollisionSolver collisionSolver = new CollisionSolver();
         physicsEngine.addSolver(collisionSolver);
+        physicsEngine.addSolver(new AirDampingSolver(0.005,0.01));
         level.getPlanets().forEach(planet -> physicsEngine.addBody(planet.getRigidBody()));
         players.forEach(player -> physicsEngine.addBody(player.getRigidBody()));
         gameState = new FiniteStateMachine();
@@ -177,6 +178,11 @@ public class Engine {
 
     public void setTurns(int turns) { // this shouldn't be used, maybe delete it?
         this.turns = turns;
+    }
+
+    public int nextTurn(){
+        turns += 1;
+        return turns;
     }
 
     public Simulator getPhysicsEngine() {
