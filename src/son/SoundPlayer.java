@@ -53,6 +53,13 @@ public class SoundPlayer {
         looped.remove(l);
     }
 
+    public static void stopLoopAtEnd(String soundName){
+        LoopedSound l = looped.get(soundName);
+        if (l == null)
+            return;
+        l.timedStop();
+    }
+
     public static void pause(String soundName){
        PlaySound p = playing.get(soundName);
         if(p == null)

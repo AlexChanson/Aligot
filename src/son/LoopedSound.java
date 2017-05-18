@@ -5,7 +5,7 @@ import java.io.IOException;
 
 public class LoopedSound implements Runnable {
     private final static int BUFFER_SIZE = 128000;
-    private volatile boolean stop = false;
+    private volatile boolean stop = false, timedStop = false;
     private AudioInputStream audioStream;
     private String name;
 
@@ -49,6 +49,8 @@ public class LoopedSound implements Runnable {
             if (bytesRead >= 0)
                 sourceDataLine.write(bytes, 0, bytesRead);
             else{
+                if (timedStop)
+                    break;
                 bytesRead = 0;
                 bytes = new byte[BUFFER_SIZE];
                 audioStream = SoundBank.get(name);
@@ -63,6 +65,10 @@ public class LoopedSound implements Runnable {
 
     void stop() {
         stop = true;
+    }
+
+    void timedStop(){
+        timedStop = true;
     }
 
 }
