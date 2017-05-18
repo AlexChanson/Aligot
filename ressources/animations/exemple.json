@@ -1,10 +1,10 @@
 {
-  "texture" : [
+  "textures" : [
     "exemple_anim_1.png",
     "exemple_anim_2.png",
     "exemple_anim_3.png"
   ],
-  "duration" : [
+  "durations" : [
     0.5,
     0.5,
     0.5
