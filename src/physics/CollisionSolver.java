@@ -82,13 +82,11 @@ public class CollisionSolver extends PhysicSolver {
                     if ( !pair.getLeft().getStaticObject()){
                         finalSpeedVector = pair.getLeft().getVelocity().minus(unitOffset.multiply(impulse/pair.getLeft().getMass()));
                         pair.getLeft().setVelocity(finalSpeedVector);
-                        pair.getLeft().applyForce(pair.getLeft().getAppliedForce().projectOn(unitOffset).getOpposite());
                     }
 
                     if ( !pair.getRight().getStaticObject()){
                         finalSpeedVector = pair.getRight().getVelocity().add(unitOffset.multiply(impulse/pair.getRight().getMass()));
                         pair.getRight().setVelocity(finalSpeedVector);
-                        pair.getRight().applyForce(pair.getRight().getAppliedForce().projectOn(unitOffset));
                     }
                 }
 
@@ -96,7 +94,7 @@ public class CollisionSolver extends PhysicSolver {
                 double scalar = abs(pair.getRight().getAppliedForce().scalarProduct(tangent));
 
                 pair.getRight().applyForce(pair.getRight().getVelocity().getOpposite().projectOn(tangent).multiply(totalFriction*pair.getRight().getMass()));
-                pair.getLeft().applyForce(pair.getLeft().getVelocity().getOpposite().projectOn(tangent).multiply(totalFriction*pair.getLeft().getMass()));
+                pair.getLeft().applyForce(pair.getLeft().getVelocity().projectOn(tangent).multiply(totalFriction*pair.getLeft().getMass()));
 
                 for ( CollisionListener collisionListener : collisionListeners){
                     collisionListener.handleCollision(pair, distance);
