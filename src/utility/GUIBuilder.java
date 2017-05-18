@@ -14,20 +14,26 @@ public class GUIBuilder {
 
     public static GUI getStart() {
         GUI GUIStart = new GUI();
-        int buttonWidth = (int)(Window.getWidth()*0.40), buttonHeight = (int)(Window.getHeight()*0.25);
-        Image menu = new Image("menu_bg.png");
-        menu.setZ(-1);
-        GUIStart.addComponent(menu);
-        Button start = new Button("button_start.png", "", Window.getWidth() / 2 - buttonWidth / 2, 4 * (Window.getHeight() / 7) - buttonHeight /2, buttonWidth, buttonHeight,"play");
+        int buttonWidth = (int)(Window.getWidth()*0.3), buttonHeight = (int)(Window.getHeight()*0.20);
+        Button start = new Button("button_start.png", "", Window.getWidth() / 2 - buttonWidth / 2, 4 * (Window.getHeight() / 7) - buttonHeight /3, buttonWidth, buttonHeight,"play");
         GUIStart.addComponent(start);
         Button exit = new Button("button_exit.png", "", Window.getWidth() / 2 - buttonWidth / 2, 6 * (Window.getHeight() / 7) - buttonHeight/2 , buttonWidth, buttonHeight,"exit");
         GUIStart.addComponent(exit);
+        Image logo = new Image("logo.png", Window.getWidth() /4 - (Window.getHeight()/2)/12, Window.getHeight()/7 - buttonHeight/2, 3*(Window.getWidth()/5), Window.getHeight()/2);
+        logo.setZ(-1);
+        GUIStart.addComponent(logo);
+        Image menu = new Image("menu_bg.png");
+        menu.setZ(-2);
+        GUIStart.addComponent(menu);
         return GUIStart;
     }
 
     public static GUI getGameMods() {
         GUI GUIGameMods = new GUI();
         int buttonWidth = 600, buttonHeight = 250;
+        Image menu = new Image("menu_bg.png");
+        menu.setZ(-1);
+        GUIGameMods.addComponent(menu);
         Button solo = new Button("button_solo.png", "", Window.getWidth() / 2 - buttonWidth / 2, Window.getHeight() / 4 - buttonHeight / 2, buttonWidth, buttonHeight,"solo");
         GUIGameMods.addComponent(solo);
         Button multi = new Button("button_multi.png", "", Window.getWidth() / 2 - buttonWidth / 2, 3 * (Window.getHeight() / 4) - buttonHeight / 2, buttonWidth, buttonHeight,"multi");
@@ -40,6 +46,9 @@ public class GUIBuilder {
     public static GUI getSelectChallenge() {
         GUI GUISelectChallenge = new GUI();
         int buttonWidth = 400, buttonHeight = 200;
+        Image menu = new Image("menu_bg.png");
+        menu.setZ(-1);
+        GUISelectChallenge.addComponent(menu);
         Label description = new Label ("Hit all targets with a minimum\nof bullets to reach the highest score", Window.getWidth()/2 - 425, Window.getHeight()/7 - 75,900,100,"description");
         GUISelectChallenge.addComponent(description);
         Button easyChallenge = new Button("button_easy.png", "", Window.getWidth() / 6 - buttonWidth / 2, Window.getHeight() / 2 - buttonHeight / 2, buttonWidth, buttonHeight, "easy");
@@ -55,6 +64,9 @@ public class GUIBuilder {
 
     public static GUI getChallenges(int difficulty) {
         GUI GUIChallenges = new GUI();
+        Image menu = new Image("menu_bg.png");
+        menu.setZ(-1);
+        GUIChallenges.addComponent(menu);
         ArrayList<Level> levels = Challenges.get().stream().filter(level -> level.getChallenge().getDifficulty() == difficulty).collect(Collectors.toCollection(ArrayList::new));
         getGUIButtonsPlacementsByDifficulty(GUIChallenges, levels);
         Button back = new Button("button_back.png","", 50, Window.getHeight() - 100, 100, 50, "back");
@@ -65,6 +77,9 @@ public class GUIBuilder {
     public static GUI getMulti () {
         GUI GUIMulti = new GUI();
         int buttonWidth = 100, buttonHeight = 100;
+        Image menu = new Image("menu_bg.png");
+        menu.setZ(-1);
+        GUIMulti.addComponent(menu);
         Label description = new Label("Select how many celestial bodies to generate", Window.getWidth()/2 - 425, Window.getHeight()/7 - 75, 900,100, "description");
         GUIMulti.addComponent(description);
         Label text = new Label("Number of celestial bodies", 4*(Window.getWidth()/10) - 225, Window.getHeight()/2 - 50, 450, 100, "text");
