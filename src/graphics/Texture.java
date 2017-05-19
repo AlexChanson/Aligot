@@ -45,8 +45,10 @@ public class Texture {
             this.width = t.width;
         }
         else {
-            generate();
-            generatedTexture.put(path, this);
+            boolean success = generate();
+            if (success){
+                generatedTexture.put(path, this);
+            }
         }
     }
 
@@ -62,7 +64,6 @@ public class Texture {
             }
 
             Texture tex = new Texture(path);
-            generatedTexture.put(path, tex);
             return tex;
         }
     }
@@ -71,7 +72,7 @@ public class Texture {
         return generatedTexture.containsKey(path) | generatedTexture.containsKey(Loader.getSpriteFolderPath()+path);
     }
 
-    private void generate() {
+    private boolean generate() {
         IntBuffer w, h, comp;
         w = BufferUtils.createIntBuffer(1);
         h = BufferUtils.createIntBuffer(1);
@@ -83,6 +84,7 @@ public class Texture {
             image = stbi_load(Loader.getSpriteFolderPath()+this.path, w, h, comp, 4);
             if ( image == null){
                 System.out.println("Error: " + stbi_failure_reason() + " , file:" + this.path);
+                return false;
             }
         }
 
@@ -99,6 +101,7 @@ public class Texture {
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, this.width, this.height, 0, GL_RGBA, GL_UNSIGNED_BYTE, image);
+        return true;
     }
 
     public boolean equals(Object obj) {
