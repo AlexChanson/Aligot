@@ -3,6 +3,10 @@ package son;
 import javax.sound.sampled.*;
 import java.io.IOException;
 
+/**
+ * internal class for threading
+ * @author Alexandre Chanson
+ */
 class LoopedSound implements Runnable {
     private final static int BUFFER_SIZE = 128000;
     private volatile boolean stop = false, timedStop = false;

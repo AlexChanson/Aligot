@@ -5,13 +5,7 @@ import core.model.Level;
 import fsm.State;
 import gamelauncher.Game;
 import graphics.Window;
-import graphics.gui.Button;
-import graphics.gui.GUI;
-import graphics.gui.GUIButtonListener;
-import graphics.gui.Label;
-import utility.Challenges;
-import utility.GUIBuilder;
-
+import graphics.gui.*;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 

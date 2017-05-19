@@ -9,6 +9,7 @@ import javax.sound.sampled.SourceDataLine;
 
 /**
  * Internal class for threading
+ * @author Alexandre Chanson
  */
 class PlaySound implements Runnable{
 

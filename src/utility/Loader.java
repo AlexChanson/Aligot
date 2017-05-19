@@ -18,6 +18,13 @@ import java.util.stream.Collectors;
 public class Loader {
     private static String ressourcesPath = System.getProperty("user.dir") + File.separator + "ressources" + File.separator + "assets" + File.separator;
 
+    /**
+     * Deserialize all Json files inside a directory into an list of objects
+     * @param type the type of objects expected
+     * @param folder the name of the folder containing the json files (relative to jar root)
+     * @param <T> the object type
+     * @return a list of objects corresponding to the json files
+     */
     public static <T> ArrayList<T> loadAll(Class<T> type, String folder){
         System.out.println("LOADER: Loading all " + type.getName());
         System.out.println("--- --- Reporting CallStack --- ---");
@@ -51,6 +58,12 @@ public class Loader {
         return stuff;
     }
 
+    /**
+     * Internal for loading files in the dev environment
+     * @param dirPath the name of the directory
+     * @return an array of string containing the json code
+     * @throws IOException if something goes wrong during file access
+     */
     private static String[] loadFromDir(String dirPath) throws IOException{
         String folder = System.getProperty("user.dir")+File.separator+"ressources"+File.separator+dirPath;
         File dir = new File(folder);
@@ -63,7 +76,14 @@ public class Loader {
         return result;
     }
 
-    private static String[] loadFromJar(String dirPath) throws Exception {
+    /**
+     * Loads json files from jarfile (used in production)
+     * @param dirPath the name of the directory placed at the root of the jar file
+     * @return an array of string containing the json code
+     * @throws IOException if file corrupted, or directory invalid
+     * @throws URISyntaxException if path to file is incorrect
+     */
+    private static String[] loadFromJar(String dirPath) throws IOException, URISyntaxException {
         ArrayList<String> result = new ArrayList<>();
         JarFile jarFile = new JarFile(Loader.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath());
         Enumeration<JarEntry> e = jarFile.entries();
@@ -83,6 +103,10 @@ public class Loader {
         return result.toArray(new String[result.size()]);
     }
 
+    /**
+     * Extracts the assets compressed inside the jar file to the user temp directory
+     * this is necessary to use stbi_load to load images
+     */
     public static void decompileAssets(){
         JarFile jarFile = null;
         String pathToJar = "";
