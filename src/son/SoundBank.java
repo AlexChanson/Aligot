@@ -13,6 +13,7 @@ import java.util.HashSet;
 
 /**
  * Internal class for loading files in memory
+ * @author Alexandre Chanson
  */
 class SoundBank {
     private static HashMap<String, byte[]> data;

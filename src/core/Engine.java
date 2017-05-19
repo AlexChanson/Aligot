@@ -7,18 +7,21 @@ import core.model.Level;
 import core.model.Planet;
 import core.model.Player;
 import core.model.Projectile;
+import core.solvers.PlayerMovementSolver;
 import fsm.FiniteStateMachine;
 import core.solvers.Solver;
 import core.systems.SubSystem;
 import physics.*;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.logging.Logger;
 
 /**
  * The Game engine, binds the physics with the game mechanics and processes events
  * @author Alexandre 
  */
 public class Engine {
+    private final static Logger LOGGER = Logger.getLogger(PlayerMovementSolver.class.getName());
     private FiniteStateMachine gameState;
     private Simulator physicsEngine;
     private ArrayList<Solver> solvers;
@@ -41,6 +44,9 @@ public class Engine {
         initialize();
     }
 
+    /**
+     * Handling some of the engine initialization just in case I need two or more constructors
+     */
     private void initialize(){
         gameState = new FiniteStateMachine();
         physicsEngine = new Simulator();
@@ -58,16 +64,6 @@ public class Engine {
         gameState.addStates(new PlayerActingState(this),
                 new SimulationState(),
                 new EndGameState());
-
-        RigidBody r1 = new RigidBody(new Vector2D(100,100), 10, 50);
-        RigidBody r2 = new RigidBody(new Vector2D(300,100), 10, 50);
-        r1.setVelocity(new Vector2D(10, 0));
-        Projectile p1 = new Projectile(r1, "igroned", null, null, null);
-        Projectile p2 = new Projectile(r2, "igroned", null, null, null);
-        physicsEngine.addBody(r1);
-        physicsEngine.addBody(r2);
-        projectiles.add(p1);
-        projectiles.add(p2);
 
         putPlayersOnSpawns();
     }
@@ -104,14 +100,32 @@ public class Engine {
         toDestroy.forEach(projectile -> {
             projectiles.remove(projectile);
             physicsEngine.removeBody(projectile.getRigidBody());
+            if(projectiles.size() == 0)
+                throwEvent(new Event("REMOVED_LAST_PROJECTILE"));
         });
     }
 
 
+    /**
+     * Throws an event to all SubSystems of the Engine
+     * @param event The event to be forwarded to the subsystems
+     */
     public void throwEvent(Event event){
-        systems.forEach(solver -> solver.handleEvent(event));
+        systems.forEach(solver -> {
+            try {
+                solver.handleEvent(event);
+            }catch (Exception e){
+                LOGGER.severe(solver.getClass().getName() + " Has thrown an Exception !");
+                e.printStackTrace();
+            }
+        });
     }
 
+    /**
+     * Register subsystems to the engine
+     * @param subSystems The SubSystem(s) to be registered
+     *                   (order will determine which receives events firs)
+     */
     public void registerSubSystems(SubSystem... subSystems){
         for(SubSystem ss : subSystems){
             ss.setEngine(this);
@@ -120,6 +134,10 @@ public class Engine {
         }
     }
 
+    /**
+     * Registers the Input Solvers to the engine
+     * @param solvers The Solver(s) to be registered
+     */
     public void registerSolvers(Solver... solvers){
         for (Solver solv : solvers){
             solv.setEngine(this);
@@ -128,6 +146,10 @@ public class Engine {
         }
     }
 
+
+    /**
+     * This is called at the end of the initialization to place players on the spawns
+     */
     public void putPlayersOnSpawns(){
         turns = 0;
         if(level != null && players.size() > 0){
@@ -182,6 +204,7 @@ public class Engine {
 
     public int nextTurn(){
         turns += 1;
+        throwEvent(new Event("TURN_CHANGED", turns));
         return turns;
     }
 

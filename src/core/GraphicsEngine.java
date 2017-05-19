@@ -1,9 +1,6 @@
 package core;
 
-import core.model.Challenge;
-import core.model.Level;
-import core.model.Player;
-import core.model.Projectile;
+import core.model.*;
 import fsm.FiniteStateMachine;
 import fsm.GUIStates.*;
 import graphics.Texture;
@@ -13,7 +10,7 @@ import graphics.gui.GUI;
 import graphics.gui.GUIComponent;
 import physics.RigidBody;
 import physics.Vector2D;
-import utility.GUIBuilder;
+import utility.Challenges;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -21,7 +18,7 @@ import java.util.Arrays;
 public class GraphicsEngine {
     private ArrayList<GUIComponent> guiComponents;
     private FiniteStateMachine guiFSM;
-    public static boolean debugDisplay = true;
+    public static boolean debugDisplay = false;
     private static float screenLevelRatio;
 
     public GraphicsEngine() {
@@ -31,20 +28,17 @@ public class GraphicsEngine {
     public void initGUI(){
         guiFSM = new FiniteStateMachine();
         guiFSM.addStates(
-                new StartState(GUIBuilder.getStart(), this),
-                new GameModsState(GUIBuilder.getGameMods(), this),
-                new MultiState(GUIBuilder.getMulti(), this),
-                new MultiPlayState(GUIBuilder.getMultiPlay(), this),
-                new ChallengePlayState(GUIBuilder.getChallengePlay(), this),
-                new ChallengeDifficultyState(GUIBuilder.getSelectChallenge(),this),
-                new ChallengesState(this,1),
-                new ChallengesState(this,2),
-                new ChallengesState(this,3),
+                new StartState(this),
+                new GameModsState(this),
+                new MultiState(this),
+                new MultiPlayState(this),
+                new ChallengePlayState(this),
+                new ChallengeDifficultyState(this),
+                new ChallengesState(this, Challenges.get(), 1),
+                new ChallengesState(this,Challenges.get(), 2),
+                new ChallengesState(this,Challenges.get(), 3),
                 new ExitState());
-    }
-
-    public static float getScreenLevelRatio(){
-        return screenLevelRatio;
+        guiFSM.setInitialState("start");
     }
 
     public void drawLevel(Level level){
@@ -71,7 +65,7 @@ public class GraphicsEngine {
                     Window.drawCircle((float) (planetPos.getX() * screenLevelRatio),
                             (float) (planetPos.getY() * screenLevelRatio),
                             planetSize/2f,
-                            255,0,0);
+                            100,100,0);
                 }
 
 
@@ -110,9 +104,10 @@ public class GraphicsEngine {
         return guiComponents;
     }
 
-    public void drawPlayers(Level level, Player... players) {
+    public void drawPlayers(Level level, Player actualPlayer ,Player... players) {
         float screenWidth = Window.getWidth(), screenHeight = Window.getHeight();
         double ratio = Math.max(screenHeight / level.getMapSize()[1], screenWidth / level.getMapSize()[0]);
+
         Arrays.asList(players).forEach(player -> {
             if (player == null)
                 return;
@@ -127,35 +122,65 @@ public class GraphicsEngine {
             float posX = (float) (position.getX()*ratio - sizeX);
             float posY = (float) (position.getY()*ratio - sizeY);
 
-            if ( player.isLooking_right() ){
+            if ( !player.isLooking_right() ){
                 sizeX *= -1;
             }
 
             Window.drawTexture(playerTexture,
                     posX, posY,
                     sizeX*2, sizeY*2,
-                    (float)((player.getRotation()-Math.PI/2)*180/Math.PI),
+                    (float)((player.getRotation()-90)),
                     1f,
                     0, 0,
                     playerTexture.getWidth(), playerTexture.getHeight(),
                     255,255,255);
 
+            RigidBody body = player.getRigidBody();
+            Vector2D pos = body.getPosition();
+            Vector2D velOffset = pos.add(body.getVelocity());
+            Vector2D accOffset = pos.add(body.getAcceleration().multiply(0.05));
+            float playerPosX = (float) (pos.getX()*ratio);
+            float playerPosY = (float)(pos.getY()*ratio);
             if (debugDisplay){
-                RigidBody body = player.getRigidBody();
-                Vector2D pos = body.getPosition();
-                Vector2D velOffset = pos.add(body.getVelocity());
-                Vector2D accOffset = pos.add(body.getAcceleration().multiply(0.05));
-                Window.drawLine((float) (pos.getX()*ratio),
-                        (float)(pos.getY()*ratio),
+                Window.drawLine(playerPosX,
+                        playerPosY,
                         (float) (velOffset.getX()*ratio),
                         (float) (velOffset.getY()*ratio), 1f, 0, 255, 0);
                 Window.drawLine((float) (pos.getX()*ratio),
                         (float)(pos.getY()*ratio),
                         (float) (accOffset.getX()*ratio),
                         (float) (accOffset.getY()*ratio), 1f, 0, 0, 255);
+                Window.drawText("r:"+Double.toString(player.getRotation()),
+                        playerPosX+20f,
+                        playerPosY+20f,
+                        20f, 200f, 0, 0,255,255, true);
             }
 
+            Texture viseurTexture = Window.getTexture("viseur-01.png");
+            float scale = 0.1f;
+            float ciblePosX = playerPosX - scale*viseurTexture.getWidth()/2;
+            float ciblePosY = playerPosY - scale*viseurTexture.getHeight()/2;
+            if (player == actualPlayer){
+                Window.drawSpriteRotate("viseur-01.png",
+                        ciblePosX,
+                        ciblePosY,
+                        (float)(60f),
+                        0f, (float)(player.getGlobalWeaponOrientation()-90),1f,1f, scale );
+            }
             //TODO Weapon rendering
+            scale = 0.07f;
+            Weapon weapon = player.getCurrentWeapon();
+            float scaleX =  player.isLooking_right() ? 1 : -1;
+            Texture weaponTexture = Window.getTexture(weapon.getTexture());
+            float weaponPosX = playerPosX - scale*weaponTexture.getWidth()/2;
+            float weaponPosY = playerPosY - scale*weaponTexture.getHeight()/2;
+            if (weapon != null){
+                Window.drawSpriteRotate(weapon.getTexture(),
+                        weaponPosX,
+                        weaponPosY,
+                        10f,
+                        0f, (float)(player.getGlobalWeaponOrientation()-90), 1f, scaleX, scale );
+            }
 
 
         });
@@ -168,10 +193,20 @@ public class GraphicsEngine {
         double ratio = Math.max(screenHeight / level.getMapSize()[1], screenWidth / level.getMapSize()[0]);
         projectiles.forEach(projectile -> {
             Vector2D position = projectile.getRigidBody().getPosition();
-            Window.drawCircle((float)(position.getX()*ratio),
-                    (float)(position.getY()*ratio),
-                    (float) (projectile.getRigidBody().getRadius()*ratio),
-                    128,128,64);
+            float size = (float) (projectile.getRigidBody().getRadius() * ratio * 2);
+            Texture t = new Texture(projectile.getTexture());
+            if(projectile.getTexture().equals("") || !Texture.textureLoaded(projectile.getTexture())) {
+                Window.drawCircle((float) (position.getX() * ratio),
+                        (float) (position.getY() * ratio),
+                        (float) (projectile.getRigidBody().getRadius() * ratio),
+                        255, 64, 64);
+            }
+            else {
+                Window.drawSprite(projectile.getTexture(),
+                        (float) (position.getX() * ratio) - size/2,
+                        (float) (position.getY() * ratio) - size/2,
+                        size, size, 1f);
+            }
         });
     }
 }

@@ -1,14 +1,12 @@
 package core.systems;
 
 import core.Event;
+import core.GraphicsEngine;
 import core.model.Player;
-import gamelauncher.Game;
+import core.model.Projectile;
 import org.lwjgl.glfw.GLFW;
 import physics.Vector2D;
 
-/**
- * Created by ben on 18/05/17.
- */
 public class DebugCommandsSubSystem extends SubSystem {
     @Override
     public void initialize() {
@@ -21,14 +19,32 @@ public class DebugCommandsSubSystem extends SubSystem {
             case "RESTART_GAME":
                 engine.putPlayersOnSpawns();
                 break;
+            case "KEY_PRESSED_CONTINUOUS":
+                switch ((int)event.data){
+                    case GLFW.GLFW_KEY_F:
+                        Player player = engine.getActivePlayer();
+                        player.getRigidBody().setVelocity(Vector2D.createFromAngle(50, Math.PI+Math.PI*player.getRotation()/180));
+                        break;
+
+                }
+                break;
             case "KEY_PRESSED":
                 switch ((int)event.data){
                     case GLFW.GLFW_KEY_C:
                         engine.nextTurn();
                         break;
-                    case GLFW.GLFW_KEY_UP:
-                        Player player = engine.getActivePlayer();
-                        player.getRigidBody().setVelocity(Vector2D.createFromAngle(50, Math.PI-player.getRotation()));
+                    case GLFW.GLFW_KEY_F3:
+                        GraphicsEngine.debugDisplay = !GraphicsEngine.debugDisplay;
+                        break;
+                    case GLFW.GLFW_KEY_T:
+                        engine.throwEvent(new Event("FIRE", null));
+                        break;
+                    case GLFW.GLFW_KEY_Y:
+                        for (Projectile projectile : engine.getProjectiles()){
+                            engine.getPhysicsEngine().removeBody(projectile.getRigidBody());
+                        }
+                        engine.getProjectiles().clear();
+                        engine.throwEvent(new Event("REMOVED_LAST_PROJECTILE"));
                         break;
                 }
                 break;

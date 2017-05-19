@@ -10,6 +10,7 @@ public class FiniteStateMachine {
     private HashMap<String, State> states;
     private Boolean end;
     private String state;
+    private boolean init = false;
 
     public FiniteStateMachine(){
         end = false;
@@ -50,6 +51,16 @@ public class FiniteStateMachine {
     public void setState(State state){
         if ( states.containsValue(state) ){
             this.state = state.getStateName();
+        }
+    }
+
+    public void setInitialState(String stateName){
+        if(!init){
+            if ( states.containsKey(stateName) ){
+                this.state = stateName;
+                this.states.get(stateName).onEnter();
+                init = true;
+            }
         }
     }
 

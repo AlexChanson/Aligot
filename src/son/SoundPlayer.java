@@ -5,13 +5,17 @@ import java.util.HashMap;
 
 /**
  * Provides a simple way to play wav sounds to other game components
- * -------------------------------------------------------------------->  DO NOT TOUCH ANYTHING ! (except Ben)
- */
+ * @author Alexandre Chanson
+**/
 public class SoundPlayer {
     private static HashMap<String, PlaySound> playing = new HashMap<>();
     private static HashMap<String, PlaySound> paused = new HashMap<>();
     private static HashMap<String, LoopedSound> looped = new HashMap<>();
 
+    /**
+     * Plays a wav file contained in the asset folder of the game
+     * @param soundName the name of the wav file without .wav
+     */
     public static void play(String soundName){
         AudioInputStream audio = SoundBank.get(soundName);
         if (audio == null || playing.get(soundName) != null)
@@ -27,6 +31,10 @@ public class SoundPlayer {
         t.start();
     }
 
+    /**
+     * Plays a wav file contained in the asset folder of the game in loop
+     * @param soundName the name of the wav file without .wav
+     */
     public static void playLoop(String soundName){
         AudioInputStream audio = SoundBank.get(soundName);
         if (audio == null || looped.get(soundName) != null)
@@ -37,6 +45,10 @@ public class SoundPlayer {
         t.start();
     }
 
+    /**
+     * Stops the playback of a specific sound
+     * @param soundName the name of the wav file without .wav
+     */
     public static void stop(String soundName){
         PlaySound p = playing.get(soundName);
         if(p == null)
@@ -45,6 +57,10 @@ public class SoundPlayer {
         playing.remove(soundName);
     }
 
+    /**
+     * Stops the playback of a specific looped sound
+     * @param soundName the name of the wav file without .wav
+     */
     public static void stopLoop(String soundName){
         LoopedSound l = looped.get(soundName);
         if (l == null)
@@ -53,6 +69,10 @@ public class SoundPlayer {
         looped.remove(l);
     }
 
+    /**
+     * Stops the playback of a specific looped sound at the end of the current loop
+     * @param soundName the name of the wav file without .wav
+     */
     public static void stopLoopAtEnd(String soundName){
         LoopedSound l = looped.get(soundName);
         if (l == null)
@@ -60,6 +80,10 @@ public class SoundPlayer {
         l.timedStop();
     }
 
+    /**
+     * Pauses a playing sound
+     * @param soundName the name of the wav file without .wav
+     */
     public static void pause(String soundName){
        PlaySound p = playing.get(soundName);
         if(p == null)
@@ -69,6 +93,10 @@ public class SoundPlayer {
         paused.put(soundName, p);
     }
 
+    /**
+     * Resumes a previously paused sound
+     * @param soundName the name of the wav file without .wav
+     */
     public static void resume(String soundName){
         PlaySound p = paused.get(soundName);
         if(p == null)
@@ -78,6 +106,11 @@ public class SoundPlayer {
         playing.put(soundName, p);
     }
 
+    /**
+     * internal method used by the PlaySound objects to remove themselves from currently playing sounds
+     * before their thread is terminated
+     * @param name the name of the wav file without .wav
+     */
     static void unregister(String name){
         playing.remove(name);
     }
