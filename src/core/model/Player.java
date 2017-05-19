@@ -12,6 +12,7 @@ public class Player extends GameObject{
     private double position, rotation;
     private boolean looking_right;
     private boolean on_ground;
+    private double weaponOrientation;
 
     public Player(RigidBody rigidBody, String texture, String name, int health) {
         super(rigidBody, texture);
@@ -21,6 +22,27 @@ public class Player extends GameObject{
         inventory = new ArrayList<>();
         looking_right = true;
         on_ground = false;
+        weaponOrientation = 0;
+    }
+
+    public double getLocalWeaponOrientation() {
+        return weaponOrientation;
+    }
+
+    public boolean setLocalWeaponOrientation(double weaponOrientation) {
+        if ( 0 <= weaponOrientation && weaponOrientation <= 90 ){
+            this.weaponOrientation = weaponOrientation;
+            return true;
+        }
+        return false;
+    }
+
+    public double getGlobalWeaponOrientation(){
+        if (looking_right){
+            return -weaponOrientation + rotation;
+        }
+        return 180+weaponOrientation + rotation;
+
     }
 
     public boolean isOn_ground() {

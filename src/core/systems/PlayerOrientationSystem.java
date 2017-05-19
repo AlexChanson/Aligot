@@ -53,7 +53,7 @@ public class PlayerOrientationSystem extends SubSystem {
 
             if ( isPlanet && playerBody != null ){
                 Vector2D unit = otherBody.getPosition().minus(playerBody.getPosition());
-                playerMatch.setRotation(unit.angle());
+                playerMatch.setRotation(unit.angleDegree());
                 playerMatch.setOn_ground(true);
             }
         }

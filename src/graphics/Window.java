@@ -221,16 +221,16 @@ public class Window {
         float height = texture.getHeight();
         glEnable(GL_TEXTURE_2D);
         glPushMatrix();
+        glLoadIdentity();
 
-        float halftextureWidth = offsetX+width * scale / 2;
-        float halftextureHeight = offsetY+height * scale / 2;
+        float halftextureWidth = width * scale / 2;
+        float halftextureHeight = height * scale / 2;
 
         glTranslatef(posX, posY, 0);
-
         glTranslatef(halftextureWidth, halftextureHeight, 0);
         glRotatef(rotate, 0, 0f, 1f);
+        glTranslatef(offsetX, offsetY, 0);
         glTranslatef(-halftextureWidth, -halftextureHeight, 0);
-
 
         glColor3f(1, 1, 1);
 

@@ -90,11 +90,12 @@ public class CollisionSolver extends PhysicSolver {
                     }
                 }
 
-                totalFriction = pair.getLeft().getFriction()*pair.getRight().getFriction();
-                double scalar = abs(pair.getRight().getAppliedForce().scalarProduct(tangent));
+                totalFriction = (pair.getLeft().getFriction()*pair.getRight().getFriction());
 
-                pair.getRight().applyForce(pair.getRight().getVelocity().getOpposite().projectOn(tangent).multiply(totalFriction*pair.getRight().getMass()));
-                pair.getLeft().applyForce(pair.getLeft().getVelocity().projectOn(tangent).multiply(totalFriction*pair.getLeft().getMass()));
+                pair.getRight().setVelocity(pair.getRight().getVelocity().add(
+                        pair.getRight().getVelocity().projectOn(tangent).multiply(totalFriction).getOpposite()));
+                pair.getLeft().setVelocity(pair.getLeft().getVelocity().add(
+                        pair.getLeft().getVelocity().projectOn(tangent).multiply(totalFriction).getOpposite()));
 
                 for ( CollisionListener collisionListener : collisionListeners){
                     collisionListener.handleCollision(pair, distance);

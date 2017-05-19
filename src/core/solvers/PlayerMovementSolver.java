@@ -4,6 +4,7 @@ import core.Event;
 import graphics.Window;
 import org.lwjgl.glfw.GLFW;
 
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 

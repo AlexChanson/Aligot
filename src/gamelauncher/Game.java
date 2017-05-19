@@ -60,7 +60,7 @@ public class Game implements GameStart {
             if(engine != null && currentLevel != null) {
                 engine.update();
                 graphicsEngine.drawLevel(currentLevel);
-                graphicsEngine.drawPlayers(currentLevel, p1, p2);
+                graphicsEngine.drawPlayers(currentLevel, engine.getActivePlayer(), p1, p2);
                 graphicsEngine.drawProjectiles(currentLevel, engine.getProjectiles());
             }
 
@@ -130,7 +130,9 @@ public class Game implements GameStart {
                     new PlayerOrientationSystem(),
                     new PlayerMovementSystem(),
                     new FireSubSystem(),
-                    new DebugCommandsSubSystem());
+                    new DebugCommandsSubSystem(),
+                    new PlayerAimingSubSystem(),
+                    new ContinuousKeyPress());
             engine.registerSolvers(new PlayerMovementSolver(),
                     new CollisionSolver(),
                     new RestartKeySolver());

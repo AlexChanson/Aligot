@@ -38,16 +38,16 @@ public class PlayerMovementSystem extends SubSystem {
                     int direction = playerMovements.get(player);
                     double orientation = player.getRotation();
                     if (direction == 0) {
-                        orientation += 0.7+Math.PI / 2;
-                        player.setLooking_right(true);
-                    } else if (direction == 1) {
+                        orientation += 140;
                         player.setLooking_right(false);
-                        orientation -= 0.7+Math.PI / 2;
+                    } else if (direction == 1) {
+                        player.setLooking_right(true);
+                        orientation -= 140;
                     }
                     RigidBody body = player.getRigidBody();
                     if ( direction != -1 ){
                         if (player.isOn_ground()) {
-                            body.setVelocity(Vector2D.createFromAngle(40, orientation));
+                            body.setVelocity(Vector2D.createFromAngleDegree(40, orientation));
                         }
                     }
                 }

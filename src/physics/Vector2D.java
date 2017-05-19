@@ -50,6 +50,16 @@ public class Vector2D {
 
     /**
      *
+     * @param norm norm of the vector to be created
+     * @param angle angle on the unit circle in degrees
+     * @return a Vector2D created in the polar plane
+     */
+    public static Vector2D createFromAngleDegree(double norm, double angle){
+        return new Vector2D(norm*Math.cos(Math.PI*angle/180), norm*Math.sin(Math.PI*angle/180));
+    }
+
+    /**
+     *
      * @return a real, mathematically: ||u||
      */
     public double norm(){

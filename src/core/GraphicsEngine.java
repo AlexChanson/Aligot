@@ -1,9 +1,6 @@
 package core;
 
-import core.model.Challenge;
-import core.model.Level;
-import core.model.Player;
-import core.model.Projectile;
+import core.model.*;
 import fsm.FiniteStateMachine;
 import fsm.GUIStates.*;
 import graphics.Texture;
@@ -45,10 +42,6 @@ public class GraphicsEngine {
         guiFSM.setInitialState("start");
     }
 
-    public static float getScreenLevelRatio(){
-        return screenLevelRatio;
-    }
-
     public void drawLevel(Level level){
         if(level != null) {
             float screenWidth = Window.getWidth(), screenHeight = Window.getHeight();
@@ -73,7 +66,7 @@ public class GraphicsEngine {
                     Window.drawCircle((float) (planetPos.getX() * screenLevelRatio),
                             (float) (planetPos.getY() * screenLevelRatio),
                             planetSize/2f,
-                            255,0,0);
+                            100,100,0);
                 }
 
 
@@ -112,9 +105,10 @@ public class GraphicsEngine {
         return guiComponents;
     }
 
-    public void drawPlayers(Level level, Player... players) {
+    public void drawPlayers(Level level, Player actualPlayer ,Player... players) {
         float screenWidth = Window.getWidth(), screenHeight = Window.getHeight();
         double ratio = Math.max(screenHeight / level.getMapSize()[1], screenWidth / level.getMapSize()[0]);
+
         Arrays.asList(players).forEach(player -> {
             if (player == null)
                 return;
@@ -129,35 +123,60 @@ public class GraphicsEngine {
             float posX = (float) (position.getX()*ratio - sizeX);
             float posY = (float) (position.getY()*ratio - sizeY);
 
-            if ( player.isLooking_right() ){
+            if ( !player.isLooking_right() ){
                 sizeX *= -1;
             }
 
             Window.drawTexture(playerTexture,
                     posX, posY,
                     sizeX*2, sizeY*2,
-                    (float)((player.getRotation()-Math.PI/2)*180/Math.PI),
+                    (float)((player.getRotation()-90)),
                     1f,
                     0, 0,
                     playerTexture.getWidth(), playerTexture.getHeight(),
                     255,255,255);
 
+            RigidBody body = player.getRigidBody();
+            Vector2D pos = body.getPosition();
+            Vector2D velOffset = pos.add(body.getVelocity());
+            Vector2D accOffset = pos.add(body.getAcceleration().multiply(0.05));
+            float playerPosX = (float) (pos.getX()*ratio);
+            float playerPosY = (float)(pos.getY()*ratio);
             if (debugDisplay){
-                RigidBody body = player.getRigidBody();
-                Vector2D pos = body.getPosition();
-                Vector2D velOffset = pos.add(body.getVelocity());
-                Vector2D accOffset = pos.add(body.getAcceleration().multiply(0.05));
-                Window.drawLine((float) (pos.getX()*ratio),
-                        (float)(pos.getY()*ratio),
+                Window.drawLine(playerPosX,
+                        playerPosY,
                         (float) (velOffset.getX()*ratio),
                         (float) (velOffset.getY()*ratio), 1f, 0, 255, 0);
                 Window.drawLine((float) (pos.getX()*ratio),
                         (float)(pos.getY()*ratio),
                         (float) (accOffset.getX()*ratio),
                         (float) (accOffset.getY()*ratio), 1f, 0, 0, 255);
+                Window.drawText("r:"+Double.toString(player.getRotation()),
+                        playerPosX+20f,
+                        playerPosY+20f,
+                        20f, 200f, 0, 0,255,255, true);
             }
 
+            Texture viseurTexture = Window.getTexture("viseur-01.png");
+            float scale = 0.1f;
+            playerPosX -= scale*viseurTexture.getWidth()/2;
+            playerPosY -= scale*viseurTexture.getHeight()/2;
+            if (player == actualPlayer){
+                Window.drawSpriteRotate("viseur-01.png",
+                        playerPosX,
+                        playerPosY,
+                        (float)(40f),
+                        0f, (float)(player.getGlobalWeaponOrientation()-90), scale );
+            }
             //TODO Weapon rendering
+            Weapon weapon = player.getCurrentWeapon();
+            if (weapon != null){
+                Window.drawSpriteRotate(weapon.getTexture(),
+                        playerPosX,
+                        playerPosY,
+                        5f,
+                        5f, (float)(player.getGlobalWeaponOrientation()-90), scale );
+            }
 
 
         });
