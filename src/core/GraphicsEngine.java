@@ -193,10 +193,20 @@ public class GraphicsEngine {
         double ratio = Math.max(screenHeight / level.getMapSize()[1], screenWidth / level.getMapSize()[0]);
         projectiles.forEach(projectile -> {
             Vector2D position = projectile.getRigidBody().getPosition();
-            Window.drawCircle((float)(position.getX()*ratio),
-                    (float)(position.getY()*ratio),
-                    (float) (projectile.getRigidBody().getRadius()*ratio),
-                    128,128,64);
+            float size = (float) (projectile.getRigidBody().getRadius() * ratio * 2);
+            Texture t = new Texture(projectile.getTexture());
+            if(projectile.getTexture().equals("") || !Texture.textureLoaded(projectile.getTexture())) {
+                Window.drawCircle((float) (position.getX() * ratio),
+                        (float) (position.getY() * ratio),
+                        (float) (projectile.getRigidBody().getRadius() * ratio),
+                        255, 64, 64);
+            }
+            else {
+                Window.drawSprite(projectile.getTexture(),
+                        (float) (position.getX() * ratio) - size/2,
+                        (float) (position.getY() * ratio) - size/2,
+                        size, size, 1f);
+            }
         });
     }
 }

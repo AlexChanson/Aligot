@@ -22,10 +22,10 @@ public class FireSubSystem extends SubSystem{
         if(event.type.equals("FIRE")){
             Player shooter = engine.getActivePlayer();
             if(shooter.getCurrentWeapon() != null){
-                Vector2D firingAngle = Vector2D.createFromAngleDegree(1, shooter.getGlobalWeaponOrientation() - 90);
+                Vector2D firingAngle = Vector2D.createFromAngleDegree(1, shooter.getGlobalWeaponOrientation() + 90);
                 Vector2D projectileOrigin = new Vector2D(shooter.getRigidBody().getPosition());
-                projectileOrigin = projectileOrigin.add(firingAngle.multiply(5));
-                RigidBody b = new RigidBody(projectileOrigin, 5, 5);
+                projectileOrigin = projectileOrigin.add(firingAngle.multiply(15.5));
+                RigidBody b = new RigidBody(projectileOrigin, 5, 50);
                 b.setStaticObject(false);
                 b.setAttractive(true);
                 b.setVelocity(projectileOrigin.multiply(10));
