@@ -124,7 +124,6 @@ public class GUIBuilder {
     }
 
     private static void getGUIButtonsPlacementsByDifficulty (GUI GUIChallenges, ArrayList<Level> levels){
-        int iterator = 0;
         int buttonWidth = (int)(Window.getWidth()*0.31), buttonHeight = (int)(Window.getHeight()*0.28);
         if (levels.size() <= 3) {
             for (int i = 0; i < levels.size(); i++) {
@@ -139,26 +138,6 @@ public class GUIBuilder {
                 else if (levels.get(i).getChallenge().getDifficulty() == 3) {
                     GUIChallenges.addComponent(new Label("You chose hard, at least you enjoy a real challenge, but will you succeed ?", Window.getWidth() / 2 - (int) (Window.getWidth() * 0.33), Window.getHeight() / 7 - (int) (Window.getHeight() * 0.05), (int) (Window.getWidth() * 0.70), (int) (Window.getHeight() * 0.13), "description"));
                     GUIChallenges.addComponent(new Button("button_"+(i+1)+".png", "", (2 * i + 1) * (Window.getWidth() / 6) - buttonWidth / 2, Window.getHeight() / 2 - buttonHeight / 2, buttonWidth, buttonHeight, "hard" + i));
-                }
-            }
-        } else if (levels.size() > 3) {
-            for (int i = 0; i < 2; i++) {
-                for (int j = 0; j < 3; j++) {
-                    if (iterator < levels.size()) {
-                        if (levels.get(i).getChallenge().getDifficulty() == 1) {
-                            GUIChallenges.addComponent(new Label("You chose easy mode, if you fail eternal shame will be brought upon you.", Window.getWidth() / 2 - (int) (Window.getWidth() * 0.33), Window.getHeight() / 7 - (int) (Window.getHeight() * 0.05), (int) (Window.getWidth() * 0.70), (int) (Window.getHeight() * 0.13), "description"));
-                            GUIChallenges.addComponent(new Button("button_blank.png", Integer.toString(iterator), (2 * j + 1) * (Window.getWidth() / 6) - buttonWidth / 2, (2 * i + 1) * Window.getHeight() / 4 - buttonHeight / 2, buttonWidth, buttonHeight, "easy" + iterator));
-                        }
-                        else if (levels.get(i).getChallenge().getDifficulty() == 2) {
-                            GUIChallenges.addComponent(new Label("You chose medium mode, I'm not sure you'r worth better anyway", Window.getWidth() / 2 - (int) (Window.getWidth() * 0.33), Window.getHeight() / 7 - (int) (Window.getHeight() * 0.05), (int) (Window.getWidth() * 0.70), (int) (Window.getHeight() * 0.13), "description"));
-                            GUIChallenges.addComponent(new Button("button_blank.png", Integer.toString(iterator), (2 * j + 1) * (Window.getWidth() / 6) - buttonWidth / 2, (2 * i + 1) * Window.getHeight() / 4 - buttonHeight / 2, buttonWidth, buttonHeight, "medium" + iterator));
-                        }
-                        else if (levels.get(i).getChallenge().getDifficulty() == 3) {
-                            GUIChallenges.addComponent(new Label("You chose hard, at least you enjoy a real challenge, but will you succeed ?", Window.getWidth() / 2 - (int) (Window.getWidth() * 0.33), Window.getHeight() / 7 - (int) (Window.getHeight() * 0.05), (int) (Window.getWidth() * 0.70), (int) (Window.getHeight() * 0.13), "description"));
-                            GUIChallenges.addComponent(new Button("button_blank.png", Integer.toString(iterator), (2 * j + 1) * (Window.getWidth() / 6) - buttonWidth / 2, (2 * i + 1) * Window.getHeight() / 4 - buttonHeight / 2, buttonWidth, buttonHeight, "hard" + iterator));
-                        }
-                        iterator++;
-                    }
                 }
             }
         }
