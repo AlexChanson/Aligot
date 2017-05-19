@@ -11,7 +11,6 @@ import graphics.gui.GUIComponent;
 import physics.RigidBody;
 import physics.Vector2D;
 import utility.Challenges;
-import utility.GUIBuilder;
 
 import java.util.ArrayList;
 import java.util.Arrays;

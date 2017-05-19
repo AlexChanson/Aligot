@@ -46,6 +46,7 @@ public class StartState extends State {
     public String onUpdate() {
         if (width != Window.getWidth() || height != Window.getHeight()){
             updateGUISize();
+            graphicsEngine.setGUI(start);
         }
         if(beginButtonListener.isClicked()) {
             beginButtonListener.setNotClicked();
