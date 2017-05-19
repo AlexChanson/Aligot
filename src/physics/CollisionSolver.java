@@ -96,7 +96,6 @@ public class CollisionSolver extends PhysicSolver {
                     totalFriction = (pair.getLeft().getFriction()*pair.getRight().getFriction());
 
                     if ( forceAlongTangent < pair.getLeft().getStaticFriction()*forceAlongNormal ){
-                        System.out.println("sttatic1");
                         pair.getLeft().setVelocity(pair.getLeft().getVelocity().projectOn(unitOffset));
                         pair.getLeft().applyForce(pair.getLeft().getAppliedForce().projectOn(tangent).getOpposite());
                     }
@@ -108,8 +107,7 @@ public class CollisionSolver extends PhysicSolver {
                     forceAlongNormal = -pair.getRight().getAppliedForce().scalarProduct(unitOffset);
                     forceAlongTangent = Math.abs(pair.getRight().getAppliedForce().scalarProduct(tangent));
                     if ( forceAlongTangent < pair.getRight().getStaticFriction()*forceAlongNormal ){
-                        System.out.println("sttatic2");
-                        pair.getRight().setVelocity(pair.getRight().getVelocity().projectOn(unitOffset).getOpposite());
+                        pair.getRight().setVelocity(pair.getRight().getVelocity().projectOn(unitOffset));
                         pair.getRight().applyForce(pair.getRight().getAppliedForce().projectOn(tangent).getOpposite());
                     }
                     else {

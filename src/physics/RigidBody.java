@@ -32,7 +32,7 @@ public class RigidBody {
         velocity = new Vector2D(0, 0);
         acceleration = new Vector2D(0 , 0);
         appliedForce = new Vector2D(0,0);
-        restitution = 0.5;
+        restitution = 0.9;
         attractive = false;
         staticObject = false;
     }
