@@ -215,7 +215,9 @@ public class Window {
         drawTexture(texture, posX, posY, width, height, rotate, 1f, 0, 0, texture.getWidth(), texture.getHeight(), 255, 255, 255);
     }
 
-    public static void drawSpriteRotate(String fileName, float posX, float posY, float offsetX, float offsetY, float rotate, float scale) {
+    public static void drawSpriteRotate(String fileName, float posX, float posY,
+                                        float offsetX, float offsetY, float rotate,
+                                        float scaleX, float scaleY, float scale) {
         Texture texture = new Texture(ressourcesFolderPath + fileName);
         float width = texture.getWidth();
         float height = texture.getHeight();
@@ -229,6 +231,7 @@ public class Window {
         glTranslatef(posX, posY, 0);
         glTranslatef(halftextureWidth, halftextureHeight, 0);
         glRotatef(rotate, 0, 0f, 1f);
+        glScalef(scaleX, scaleY, 1f);
         glTranslatef(offsetX, offsetY, 0);
         glTranslatef(-halftextureWidth, -halftextureHeight, 0);
 

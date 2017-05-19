@@ -19,7 +19,7 @@ import java.util.Arrays;
 public class GraphicsEngine {
     private ArrayList<GUIComponent> guiComponents;
     private FiniteStateMachine guiFSM;
-    public static boolean debugDisplay = true;
+    public static boolean debugDisplay = false;
     private static float screenLevelRatio;
 
     public GraphicsEngine() {
@@ -159,23 +159,28 @@ public class GraphicsEngine {
 
             Texture viseurTexture = Window.getTexture("viseur-01.png");
             float scale = 0.1f;
-            playerPosX -= scale*viseurTexture.getWidth()/2;
-            playerPosY -= scale*viseurTexture.getHeight()/2;
+            float ciblePosX = playerPosX - scale*viseurTexture.getWidth()/2;
+            float ciblePosY = playerPosY - scale*viseurTexture.getHeight()/2;
             if (player == actualPlayer){
                 Window.drawSpriteRotate("viseur-01.png",
-                        playerPosX,
-                        playerPosY,
-                        (float)(40f),
-                        0f, (float)(player.getGlobalWeaponOrientation()-90), scale );
+                        ciblePosX,
+                        ciblePosY,
+                        (float)(60f),
+                        0f, (float)(player.getGlobalWeaponOrientation()-90),1f,1f, scale );
             }
             //TODO Weapon rendering
+            scale = 0.07f;
             Weapon weapon = player.getCurrentWeapon();
+            float scaleX =  player.isLooking_right() ? 1 : -1;
+            Texture weaponTexture = Window.getTexture(weapon.getTexture());
+            float weaponPosX = playerPosX - scale*weaponTexture.getWidth()/2;
+            float weaponPosY = playerPosY - scale*weaponTexture.getHeight()/2;
             if (weapon != null){
                 Window.drawSpriteRotate(weapon.getTexture(),
-                        playerPosX,
-                        playerPosY,
-                        5f,
-                        5f, (float)(player.getGlobalWeaponOrientation()-90), scale );
+                        weaponPosX,
+                        weaponPosY,
+                        10f,
+                        0f, (float)(player.getGlobalWeaponOrientation()-90), 1f, scaleX, scale );
             }
 
 

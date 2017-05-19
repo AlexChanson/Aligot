@@ -27,9 +27,6 @@ public class DebugCommandsSubSystem extends SubSystem {
                 break;
             case "KEY_PRESSED_CONTINUOUS":
                 switch ((int)event.data){
-                    case GLFW.GLFW_KEY_C:
-                        engine.nextTurn();
-                        break;
                     case GLFW.GLFW_KEY_F:
                         Player player = engine.getActivePlayer();
                         player.getRigidBody().setVelocity(Vector2D.createFromAngle(50, Math.PI+Math.PI*player.getRotation()/180));
@@ -39,6 +36,9 @@ public class DebugCommandsSubSystem extends SubSystem {
                 break;
             case "KEY_PRESSED":
                 switch ((int)event.data){
+                    case GLFW.GLFW_KEY_C:
+                        engine.nextTurn();
+                        break;
                     case GLFW.GLFW_KEY_G:
                         GraphicsEngine.debugDisplay = !GraphicsEngine.debugDisplay;
                         break;
