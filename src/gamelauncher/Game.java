@@ -1,12 +1,14 @@
 package gamelauncher;
 
-import core.*;
+import core.Engine;
+import core.GraphicsEngine;
 import core.model.Level;
 import core.model.Player;
 import core.solvers.CollisionSolver;
 import core.solvers.PlayerMovementSolver;
 import core.solvers.RestartKeySolver;
 import core.systems.*;
+import graphics.Animation;
 import graphics.Window;
 import graphics.gui.GUI;
 import physics.RigidBody;
@@ -15,11 +17,9 @@ import utility.Loader;
 import utility.Weapons;
 
 import java.util.Arrays;
-import java.util.logging.*;
+import java.util.logging.Logger;
 
-import static org.lwjgl.glfw.GLFW.glfwDestroyWindow;
 import static org.lwjgl.glfw.GLFW.glfwSetWindowShouldClose;
-import static org.lwjgl.glfw.GLFW.glfwTerminate;
 
 
 public class Game implements GameStart {
@@ -53,6 +53,8 @@ public class Game implements GameStart {
         graphicsEngine = new GraphicsEngine();
         graphicsEngine.initGUI();
 
+        Animation boom = Animation.getAnimation("boom");
+
         //Main Game Loop
         while (Window.shouldClose()) {
             Window.loopStart();
@@ -63,6 +65,7 @@ public class Game implements GameStart {
                 graphicsEngine.drawPlayers(currentLevel, engine.getActivePlayer(), p1, p2);
                 graphicsEngine.drawProjectiles(currentLevel, engine.getProjectiles());
             }
+
 
             graphicsEngine.drawGui();
 

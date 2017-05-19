@@ -43,7 +43,6 @@ public class Loader {
                 System.out.printf("Loading from jar failed !%n******************%n");
                 e1.printStackTrace();
                 System.out.println("******************");
-
             }
         }
         if(source == null)
@@ -52,7 +51,7 @@ public class Loader {
                 source) {
             try {
                 stuff.add(gson.fromJson(sourceFile, type));
-            } catch (Exception ignored){}
+            } catch (Exception ignored){ System.out.println(ignored.getClass().getCanonicalName());}
         }
         stuff.removeIf(Objects::isNull);
         return stuff;

@@ -1,17 +1,18 @@
 package graphics;
 
 import com.google.gson.annotations.Expose;
+import utility.Loader;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 public class Animation {
-    private static String ressourcesFolderPath = System.getProperty("user.dir") + File.separator + "ressources" + File.separator + "assets" + File.separator;
     private List<String> sprites;
     private List<Double> durations;
-    private ArrayList<Texture> textures = new ArrayList<>();
+    private String name;
+
+    private static ArrayList<Animation> animations;
 
     @Expose(serialize = false, deserialize = false)
     private double time = 0;
@@ -21,6 +22,55 @@ public class Animation {
     private double totalDuration = 0;
     @Expose(serialize = false, deserialize = false)
     private boolean loop = false;
+    @Expose(serialize = false, deserialize = false)
+    private ArrayList<Texture> textures = new ArrayList<>();
+
+    static {
+        animations = Loader.loadAll(Animation.class, "animations");
+
+        Iterator<Animation> it = animations.iterator();
+        Iterator<String> it_sprt;
+
+        String sprt;
+        Animation current;
+
+        while (it.hasNext()) {
+            current = it.next();
+            it_sprt = current.sprites.iterator();
+
+            while (it_sprt.hasNext()) {
+                sprt = it_sprt.next();
+                current.textures.add(new Texture(sprt));
+            }
+        }
+    }
+
+    public static Animation getAnimation(String name) {
+        Animation ret = new Animation();
+
+        Iterator<Animation> it = animations.iterator();
+        Animation current;
+        boolean cont = true;
+
+        while (it.hasNext() && cont) {
+            current = it.next();
+
+            if (current.name.equals(name)) {
+                ret.sprites = current.sprites;
+                ret.durations = current.durations;
+                ret.textures = current.textures;
+                ret.name = name;
+
+                cont = false;
+            }
+        }
+
+        if (cont) {
+            return null;
+        }
+
+        return ret;
+    }
 
     public void passTime(double dt) {
         if (this.playing) {
@@ -74,14 +124,6 @@ public class Animation {
     }
 
     public void draw(int posX, int posY, int width, int height, float rotate, float scale) {
-        if (this.textures.size() == 0) {
-            Iterator<String> it_sprt = this.sprites.iterator();
-
-            while (it_sprt.hasNext()) {
-                this.textures.add(new Texture(ressourcesFolderPath + it_sprt.next()));
-            }
-        }
-
         Iterator<Double> it_dur = this.durations.iterator();
         Iterator<Texture> it_text = this.textures.iterator();
         Texture text;
@@ -96,6 +138,18 @@ public class Animation {
                 cont = false;
                 Window.drawTexture(text, posX, posY, width, height, rotate, scale, 0, 0, text.getWidth(), text.getHeight(), 255, 255, 255);
             }
+        }
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public static void passTimeForAll(double dt) {
+        Iterator<Animation> it = animations.iterator();
+
+        while (it.hasNext()) {
+            it.next().passTime(dt);
         }
     }
 }

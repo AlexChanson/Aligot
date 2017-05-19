@@ -1,12 +1,19 @@
 {
-  "textures" : [
-    "exemple_anim_1.png",
-    "exemple_anim_2.png",
-    "exemple_anim_3.png"
+  "name": "boom",
+  "sprites": [
+    "boom-01.png",
+    "boom2-01.png",
+    "boom3-01.png",
+    "boom4-01.png",
+    "boom5-01.png",
+    "boom6-01.png"
   ],
-  "durations" : [
-    0.5,
-    0.5,
-    0.5
+  "durations": [
+    0.1,
+    0.1,
+    0.1,
+    0.1,
+    0.1,
+    0.1
   ]
 }
