@@ -32,7 +32,7 @@ public class Window {
     public static final int TEXT_ALIGN_LEFT = 0, TEXT_ALIGN_CENTER = 1, TEXT_ALIGN_RIGHT = 2;
     private final static Logger LOGGER = Logger.getLogger(Window.class.getName());
     private static long window;
-    private static int monitor = 0, width, height;
+    private static int monitor = 0, screenWidth, screenHeight;
     private static boolean fullscreenEnabled;
     private static HashMap<Character, Integer> charWidth;
     //Input listeners
@@ -48,8 +48,8 @@ public class Window {
      */
     public static void init(String title, int w, int h, boolean fullscreen) {
         fullscreenEnabled = fullscreen;
-        width = w;
-        height = h;
+        screenWidth = w;
+        screenHeight = h;
 
         try {
             if (!glfwInit()) {
@@ -102,8 +102,8 @@ public class Window {
         glfwSetWindowSizeCallback(window, new GLFWWindowSizeCallback() {
             @Override
             public void invoke(long w, int width, int height) {
-                Window.height = height;
-                Window.width = width;
+                Window.screenHeight = height;
+                Window.screenWidth = width;
             }
         });
     }
@@ -214,6 +214,41 @@ public class Window {
         Texture texture = new Texture(ressourcesFolderPath + fileName);
         drawTexture(texture, posX, posY, width, height, rotate, 1f, 0, 0, texture.getWidth(), texture.getHeight(), 255, 255, 255);
     }
+
+    public static void drawSpriteRotate(String fileName, float posX, float posY, float offsetX, float offsetY, float rotate, float scale) {
+        Texture texture = new Texture(ressourcesFolderPath + fileName);
+        float width = texture.getWidth();
+        float height = texture.getHeight();
+        glEnable(GL_TEXTURE_2D);
+        glPushMatrix();
+
+        float halftextureWidth = offsetX+width * scale / 2;
+        float halftextureHeight = offsetY+height * scale / 2;
+
+        glTranslatef(posX, posY, 0);
+
+        glTranslatef(halftextureWidth, halftextureHeight, 0);
+        glRotatef(rotate, 0, 0f, 1f);
+        glTranslatef(-halftextureWidth, -halftextureHeight, 0);
+
+
+        glColor3f(1, 1, 1);
+
+        glBindTexture(GL_TEXTURE_2D, texture.getId());
+
+        glBegin(GL_QUADS);
+        glTexCoord2f(0, 0);
+        glVertex2f(0, 0);
+        glTexCoord2f(1, 0);
+        glVertex2f(width * scale, 0);
+        glTexCoord2f(1, 1);
+        glVertex2f(width * scale, height * scale);
+        glTexCoord2f(0, 1);
+        glVertex2f(0, height * scale);
+        glEnd();
+
+        glPopMatrix();
+        glDisable(GL_TEXTURE_2D);    }
 
     public static void drawSprite(String fileName, float posX, float posY, float rotate, float scale) {
         Texture texture = new Texture(ressourcesFolderPath + fileName);
@@ -407,14 +442,14 @@ public class Window {
      * @return the width of the window
      */
     public static int getWidth() {
-            return width;
+            return screenWidth;
     }
 
     public static void setWidth(int w) {
-        width = w;
+        screenWidth = w;
 
         if (!fullscreenEnabled) {
-            glfwSetWindowSize(window, width, height);
+            glfwSetWindowSize(window, screenWidth, screenHeight);
         }
     }
 
@@ -422,15 +457,15 @@ public class Window {
      * @return the height of the window
      */
     public static int getHeight() {
-            return height;
+            return screenHeight;
 
     }
 
     public static void setHeight(int h) {
-        height = h;
+        screenHeight = h;
 
         if (!fullscreenEnabled) {
-            glfwSetWindowSize(window, width, height);
+            glfwSetWindowSize(window, screenWidth, screenHeight);
         }
     }
 
@@ -477,7 +512,7 @@ public class Window {
     public static void disableFullscreen() {
         fullscreenEnabled = false;
 
-        glfwSetWindowMonitor(window, 0, 0, 0, width, height, 0);
+        glfwSetWindowMonitor(window, 0, 0, 0, screenWidth, screenHeight, 0);
     }
 
     public static boolean fullscreenEnabled() {
