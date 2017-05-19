@@ -4,9 +4,11 @@ import core.GraphicsEngine;
 import core.model.Level;
 import fsm.State;
 import gamelauncher.Game;
+import graphics.Window;
 import graphics.gui.Button;
 import graphics.gui.GUI;
 import graphics.gui.GUIButtonListener;
+import graphics.gui.Label;
 import utility.Challenges;
 import utility.GUIBuilder;
 
@@ -14,77 +16,70 @@ import java.util.ArrayList;
 
 
 public class ChallengesState extends State {
-    private GUI challenges;
-    private int difficulty;
+    private GUI gui;
     private GraphicsEngine graphicsEngine;
-    private ArrayList<GUIButtonListener> guiButtonListeners = new ArrayList<GUIButtonListener>();
     private GUIButtonListener backButtonListener = new GUIButtonListener();
-    private ArrayList<Level> levels = Challenges.get();
+    private GUIButtonListener leftListener = new GUIButtonListener();
+    private GUIButtonListener rightListener = new GUIButtonListener();
+    private GUIButtonListener playListener = new GUIButtonListener();
+    private ArrayList<Level> levels;
+    private Level currentLevel;
+    Label name, info;
 
-    public ChallengesState (GraphicsEngine graphicsEngine, int difficulty){
+    public ChallengesState (GraphicsEngine graphicsEngine, ArrayList<Level> levels){
         this.graphicsEngine = graphicsEngine;
-        this.difficulty = difficulty;
+        this.levels = levels;
     }
 
     public void initialize() {
-        levels.removeIf(level -> level.getChallenge().getDifficulty() != difficulty);
-        if (difficulty == 1) {
-            challenges = GUIBuilder.getChallenges(1);
-        }
-        if (difficulty == 2) {
-            challenges = GUIBuilder.getChallenges(2);
-        }
-        if (difficulty == 3) {
-            challenges = GUIBuilder.getChallenges(3);
-        }
-        for (int i=0; i<challenges.getComponents().size(); i++){
-            guiButtonListeners.add(new GUIButtonListener());
-        }
-        for (int i=0; i<guiButtonListeners.size();i++) {
-            Button button;
-            if (difficulty == 1) {
-                button = challenges.getButtonById("easy" + i);
-                if (button != null) {
-                    button.addListener(guiButtonListeners.get(i));
-                }
-            } else if (difficulty == 2) {
-                button = challenges.getButtonById("medium" + i);
-                if (button != null) {
-                    button.addListener(guiButtonListeners.get(i));
-                }
-            } else if (difficulty == 3) {
-                button = challenges.getButtonById("hard" + i);
-                if (button != null) {
-                    button.addListener(guiButtonListeners.get(i));
-                }
-            }
+        name = new Label("---", 250, 300, 200, 50, "name");
+        info = new Label("---", 320, 300, 200, 50, "info");
+        Button left = new Button("button_left.png", "",150, 150, 50, 50, "left");
+        Button right = new Button("button_left.png", "",150, 150, 50, 50, "right");
+        Button back = new Button("button_back.png","", (int)(Window.getWidth()*0.03), Window.getHeight() - (int)(Window.getHeight()*0.12), (int)(Window.getWidth()*0.08),(int)(Window.getHeight()*0.07), "back");
+        Button play = new Button("button_play.png", "", 500, 500, 200, 50, "play");
+        play.addListener(playListener);
+        left.addListener(leftListener);
+        right.addListener(rightListener);
+        gui = new GUI();
+        gui.addComponents(left, right, back, play, name, info);
+        back.addListener(backButtonListener);
+        if(levels.size() != 0){
+            currentLevel = levels.get(0);
         }
     }
 
     public void onEnter(){
-        Button back = challenges.getButtonById("back");
-        back.addListener(backButtonListener);
-        if (getStateName().equals("easyChallenges")) {
-            graphicsEngine.setGUI(challenges);
+        if(levels.size() != 0){
+            currentLevel = levels.get(0);
         }
-        else if (getStateName().equals("mediumChallenges")) {
-            graphicsEngine.setGUI(challenges);
-        }
-        else if (getStateName().equals("hardChallenges")) {
-            graphicsEngine.setGUI(challenges);
-        }
-        else {
-            graphicsEngine.setGUI(challenges);
-        }
+        graphicsEngine.setGUI(gui);
     }
 
     @Override
     public String onUpdate() {
-        for (int i = 0; i < guiButtonListeners.size(); i++) {
-            if (guiButtonListeners.get(i).isClicked()) {
-                Game.setLevel(levels.get(i));
-                return "challengePlay";
-            }
+        if (currentLevel != null){
+            name.setText(currentLevel.getName());
+            info.setText(currentLevel.getInfo());
+        }
+        if(leftListener.isClicked()){
+            leftListener.setNotClicked();
+            try {
+                currentLevel = levels.get(levels.indexOf(currentLevel) - 1);
+            }catch (IndexOutOfBoundsException ignored){}
+            return "challenges";
+        }
+        if(rightListener.isClicked()){
+            rightListener.setNotClicked();
+            try {
+                currentLevel = levels.get(levels.indexOf(currentLevel) + 1);
+            }catch (IndexOutOfBoundsException ignored){}
+            return "challenges";
+        }
+        if(playListener.isClicked()){
+            playListener.setNotClicked();
+            Game.setLevel(currentLevel);
+            return "challengePlay";
         }
         if (backButtonListener.isClicked()) {
             backButtonListener.setNotClicked();
@@ -95,17 +90,6 @@ public class ChallengesState extends State {
 
     @Override
     public String getStateName() {
-        if (difficulty == 1) {
-            return "easyChallenges";
-        }
-        else if (difficulty == 2) {
-            return "mediumChallenges";
-        }
-        else if (difficulty == 3) {
-            return "hardChallenges";
-        }
-        else {
-            return "challenges";
-        }
+        return "challenges";
     }
 }
