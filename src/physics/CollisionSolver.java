@@ -14,8 +14,8 @@ import static jdk.nashorn.internal.objects.NativeMath.max;
  */
 public class CollisionSolver extends PhysicSolver {
     private ArrayList<CollisionListener> collisionListeners;
-    private double correctionAmount = 0.5;
-    private int iterrations=5;
+    private double correctionAmount = 0.3;
+    private int iterrations=10;
 
     public CollisionSolver(){
         collisionListeners = new ArrayList<>();
@@ -65,10 +65,12 @@ public class CollisionSolver extends PhysicSolver {
                     correctionOffset = unitOffset.multiply(overlap).multiply(correctionAmount*0.5);
 
                     if (!pair.getLeft().getStaticObject()){
-                        pair.getLeft().setPosition(pair.getLeft().getPosition().add(correctionOffset.multiply(10/pair.getLeft().getMass())));
+                        pair.getLeft().setPosition(pair.getLeft().getPosition().add(
+                                correctionOffset.multiply(min(1,10/pair.getLeft().getMass()))));
                     }
                     if (!pair.getRight().getStaticObject()) {
-                        pair.getRight().setPosition(pair.getRight().getPosition().minus(correctionOffset.multiply(10/pair.getRight().getMass())));
+                        pair.getRight().setPosition(pair.getRight().getPosition().minus(
+                                correctionOffset.multiply(min(1,10/pair.getRight().getMass()))));
                     }
 
 

@@ -30,6 +30,7 @@ public class FireSubSystem extends SubSystem{
                 RigidBody b = new RigidBody(projectileOrigin, 5, 50*ammo.getMassModifier());
                 b.setStaticObject(false);
                 b.setAttractive(true);
+                b.setFriction(0.1);
                 b.setVelocity(firingAngle.multiply(200*ammo.getVelocityModifier()));
                 Projectile projectile = new Projectile(b, "star.png", ammo, shooter.getCurrentWeapon(), shooter);
                 engine.getProjectiles().add(projectile);
