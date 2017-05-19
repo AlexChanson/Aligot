@@ -7,18 +7,21 @@ import core.model.Level;
 import core.model.Planet;
 import core.model.Player;
 import core.model.Projectile;
+import core.solvers.PlayerMovementSolver;
 import fsm.FiniteStateMachine;
 import core.solvers.Solver;
 import core.systems.SubSystem;
 import physics.*;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.logging.Logger;
 
 /**
  * The Game engine, binds the physics with the game mechanics and processes events
  * @author Alexandre 
  */
 public class Engine {
+    private final static Logger LOGGER = Logger.getLogger(PlayerMovementSolver.class.getName());
     private FiniteStateMachine gameState;
     private Simulator physicsEngine;
     private ArrayList<Solver> solvers;
@@ -101,7 +104,14 @@ public class Engine {
 
 
     public void throwEvent(Event event){
-        systems.forEach(solver -> solver.handleEvent(event));
+        systems.forEach(solver -> {
+            try {
+                solver.handleEvent(event);
+            }catch (Exception e){
+                LOGGER.severe(solver.getClass().getName() + " Has thrown an Exception !");
+                e.printStackTrace();
+            }
+        });
     }
 
     public void registerSubSystems(SubSystem... subSystems){

@@ -9,7 +9,9 @@
       "damageBonus": 0,
       "type": 4,
       "effect": 0,
-      "explosionRadius": 10
+      "explosionRadius": 10,
+      "massModifier": 1.5,
+      "velocityModifier": 1.0
     }
   ,
   "name": "Bazoo-K",

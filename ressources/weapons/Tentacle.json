@@ -8,7 +8,9 @@
     {
       "damageBonus": 0,
       "type": 3,
-      "effect": 41
+      "effect": 41,
+      "massModifier": 1.0,
+      "velocityModifier": 1.0
     }
   ,
   "name": "Tentacle",
