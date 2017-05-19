@@ -38,9 +38,9 @@ public class GraphicsEngine {
                 new MultiPlayState(GUIBuilder.getMultiPlay(), this),
                 new ChallengePlayState(GUIBuilder.getChallengePlay(), this),
                 new ChallengeDifficultyState(GUIBuilder.getSelectChallenge(),this),
-                new ChallengesState(this, Challenges.get()),
-                new ChallengesState(this,Challenges.get()),
-                new ChallengesState(this,Challenges.get()),
+                new ChallengesState(this, Challenges.get(), 1),
+                new ChallengesState(this,Challenges.get(), 2),
+                new ChallengesState(this,Challenges.get(), 3),
                 new ExitState());
         guiFSM.setInitialState("start");
     }

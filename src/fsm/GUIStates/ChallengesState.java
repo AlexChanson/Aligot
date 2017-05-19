@@ -13,6 +13,7 @@ import utility.Challenges;
 import utility.GUIBuilder;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 
 public class ChallengesState extends State {
@@ -25,10 +26,27 @@ public class ChallengesState extends State {
     private ArrayList<Level> levels;
     private Level currentLevel;
     Label name, info;
+    private String stateName;
 
-    public ChallengesState (GraphicsEngine graphicsEngine, ArrayList<Level> levels){
+    public ChallengesState (GraphicsEngine graphicsEngine, ArrayList<Level> levels, int diff){
         this.graphicsEngine = graphicsEngine;
-        this.levels = levels;
+        switch (diff){
+            case 1 :
+                stateName = "easyChallenges";
+                this.levels = levels.stream().filter(lvl -> lvl.getChallenge() != null && lvl.getChallenge().getDifficulty() == 1).collect(Collectors.toCollection(ArrayList::new));
+                break;
+            case 2 :
+                stateName = "mediumChallenges";
+                this.levels = levels.stream().filter(lvl -> lvl.getChallenge() != null && lvl.getChallenge().getDifficulty() == 2).collect(Collectors.toCollection(ArrayList::new));
+                break;
+            case 3 :
+                stateName = "hardChallenges";
+                this.levels = levels.stream().filter(lvl -> lvl.getChallenge() != null && lvl.getChallenge().getDifficulty() == 3).collect(Collectors.toCollection(ArrayList::new));
+                break;
+            default:
+                stateName = "error";
+                this.levels = levels;
+        }
     }
 
     public void initialize() {
@@ -37,7 +55,7 @@ public class ChallengesState extends State {
         Button left = new Button("button_left.png", "",150, 150, 50, 50, "left");
         Button right = new Button("button_left.png", "",150, 150, 50, 50, "right");
         Button back = new Button("button_back.png","", (int)(Window.getWidth()*0.03), Window.getHeight() - (int)(Window.getHeight()*0.12), (int)(Window.getWidth()*0.08),(int)(Window.getHeight()*0.07), "back");
-        Button play = new Button("button_play.png", "", 500, 500, 200, 50, "play");
+        Button play = new Button("button_fight.png", "", 500, 500, 200, 50, "play");
         play.addListener(playListener);
         left.addListener(leftListener);
         right.addListener(rightListener);
@@ -90,6 +108,6 @@ public class ChallengesState extends State {
 
     @Override
     public String getStateName() {
-        return "challenges";
+        return stateName;
     }
 }
