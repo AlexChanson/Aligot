@@ -13,6 +13,7 @@ import graphics.gui.GUI;
 import graphics.gui.GUIComponent;
 import physics.RigidBody;
 import physics.Vector2D;
+import utility.Challenges;
 import utility.GUIBuilder;
 
 import java.util.ArrayList;
@@ -37,9 +38,9 @@ public class GraphicsEngine {
                 new MultiPlayState(GUIBuilder.getMultiPlay(), this),
                 new ChallengePlayState(GUIBuilder.getChallengePlay(), this),
                 new ChallengeDifficultyState(GUIBuilder.getSelectChallenge(),this),
-                new ChallengesState(this,1),
-                new ChallengesState(this,2),
-                new ChallengesState(this,3),
+                new ChallengesState(this, Challenges.get()),
+                new ChallengesState(this,Challenges.get()),
+                new ChallengesState(this,Challenges.get()),
                 new ExitState());
         guiFSM.setInitialState("start");
     }

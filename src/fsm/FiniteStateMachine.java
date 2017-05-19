@@ -59,6 +59,7 @@ public class FiniteStateMachine {
             if ( states.containsKey(stateName) ){
                 this.state = stateName;
                 this.states.get(stateName).onEnter();
+                init = true;
             }
         }
     }
