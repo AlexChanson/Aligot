@@ -32,11 +32,15 @@ public class DebugCommandsSubSystem extends SubSystem {
                     case GLFW.GLFW_KEY_C:
                         engine.nextTurn();
                         break;
-                    case GLFW.GLFW_KEY_G:
+                    case GLFW.GLFW_KEY_F3:
                         GraphicsEngine.debugDisplay = !GraphicsEngine.debugDisplay;
                         break;
                     case GLFW.GLFW_KEY_T:
                         engine.throwEvent(new Event("FIRE", null));
+                        break;
+                    case GLFW.GLFW_KEY_Y:
+                        engine.getProjectiles().clear();
+                        engine.throwEvent(new Event("REMOVED_LAST_PROJECTILE"));
                         break;
                 }
                 break;
