@@ -42,8 +42,8 @@ public class Game implements GameStart {
         // Setting up Two players
         RigidBody bodyPlayer1 = new RigidBody(new Vector2D(100,100),10, 70);
         RigidBody bodyPlayer2 = new RigidBody(new Vector2D(screenWidth-100,screenHeight-100),10, 70);
-        bodyPlayer1.setFriction(0.95);
-        bodyPlayer2.setFriction(0.95);
+        bodyPlayer1.setFriction(0.3);
+        bodyPlayer2.setFriction(0.3);
         p1 = new Player(bodyPlayer1, "guy_ref.png", firstPlayerName, 100);
         p2 = new Player(bodyPlayer2, "chick_ref.png", secondPlayerName, 100);
 

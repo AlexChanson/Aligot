@@ -3,6 +3,7 @@ package core.systems;
 import core.Event;
 import core.GraphicsEngine;
 import core.model.Player;
+import core.model.Projectile;
 import org.lwjgl.glfw.GLFW;
 import physics.Vector2D;
 
@@ -39,6 +40,9 @@ public class DebugCommandsSubSystem extends SubSystem {
                         engine.throwEvent(new Event("FIRE", null));
                         break;
                     case GLFW.GLFW_KEY_Y:
+                        for (Projectile projectile : engine.getProjectiles()){
+                            engine.getPhysicsEngine().removeBody(projectile.getRigidBody());
+                        }
                         engine.getProjectiles().clear();
                         engine.throwEvent(new Event("REMOVED_LAST_PROJECTILE"));
                         break;
