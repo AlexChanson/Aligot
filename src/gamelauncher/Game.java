@@ -17,12 +17,13 @@ import utility.Weapons;
 import java.util.Arrays;
 import java.util.logging.*;
 
+import static org.lwjgl.glfw.GLFW.glfwDestroyWindow;
+import static org.lwjgl.glfw.GLFW.glfwSetWindowShouldClose;
 import static org.lwjgl.glfw.GLFW.glfwTerminate;
 
 
 public class Game implements GameStart {
     private final static Logger LOGGER = Logger.getLogger(Game.class.getName());
-    private static boolean halt = false;
     private static Engine engine;
     private static GraphicsEngine graphicsEngine;
     private static Level currentLevel;
@@ -35,11 +36,8 @@ public class Game implements GameStart {
         Window.setRessourcesFolderPath(Loader.getSpriteFolderPath());
         LOGGER.log(java.util.logging.Level.CONFIG, "Set assets folder to : " + Loader.getSpriteFolderPath());
 
-        Window.init("Space Warz - Gravity Fall", fullscreen);
+        Window.init("Space Warz - Gravity Fall",screenWidth, screenHeight, fullscreen);
         LOGGER.log(java.util.logging.Level.CONFIG, "Fullscreen: "+fullscreen+", width: "+screenWidth+", height: "+screenHeight);
-
-        Window.setHeight(screenHeight);
-        Window.setWidth(screenWidth);
 
         // Setting up Two players
         RigidBody bodyPlayer1 = new RigidBody(new Vector2D(100,100),10, 70);
@@ -69,15 +67,14 @@ public class Game implements GameStart {
             graphicsEngine.drawGui();
 
             Window.loopEnd();
-            if(halt)
-                break;
         }
 
         LOGGER.info("Running on Game Stop now ...");
         onGameStop();
 
         LOGGER.info("Terminating GLFW window.");
-        glfwTerminate();
+
+        Window.exit();
     }
 
 
@@ -157,6 +154,6 @@ public class Game implements GameStart {
         System.out.println("--- --- Reporting CallStack --- ---");
         Arrays.asList(Thread.currentThread().getStackTrace()).forEach(System.out::println);
         System.out.println("--- --- CallStack Ends --- ---");
-        halt = true;
+        glfwSetWindowShouldClose(Window.getWindow(), true);
     }
 }

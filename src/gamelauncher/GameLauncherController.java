@@ -5,25 +5,18 @@ import editor.FxUtils;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
-import javafx.scene.layout.AnchorPane;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 
-/**
- * Created by ben on 14/04/17.
- */
 public class GameLauncherController {
-    @FXML
-    private javafx.scene.control.MenuItem quitMenuItem;
-
-    @FXML
-    private AnchorPane masterAnchor;
     @FXML
     private TextField screenWidthField;
     @FXML
@@ -53,9 +46,17 @@ public class GameLauncherController {
         if (gameThread != null && gameThread.isAlive())
             return;
         gameThread = new Thread(() -> {
-            int width = Integer.parseInt(screenWidthField.getText());
-            int height = Integer.parseInt(screenHeightField.getText());
             boolean fullscreen = fullscreenCheckBox.isSelected();
+            int width, height;
+            if(!fullscreen) {
+                width = Integer.parseInt(screenWidthField.getText());
+                height = Integer.parseInt(screenHeightField.getText());
+            }
+            else {
+                Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
+                width = (int) primaryScreenBounds.getWidth();
+                height = (int) primaryScreenBounds.getHeight();
+            }
             String player1_name = player_1_Field.getText();
             String player2_name = player_2_Field.getText();
 
@@ -63,7 +64,7 @@ public class GameLauncherController {
         });
         gameThread.start();
 
-        //Platform.exit();
+        Platform.exit();
     }
 
     @FXML

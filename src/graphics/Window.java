@@ -7,11 +7,11 @@ import org.lwjgl.BufferUtils;
 import org.lwjgl.glfw.GLFWKeyCallback;
 import org.lwjgl.glfw.GLFWMouseButtonCallback;
 import org.lwjgl.glfw.GLFWVidMode;
+import org.lwjgl.glfw.GLFWWindowSizeCallback;
 import org.lwjgl.opengl.GL;
 
 import java.io.File;
 import java.nio.DoubleBuffer;
-import java.nio.IntBuffer;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -25,36 +25,38 @@ import static org.lwjgl.opengl.GL11.*;
  * Window in which the game will be played
  * Using lwjgl as a wrapper around opengl
  * The window contains all game elements render using opengl
+ *
  * @author Christopher VALLOT
  */
 public class Window {
+    public static final int TEXT_ALIGN_LEFT = 0, TEXT_ALIGN_CENTER = 1, TEXT_ALIGN_RIGHT = 2;
     private final static Logger LOGGER = Logger.getLogger(Window.class.getName());
     private static long window;
-    private static int monitor = 0, width = 1920, height = 1080;
+    private static int monitor = 0, width, height;
     private static boolean fullscreenEnabled;
     private static HashMap<Character, Integer> charWidth;
-
     //Input listeners
     private static ArrayList<CallBackContainer> callBackContainers = new ArrayList<>();
     private static ArrayList<MouseListener> mouseListeners = new ArrayList<>();
     private static ArrayList<KeyboardListener> keyboardListeners = new ArrayList<>();
-
     private static String ressourcesFolderPath = System.getProperty("user.dir") + File.separator + "ressources" + File.separator + "assets" + File.separator;
-    public static final int TEXT_ALIGN_LEFT = 0, TEXT_ALIGN_CENTER = 1, TEXT_ALIGN_RIGHT = 2;
 
     /**
      * Initializes the window
+     *
      * @param title the window title (not visible in fullscreen)
      */
-    public static void init(String title, boolean fullscreen) {
+    public static void init(String title, int w, int h, boolean fullscreen) {
         fullscreenEnabled = fullscreen;
+        width = w;
+        height = h;
 
         try {
             if (!glfwInit()) {
                 System.exit(1);
             }
 
-            window = glfwCreateWindow(getWidth(), getHeight(), title, fullscreen ? glfwGetPrimaryMonitor() : 0, 0);
+            window = glfwCreateWindow(w, h, title, fullscreen ? glfwGetPrimaryMonitor() : 0, 0);
 
             glfwShowWindow(window);
             glfwMakeContextCurrent(window);
@@ -74,15 +76,15 @@ public class Window {
         LOGGER.log(Level.INFO, "Window initialisation complete.");
     }
 
-    private static void registerCallbacks(){
+    private static void registerCallbacks() {
         glfwSetMouseButtonCallback(window, new GLFWMouseButtonCallback() {
             @Override
             public void invoke(long fenetre, int button, int action, int mods) {
                 mouseListeners.forEach(mouseListener -> mouseListener.handleMouseEvent(fenetre, button, action, mods));
                 int[] cursor = getMousePos();
-                if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS){
+                if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS) {
                     Window.callBackContainers.forEach(container -> {
-                        if(cursor[0] >= container.getGuiComponent().getPosX() && cursor[0] <= container.getGuiComponent().getPosX() + container.getGuiComponent().getWidth()) {
+                        if (cursor[0] >= container.getGuiComponent().getPosX() && cursor[0] <= container.getGuiComponent().getPosX() + container.getGuiComponent().getWidth()) {
                             if (cursor[1] >= container.getGuiComponent().getPosY() && cursor[1] <= container.getGuiComponent().getPosY() + container.getGuiComponent().getHeight()) {
                                 container.execute();
                             }
@@ -95,6 +97,13 @@ public class Window {
             @Override
             public void invoke(long window, int key, int scancode, int action, int mods) {
                 keyboardListeners.forEach(keyboardListener -> keyboardListener.handleKeyEvent(window, key, scancode, action, mods));
+            }
+        });
+        glfwSetWindowSizeCallback(window, new GLFWWindowSizeCallback() {
+            @Override
+            public void invoke(long w, int width, int height) {
+                Window.height = height;
+                Window.width = width;
             }
         });
     }
@@ -118,18 +127,19 @@ public class Window {
         DoubleBuffer x = BufferUtils.createDoubleBuffer(1), y = BufferUtils.createDoubleBuffer(1);
         glfwGetCursorPos(window, x, y);
 
-        return new int[] { (int) x.get(), (int) y.get() };
+        return new int[]{(int) x.get(), (int) y.get()};
     }
 
     /**
      * Draws a texture that will contain a sprite
-     * @param texture the texture
-     * @param posX the position x
-     * @param posY the position y
+     *
+     * @param texture       the texture
+     * @param posX          the position x
+     * @param posY          the position y
      * @param width
      * @param height
-     * @param rotate the degree of rotation
-     * @param scale the scale parameter
+     * @param rotate        the degree of rotation
+     * @param scale         the scale parameter
      * @param textureX
      * @param textureY
      * @param textureWidth
@@ -141,17 +151,17 @@ public class Window {
 
         int fliph = 1;
         int flipv = 1;
-        if ( width < 0 ){
+        if (width < 0) {
             fliph = -1;
             width = Math.abs(width);
         }
-        if ( height < 0 ){
+        if (height < 0) {
             flipv = -1;
             height = Math.abs(height);
         }
 
-        float halftextureWidth = width * scale/2;
-        float halftextureHeight = height* scale/2;
+        float halftextureWidth = width * scale / 2;
+        float halftextureHeight = height * scale / 2;
 
         glTranslatef(posX, posY, 0);
 
@@ -172,7 +182,7 @@ public class Window {
         glVertex2f(width * scale, 0);
         glTexCoord2f((textureX + textureWidth) / texture.getWidth(), (textureY + textureHeight) / texture.getHeight());
         glVertex2f(width * scale, height * scale);
-        glTexCoord2f( textureX / texture.getWidth(), (textureY + textureHeight) / texture.getHeight());
+        glTexCoord2f(textureX / texture.getWidth(), (textureY + textureHeight) / texture.getHeight());
         glVertex2f(0, height * scale);
         glEnd();
 
@@ -182,13 +192,14 @@ public class Window {
 
     /**
      * Draws a sprite in the window
-     * @param fileName the name of the file
-     * @param posX the position on the x axis
-     * @param posY the position on the y axis
+     *
+     * @param fileName      the name of the file
+     * @param posX          the position on the x axis
+     * @param posY          the position on the y axis
      * @param width
      * @param height
-     * @param rotate the degree of rotation
-     * @param scale the scale parameter
+     * @param rotate        the degree of rotation
+     * @param scale         the scale parameter
      * @param textureX
      * @param textureY
      * @param textureWidth
@@ -210,19 +221,19 @@ public class Window {
     }
 
 
-
     /**
      * Draws a line in the window
-     * @param x1 the first position x
-     * @param y1 the first position y
-     * @param x2 the second position x
-     * @param y2 the second position y
+     *
+     * @param x1        the first position x
+     * @param y1        the first position y
+     * @param x2        the second position x
+     * @param y2        the second position y
      * @param thickness the thickness of the line
-     * @param R the proportion of red (0 to 255)
-     * @param G the proportion of green (0 to 255)
-     * @param B the proportion of blue (0 to 255)
+     * @param R         the proportion of red (0 to 255)
+     * @param G         the proportion of green (0 to 255)
+     * @param B         the proportion of blue (0 to 255)
      */
-    public static void drawLine(float x1, float y1, float x2, float y2, float thickness, int R, int G, int B){
+    public static void drawLine(float x1, float y1, float x2, float y2, float thickness, int R, int G, int B) {
         float minX, minY;
 
         minX = Math.min(x1, x2);
@@ -250,16 +261,17 @@ public class Window {
 
     /**
      * Draws a rectangle in the window
-     * @param width the width of the rectangle
+     *
+     * @param width  the width of the rectangle
      * @param height the height of the rectangle
-     * @param posX the position x
-     * @param posY the position y
-     * @param R the proportion of red
-     * @param G the proportion of green
-     * @param B the proportion of blue
+     * @param posX   the position x
+     * @param posY   the position y
+     * @param R      the proportion of red
+     * @param G      the proportion of green
+     * @param B      the proportion of blue
      * @param rotate the degree of rotation
      */
-    public static void drawRectangle(float posX, float posY, float width, float height, int R, int G, int B, float rotate){
+    public static void drawRectangle(float posX, float posY, float width, float height, int R, int G, int B, float rotate) {
         glPushMatrix();
 
         glTranslatef(posX, posY, 0);
@@ -277,12 +289,13 @@ public class Window {
 
     /**
      * Draws a circle in the window
-     * @param posX the position x
-     * @param posY the position y
+     *
+     * @param posX   the position x
+     * @param posY   the position y
      * @param radius the radius parameter
-     * @param R the proportion of red
-     * @param G the proportion of green
-     * @param B the proportion of blue
+     * @param R      the proportion of red
+     * @param G      the proportion of green
+     * @param B      the proportion of blue
      */
     public static void drawCircle(float posX, float posY, float radius, int R, int G, int B) {
         double a = 1.0 / radius;
@@ -305,7 +318,7 @@ public class Window {
     }
 
     public static void drawText(String text, float x, float y, float size, float lineWidth, int align, int r, int g, int b, boolean monoline) {
-        if(text.equals(""))
+        if (text.equals(""))
             return;
         String path = ressourcesFolderPath + "font_share_tech_mono.png";
 
@@ -342,8 +355,7 @@ public class Window {
                     if (indexOf == -1) {
                         substr1 = word.substring(0, maxLineOffset);
                         substr2 = word.substring(maxLineOffset);
-                    }
-                    else {
+                    } else {
                         substr1 = word.substring(0, indexOf);
                         substr2 = word.substring(indexOf + 1);
 
@@ -369,18 +381,16 @@ public class Window {
             for (line = 0; line < lineList.size() && !monoline || line < 1; line++) {
                 if (align == 2) {
                     shift = displayCharWidth * (maxLineOffset - lineList.get(line).size());
-                }
-                else if (align == 1) {
+                } else if (align == 1) {
                     shift = displayCharWidth * (maxLineOffset - lineList.get(line).size()) / 2;
-                }
-                else {
+                } else {
                     shift = 0;
                 }
 
                 for (lineOffset = 0; lineOffset < lineList.get(line).size(); lineOffset++) {
                     code = (byte) (char) lineList.get(line).get(lineOffset);
 
-                    drawTexture(texture, shift + x + lineOffset * displayCharWidth, y + line * size, displayCharWidth, size, 0f, 1f, (code % 16) * charWidth, ((int) (code / 16)) * charHeight, charWidth, charHeight, r, g, b);
+                    drawTexture(texture, shift + x + lineOffset * displayCharWidth, y + line * size, displayCharWidth, size, 0f, 1f, (code % 16) * charWidth, code / 16 * charHeight, charWidth, charHeight, r, g, b);
                 }
             }
         }
@@ -397,67 +407,43 @@ public class Window {
      * @return the width of the window
      */
     public static int getWidth() {
-        if (fullscreenEnabled) {
-            return videoMode().width();
-        }
-        else if (window != 0) {
-            IntBuffer w = BufferUtils.createIntBuffer(1);
-
-            glfwGetWindowSize(window, w, null);
-
-            return w.get();
-        }
-        else {
             return width;
-        }
-    }
-
-
-    /**
-     * @return the height of the window
-     */
-    public static int getHeight() {
-        if (fullscreenEnabled) {
-            return videoMode().height();
-        }
-        else if (window != 0) {
-            IntBuffer h = BufferUtils.createIntBuffer(1);
-
-            glfwGetWindowSize(window, null, h);
-
-            return h.get();
-        }
-        else {
-            return height;
-        }
     }
 
     public static void setWidth(int w) {
         width = w;
 
         if (!fullscreenEnabled) {
-            refreshWindowSize();
+            glfwSetWindowSize(window, width, height);
         }
+    }
+
+    /**
+     * @return the height of the window
+     */
+    public static int getHeight() {
+            return height;
+
     }
 
     public static void setHeight(int h) {
         height = h;
 
         if (!fullscreenEnabled) {
-            refreshWindowSize();
+            glfwSetWindowSize(window, width, height);
         }
     }
 
-    private static void refreshWindowSize() {
-        glfwSetWindowSize(window, width, height);
-    }
-
     private static GLFWVidMode videoMode() {
-        return glfwGetVideoMode(getMonitorId());
+        return glfwGetVideoMode(getMonitor());
     }
 
     private static long getMonitorId() {
         return glfwGetMonitors().get(monitor);
+    }
+
+    public static int getMonitor() {
+        return monitor;
     }
 
     public static void setMonitor(int m) {
@@ -470,10 +456,6 @@ public class Window {
         }
     }
 
-    public static int getMonitor() {
-        return monitor;
-    }
-
     public static int countMonitors() {
         return glfwGetMonitors().limit();
     }
@@ -482,7 +464,7 @@ public class Window {
         return m >= 0 && m < countMonitors();
     }
 
-    public static Texture getTexture(String fileName){
+    public static Texture getTexture(String fileName) {
         return Texture.getTexture(ressourcesFolderPath + fileName);
     }
 
@@ -512,13 +494,9 @@ public class Window {
     /**
      * close the window
      */
-    public static void exit(){
+    public static void exit() {
         glfwDestroyWindow(window);
         glfwTerminate();
-    }
-
-    public static String getRessourcesFolderPath() {
-        return ressourcesFolderPath;
     }
 
     public static void setRessourcesFolderPath(String ressourcesFolderPath) {
