@@ -45,13 +45,13 @@ public class ChallengesState extends State {
 
     public void initialize() {
         name = new Label("---", Window.getWidth()/2 - (int)(Window.getWidth()*0.14), (int)(Window.getHeight()*0.17), (int)(Window.getWidth()*0.31), (int)(Window.getHeight()*0.14), "name");
-        info = new Label("---", Window.getWidth()/2 - (int)(Window.getWidth()*0.22), (int)(Window.getHeight()*0.35), (int)(Window.getWidth()*0.46), (int)(Window.getHeight()*0.21), "info");
+        info = new Label("---", Window.getWidth()/2 - (int)(Window.getWidth()*0.215), (int)(Window.getHeight()*0.35), (int)(Window.getWidth()*0.46), (int)(Window.getHeight()*0.21), "info");
         Image menu_bg = new Image("menu_bg.png");
         menu_bg.setZ(-2);
         Button left = new Button("button_left.png", "",2*(Window.getWidth()/7) - (int)(Window.getWidth()*0.02), (int)(Window.getHeight()*0.21), (int)(Window.getWidth()*0.04), (int)(Window.getHeight()*0.07), "left");
         Button right = new Button("button_right.png", "", 5*(Window.getWidth()/7) -(int)(Window.getWidth()*0.02),(int)(Window.getHeight()*0.21), (int)(Window.getWidth()*0.04), (int)(Window.getHeight()*0.07), "right");
         Button back = new Button("button_back.png","", (int)(Window.getWidth()*0.03), Window.getHeight() - (int)(Window.getHeight()*0.12), (int)(Window.getWidth()*0.08),(int)(Window.getHeight()*0.07), "back");
-        Button play = new Button("button_fight.png", "", Window.getWidth()/2 - (int)(Window.getWidth()*0.11), (int)(Window.getHeight()*0.70), (int)(Window.getWidth()*0.2), (int)(Window.getHeight()*0.21), "play");
+        Button play = new Button("button_fight.png", "", Window.getWidth()/2 - (int)(Window.getWidth()*0.10), (int)(Window.getHeight()*0.70), (int)(Window.getWidth()*0.2), (int)(Window.getHeight()*0.21), "play");
         play.addListener(playListener);
         left.addListener(leftListener);
         right.addListener(rightListener);
