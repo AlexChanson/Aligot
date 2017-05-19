@@ -7,18 +7,21 @@ import core.model.Level;
 import core.model.Planet;
 import core.model.Player;
 import core.model.Projectile;
+import core.solvers.PlayerMovementSolver;
 import fsm.FiniteStateMachine;
 import core.solvers.Solver;
 import core.systems.SubSystem;
 import physics.*;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.logging.Logger;
 
 /**
  * The Game engine, binds the physics with the game mechanics and processes events
  * @author Alexandre 
  */
 public class Engine {
+    private final static Logger LOGGER = Logger.getLogger(PlayerMovementSolver.class.getName());
     private FiniteStateMachine gameState;
     private Simulator physicsEngine;
     private ArrayList<Solver> solvers;
@@ -41,6 +44,9 @@ public class Engine {
         initialize();
     }
 
+    /**
+     * Handling some of the engine initialization just in case I need two or more constructors
+     */
     private void initialize(){
         gameState = new FiniteStateMachine();
         physicsEngine = new Simulator();
@@ -100,10 +106,26 @@ public class Engine {
     }
 
 
+    /**
+     * Throws an event to all SubSystems of the Engine
+     * @param event The event to be forwarded to the subsystems
+     */
     public void throwEvent(Event event){
-        systems.forEach(solver -> solver.handleEvent(event));
+        systems.forEach(solver -> {
+            try {
+                solver.handleEvent(event);
+            }catch (Exception e){
+                LOGGER.severe(solver.getClass().getName() + " Has thrown an Exception !");
+                e.printStackTrace();
+            }
+        });
     }
 
+    /**
+     * Register subsystems to the engine
+     * @param subSystems The SubSystem(s) to be registered
+     *                   (order will determine which receives events firs)
+     */
     public void registerSubSystems(SubSystem... subSystems){
         for(SubSystem ss : subSystems){
             ss.setEngine(this);
@@ -112,6 +134,10 @@ public class Engine {
         }
     }
 
+    /**
+     * Registers the Input Solvers to the engine
+     * @param solvers The Solver(s) to be registered
+     */
     public void registerSolvers(Solver... solvers){
         for (Solver solv : solvers){
             solv.setEngine(this);
@@ -120,6 +146,10 @@ public class Engine {
         }
     }
 
+
+    /**
+     * This is called at the end of the initialization to place players on the spawns
+     */
     public void putPlayersOnSpawns(){
         turns = 0;
         if(level != null && players.size() > 0){
@@ -174,6 +204,7 @@ public class Engine {
 
     public int nextTurn(){
         turns += 1;
+        throwEvent(new Event("TURN_CHANGED", turns));
         return turns;
     }
 

@@ -8,7 +8,9 @@
     {
       "damageBonus": 0,
       "type": 1,
-      "effect": 0
+      "effect": 0,
+      "massModifier": 0.8,
+      "velocityModifier": 2.0
     }
   ,
   "name": "Ak-47",

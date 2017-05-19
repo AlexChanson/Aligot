@@ -9,7 +9,9 @@
       "damageBonus": 1,
       "type": 4,
       "effect": 0,
-      "explosionRadius": 3
+      "explosionRadius": 3,
+      "massModifier": 1.0,
+      "velocityModifier": 1.0
     }
   ,
   "name": "Grenade",
