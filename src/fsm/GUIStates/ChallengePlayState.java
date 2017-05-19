@@ -15,12 +15,17 @@ public class ChallengePlayState extends State {
     private GraphicsEngine graphicsEngine;
     private Label targets;
     private Label shots;
+    private int width;
+    private int height;
+
     public ChallengePlayState(GraphicsEngine graphicsEngine) {
         this.graphicsEngine = graphicsEngine;
     }
 
     public void initialize(){
         challengePlay = new GUI();
+        width = Window.getWidth();
+        height = Window.getHeight();
         int labelWidth = (int)(Window.getWidth()*0.12), labelHeight =(int)(Window.getHeight()*0.05);
         targets = new Label("Targets: ", 10, 10, labelWidth, labelHeight, "targets");
         challengePlay.addComponent(targets);
@@ -33,6 +38,10 @@ public class ChallengePlayState extends State {
 
     @Override
     public String onUpdate() {
+        if (width != Window.getWidth() || height != Window.getHeight()){
+            updateGUISize();
+            graphicsEngine.setGUI(challengePlay);
+        }
         targets = challengePlay.getLabelById("targets");
         if (Game.getCurrentLevel().getChallenge().getTargets().size() != 0) {
             targets.setText("Targets: " + Game.getCurrentLevel().getChallenge().getTargets().size());
@@ -49,6 +58,10 @@ public class ChallengePlayState extends State {
             shots.setText("Shots: 0");
         }
         return "challengePlay";
+    }
+
+    private void updateGUISize () {
+        initialize();
     }
 
     @Override

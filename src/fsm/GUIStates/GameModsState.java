@@ -14,6 +14,8 @@ public class GameModsState extends State {
     private GUIButtonListener soloButtonListener = new GUIButtonListener();
     private GUIButtonListener multiButtonListener = new GUIButtonListener();
     private GUIButtonListener backButtonListener = new GUIButtonListener();
+    private int width;
+    private int height;
 
     public GameModsState(GraphicsEngine graphicsEngine){
         this.graphicsEngine = graphicsEngine;
@@ -21,6 +23,8 @@ public class GameModsState extends State {
 
     public void initialize(){
         gameMods = new GUI();
+        width = Window.getWidth();
+        height = Window.getHeight();
         int buttonWidth =(int) (Window.getWidth()*0.45), buttonHeight = (int)(Window.getHeight()*0.35);
         Image menu = new Image("menu_bg.png");
         menu.setZ(-1);
@@ -42,6 +46,10 @@ public class GameModsState extends State {
 
     @Override
     public String onUpdate() {
+        if (width != Window.getWidth() || height != Window.getHeight()){
+            updateGUISize();
+            graphicsEngine.setGUI(gameMods);
+        }
         if (soloButtonListener.isClicked()) {
             soloButtonListener.setNotClicked();
             return "challengeDifficulty";
@@ -55,6 +63,10 @@ public class GameModsState extends State {
             return "start";
         }
         return "gameMods";
+    }
+
+    private void updateGUISize () {
+        initialize();
     }
 
     @Override

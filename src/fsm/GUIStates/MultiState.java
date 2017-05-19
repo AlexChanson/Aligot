@@ -18,6 +18,8 @@ public class MultiState extends State {
     private GUIButtonListener leftButtonListener = new GUIButtonListener();
     private GUIButtonListener fightButtonListener = new GUIButtonListener();
     private GUIButtonListener backButtonListener = new GUIButtonListener();
+    private int width;
+    private int height;
 
     public MultiState(GraphicsEngine graphicsEngine){
         this.graphicsEngine = graphicsEngine;
@@ -25,6 +27,8 @@ public class MultiState extends State {
 
     public void initialize(){
         multi = new GUI();
+        width = Window.getWidth();
+        height = Window.getHeight();
         int buttonWidth = (int)(Window.getWidth()*0.08), buttonHeight = (int)(Window.getHeight()*0.14);
         Image menu = new Image("menu_bg.png");
         menu.setZ(-1);
@@ -57,6 +61,10 @@ public class MultiState extends State {
 
     @Override
     public String onUpdate() {
+        if (width != Window.getWidth() || height != Window.getHeight()){
+            updateGUISize();
+            graphicsEngine.setGUI(multi);
+        }
         if (rightButtonListener.isClicked()){
             rightButtonListener.setNotClicked();
             if (i<9){
@@ -85,6 +93,9 @@ public class MultiState extends State {
         return "multi";
     }
 
+    private void updateGUISize () {
+        initialize();
+    }
     @Override
     public String getStateName() {
         return "multi";

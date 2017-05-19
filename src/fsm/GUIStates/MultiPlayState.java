@@ -19,6 +19,8 @@ public class MultiPlayState extends State {
     private Label health_2;
     private Label weapon_2;
     private Label damage_2;
+    private int width;
+    private int height;
 
     public MultiPlayState(GraphicsEngine graphicsEngine) {
         this.graphicsEngine = graphicsEngine;
@@ -26,6 +28,8 @@ public class MultiPlayState extends State {
 
     public void initialize() {
         multiPlay = new GUI();
+        width = Window.getWidth();
+        height = Window.getHeight();
         int labelWidth = (int)(Window.getWidth()*0.12), labelHeight =(int)(Window.getHeight()*0.05);
         Label player_1 = new Label ("Player_1", 10, 10, labelWidth, labelHeight, "player_1");
         health_1 = new Label ("Health: ", 10, 50, labelWidth, labelHeight, "health_1");
@@ -43,6 +47,10 @@ public class MultiPlayState extends State {
 
     @Override
     public String onUpdate() {
+        if (width != Window.getWidth() || height != Window.getHeight()){
+            updateGUISize();
+            graphicsEngine.setGUI(multiPlay);
+        }
         Label player_1 = multiPlay.getLabelById("player_1");
         health_1 = multiPlay.getLabelById("health_1");
         if (Game.getP1() != null) {
@@ -88,6 +96,10 @@ public class MultiPlayState extends State {
             damage_2.setText("Damage: 0");
         }
         return "multiPlay";
+    }
+
+    private void updateGUISize () {
+        initialize();
     }
 
     @Override

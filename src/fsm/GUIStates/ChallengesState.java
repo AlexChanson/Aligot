@@ -1,6 +1,5 @@
 package fsm.GUIStates;
 
-import core.Engine;
 import core.GraphicsEngine;
 import core.model.Level;
 import fsm.State;
@@ -78,6 +77,7 @@ public class ChallengesState extends State {
     public String onUpdate() {
         if (width != Window.getWidth() || height != Window.getHeight()){
             updateGUISize();
+            graphicsEngine.setGUI(challenges);
         }
         if (currentLevel != null){
             name.setText(currentLevel.getName());
@@ -113,8 +113,6 @@ public class ChallengesState extends State {
         return "challenges";
     }
     private void updateGUISize() {
-        width = Window.getWidth();
-        height = Window.getHeight();
         initialize();
     }
 

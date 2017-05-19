@@ -15,13 +15,17 @@ public class ChallengeDifficultyState extends State{
     private GUIButtonListener mediumChallengeButtonListener = new GUIButtonListener();
     private GUIButtonListener hardChallengeButtonListener = new GUIButtonListener();
     private GUIButtonListener backButtonListener = new GUIButtonListener();
+    private int width;
+    private int height;
 
     public ChallengeDifficultyState(GraphicsEngine graphicsEngine){
         this.graphicsEngine = graphicsEngine;
     }
     public void initialize() {
-        int buttonWidth = (int)(Window.getWidth()*0.31), buttonHeight = (int)(Window.getHeight()*0.3);
         selectChallenge = new GUI();
+        int buttonWidth = (int)(Window.getWidth()*0.31), buttonHeight = (int)(Window.getHeight()*0.3);
+        width = Window.getWidth();
+        height = Window.getHeight();
         Image menu = new Image("menu_bg.png");
         menu.setZ(-2);
         selectChallenge.addComponent(menu);
@@ -47,6 +51,10 @@ public class ChallengeDifficultyState extends State{
 
     @Override
     public String onUpdate() {
+        if (width != Window.getWidth() || height != Window.getHeight()){
+            updateGUISize();
+            graphicsEngine.setGUI(selectChallenge);
+        }
         if (easyChallengeButtonListener.isClicked()){
             easyChallengeButtonListener.setNotClicked();
             return "easyChallenges";
@@ -64,6 +72,10 @@ public class ChallengeDifficultyState extends State{
             return "gameMods";
         }
         return "challengeDifficulty";
+    }
+
+    private void updateGUISize () {
+        initialize();
     }
 
     @Override
