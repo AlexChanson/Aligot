@@ -6,27 +6,36 @@ import graphics.Window;
 import graphics.gui.Button;
 import graphics.gui.GUI;
 import graphics.gui.GUIButtonListener;
-import utility.GUIBuilder;
+import graphics.gui.Image;
 
 public class StartState extends State {
     private GUI start;
     private GraphicsEngine graphicsEngine;
-    private GUIButtonListener startButtonListener = new GUIButtonListener();
+    private GUIButtonListener beginButtonListener = new GUIButtonListener();
     private GUIButtonListener exitButtonListener = new GUIButtonListener();
-    private int height, width;
+    private int width;
+    private int height;
 
-    public StartState(GUI start, GraphicsEngine graphicsEngine){
-        this.start = start;
+    public StartState(GraphicsEngine graphicsEngine){
         this.graphicsEngine = graphicsEngine;
     }
 
     public void initialize(){
-        height = Window.getHeight();
-        width = Window.getWidth();
-        Button play = start.getButtonById("play");
-        play.addListener(startButtonListener);
-        Button exit = start.getButtonById("exit");
+        start = new GUI();
+        width = Window.getWidth(); height = Window.getHeight();
+        int buttonWidth = (int)(Window.getWidth()*0.3), buttonHeight = (int)(Window.getHeight()*0.20);
+        Button begin = new Button("button_start.png", "", Window.getWidth() / 2 - buttonWidth / 2, 4 * (Window.getHeight() / 7) - buttonHeight /3, buttonWidth, buttonHeight,"begin");
+        begin.addListener(beginButtonListener);
+        start.addComponent(begin);
+        Button exit = new Button("button_exit.png", "", Window.getWidth() / 2 - buttonWidth / 2, 6 * (Window.getHeight() / 7) - buttonHeight/2 , buttonWidth, buttonHeight,"exit");
         exit.addListener(exitButtonListener);
+        start.addComponent(exit);
+        Image logo = new Image("logo.png", Window.getWidth() /4 - (Window.getHeight()/2)/12, Window.getHeight()/7 - buttonHeight/2, 3*(Window.getWidth()/5), Window.getHeight()/2);
+        logo.setZ(-1);
+        start.addComponent(logo);
+        Image menu = new Image("menu_bg.png");
+        menu.setZ(-2);
+        start.addComponent(menu);
     }
 
     public void onEnter(){
@@ -38,8 +47,8 @@ public class StartState extends State {
         if (width != Window.getWidth() || height != Window.getHeight()){
             updateGUISize();
         }
-        if(startButtonListener.isClicked()) {
-            startButtonListener.setNotClicked();
+        if(beginButtonListener.isClicked()) {
+            beginButtonListener.setNotClicked();
             return "gameMods";
         }
         else if (exitButtonListener.isClicked()) {
@@ -49,16 +58,9 @@ public class StartState extends State {
         return "start";
     }
 
-    private void updateGUISize() {
-        height = Window.getHeight();
-        width = Window.getWidth();
-        start = GUIBuilder.getStart();
-        Button play = start.getButtonById("play");
-        play.addListener(startButtonListener);
-        Button exit = start.getButtonById("exit");
-        exit.addListener(exitButtonListener);
-        graphicsEngine.setGUI(start);
-    }
+     private void updateGUISize () {
+         initialize();
+     }
 
     @Override
     public String getStateName() {
