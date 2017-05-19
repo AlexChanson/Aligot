@@ -11,7 +11,6 @@ import graphics.gui.GUIComponent;
 import physics.RigidBody;
 import physics.Vector2D;
 import utility.Challenges;
-import utility.GUIBuilder;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -29,12 +28,12 @@ public class GraphicsEngine {
     public void initGUI(){
         guiFSM = new FiniteStateMachine();
         guiFSM.addStates(
-                new StartState(GUIBuilder.getStart(), this),
-                new GameModsState(GUIBuilder.getGameMods(), this),
-                new MultiState(GUIBuilder.getMulti(), this),
-                new MultiPlayState(GUIBuilder.getMultiPlay(), this),
-                new ChallengePlayState(GUIBuilder.getChallengePlay(), this),
-                new ChallengeDifficultyState(GUIBuilder.getSelectChallenge(),this),
+                new StartState(this),
+                new GameModsState(this),
+                new MultiState(this),
+                new MultiPlayState(this),
+                new ChallengePlayState(this),
+                new ChallengeDifficultyState(this),
                 new ChallengesState(this, Challenges.get(), 1),
                 new ChallengesState(this,Challenges.get(), 2),
                 new ChallengesState(this,Challenges.get(), 3),

@@ -21,6 +21,7 @@ public class ChallengesState extends State {
     private Level currentLevel;
     private Label name, info;
     private String stateName;
+    private int width, height;
 
     public ChallengesState (GraphicsEngine graphicsEngine, ArrayList<Level> levels, int difficulty){
         this.graphicsEngine = graphicsEngine;
@@ -44,6 +45,8 @@ public class ChallengesState extends State {
     }
 
     public void initialize() {
+        width = Window.getWidth();
+        height = Window.getHeight();
         name = new Label("---", Window.getWidth()/2 - (int)(Window.getWidth()*0.14), (int)(Window.getHeight()*0.17), (int)(Window.getWidth()*0.31), (int)(Window.getHeight()*0.14), "name");
         info = new Label("---", Window.getWidth()/2 - (int)(Window.getWidth()*0.215), (int)(Window.getHeight()*0.35), (int)(Window.getWidth()*0.46), (int)(Window.getHeight()*0.21), "info");
         Image menu_bg = new Image("menu_bg.png");
@@ -72,6 +75,10 @@ public class ChallengesState extends State {
 
     @Override
     public String onUpdate() {
+        if (width != Window.getWidth() || height != Window.getHeight()){
+            updateGUISize();
+            graphicsEngine.setGUI(challenges);
+        }
         if (currentLevel != null){
             name.setText(currentLevel.getName());
             info.setText(currentLevel.getInfo());
@@ -80,14 +87,18 @@ public class ChallengesState extends State {
             leftListener.setNotClicked();
             try {
                 currentLevel = levels.get(levels.indexOf(currentLevel) - 1);
-            }catch (IndexOutOfBoundsException ignored){}
+            }catch (IndexOutOfBoundsException ignored){
+                currentLevel = levels.get(levels.size()-1);
+            }
             return "challenges";
         }
         if(rightListener.isClicked()){
             rightListener.setNotClicked();
             try {
                 currentLevel = levels.get(levels.indexOf(currentLevel) + 1);
-            }catch (IndexOutOfBoundsException ignored){}
+            }catch (IndexOutOfBoundsException ignored){
+                currentLevel = levels.get(0);
+            }
             return "challenges";
         }
         if(playListener.isClicked()){
@@ -100,6 +111,9 @@ public class ChallengesState extends State {
             return "challengeDifficulty";
         }
         return "challenges";
+    }
+    private void updateGUISize() {
+        initialize();
     }
 
     @Override
