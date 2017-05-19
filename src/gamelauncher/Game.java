@@ -14,6 +14,7 @@ import physics.Vector2D;
 import utility.Loader;
 import utility.Weapons;
 
+import java.util.Arrays;
 import java.util.logging.*;
 
 import static org.lwjgl.glfw.GLFW.glfwTerminate;
@@ -21,6 +22,7 @@ import static org.lwjgl.glfw.GLFW.glfwTerminate;
 
 public class Game implements GameStart {
     private final static Logger LOGGER = Logger.getLogger(Game.class.getName());
+    private static boolean halt = false;
     private static Engine engine;
     private static GraphicsEngine graphicsEngine;
     private static Level currentLevel;
@@ -67,8 +69,14 @@ public class Game implements GameStart {
             graphicsEngine.drawGui();
 
             Window.loopEnd();
+            if(halt)
+                break;
         }
 
+        LOGGER.info("Running on Game Stop now ...");
+        onGameStop();
+
+        LOGGER.info("Terminating GLFW window.");
         glfwTerminate();
     }
 
@@ -134,5 +142,21 @@ public class Game implements GameStart {
 
     private static void initSoloEngine(){
         //TODO init the engine for solo play
+    }
+
+    /**
+     * This method will be called when thee game loop is exit before the glfwTerminate() call
+     */
+    private static void onGameStop(){
+
+
+    }
+
+    public static void halt(){
+        LOGGER.info("Game will Halt !");
+        System.out.println("--- --- Reporting CallStack --- ---");
+        Arrays.asList(Thread.currentThread().getStackTrace()).forEach(System.out::println);
+        System.out.println("--- --- CallStack Ends --- ---");
+        halt = true;
     }
 }

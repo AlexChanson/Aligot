@@ -36,6 +36,7 @@ public class GameLauncherController {
     private CheckBox fullscreenCheckBox;
 
     private GameStart game;
+    private Thread gameThread;
 
     public void initialize(){
         screenWidthField.setTextFormatter(new TextFormatter<>(FxUtils.intFilter));
@@ -49,7 +50,9 @@ public class GameLauncherController {
 
     @FXML
     public void launchGame(){
-        Thread t = new Thread(() -> {
+        if (gameThread != null && gameThread.isAlive())
+            return;
+        gameThread = new Thread(() -> {
             int width = Integer.parseInt(screenWidthField.getText());
             int height = Integer.parseInt(screenHeightField.getText());
             boolean fullscreen = fullscreenCheckBox.isSelected();
@@ -58,9 +61,9 @@ public class GameLauncherController {
 
             game.start(height, width, fullscreen, player1_name, player2_name);
         });
-        t.start();
+        gameThread.start();
 
-        Platform.exit();
+        //Platform.exit();
     }
 
     @FXML
