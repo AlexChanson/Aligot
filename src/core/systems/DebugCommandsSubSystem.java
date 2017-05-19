@@ -1,18 +1,11 @@
 package core.systems;
 
-import core.Engine;
 import core.Event;
 import core.GraphicsEngine;
 import core.model.Player;
-import gamelauncher.Game;
 import org.lwjgl.glfw.GLFW;
 import physics.Vector2D;
 
-import java.awt.*;
-
-/**
- * Created by ben on 18/05/17.
- */
 public class DebugCommandsSubSystem extends SubSystem {
     @Override
     public void initialize() {
@@ -41,6 +34,9 @@ public class DebugCommandsSubSystem extends SubSystem {
                         break;
                     case GLFW.GLFW_KEY_G:
                         GraphicsEngine.debugDisplay = !GraphicsEngine.debugDisplay;
+                        break;
+                    case GLFW.GLFW_KEY_T:
+                        engine.throwEvent(new Event("FIRE", null));
                         break;
                 }
                 break;

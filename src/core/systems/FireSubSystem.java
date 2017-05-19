@@ -2,7 +2,10 @@ package core.systems;
 
 import core.Event;
 import core.model.Player;
+import core.model.Projectile;
 import core.solvers.PlayerMovementSolver;
+import physics.RigidBody;
+import physics.Vector2D;
 
 import java.util.logging.Logger;
 
@@ -19,7 +22,16 @@ public class FireSubSystem extends SubSystem{
         if(event.type.equals("FIRE")){
             Player shooter = engine.getActivePlayer();
             if(shooter.getCurrentWeapon() != null){
-                //TODO Fire a projectile
+                Vector2D firingAngle = Vector2D.createFromAngleDegree(1, shooter.getGlobalWeaponOrientation() - 90);
+                Vector2D projectileOrigin = new Vector2D(shooter.getRigidBody().getPosition());
+                projectileOrigin = projectileOrigin.add(firingAngle.multiply(5));
+                RigidBody b = new RigidBody(projectileOrigin, 5, 5);
+                b.setStaticObject(false);
+                b.setAttractive(true);
+                b.setVelocity(projectileOrigin.multiply(10));
+                Projectile projectile = new Projectile(b, "star.png", shooter.getCurrentWeapon().getAmmo(), shooter.getCurrentWeapon(), shooter);
+                engine.getProjectiles().add(projectile);
+                engine.getPhysicsEngine().addBody(b);
             }
         }
     }
