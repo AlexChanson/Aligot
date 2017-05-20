@@ -40,6 +40,9 @@ public class KeyPressSolver extends Solver implements KeyboardListener{
                 case GLFW.GLFW_KEY_KP_SUBTRACT:
                     engine.throwEvent(new Event("CHANGE_WEAPON", -1));
                     break;
+                case GLFW.GLFW_KEY_ESCAPE:
+                    engine.throwEvent(new Event("QUIT"));
+                    break;
             }
         } else if (action == GLFW.GLFW_RELEASE){
             engine.throwEvent(new Event("KEY_RELEASED", key));
