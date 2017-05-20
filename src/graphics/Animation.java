@@ -46,30 +46,18 @@ public class Animation {
     }
 
     public static Animation getAnimation(String name) {
-        Animation ret = new Animation();
-
-        Iterator<Animation> it = animations.iterator();
-        Animation current;
-        boolean cont = true;
-
-        while (it.hasNext() && cont) {
-            current = it.next();
-
-            if (current.name.equals(name)) {
-                ret.sprites = current.sprites;
-                ret.durations = current.durations;
-                ret.textures = current.textures;
+        Animation ret;
+        for (Animation animation : animations) {
+            if (animation.getName().equals(name)) {
+                ret = new Animation();
+                ret.sprites = animation.sprites;
+                ret.durations = animation.durations;
+                ret.textures = animation.textures;
                 ret.name = name;
-
-                cont = false;
+                return ret;
             }
         }
-
-        if (cont) {
-            return null;
-        }
-
-        return ret;
+        return null;
     }
 
     public void passTime(double dt) {
