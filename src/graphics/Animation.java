@@ -110,6 +110,11 @@ public class Animation {
         this.playing = false;
     }
 
+    public void restart() {
+        this.playing = true;
+        this.time = 0;
+    }
+
     public void reset() {
         this.playing = false;
         this.time = 0;
