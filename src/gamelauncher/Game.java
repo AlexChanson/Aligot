@@ -17,7 +17,7 @@ import utility.Weapons;
 import java.util.Arrays;
 import java.util.logging.Logger;
 
-import static org.lwjgl.glfw.GLFW.glfwSetWindowShouldClose;
+import static org.lwjgl.glfw.GLFW.*;
 
 
 public class Game implements GameStart {
@@ -36,6 +36,14 @@ public class Game implements GameStart {
 
         Window.init("Space Warz - Gravity Fall",screenWidth, screenHeight, fullscreen);
         LOGGER.log(java.util.logging.Level.CONFIG, "Fullscreen: "+fullscreen+", width: "+screenWidth+", height: "+screenHeight);
+
+        //Mute sound Key
+        Window.getKeyboardListeners().add((window, key, scancode, action, mods) -> {
+            if (action == GLFW_PRESS && key == GLFW_KEY_P){
+                System.out.println("test");
+                SoundPlayer.mute(!SoundPlayer.isMuted());
+            }
+        });
 
         // Setting up Two players
         RigidBody bodyPlayer1 = new RigidBody(new Vector2D(100,100),10, 70);

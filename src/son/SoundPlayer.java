@@ -14,6 +14,7 @@ public class SoundPlayer {
     private static HashMap<String, PlaySound> paused = new HashMap<>();
     private static HashMap<String, LoopedSound> looped = new HashMap<>();
     private static ArrayList<Thread> threads = new ArrayList<>();
+    private static boolean muted = false;
 
     /**
      * Plays a wav file contained in the asset folder of the game
@@ -117,6 +118,18 @@ public class SoundPlayer {
                 thread.stop();
             }catch (Exception ignored){}
         });
+        looped.clear();
+        playing.clear();
+    }
+
+    public static void mute(boolean m){
+        muted = m;
+        if (muted)
+            killAll();
+    }
+
+    public static boolean isMuted() {
+        return muted;
     }
 
     /**
