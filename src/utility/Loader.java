@@ -51,7 +51,7 @@ public class Loader {
                 source) {
             try {
                 stuff.add(gson.fromJson(sourceFile, type));
-            } catch (Exception ignored){ System.out.println(ignored.getClass().getCanonicalName());}
+            } catch (Exception ignored){}
         }
         stuff.removeIf(Objects::isNull);
         return stuff;

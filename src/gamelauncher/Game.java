@@ -54,7 +54,6 @@ public class Game implements GameStart {
         graphicsEngine = new GraphicsEngine();
         graphicsEngine.initGUI();
 
-        Animation boom = Animation.getAnimation("boom");
 
         //Main Game Loop
         while (Window.shouldClose()) {
@@ -130,16 +129,21 @@ public class Game implements GameStart {
             }catch (NullPointerException e){
                 LOGGER.log(java.util.logging.Level.WARNING, "Engine Init Failed");
             }
-            engine.registerSubSystems(new DebugSubSystem().ignore("TICK",
-                    "COLLISION",
-                    "KEY_PRESSED",
-                    "KEY_RELEASED",
-                    "KEY_PRESSED_CONTINUOUS"),
+            engine.registerSubSystems(
+                    new DebugSubSystem().ignore(
+                        "TICK",
+                        "COLLISION",
+                        "KEY_PRESSED",
+                        "KEY_RELEASED",
+                        "KEY_PRESSED_CONTINUOUS"),
                     new PlayerOrientationSystem(),
                     new PlayerMovementSystem(),
                     new FireSubSystem(),
                     new DebugCommandsSubSystem(),
                     new PlayerAimingSubSystem(),
+                    new ContinuousKeyPress());
+            engine.registerSolvers(
+                    new PlayerMovementSolver(),
                     new ContinuousKeyPress(),
                     new ChargingWeaponSubSystem());
 
