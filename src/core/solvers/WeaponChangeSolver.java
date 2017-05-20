@@ -1,21 +1,17 @@
 package core.solvers;
 
+import graphics.Window;
+import org.lwjgl.glfw.GLFWScrollCallbackI;
+import static org.lwjgl.glfw.GLFW.glfwSetScrollCallback;
 
-import core.Event;
-import org.lwjgl.glfw.GLFW;
-
-public class WeaponChangeSolver extends Solver implements KeyboardListener{
+public class WeaponChangeSolver extends Solver implements GLFWScrollCallbackI{
     @Override
     public void initialize() {
-
+        glfwSetScrollCallback(Window.getWindow(), this);
     }
 
     @Override
-    public void handleKeyEvent(long window, int key, int scancode, int action, int mods) {
-            if(action == GLFW.GLFW_PRESS){
-                switch (key){
-
-                }
-            }
+    public void invoke(long window, double xoff, double yoff) {
+        System.out.println(yoff);
     }
 }

@@ -4,10 +4,7 @@ import core.Engine;
 import core.GraphicsEngine;
 import core.model.Level;
 import core.model.Player;
-import core.solvers.CollisionSolver;
-import core.solvers.FiringSolver;
-import core.solvers.PlayerMovementSolver;
-import core.solvers.RestartKeySolver;
+import core.solvers.*;
 import core.systems.*;
 import graphics.Animation;
 import graphics.Window;
@@ -149,7 +146,8 @@ public class Game implements GameStart {
                     new PlayerMovementSolver(),
                     new CollisionSolver(),
                     new RestartKeySolver(),
-                    new FiringSolver());
+                    new FiringSolver(),
+                    new WeaponChangeSolver());
         }
     }
 

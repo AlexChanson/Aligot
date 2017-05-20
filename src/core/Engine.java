@@ -12,6 +12,8 @@ import fsm.FiniteStateMachine;
 import core.solvers.Solver;
 import core.systems.SubSystem;
 import physics.*;
+
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.logging.Logger;
@@ -32,6 +34,7 @@ public class Engine {
     private ArrayList<Player> players;
     private ArrayList<Projectile> projectiles;
     private boolean endGame = false;
+    private long lastTime;
 
     public Engine(Level level, Player... players) {
         this.level = level;
@@ -66,6 +69,7 @@ public class Engine {
                 new EndGameState());
 
         putPlayersOnSpawns();
+        lastTime = Instant.now().toEpochMilli();
     }
 
     /**
@@ -74,7 +78,8 @@ public class Engine {
     public void update(){
 
         //Throw an update Event
-        systems.forEach(subSystem -> subSystem.handleEvent(new Event("TICK", null)));
+        systems.forEach(subSystem -> subSystem.handleEvent(new Event("TICK", Instant.now().toEpochMilli() - lastTime)));
+        lastTime = Instant.now().toEpochMilli();
 
         if ( gameState.update() ){
             endGame = true;
