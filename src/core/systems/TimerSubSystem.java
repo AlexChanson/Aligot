@@ -39,7 +39,7 @@ public class TimerSubSystem extends SubSystem {
                 break;
 
             case "TICK":
-                double elapsed = (double)event.data/1000.0;
+                double elapsed = Long.valueOf((long)event.data).doubleValue()/1000.0;
                 for (Map.Entry<Integer, GameTimer> entry: timers.entrySet()){
                     boolean finished = entry.getValue().increment(elapsed);
                     if (finished){

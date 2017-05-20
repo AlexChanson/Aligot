@@ -4,12 +4,11 @@ import core.Event;
 import graphics.Window;
 import org.lwjgl.glfw.GLFW;
 
-import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class PlayerMovementSolver extends Solver implements KeyboardListener{
-    private final static Logger LOGGER = Logger.getLogger(PlayerMovementSolver.class.getName());
+public class KeyPressSolver extends Solver implements KeyboardListener{
+    private final static Logger LOGGER = Logger.getLogger(KeyPressSolver.class.getName());
 
     @Override
     public void initialize() {
@@ -34,6 +33,12 @@ public class PlayerMovementSolver extends Solver implements KeyboardListener{
                 case GLFW.GLFW_KEY_RIGHT:
                 case GLFW.GLFW_KEY_D:
                     engine.throwEvent(new Event("PLAYER_MOVEMENT_STARTED", 1));
+                    break;
+                case GLFW.GLFW_KEY_KP_ADD:
+                    engine.throwEvent(new Event("CHANGE_WEAPON", 1));
+                    break;
+                case GLFW.GLFW_KEY_KP_SUBTRACT:
+                    engine.throwEvent(new Event("CHANGE_WEAPON", -1));
                     break;
             }
         } else if (action == GLFW.GLFW_RELEASE){

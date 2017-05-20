@@ -11,7 +11,7 @@ import java.util.logging.Logger;
  * Created by ben on 20/05/17.
  */
 public class FiringSolver extends Solver implements KeyboardListener {
-    private final static Logger LOGGER = Logger.getLogger(PlayerMovementSolver.class.getName());
+    private final static Logger LOGGER = Logger.getLogger(KeyPressSolver.class.getName());
 
     @Override
     public void initialize() {

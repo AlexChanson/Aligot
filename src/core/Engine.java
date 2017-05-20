@@ -7,7 +7,7 @@ import core.model.Level;
 import core.model.Planet;
 import core.model.Player;
 import core.model.Projectile;
-import core.solvers.PlayerMovementSolver;
+import core.solvers.KeyPressSolver;
 import fsm.FiniteStateMachine;
 import core.solvers.Solver;
 import core.systems.SubSystem;
@@ -23,7 +23,7 @@ import java.util.logging.Logger;
  * @author Alexandre 
  */
 public class Engine {
-    private final static Logger LOGGER = Logger.getLogger(PlayerMovementSolver.class.getName());
+    private final static Logger LOGGER = Logger.getLogger(KeyPressSolver.class.getName());
     private FiniteStateMachine gameState;
     private Simulator physicsEngine;
     private ArrayList<Solver> solvers;

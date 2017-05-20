@@ -1,7 +1,6 @@
 package core.solvers;
 
 import core.Event;
-import core.solvers.Solver;
 import graphics.Window;
 import org.lwjgl.glfw.GLFW;
 
@@ -12,7 +11,7 @@ import java.util.logging.Logger;
  * Created by ben on 18/05/17.
  */
 public class RestartKeySolver extends Solver implements KeyboardListener {
-    private final static Logger LOGGER = Logger.getLogger(PlayerMovementSolver.class.getName());
+    private final static Logger LOGGER = Logger.getLogger(KeyPressSolver.class.getName());
 
     @Override
     public void initialize() {

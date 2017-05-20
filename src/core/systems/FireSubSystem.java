@@ -4,14 +4,14 @@ import core.Event;
 import core.model.Ammunition;
 import core.model.Player;
 import core.model.Projectile;
-import core.solvers.PlayerMovementSolver;
+import core.solvers.KeyPressSolver;
 import physics.RigidBody;
 import physics.Vector2D;
 
 import java.util.logging.Logger;
 
 public class FireSubSystem extends SubSystem{
-    private final static Logger LOGGER = Logger.getLogger(PlayerMovementSolver.class.getName());
+    private final static Logger LOGGER = Logger.getLogger(KeyPressSolver.class.getName());
 
     @Override
     public void initialize() {
