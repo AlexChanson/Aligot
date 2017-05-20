@@ -140,7 +140,8 @@ public class Game implements GameStart {
                     new PlayerAimingSubSystem(),
                     new ContinuousKeyPress(),
                     new ChargingWeaponSubSystem(),
-                    new WeaponChangeSystem());
+                    new WeaponChangeSystem(),
+                    new TimerSubSystem());
 
             engine.registerSolvers(
                     new PlayerMovementSolver(),
