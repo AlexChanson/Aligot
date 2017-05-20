@@ -42,7 +42,7 @@ public class MultiState extends State {
             count = new Label("---", 7 * (Window.getWidth() / 10) - (int) (Window.getWidth() * 0.003), Window.getHeight() / 2 - (int) (Window.getHeight() * 0.08), (int) (Window.getWidth() * 0.039), (int) (Window.getHeight() * 0.27), "count");
         }
         else {
-            count = new Label("---",7*(Window.getWidth()/10) - (int)(Window.getWidth()*0.02),Window.getHeight() /2 - (int)(Window.getHeight()*0.08),(int)(Window.getWidth()*0.1), (int)(Window.getHeight()*0.27), "count");
+            count = new Label("---",7*(Window.getWidth()/10) - (int)(Window.getWidth()*0.023),Window.getHeight() /2 - (int)(Window.getHeight()*0.08),(int)(Window.getWidth()*0.1), (int)(Window.getHeight()*0.27), "count");
         }
         multi.addComponent(count);
         Button right = new Button("button_right.png", "", 8*(Window.getWidth()/10) - buttonWidth / 2, Window.getHeight() /2 - buttonHeight /2 + (int)(Window.getHeight()*0.06), buttonWidth - (int)(Window.getWidth()*0.01), buttonHeight - (int)(Window.getHeight()*0.028), "right");
@@ -82,7 +82,7 @@ public class MultiState extends State {
                 count.setText(Integer.toString(i));
                 count.setHeight((int)(Window.getHeight()*0.27));
                 count.setWidth((int)(Window.getWidth()*0.1));
-                count.setPosX(7*(Window.getWidth()/10) - (int)(Window.getWidth()*0.02));
+                count.setPosX(7*(Window.getWidth()/10) - (int)(Window.getWidth()*0.023));
                 count.setPosY(Window.getHeight() /2 - (int)(Window.getHeight()*0.08));
             }
         }
