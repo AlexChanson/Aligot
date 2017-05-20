@@ -43,6 +43,7 @@ public class MultiPlayState extends State {
         multiPlay.addComponents(player_1, player_2, health_1, health_2, damage_1, damage_2, weapon_1, weapon_2);
     }
     public void onEnter(){
+        SoundPlayer.stopLoop("loop_1");
         SoundPlayer.playLoop("loop_2");
         graphicsEngine.setGUI(multiPlay);
     }

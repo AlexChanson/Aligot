@@ -1,6 +1,7 @@
 package son;
 
 import javax.sound.sampled.AudioInputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -12,6 +13,7 @@ public class SoundPlayer {
     private static HashMap<String, PlaySound> playing = new HashMap<>();
     private static HashMap<String, PlaySound> paused = new HashMap<>();
     private static HashMap<String, LoopedSound> looped = new HashMap<>();
+    private static ArrayList<Thread> threads = new ArrayList<>();
 
     /**
      * Plays a wav file contained in the asset folder of the game
@@ -30,6 +32,7 @@ public class SoundPlayer {
         Thread t = new Thread(p);
         playing.put(soundName, p);
         t.start();
+        threads.add(t);
     }
 
     /**
@@ -44,6 +47,7 @@ public class SoundPlayer {
         Thread t = new Thread(l);
         looped.put(soundName, l);
         t.start();
+        threads.add(t);
     }
 
     /**
@@ -105,6 +109,14 @@ public class SoundPlayer {
         paused.remove(soundName);
         p.resume();
         playing.put(soundName, p);
+    }
+
+    public static void killAll(){
+        threads.forEach(thread -> {
+            try {
+                thread.stop();
+            }catch (Exception ignored){}
+        });
     }
 
     /**

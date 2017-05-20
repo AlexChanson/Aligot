@@ -35,6 +35,7 @@ public class ChallengePlayState extends State {
     }
     public void onEnter(){
         graphicsEngine.setGUI(challengePlay);
+        SoundPlayer.stopLoop("loop_1");
         SoundPlayer.playLoop("loop_3");
     }
 

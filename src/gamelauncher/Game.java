@@ -11,6 +11,7 @@ import graphics.Window;
 import graphics.gui.GUI;
 import physics.RigidBody;
 import physics.Vector2D;
+import son.SoundPlayer;
 import utility.Loader;
 import utility.Weapons;
 
@@ -163,8 +164,7 @@ public class Game implements GameStart {
      * This method will be called when thee game loop is exit before the glfwTerminate() call
      */
     private static void onGameStop(){
-
-
+        SoundPlayer.killAll();
     }
 
     public static void halt(){
