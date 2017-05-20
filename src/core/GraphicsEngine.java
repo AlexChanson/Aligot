@@ -240,7 +240,7 @@ public class GraphicsEngine {
                 Window.drawSprite(projectile.getTexture(),
                         (float) (position.getX() * ratio) - size/2,
                         (float) (position.getY() * ratio) - size/2,
-                        size, size, 1f);
+                        size, size, (float)(90+projectile.getRigidBody().getVelocity().angle()*180/Math.PI));
             }
         });
     }
