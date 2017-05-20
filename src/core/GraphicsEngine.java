@@ -180,6 +180,11 @@ public class GraphicsEngine {
             float ciblePosX = playerPosX - scale*viseurTexture.getWidth()/2;
             float ciblePosY = playerPosY - scale*viseurTexture.getHeight()/2;
             if (player == actualPlayer){
+                float textSize = 20f;
+                float totalTextSize = textSize*player.getName().length();
+                Window.drawText(player.getName(), playerPosX-totalTextSize/2, playerPosY-50f,
+                        textSize, totalTextSize, Window.TEXT_ALIGN_CENTER,
+                        50,255,50, true);
                 Window.drawSpriteRotate("viseur-01.png",
                         ciblePosX,
                         ciblePosY,
