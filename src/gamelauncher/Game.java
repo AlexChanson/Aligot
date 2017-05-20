@@ -6,7 +6,6 @@ import core.model.Level;
 import core.model.Player;
 import core.solvers.*;
 import core.systems.*;
-import graphics.Animation;
 import graphics.Window;
 import graphics.gui.GUI;
 import physics.RigidBody;
@@ -54,7 +53,8 @@ public class Game implements GameStart {
 
 
         //Main Game Loop
-        while (Window.shouldClose()) {
+        boolean quit = false;
+        while (Window.shouldClose() && !quit) {
             Window.loopStart();
 
             if(engine != null && currentLevel != null) {
@@ -67,6 +67,7 @@ public class Game implements GameStart {
 
             graphicsEngine.drawGui();
 
+            quit = graphicsEngine.shouldQuit();
             Window.loopEnd();
         }
 
@@ -145,7 +146,8 @@ public class Game implements GameStart {
                     new ExplosionSystem(),
                     new TimerSubSystem(),
                     new SoundSystem(),
-                    new ExplosionDamageSystem());
+                    new ExplosionDamageSystem(),
+                    new ExitSubSystem(graphicsEngine));
 
             engine.registerSolvers(
                     new KeyPressSolver(),

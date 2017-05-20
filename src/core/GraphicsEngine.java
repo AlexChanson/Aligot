@@ -42,6 +42,18 @@ public class GraphicsEngine {
         guiFSM.setInitialState("start");
     }
 
+    /**
+     *
+     * @return true if actual GUI is an exit GUI
+     */
+    public boolean shouldQuit(){
+        return guiFSM.getActualState().isFinalState();
+    }
+
+    public void transitionToGUIState(String stateName){
+        guiFSM.changeState(stateName);
+    }
+
     public void drawLevel(Level level){
         if(level != null) {
             float screenWidth = Window.getWidth(), screenHeight = Window.getHeight();
