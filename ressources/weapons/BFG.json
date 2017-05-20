@@ -11,7 +11,8 @@
       "effect": 0,
       "explosionRadius": 5,
       "massModifier": 1.0,
-      "velocityModifier": 1.0
+      "velocityModifier": 1.0,
+      "projectileTexture": "star.png"
     }
   ,
   "name": "BFG",

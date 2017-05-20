@@ -33,7 +33,7 @@ public class FireSubSystem extends SubSystem{
                 b.setAttractive(true);
                 b.setFriction(0.1);
                 b.setVelocity(firingAngle.multiply(amount*ammo.getVelocityModifier()));
-                Projectile projectile = new Projectile(b, "star.png", ammo, shooter.getCurrentWeapon(), shooter);
+                Projectile projectile = new Projectile(b, ammo.getProjectileTexture(), ammo, shooter.getCurrentWeapon(), shooter);
                 engine.getProjectiles().add(projectile);
                 engine.getPhysicsEngine().addBody(b);
             }

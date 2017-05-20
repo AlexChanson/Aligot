@@ -5,14 +5,16 @@ public class Ammunition {
     public static float EPLOSION_SMALL = 5.0f, EXPLOSION_MEDIUM = 10.0f;
     private int damageBonus, type, effect;
     private float explosionRadius, massModifier, velocityModifier;
+    private String projectileTexture;
 
-    public Ammunition(int damageBonus, int type, int effect, float explosionRadius, float massModifier, float velocityModifier) {
+    public Ammunition(int damageBonus, int type, int effect, float explosionRadius, float massModifier, float velocityModifier, String projectileTexture) {
         this.damageBonus = damageBonus;
         this.type = type;
         this.effect = effect;
         this.explosionRadius = explosionRadius;
         this.massModifier = massModifier;
         this.velocityModifier = velocityModifier;
+        this.projectileTexture = projectileTexture;
     }
 
     public Ammunition(int damageBonus) {
@@ -20,6 +22,7 @@ public class Ammunition {
         type = 1;
         effect = -1;
         explosionRadius = 0f;
+        projectileTexture = "";
     }
 
     @Override
@@ -34,7 +37,7 @@ public class Ammunition {
 
 
     public Ammunition copy(){
-        return new Ammunition(damageBonus,type,effect,explosionRadius, massModifier, velocityModifier);
+        return new Ammunition(damageBonus,type,effect,explosionRadius, massModifier, velocityModifier, projectileTexture);
     }
 
     public int getDamageBonus() {
@@ -59,6 +62,10 @@ public class Ammunition {
 
     public float getVelocityModifier() {
         return velocityModifier;
+    }
+
+    public String getProjectileTexture() {
+        return projectileTexture;
     }
 
     @Override

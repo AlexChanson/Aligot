@@ -11,7 +11,8 @@
       "effect": 0,
       "explosionRadius": 10,
       "massModifier": 1.5,
-      "velocityModifier": 1.0
+      "velocityModifier": 1.0,
+      "projectileTexture": "star.png"
     }
   ,
   "name": "Bazoo-K",

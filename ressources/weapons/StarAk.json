@@ -10,7 +10,8 @@
       "type": 1,
       "effect": 0,
       "massModifier": 0.8,
-      "velocityModifier": 2.0
+      "velocityModifier": 2.0,
+      "projectileTexture": "star.png"
     }
   ,
   "name": "Ak-47",
