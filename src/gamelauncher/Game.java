@@ -6,6 +6,7 @@ import core.model.Level;
 import core.model.Player;
 import core.solvers.*;
 import core.systems.*;
+import graphics.Animation;
 import graphics.Window;
 import graphics.gui.GUI;
 import physics.RigidBody;
@@ -140,7 +141,9 @@ public class Game implements GameStart {
                     new ContinuousKeyPress(),
                     new ChargingWeaponSubSystem(),
                     new WeaponChangeSystem(),
-                    new TimerSubSystem());
+                    new ExplosionSystem(),
+                    new TimerSubSystem(),
+                    new ExplosionDamageSystem());
 
             engine.registerSolvers(
                     new KeyPressSolver(),
