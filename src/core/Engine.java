@@ -186,6 +186,11 @@ public class Engine {
         this.timeStep = timeStep;
     }
 
+    public void addProjectile(Projectile projectile){
+        this.projectiles.add(projectile);
+        this.physicsEngine.addBody(projectile.getRigidBody());
+    }
+
     public FiniteStateMachine getGameState() {
         return gameState;
     }

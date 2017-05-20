@@ -1,6 +1,7 @@
 package core;
 
 import core.model.*;
+import core.systems.ChargingWeaponSubSystem;
 import fsm.FiniteStateMachine;
 import fsm.GUIStates.*;
 import graphics.Texture;
@@ -88,6 +89,24 @@ public class GraphicsEngine {
         if (guiFSM != null)
             guiFSM.update();
         guiComponents.forEach(GUIComponent::draw);
+
+        float height = 20f;
+        float border = 5f;
+        float vPos = Window.getHeight()-height-border-5f;
+        float totalWidth = Window.getWidth()/2;
+        float hPos = totalWidth-totalWidth/2;
+
+
+        if(ChargingWeaponSubSystem.isCharging()){
+            Window.drawRectangle(hPos-border,
+                    vPos-border,
+                    totalWidth+2*border,
+                    height+2*border, 150,0,0, 0);
+            Window.drawRectangle(hPos,
+                    vPos,
+                    totalWidth*ChargingWeaponSubSystem.getAmountFloat()/(float)(ChargingWeaponSubSystem.maximumCharging),
+                    height, 255,0,0, 0);
+        }
     }
 
     public void setGUI(GUI gui){

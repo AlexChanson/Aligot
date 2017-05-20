@@ -37,7 +37,7 @@ public class DebugCommandsSubSystem extends SubSystem {
                         GraphicsEngine.debugDisplay = !GraphicsEngine.debugDisplay;
                         break;
                     case GLFW.GLFW_KEY_T:
-                        engine.throwEvent(new Event("FIRE", null));
+                        engine.throwEvent(new Event("FIRE", 200.0));
                         break;
                     case GLFW.GLFW_KEY_Y:
                         for (Projectile projectile : engine.getProjectiles()){

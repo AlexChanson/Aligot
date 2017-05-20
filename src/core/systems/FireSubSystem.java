@@ -21,6 +21,7 @@ public class FireSubSystem extends SubSystem{
     @Override
     protected void processEvent(Event event) {
         if(event.type.equals("FIRE")){
+            double amount = (double) event.data;
             Player shooter = engine.getActivePlayer();
             Ammunition ammo = shooter.getCurrentWeapon().getAmmo();
             if(shooter.getCurrentWeapon() != null){
@@ -31,7 +32,7 @@ public class FireSubSystem extends SubSystem{
                 b.setStaticObject(false);
                 b.setAttractive(true);
                 b.setFriction(0.1);
-                b.setVelocity(firingAngle.multiply(200*ammo.getVelocityModifier()));
+                b.setVelocity(firingAngle.multiply(amount*ammo.getVelocityModifier()));
                 Projectile projectile = new Projectile(b, "star.png", ammo, shooter.getCurrentWeapon(), shooter);
                 engine.getProjectiles().add(projectile);
                 engine.getPhysicsEngine().addBody(b);

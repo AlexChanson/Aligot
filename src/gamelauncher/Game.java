@@ -5,6 +5,7 @@ import core.GraphicsEngine;
 import core.model.Level;
 import core.model.Player;
 import core.solvers.CollisionSolver;
+import core.solvers.FiringSolver;
 import core.solvers.PlayerMovementSolver;
 import core.solvers.RestartKeySolver;
 import core.systems.*;
@@ -139,10 +140,13 @@ public class Game implements GameStart {
                     new FireSubSystem(),
                     new DebugCommandsSubSystem(),
                     new PlayerAimingSubSystem(),
-                    new ContinuousKeyPress());
+                    new ContinuousKeyPress(),
+                    new ChargingWeaponSubSystem());
+
             engine.registerSolvers(new PlayerMovementSolver(),
                     new CollisionSolver(),
-                    new RestartKeySolver());
+                    new RestartKeySolver(),
+                    new FiringSolver());
         }
     }
 
