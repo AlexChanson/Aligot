@@ -8,6 +8,8 @@ import core.solvers.*;
 import core.systems.*;
 import graphics.Window;
 import graphics.gui.GUI;
+import particles.ParticleSystem;
+import particles.ProjectileTrailEmitter;
 import physics.RigidBody;
 import physics.Vector2D;
 import son.SoundPlayer;
@@ -26,6 +28,12 @@ public class Game implements GameStart {
     private static GraphicsEngine graphicsEngine;
     private static Level currentLevel;
     private static Player p1, p2;
+    private static ParticleSystem particleSystem;
+    private static final double targetFps = 60;
+
+    public static double getTargetFps(){
+        return targetFps;
+    }
 
     @Override
     public void start(int screenHeight, int screenWidth, boolean fullscreen, String firstPlayerName, String secondPlayerName) {
@@ -67,8 +75,11 @@ public class Game implements GameStart {
 
             if(engine != null && currentLevel != null) {
                 engine.update();
+                double dt = 1.0/getTargetFps();
+                particleSystem.update(dt);
                 graphicsEngine.drawLevel(currentLevel);
                 graphicsEngine.drawPlayers(currentLevel, engine.getActivePlayer(), p1, p2);
+                particleSystem.draw();
                 graphicsEngine.drawProjectiles(currentLevel, engine.getProjectiles());
             }
 
@@ -163,6 +174,9 @@ public class Game implements GameStart {
                     new RestartKeySolver(),
                     new FiringSolver(),
                     new WeaponChangeSolver());
+
+            particleSystem = new ParticleSystem();
+            particleSystem.addEmitter(new ProjectileTrailEmitter(engine, graphicsEngine));
         }
     }
 

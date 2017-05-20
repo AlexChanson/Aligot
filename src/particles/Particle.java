@@ -8,7 +8,6 @@ import physics.Vector2D;
 
 
 enum ParticleStates{
-    UNBORN,
     ALIVE,
     DEAD;
 }
@@ -18,29 +17,26 @@ public class Particle {
     private double rotation;
     private Vector2D velocity;
     private double rotationSpeed;
-    private double brownianAmount;
-    private double lifetime = 100.0;
+    private double lifetime = 5.0;
     private double life;
     private double size;
-    private ParticleStates state;
+    private ParticleStates state = ParticleStates.ALIVE;
     private GraphicComponent graphicComponent;
 
-    public Particle(double x, double y, double vx, double vy, double rotation, double size, double rotationSpeed, double brownianAmount){
+    public Particle(double x, double y, double vx, double vy, double rotation, double size, double rotationSpeed){
         position = new Vector2D(x,y);
         velocity = new Vector2D(vx, vy);
         this.rotation = rotation;
         this.size = size;
         this.rotationSpeed = rotationSpeed;
-        this.brownianAmount = brownianAmount;
     }
 
-    public Particle(double x, double y, double vx, double vy, double size, double brownianAmount){
+    public Particle(double x, double y, double vx, double vy, double size){
         position = new Vector2D(x,y);
         velocity = new Vector2D(vx, vy);
         this.rotation = 0;
         this.size = size;
         this.rotationSpeed = 0;
-        this.brownianAmount = brownianAmount;
     }
 
     public void setGraphicComponent(GraphicComponent graphicComponent){
@@ -103,14 +99,6 @@ public class Particle {
 
     public void setRotationSpeed(double rotationSpeed) {
         this.rotationSpeed = rotationSpeed;
-    }
-
-    public double getBrownianAmount() {
-        return brownianAmount;
-    }
-
-    public void setBrownianAmount(double brownianAmount) {
-        this.brownianAmount = brownianAmount;
     }
 
     public double getLifetime() {

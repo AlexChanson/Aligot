@@ -16,7 +16,15 @@ public class ParticleSystem {
         emitters = new ArrayList<>();
     }
 
+    public void addEmitter(Emitter emitter){
+        this.emitters.add(emitter);
+    }
+
     public void addParticles(Particle particle){
+
+        if (particles.size() > maxParticles){
+            particles.remove(0);
+        }
         this.particles.add(particle);
     }
 

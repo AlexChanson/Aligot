@@ -135,6 +135,11 @@ public class GraphicsEngine {
         return guiComponents;
     }
 
+    public float calculateWorldRatio(Level level){
+        float screenWidth = Window.getWidth(), screenHeight = Window.getHeight();
+        return Math.max(screenHeight / level.getMapSize()[1], screenWidth / level.getMapSize()[0]);
+    }
+
     public void drawPlayers(Level level, Player actualPlayer ,Player... players) {
         float screenWidth = Window.getWidth(), screenHeight = Window.getHeight();
         double ratio = Math.max(screenHeight / level.getMapSize()[1], screenWidth / level.getMapSize()[0]);
@@ -203,7 +208,7 @@ public class GraphicsEngine {
                         (float)(60f),
                         0f, (float)(player.getGlobalWeaponOrientation()-90),1f,1f, scale );
             }
-            scale = 0.07f;
+            scale = 0.13f;
             Weapon weapon = player.getCurrentWeapon();
             float scaleX =  player.isLooking_right() ? 1 : -1;
             if (weapon != null){
@@ -228,7 +233,7 @@ public class GraphicsEngine {
         double ratio = Math.max(screenHeight / level.getMapSize()[1], screenWidth / level.getMapSize()[0]);
         projectiles.forEach(projectile -> {
             Vector2D position = projectile.getRigidBody().getPosition();
-            float size = (float) (projectile.getRigidBody().getRadius() * ratio * 2);
+            float size = (float) (projectile.getRigidBody().getRadius() * ratio*2);
             Texture t = new Texture(projectile.getTexture());
             if(projectile.getTexture().equals("") || !Texture.textureLoaded(projectile.getTexture())) {
                 Window.drawCircle((float) (position.getX() * ratio),
@@ -237,10 +242,22 @@ public class GraphicsEngine {
                         255, 64, 64);
             }
             else {
-                Window.drawSprite(projectile.getTexture(),
+                Window.drawCircle((float) (position.getX() * ratio),
+                        (float) (position.getY() * ratio),
+                        (float) (projectile.getRigidBody().getRadius() * ratio),
+                        0, 255, 64);
+                Window.drawTexture(t, (float) (position.getX() * ratio) - size/2,
+                        (float) (position.getY() * ratio) - size/2,
+                        size, size,
+                        (float)(90+projectile.getRigidBody().getVelocity().angle()*180/Math.PI),
+                        1,
+                        0,0,t.getWidth(), t.getHeight(), 255,255,255
+                );
+
+                /*Window.drawSprite(projectile.getTexture(),
                         (float) (position.getX() * ratio) - size/2,
                         (float) (position.getY() * ratio) - size/2,
-                        size, size, (float)(90+projectile.getRigidBody().getVelocity().angle()*180/Math.PI));
+                        size*2, size*2, (float)(90+projectile.getRigidBody().getVelocity().angle()*180/Math.PI));*/
             }
         });
     }
