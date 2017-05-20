@@ -46,30 +46,22 @@ public class Animation {
     }
 
     public static Animation getAnimation(String name) {
-        Animation ret = new Animation();
+        Animation ret;
 
-        Iterator<Animation> it = animations.iterator();
-        Animation current;
-        boolean cont = true;
+        for (Animation animation : animations) {
+            if (animation.getName().equals(name)) {
+                ret = new Animation();
 
-        while (it.hasNext() && cont) {
-            current = it.next();
-
-            if (current.name.equals(name)) {
-                ret.sprites = current.sprites;
-                ret.durations = current.durations;
-                ret.textures = current.textures;
+                ret.sprites = animation.sprites;
+                ret.durations = animation.durations;
+                ret.textures = animation.textures;
                 ret.name = name;
 
-                cont = false;
+                return ret;
             }
         }
 
-        if (cont) {
-            return null;
-        }
-
-        return ret;
+        return null;
     }
 
     public void passTime(double dt) {
@@ -124,21 +116,9 @@ public class Animation {
     }
 
     public void draw(int posX, int posY, int width, int height, float rotate, float scale) {
-        Iterator<Double> it_dur = this.durations.iterator();
-        Iterator<Texture> it_text = this.textures.iterator();
-        Texture text;
-        double t = 0;
-        boolean cont = true;
+        Texture text = getCurrentTexture();
 
-        while (it_dur.hasNext() && it_text.hasNext() && cont) {
-            t += it_dur.next();
-            text = it_text.next();
-
-            if (t > this.time) {
-                cont = false;
-                Window.drawTexture(text, posX, posY, width, height, rotate, scale, 0, 0, text.getWidth(), text.getHeight(), 255, 255, 255);
-            }
-        }
+        Window.drawTexture(this.getCurrentTexture(), posX, posY, width, height, rotate, scale, 0, 0, text.getWidth(), text.getHeight(), 255, 255, 255);
     }
 
     public String getName() {
@@ -151,5 +131,27 @@ public class Animation {
         while (it.hasNext()) {
             it.next().passTime(dt);
         }
+    }
+
+    public Texture getCurrentTexture() {
+        Iterator<Double> it_dur = this.durations.iterator();
+        Iterator<Texture> it_text = this.textures.iterator();
+        Texture text = null;
+        double t = 0;
+
+        while (it_dur.hasNext() && it_text.hasNext() && t < this.time) {
+            t += it_dur.next();
+            text = it_text.next();
+        }
+
+        return text;
+    }
+
+    public boolean isFirstFrame() {
+        return this.time < this.durations.get(0);
+    }
+
+    public boolean isLastFrame() {
+        return getTotalDuration() - this.durations.get(this.durations.size() - 1) <= this.time;
     }
 }
