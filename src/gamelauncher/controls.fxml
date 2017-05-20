@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane minWidth="200.0" prefHeight="400.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane minWidth="200.0" prefHeight="400.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <VBox layoutX="160.0" layoutY="70.0" minWidth="100.0" prefHeight="400.0" prefWidth="300.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -65,6 +65,17 @@
                   </Label>
                   <Region prefHeight="200.0" prefWidth="10.0" HBox.hgrow="ALWAYS" />
                   <Label text="Spacebar" />
+               </children>
+            </HBox>
+            <HBox layoutX="40.0" layoutY="144.0" prefHeight="0.0" prefWidth="200.0">
+               <children>
+                  <Label text="Change weapon">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
+                  </Label>
+                  <Region prefHeight="200.0" prefWidth="10.0" HBox.hgrow="ALWAYS" />
+                  <Label text="+/- or mouse scroll" />
                </children>
             </HBox>
          </children>
