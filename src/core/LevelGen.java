@@ -126,10 +126,10 @@ public class LevelGen {
      */
     private void genPlanets() {
         String[] planetTypes = {"rock", "gas", "star", "black_hole"},
-                 rockTextures = {"planet_rock_1.png"},
-                 gasTextures = {"planet_gas_1.png", "planet_gas_2.png"},
+                 rockTextures = {"planet_rock_1.png", "planet_rock_2.png", "planet_rock_3.png", "planet_rock_4.png", "planet_rock_5.png", "planet_rock_6.png"},
+                 gasTextures = {"planet_gas_1.png", "planet_gas_2.png", "planet_gas_3.png", "planet_gas_4.png"},
                  starTextures = {"planet_star_1.png", "planet_star_2.png"},
-                 blackHolesTextures = {"placeholder.png"};
+                 blackHolesTextures = {"blackhole.png"};
         HashMap<String, String[]> textures = new HashMap<>();
         textures.put("rock", rockTextures);
         textures.put("gas", gasTextures);

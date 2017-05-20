@@ -20,6 +20,7 @@ public class ChallengesState extends State {
     private ArrayList<Level> levels;
     private Level currentLevel;
     private Label name, info;
+    private Image firstStar, secondStar, thirdStar;
     private String stateName;
     private int width, height;
 
@@ -47,6 +48,9 @@ public class ChallengesState extends State {
     public void initialize() {
         width = Window.getWidth();
         height = Window.getHeight();
+        firstStar = new Image("star_grey.png", (int)(Window.getWidth()*0.39),(int)(Window.getHeight()*0.05),(int)(Window.getWidth()*0.06),(int)(Window.getHeight()*0.1));
+        secondStar = new Image("star_grey.png", Window.getWidth()/2 - (int)(Window.getWidth()*0.03),(int)(Window.getHeight()*0.05),(int)(Window.getWidth()*0.06),(int)(Window.getHeight()*0.1));
+        thirdStar = new Image("star_grey.png", (int)(Window.getWidth()*0.55),(int)(Window.getHeight()*0.05),(int)(Window.getWidth()*0.06),(int)(Window.getHeight()*0.1));
         name = new Label("---", Window.getWidth()/2 - (int)(Window.getWidth()*0.14), (int)(Window.getHeight()*0.17), (int)(Window.getWidth()*0.31), (int)(Window.getHeight()*0.14), "name");
         info = new Label("---", Window.getWidth()/2 - (int)(Window.getWidth()*0.215), (int)(Window.getHeight()*0.35), (int)(Window.getWidth()*0.46), (int)(Window.getHeight()*0.21), "info");
         Image menu_bg = new Image("menu_bg.png");
@@ -59,7 +63,7 @@ public class ChallengesState extends State {
         left.addListener(leftListener);
         right.addListener(rightListener);
         challenges = new GUI();
-        challenges.addComponents(left, right, back, play, name, info, menu_bg);
+        challenges.addComponents(left, right, back, play, name, info, menu_bg, firstStar, secondStar, thirdStar);
         back.addListener(backButtonListener);
         if(levels.size() != 0){
             currentLevel = levels.get(0);
