@@ -5,12 +5,8 @@ import core.Event;
 import core.model.Item;
 import core.model.Player;
 import core.model.Weapon;
-import org.lwjgl.glfw.GLFW;
-import utility.Weapons;
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class WeaponChangeSystem extends SubSystem{
     @Override
@@ -24,6 +20,10 @@ public class WeaponChangeSystem extends SubSystem{
             int key = (int)event.data;
             if (key >= 49 && key <= 57){
                 switchWeapon(key - 49);
+            }
+        }else if (event.type.equals("CHANGE_WEAPON")){
+            if (engine.getActivePlayer() != null){
+                switchWeapon(engine.getActivePlayer().getInventory().indexOf(engine.getActivePlayer().getCurrentWeapon()) + (int) event.data);
             }
         }
     }
