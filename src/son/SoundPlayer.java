@@ -2,6 +2,7 @@ package son;
 
 import javax.sound.sampled.AudioInputStream;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Provides a simple way to play wav sounds to other game components

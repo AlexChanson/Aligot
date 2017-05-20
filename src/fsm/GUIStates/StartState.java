@@ -7,6 +7,7 @@ import graphics.gui.Button;
 import graphics.gui.GUI;
 import graphics.gui.GUIButtonListener;
 import graphics.gui.Image;
+import son.SoundPlayer;
 
 public class StartState extends State {
     private GUI start;
@@ -40,6 +41,7 @@ public class StartState extends State {
 
     public void onEnter(){
         graphicsEngine.setGUI(start);
+        SoundPlayer.playLoop("loop_1");
     }
 
     @Override

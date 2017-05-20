@@ -6,6 +6,7 @@ import gamelauncher.Game;
 import graphics.Window;
 import graphics.gui.GUI;
 import graphics.gui.Label;
+import son.SoundPlayer;
 
 /**
  * Created by Christopher on 16/05/2017.
@@ -42,7 +43,13 @@ public class MultiPlayState extends State {
         multiPlay.addComponents(player_1, player_2, health_1, health_2, damage_1, damage_2, weapon_1, weapon_2);
     }
     public void onEnter(){
+        SoundPlayer.playLoop("loop_2");
         graphicsEngine.setGUI(multiPlay);
+    }
+
+    @Override
+    public void onExit() {
+        SoundPlayer.stopLoop("loop_2");
     }
 
     @Override

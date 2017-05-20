@@ -16,7 +16,6 @@ public class ExplosionDamageSystem extends SubSystem{
             engine.getPlayers().forEach(player -> {
                 if (player.getRigidBody().getPosition().distanceTo(explosion.getPosition()) < explosion.getRadius()){
                     player.setHealth(player.getHealth() - explosion.getDamage());
-                    System.out.println(player.getHealth());
                 }
             });
         }

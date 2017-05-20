@@ -6,6 +6,7 @@ import gamelauncher.Game;
 import graphics.Window;
 import graphics.gui.GUI;
 import graphics.gui.Label;
+import son.SoundPlayer;
 
 /**
  * Created by Christopher on 16/05/2017.
@@ -34,6 +35,12 @@ public class ChallengePlayState extends State {
     }
     public void onEnter(){
         graphicsEngine.setGUI(challengePlay);
+        SoundPlayer.playLoop("loop_3");
+    }
+
+    @Override
+    public void onExit() {
+        SoundPlayer.stopLoop("loop_3");
     }
 
     @Override

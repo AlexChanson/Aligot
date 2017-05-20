@@ -143,6 +143,7 @@ public class Game implements GameStart {
                     new WeaponChangeSystem(),
                     new ExplosionSystem(),
                     new TimerSubSystem(),
+                    new SoundSystem(),
                     new ExplosionDamageSystem());
 
             engine.registerSolvers(

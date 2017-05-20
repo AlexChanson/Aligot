@@ -2,11 +2,15 @@ package fsm.GUIStates;
 
 import fsm.State;
 import gamelauncher.Game;
+import son.SoundPlayer;
 
-/**
- * Created by Christopher on 24/04/2017.
- */
 public class ExitState extends State {
+    @Override
+    public void onEnter() {
+        SoundPlayer.stopLoop("loop_1");
+        SoundPlayer.stopLoop("loop_2");
+        SoundPlayer.stopLoop("loop_3");
+    }
 
     @Override
     public String onUpdate() {
