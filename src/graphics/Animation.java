@@ -93,10 +93,9 @@ public class Animation {
 
     public double getTotalDuration() {
         if (this.totalDuration == 0) {
-            Iterator<Double> it = this.durations.iterator();
 
-            while (it.hasNext()) {
-                this.totalDuration += it.next();
+            for (Double duration : this.durations) {
+                this.totalDuration += duration;
             }
         }
         inUse = 10;
@@ -145,7 +144,7 @@ public class Animation {
         inUse = 10;
         Texture text = getCurrentTexture();
         if (text == null){
-            //LOGGER.warning("Texture frame not found");
+            LOGGER.warning("Texture frame not found");
             return;
         }
 
@@ -158,10 +157,7 @@ public class Animation {
     }
 
     public static void passTimeForAll(double dt) {
-        Iterator<Animation> it = animations.iterator();
-
-        while (it.hasNext()) {
-            Animation animation = it.next();
+        for (Animation animation : animations) {
             animation.inUse -= 1;
             animation.passTime(dt);
         }

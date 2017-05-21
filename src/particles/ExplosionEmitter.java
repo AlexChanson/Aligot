@@ -9,9 +9,6 @@ import graphics.Window;
 import physics.RigidBody;
 import physics.Vector2D;
 
-/**
- * Created by ben on 21/05/17.
- */
 public class ExplosionEmitter implements Emitter {
     boolean done;
     Engine engine;
@@ -35,23 +32,22 @@ public class ExplosionEmitter implements Emitter {
     @Override
     public void emitParticles(ParticleSystem particleSystem, double dt) {
         Animation animation = Animation.getAnimation("boom");
-        animation.start();
-        System.out.println(animation.getCurrentTexture());
-
-        Particle particle = new Particle(
-                location.getX(),
-                location.getY(),
-                0,0,
-                Math.random()*50,
-                size,
-                0
-        );
-        particle.setGraphicComponent(new ExplosionComponent(
-                graphicsEngine.calculateWorldRatio(engine.getLevel()),
-                animation));
-        particle.setLifetime(animation.getTotalDuration());
-        particleSystem.addParticles(particle);
-
+        if (animation != null) {
+            animation.start();
+            Particle particle = new Particle(
+                    location.getX(),
+                    location.getY(),
+                    0,0,
+                    Math.random()*50,
+                    size,
+                    0
+            );
+            particle.setGraphicComponent(new ExplosionComponent(
+                    graphicsEngine.calculateWorldRatio(engine.getLevel()),
+                    animation));
+            particle.setLifetime(animation.getTotalDuration());
+            particleSystem.addParticles(particle);
+        }
         done = true;
     }
 }
