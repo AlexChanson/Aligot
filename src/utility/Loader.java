@@ -109,7 +109,7 @@ public class Loader {
     public static void decompileAssets(){
         JarFile jarFile = null;
         String pathToJar = "";
-        String tempPath = System.getProperty("java.io.tmpdir");
+        String tempPath = System.getProperty("user.dir");
         try {
             pathToJar = Loader.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath();
         } catch (URISyntaxException e) {
@@ -121,7 +121,7 @@ public class Loader {
         } catch (IOException ignored) {}
 
         if(jarFile != null){
-            String path = tempPath +  "aligot_assets";
+            String path = tempPath +  File.separator + "aligot_assets";
             Window.setRessourcesFolderPath(path + File.separator);
             ressourcesPath = path + File.separator;
 
