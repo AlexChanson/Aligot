@@ -56,6 +56,8 @@ public class ExplosionSystem extends SubSystem{
                 engine.getPhysicsEngine().removeBody(projectile);
                 Game.getParticleSystem().addEmitter(new ExplosionEmitter(
                         new Vector2D(pr.getRigidBody().getPosition()), pr.getType().getExplosionRadius()*Game.getGraphicsEngine().calculateWorldRatio(Game.getCurrentLevel())));
+                if (engine.getProjectiles().size() == 0)
+                    engine.throwEvent(new Event("REMOVED_LAST_PROJECTILE"));
             }
         }
     }
