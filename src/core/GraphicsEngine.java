@@ -206,7 +206,7 @@ public class GraphicsEngine {
                 Window.drawSpriteRotate("viseur-01.png",
                         ciblePosX,
                         ciblePosY,
-                        (float)(60f),
+                        (float)(80f),
                         0f, (float)(player.getGlobalWeaponOrientation()-90),1f,1f, scale );
             }
             scale = 0.13f;

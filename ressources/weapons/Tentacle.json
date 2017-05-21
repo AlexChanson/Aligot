@@ -11,7 +11,7 @@
       "effect": 41,
       "massModifier": 1.0,
       "velocityModifier": 1.0,
-      "projectileTexture": "star.png"
+      "projectileTexture": "projectile_tentacle.png"
     }
   ,
   "name": "Tentacle",
