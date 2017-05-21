@@ -88,12 +88,13 @@ public class GraphicsEngine {
 
             });
 
+            float ratio = this.calculateWorldRatio(Game.getCurrentLevel());
             if(level.getChallenge() != null){
-                float size = (float) Challenge.TARGET_SIZE;
+                float size = (float) ratio*Challenge.TARGET_SIZE;
                 level.getChallenge().getTargets().forEach((double[] target) -> {
-                    float x = (float) (target[0]*screenLevelRatio - size/2);
-                    float y = (float) (target[1]*screenLevelRatio - size/2);
-                    Window.drawSprite("target.png", x, y, size, size,0f);
+                    float x = (float) (target[0]*screenLevelRatio - size);
+                    float y = (float) (target[1]*screenLevelRatio - size);
+                    Window.drawSprite("target.png", x, y, size*2, size*2,0f);
                 });
             }
         }
