@@ -5,7 +5,6 @@ import core.GraphicsEngine;
 import core.model.Level;
 import core.model.Player;
 import core.model.Progression;
-import core.model.Weapon;
 import core.solvers.*;
 import core.systems.*;
 import graphics.Animation;
@@ -104,7 +103,7 @@ public class Game implements GameStart {
                     new ContinuousKeyPress(),
                     new ChargingWeaponSubSystem(),
                     new WeaponChangeSystem(),
-                    new ExplosionSystem(),
+                    new ProjectileCollisionSystem(),
                     new TimerSubSystem(),
                     new SoundSystem(),
                     new VictoryConditionSystem(),
@@ -153,7 +152,7 @@ public class Game implements GameStart {
                     new ContinuousKeyPress(),
                     new ChargingWeaponSubSystem(),
                     new WeaponChangeSystem(),
-                    new ExplosionSystem(),
+                    new ProjectileCollisionSystem(),
                     new TimerSubSystem(),
                     new SoundSystem(),
                     new ExplosionDamageSystem(),

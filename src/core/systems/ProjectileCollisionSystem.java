@@ -13,7 +13,11 @@ import utility.Pair;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class ExplosionSystem extends SubSystem{
+/**
+ * @handles COLLISION
+ * @throws EXPLOSION, REMOVED_LAST_PROJECTILE
+ */
+public class ProjectileCollisionSystem extends SubSystem{
     @Override
     public void initialize() {
 
