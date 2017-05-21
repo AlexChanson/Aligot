@@ -6,6 +6,7 @@ import core.model.Level;
 import core.model.Player;
 import core.solvers.*;
 import core.systems.*;
+import graphics.Animation;
 import graphics.Window;
 import graphics.gui.GUI;
 import particles.ParticleSystem;
@@ -77,6 +78,7 @@ public class Game implements GameStart {
                 engine.update();
                 double dt = 1.0/getTargetFps();
                 particleSystem.update(dt);
+                Animation.passTimeForAll(dt);
                 graphicsEngine.drawLevel(currentLevel);
                 graphicsEngine.drawPlayers(currentLevel, engine.getActivePlayer(), p1, p2);
                 particleSystem.draw();
@@ -178,6 +180,14 @@ public class Game implements GameStart {
             particleSystem = new ParticleSystem();
             particleSystem.addEmitter(new ProjectileTrailEmitter(engine, graphicsEngine));
         }
+    }
+
+    public static Engine getEngine() {
+        return engine;
+    }
+
+    public static GraphicsEngine getGraphicsEngine() {
+        return graphicsEngine;
     }
 
     private static void initSoloEngine(){

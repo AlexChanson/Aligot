@@ -120,7 +120,7 @@ public class Animation {
         this.time = 0;
     }
 
-    public void draw(int posX, int posY, int width, int height, float rotate, float scale) {
+    public void draw(float posX, float posY, float width, float height, float rotate, float scale) {
         Texture text = getCurrentTexture();
 
         Window.drawTexture(this.getCurrentTexture(), posX, posY, width, height, rotate, scale, 0, 0, text.getWidth(), text.getHeight(), 255, 255, 255);
