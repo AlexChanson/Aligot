@@ -38,7 +38,7 @@ public class ExplosionEmitter implements Emitter {
                     location.getX(),
                     location.getY(),
                     0,0,
-                    Math.random()*50,
+                    Math.random()*180,
                     size,
                     0
             );
