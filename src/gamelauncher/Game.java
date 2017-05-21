@@ -76,14 +76,20 @@ public class Game implements GameStart {
             Window.loopStart();
 
             if(engine != null && currentLevel != null) {
-                engine.update();
                 double dt = 1.0/getTargetFps();
-                particleSystem.update(dt);
-                Animation.passTimeForAll(dt);
-                graphicsEngine.drawLevel(currentLevel);
-                graphicsEngine.drawPlayers(currentLevel, engine.getActivePlayer(), p1, p2);
-                particleSystem.draw();
-                graphicsEngine.drawProjectiles(currentLevel, engine.getProjectiles());
+                engine.setTimeStep(dt);
+                engine.update();
+                // I don't thrust my devs...
+                try {
+                    particleSystem.update(dt);
+                    Animation.passTimeForAll(dt);
+                    graphicsEngine.drawLevel(currentLevel);
+                    graphicsEngine.drawPlayers(currentLevel, engine.getActivePlayer(), p1, p2);
+                    particleSystem.draw();
+                    graphicsEngine.drawProjectiles(currentLevel, engine.getProjectiles());
+                }catch (NullPointerException e){
+                    e.printStackTrace();
+                }
             }
 
 
