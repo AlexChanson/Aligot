@@ -122,6 +122,7 @@ public class Loader {
 
         if(jarFile != null){
             String path = tempPath +  File.separator + "aligot_assets";
+            System.out.println("Trying to create directory: " + path);
             Window.setRessourcesFolderPath(path + File.separator);
             ressourcesPath = path + File.separator;
 
