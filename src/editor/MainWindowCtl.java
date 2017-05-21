@@ -343,7 +343,10 @@ public class MainWindowCtl {
                 }
                 if(!overlap){
                         double mass = Double.parseDouble(planetMass.getText());
-                        Planet p = new Planet(new RigidBody(new Vector2D(cursorX.get(), cursorY.get()), size, mass), planetTexture.getText(), planetType.getValue());
+                        RigidBody body = new RigidBody(new Vector2D(cursorX.get(), cursorY.get()), size, mass);
+                        body.setAttractive(true);
+                        body.setStaticObject(true);
+                        Planet p = new Planet(body, planetTexture.getText(), planetType.getValue());
                         if(isSpawnBox.isSelected())
                             p.setAsSpawn();
                         currentLevel.get().getPlanets().add(p);
