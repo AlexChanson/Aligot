@@ -45,9 +45,9 @@ public class ChargingWeaponSubSystem extends SubSystem {
                 break;
             case "FINISHED_CHARGING_WEAPON":
                 if (charging){
-                    charging = false;
                     engine.throwEvent(new Event("FIRE", Math.min(amount, maximumCharging)));
                 }
+                charging = false;
                 break;
             case "TICK":
                 if (charging){
