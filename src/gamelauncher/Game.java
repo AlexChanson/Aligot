@@ -48,7 +48,6 @@ public class Game implements GameStart {
         currentLevel = level;
         if(level != null && level.getChallenge() != null){
             p1.setHealth(p1.getMaxHealth());
-            p2 = null;
             p1.getInventory().clear();
             Weapons.equip(p1);
             engine = null;
@@ -202,7 +201,7 @@ public class Game implements GameStart {
         //Mute sound Key
         Window.getKeyboardListeners().add((window, key, scancode, action, mods) -> {
             if (action == GLFW_PRESS && key == GLFW_KEY_P){
-                System.out.println("test");
+                //System.out.println("test");
                 SoundPlayer.mute(!SoundPlayer.isMuted());
             }
         });
@@ -220,7 +219,6 @@ public class Game implements GameStart {
         //Graphics Engine init
         graphicsEngine = new GraphicsEngine();
         graphicsEngine.initGUI();
-        Animation a = Animation.getAnimation("boom");
 
         //Main Game Loop
         boolean quit = false;
@@ -232,6 +230,7 @@ public class Game implements GameStart {
                 engine.setTimeStep(dt);
                 engine.update();
                 // I don't thrust my devs...
+                // it's totally useless...
                 try {
                     particleSystem.update(dt);
                     Animation.passTimeForAll(dt);

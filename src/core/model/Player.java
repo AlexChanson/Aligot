@@ -30,7 +30,7 @@ public class Player extends GameObject{
     }
 
     public boolean setLocalWeaponOrientation(double weaponOrientation) {
-        if ( 0 <= weaponOrientation && weaponOrientation <= 90 ){
+        if ( -30 <= weaponOrientation && weaponOrientation <= 90 ){
             this.weaponOrientation = weaponOrientation;
             return true;
         }

@@ -78,7 +78,6 @@ public class Animation {
 
     public void passTime(double dt) {
         if (this.playing) {
-            System.out.println("Texture passTime");
             this.time += dt;
 
             if (loop) {
@@ -188,12 +187,6 @@ public class Animation {
     }
 
     private static void purgeAnimations(){
-        for (Animation animation: animations){
-            System.out.println(animation);
-            System.out.println(animation.getName());
-            System.out.println(animation.inUse);
-        }
-
         animations.removeIf((animation -> (animation.inUse <= 0) && !animation.prototype));
     }
 }
