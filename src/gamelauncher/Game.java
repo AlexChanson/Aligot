@@ -107,6 +107,7 @@ public class Game implements GameStart {
                     new ExplosionSystem(),
                     new TimerSubSystem(),
                     new SoundSystem(),
+                    new VictoryConditionSystem(),
                     new ExplosionDamageSystem(),
                     new ExitSubSystem(graphicsEngine),
                     new TurnSubSystem());

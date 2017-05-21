@@ -2,6 +2,7 @@ package core.systems;
 
 import core.Event;
 import core.model.Explosion;
+import core.model.Player;
 import core.model.Projectile;
 import gamelauncher.Game;
 import particles.ExplosionEmitter;
@@ -58,6 +59,20 @@ public class ExplosionSystem extends SubSystem{
                         new Vector2D(pr.getRigidBody().getPosition()), pr.getType().getExplosionRadius()*Game.getGraphicsEngine().calculateWorldRatio(Game.getCurrentLevel())));
                 if (engine.getProjectiles().size() == 0)
                     engine.throwEvent(new Event("REMOVED_LAST_PROJECTILE"));
+            }else {
+                for (Player player : engine.getPlayers()) {
+                    if (player.getRigidBody() == other){
+                        int[] range = pr.getOrigin().getDamageRange();
+                        int damage = new Random().nextInt(range[1] - range[0]) + range[0] + pr.getType().getDamageBonus();
+                        player.setHealth(player.getHealth() - damage);
+                        engine.getProjectiles().remove(pr);
+                        engine.getPhysicsEngine().removeBody(projectile);
+                        if (engine.getProjectiles().size() == 0)
+                            engine.throwEvent(new Event("REMOVED_LAST_PROJECTILE"));
+                    }
+                }
+
+
             }
         }
     }

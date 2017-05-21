@@ -2,16 +2,14 @@ package core.systems;
 
 import core.Event;
 import core.GraphicsEngine;
-import fsm.GUIStates.StartState;
+import core.model.Player;
+import fsm.GUIStates.MultiWinState;
 import gamelauncher.Game;
 
-/**
- * Created by ben on 20/05/17.
- */
 public class ExitSubSystem extends SubSystem {
 
 
-    GraphicsEngine graphicsEngine;
+    private GraphicsEngine graphicsEngine;
     public ExitSubSystem(GraphicsEngine graphicsEngine){
         this.graphicsEngine = graphicsEngine;
     }
@@ -26,6 +24,14 @@ public class ExitSubSystem extends SubSystem {
         if ( event.type.equals("QUIT") ){
             engine.throwEvent(new Event("EXITING"));
             graphicsEngine.transitionToGUIState("start");
+            Game.setLevel(null);
+        }
+        if (event.type.equals("PLAYER_WINS")){
+            Player player = (Player) event.data;
+            if (!graphicsEngine.getGuiFSM().isRegisteredState("multiWin_" + player.getName())){
+                graphicsEngine.getGuiFSM().addState(new MultiWinState(player));
+            }
+            graphicsEngine.transitionToGUIState("multiWin_" + player.getName());
             Game.setLevel(null);
         }
     }

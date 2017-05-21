@@ -142,7 +142,11 @@ public class GraphicsEngine {
         return Math.max(screenHeight / level.getMapSize()[1], screenWidth / level.getMapSize()[0]);
     }
 
-    public void drawPlayers(Level level, Player actualPlayer ,Player... players) {
+    public FiniteStateMachine getGuiFSM() {
+        return guiFSM;
+    }
+
+    public void drawPlayers(Level level, Player actualPlayer , Player... players) {
         float screenWidth = Window.getWidth(), screenHeight = Window.getHeight();
         double ratio = Math.max(screenHeight / level.getMapSize()[1], screenWidth / level.getMapSize()[0]);
 
@@ -221,6 +225,7 @@ public class GraphicsEngine {
                         Window.drawSpriteRotate(weapon.getTexture(),
                                 weaponPosX,
                                 weaponPosY,
+
                                 10f,
                                 0f, (float)(player.getGlobalWeaponOrientation()-90), 1f, scaleX, scale );
                     }
