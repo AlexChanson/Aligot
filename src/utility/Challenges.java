@@ -1,6 +1,7 @@
 package utility;
 
 
+import core.model.Challenge;
 import core.model.Level;
 
 import java.util.ArrayList;
@@ -13,6 +14,12 @@ public class Challenges {
     }
 
     public static ArrayList<Level> get(){
-            return new ArrayList<>(challenges);
+            ArrayList<Level> temp = new ArrayList<>(challenges.size());
+            challenges.forEach(challenge -> {
+                temp.add(new Level(challenge.getName(), challenge.getInfo(), challenge.getBgTexture(), challenge.getPlanets(), challenge.getMapSize(), new Challenge(
+                        challenge.getChallenge().getDifficulty(), challenge.getChallenge().getShots(), challenge.getChallenge().getTargets()
+                )));
+            });
+            return temp;
     }
 }

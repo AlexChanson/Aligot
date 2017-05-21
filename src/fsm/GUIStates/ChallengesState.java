@@ -8,6 +8,7 @@ import gamelauncher.Game;
 import graphics.Window;
 import graphics.gui.*;
 import son.SoundPlayer;
+import utility.Challenges;
 
 import java.util.ArrayList;
 import java.util.stream.Collectors;
@@ -26,10 +27,15 @@ public class ChallengesState extends State {
     private static ArrayList<Image> yellowStars = new ArrayList<>();
     private int score;
     private String stateName;
-    private int width, height;
+    private int width, height, diff;
 
     public ChallengesState (GraphicsEngine graphicsEngine, ArrayList<Level> levels, int difficulty){
         this.graphicsEngine = graphicsEngine;
+        diff = difficulty;
+        loadLevels(levels, difficulty);
+    }
+
+    private void loadLevels(ArrayList<Level> levels, int difficulty){
         switch (difficulty){
             case 1 :
                 stateName = "easyChallenges";
@@ -88,6 +94,7 @@ public class ChallengesState extends State {
         if(levels.size() != 0){
             currentLevel = levels.get(0);
         }
+        loadLevels(Challenges.get(), diff);
         initialize();
         graphicsEngine.setGUI(challenges);
     }

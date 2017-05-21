@@ -20,6 +20,7 @@ import utility.Weapons;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.logging.Logger;
 
 import static org.lwjgl.glfw.GLFW.*;
@@ -34,6 +35,7 @@ public class Game implements GameStart {
     private static Player p1, p2;
     private static ParticleSystem particleSystem;
     private static Progression progression;
+    private static List<Solver> solvers;
 
     public static double getTargetFps(){
         return targetFps;
@@ -45,6 +47,13 @@ public class Game implements GameStart {
     }
 
     public static void setLevel(Level level){
+        if (solvers == null){
+            solvers = new ArrayList<>();
+            solvers.add(new KeyPressSolver());
+            solvers.add(new CollisionSolver());
+            solvers.add(new FiringSolver());
+            solvers.add(new WeaponChangeSolver());
+        }
         currentLevel = level;
         if(level != null && level.getChallenge() != null){
             p1.setHealth(p1.getMaxHealth());
@@ -86,33 +95,31 @@ public class Game implements GameStart {
         if(engine == null){
             try {
                 engine = new Engine(currentLevel, p1, p2);
+                engine.registerSubSystems(
+                        new PlayerOrientationSystem(),
+                        new PlayerMovementSystem(),
+                        new FireSubSystem(),
+                        new PlayerAimingSubSystem(),
+                        new ContinuousKeyPress(),
+                        new ChargingWeaponSubSystem(),
+                        new WeaponChangeSystem(),
+                        new ProjectileCollisionSystem(),
+                        new TimerSubSystem(),
+                        new SoundSystem(),
+                        new VictoryConditionSystem(),
+                        new ExplosionDamageSystem(),
+                        new ExitSubSystem(graphicsEngine),
+                        new TurnSubSystem());
+
+                solvers.forEach(solver -> solver.setEngine(engine));
+                solvers.forEach(Solver::initialize);
+
+                particleSystem = new ParticleSystem();
+                particleSystem.addEmitter(new ProjectileTrailEmitter(engine, graphicsEngine));
             }catch (NullPointerException e){
                 LOGGER.log(java.util.logging.Level.WARNING, "Engine Init Failed");
             }
-            engine.registerSubSystems(
-                    new PlayerOrientationSystem(),
-                    new PlayerMovementSystem(),
-                    new FireSubSystem(),
-                    new PlayerAimingSubSystem(),
-                    new ContinuousKeyPress(),
-                    new ChargingWeaponSubSystem(),
-                    new WeaponChangeSystem(),
-                    new ProjectileCollisionSystem(),
-                    new TimerSubSystem(),
-                    new SoundSystem(),
-                    new VictoryConditionSystem(),
-                    new ExplosionDamageSystem(),
-                    new ExitSubSystem(graphicsEngine),
-                    new TurnSubSystem());
 
-            engine.registerSolvers(
-                    new KeyPressSolver(),
-                    new CollisionSolver(),
-                    new FiringSolver(),
-                    new WeaponChangeSolver());
-
-            particleSystem = new ParticleSystem();
-            particleSystem.addEmitter(new ProjectileTrailEmitter(engine, graphicsEngine));
         }
     }
 
@@ -132,32 +139,30 @@ public class Game implements GameStart {
         if(engine == null){
             try {
                 engine = new Engine(currentLevel, p1);
+                engine.registerSubSystems(
+                        new ChallengeSubSystem(),
+                        new PlayerOrientationSystem(),
+                        new PlayerMovementSystem(),
+                        new FireSubSystem(),
+                        new PlayerAimingSubSystem(),
+                        new ContinuousKeyPress(),
+                        new ChargingWeaponSubSystem(),
+                        new WeaponChangeSystem(),
+                        new ProjectileCollisionSystem(),
+                        new TimerSubSystem(),
+                        new SoundSystem(),
+                        new ExplosionDamageSystem(),
+                        new ExitSubSystem(graphicsEngine));
+
+                solvers.forEach(solver -> solver.setEngine(engine));
+                solvers.forEach(Solver::initialize);
+
+                particleSystem = new ParticleSystem();
+                particleSystem.addEmitter(new ProjectileTrailEmitter(engine, graphicsEngine));
             }catch (NullPointerException e){
                 LOGGER.log(java.util.logging.Level.WARNING, "Engine Init Failed");
             }
-            engine.registerSubSystems(
-                    new ChallengeSubSystem(),
-                    new PlayerOrientationSystem(),
-                    new PlayerMovementSystem(),
-                    new FireSubSystem(),
-                    new PlayerAimingSubSystem(),
-                    new ContinuousKeyPress(),
-                    new ChargingWeaponSubSystem(),
-                    new WeaponChangeSystem(),
-                    new ProjectileCollisionSystem(),
-                    new TimerSubSystem(),
-                    new SoundSystem(),
-                    new ExplosionDamageSystem(),
-                    new ExitSubSystem(graphicsEngine));
 
-            engine.registerSolvers(
-                    new KeyPressSolver(),
-                    new CollisionSolver(),
-                    new FiringSolver(),
-                    new WeaponChangeSolver());
-
-            particleSystem = new ParticleSystem();
-            particleSystem.addEmitter(new ProjectileTrailEmitter(engine, graphicsEngine));
         }
     }
 
