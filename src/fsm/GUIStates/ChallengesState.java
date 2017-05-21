@@ -90,6 +90,7 @@ public class ChallengesState extends State {
         }
         if(leftListener.isClicked()){
             leftListener.setNotClicked();
+            SoundPlayer.play("button_select01");
             try {
                 currentLevel = levels.get(levels.indexOf(currentLevel) - 1);
             }catch (IndexOutOfBoundsException ignored){
@@ -99,6 +100,7 @@ public class ChallengesState extends State {
         }
         if(rightListener.isClicked()){
             rightListener.setNotClicked();
+            SoundPlayer.play("button_select01");
             try {
                 currentLevel = levels.get(levels.indexOf(currentLevel) + 1);
             }catch (IndexOutOfBoundsException ignored){
@@ -108,11 +110,13 @@ public class ChallengesState extends State {
         }
         if(playListener.isClicked()){
             playListener.setNotClicked();
+            SoundPlayer.play("button_select01");
             Game.setLevel(currentLevel);
             return "challengePlay";
         }
         if (backButtonListener.isClicked()) {
             backButtonListener.setNotClicked();
+            SoundPlayer.play("button_back");
             return "challengeDifficulty";
         }
         return "challenges";

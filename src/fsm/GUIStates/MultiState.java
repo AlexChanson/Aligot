@@ -6,6 +6,7 @@ import fsm.State;
 import gamelauncher.Game;
 import graphics.Window;
 import graphics.gui.*;
+import son.SoundPlayer;
 
 import java.util.Random;
 
@@ -71,6 +72,7 @@ public class MultiState extends State {
             graphicsEngine.setGUI(multi);
         }
         if (rightButtonListener.isClicked()){
+            SoundPlayer.play("button_select01");
             rightButtonListener.setNotClicked();
             if (i<9){
                 i += 1;
@@ -87,6 +89,7 @@ public class MultiState extends State {
         }
         else if (leftButtonListener.isClicked()){
             leftButtonListener.setNotClicked();
+            SoundPlayer.play("button_select01");
             if(i > 2) {
                 i -= 1;
                 count.setText(Integer.toString(i));
@@ -94,6 +97,7 @@ public class MultiState extends State {
         }
         else if (fightButtonListener.isClicked()){
             fightButtonListener.setNotClicked();
+            SoundPlayer.play("button_select01");
             int[] screenSize = {640, 360};
             LevelGen levelGen = new LevelGen(new Random().nextLong(), screenSize);
             levelGen.setPlanetNumber(i);
@@ -102,6 +106,7 @@ public class MultiState extends State {
         }
         else if (backButtonListener.isClicked()){
             backButtonListener.setNotClicked();
+            SoundPlayer.play("button_back");
             return "gameMods";
         }
         return "multi";
