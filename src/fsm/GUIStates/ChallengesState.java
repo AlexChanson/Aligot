@@ -22,8 +22,8 @@ public class ChallengesState extends State {
     private ArrayList<Level> levels;
     private Level currentLevel;
     private Label name, info;
-    private ArrayList<Image> greyStars = new ArrayList<>();
-    private ArrayList<Image> yellowStars = new ArrayList<>();
+    private static ArrayList<Image> greyStars = new ArrayList<>();
+    private static ArrayList<Image> yellowStars = new ArrayList<>();
     private int score;
     private String stateName;
     private int width, height;
@@ -62,11 +62,11 @@ public class ChallengesState extends State {
         yellowStars.add( new Image("star.png", (int) (Window.getWidth() * 0.55), (int) (Window.getHeight() * 0.05), (int) (Window.getWidth() * 0.06), (int) (Window.getHeight() * 0.1)));
         yellowStars.add(new Image("star.png", 10, 100, 100, 100));
         yellowStars.add( new Image("star.png", 10, 150, 100, 100));
+        yellowStars.forEach(image -> image.setZ(10));
         name = new Label("---", Window.getWidth()/2 - (int)(Window.getWidth()*0.14), (int)(Window.getHeight()*0.17), (int)(Window.getWidth()*0.31), (int)(Window.getHeight()*0.14), "name");
         info = new Label("---", Window.getWidth()/2 - (int)(Window.getWidth()*0.215), (int)(Window.getHeight()*0.35), (int)(Window.getWidth()*0.46), (int)(Window.getHeight()*0.21), "info");
         Image menu_bg = new Image("menu_bg.png");
         menu_bg.setZ(-2);
-        starsPlacement();
         Button left = new Button("button_left.png", "",2*(Window.getWidth()/7) - (int)(Window.getWidth()*0.02), (int)(Window.getHeight()*0.21), (int)(Window.getWidth()*0.04), (int)(Window.getHeight()*0.07), "left");
         Button right = new Button("button_right.png", "", 5*(Window.getWidth()/7) -(int)(Window.getWidth()*0.02),(int)(Window.getHeight()*0.21), (int)(Window.getWidth()*0.04), (int)(Window.getHeight()*0.07), "right");
         Button back = new Button("button_back.png","", (int)(Window.getWidth()*0.03), Window.getHeight() - (int)(Window.getHeight()*0.12), (int)(Window.getWidth()*0.08),(int)(Window.getHeight()*0.07), "back");
@@ -80,6 +80,8 @@ public class ChallengesState extends State {
         if(levels.size() != 0){
             currentLevel = levels.get(0);
         }
+
+        starsPlacement();
     }
 
     public void onEnter(){
@@ -139,12 +141,15 @@ public class ChallengesState extends State {
     }
 
     private void starsPlacement() {
-        score =((int)(((double)Game.getProgression().getScore(Game.getP1(), currentLevel)/(double)currentLevel.getChallenge().getTargets().size())*5));
-        for (Image star: greyStars){
-            challenges.addComponent(star);
-        }
-        for (int i=0; i<=score; i++) {
-            challenges.addComponent(yellowStars.get(i));
+        if (currentLevel != null) {
+            score = (int) Math.round(((double) Game.getProgression().getScore(Game.getP1(), currentLevel) / (double) currentLevel.getChallenge().getTargets().size()) * 5);
+            System.out.println(score);
+            for (Image star : greyStars) {
+                challenges.addComponent(star);
+            }
+            for (int i = 0; i < score; i++) {
+                challenges.addComponent(yellowStars.get(i));
+            }
         }
     }
 
