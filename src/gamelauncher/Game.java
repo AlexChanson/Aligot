@@ -201,10 +201,8 @@ public class Game implements GameStart {
 
         //Mute sound Key
         Window.getKeyboardListeners().add((window, key, scancode, action, mods) -> {
-            if (action == GLFW_PRESS && key == GLFW_KEY_P){
-                //System.out.println("test");
+            if (action == GLFW_PRESS && key == GLFW_KEY_P)
                 SoundPlayer.mute(!SoundPlayer.isMuted());
-            }
         });
 
         // Setting up Two players
@@ -230,13 +228,12 @@ public class Game implements GameStart {
                 double dt = 1.0/getTargetFps();
                 engine.setTimeStep(dt);
                 engine.update();
-                // I don't thrust my devs...
-                // it's totally useless...
                 try {
                     particleSystem.update(dt);
                     Animation.passTimeForAll(dt);
                     graphicsEngine.drawLevel(currentLevel);
-                    graphicsEngine.drawPlayers(currentLevel, engine.getActivePlayer(), p1, p2);
+                    graphicsEngine.drawPlayers(currentLevel, engine.getActivePlayer(),
+                            engine.getPlayers().toArray(new Player[engine.getPlayers().size()]));
                     particleSystem.draw();
                     graphicsEngine.drawProjectiles(currentLevel, engine.getProjectiles());
                 }catch (NullPointerException e){

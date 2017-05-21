@@ -1,6 +1,8 @@
 package fsm.GUIStates;
 
 import core.GraphicsEngine;
+import core.systems.ChallengeSubSystem;
+import core.systems.SubSystem;
 import fsm.State;
 import gamelauncher.Game;
 import graphics.Window;
@@ -8,9 +10,6 @@ import graphics.gui.GUI;
 import graphics.gui.Label;
 import son.SoundPlayer;
 
-/**
- * Created by Christopher on 16/05/2017.
- */
 public class ChallengePlayState extends State {
     private GUI challengePlay;
     private GraphicsEngine graphicsEngine;
@@ -42,6 +41,16 @@ public class ChallengePlayState extends State {
     @Override
     public void onExit() {
         SoundPlayer.stopLoop("loop_3");
+        if (Game.getEngine() != null && Game.getCurrentLevel() != null && Game.getCurrentLevel().getChallenge() != null) {
+            ChallengeSubSystem challengeSubSystem = null;
+            for (SubSystem subSystem : Game.getEngine().getSystems()) {
+                if (subSystem instanceof ChallengeSubSystem)
+                    challengeSubSystem = (ChallengeSubSystem) subSystem;
+            }
+            if (challengeSubSystem != null) {
+                Game.getProgression().addScore(Game.getP1(), Game.getCurrentLevel(), challengeSubSystem.getScore());
+            }
+        }
     }
 
     @Override
