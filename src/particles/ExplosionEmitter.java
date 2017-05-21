@@ -35,6 +35,8 @@ public class ExplosionEmitter implements Emitter {
     @Override
     public void emitParticles(ParticleSystem particleSystem, double dt) {
         Animation animation = Animation.getAnimation("boom");
+        animation.start();
+        System.out.println(animation.getCurrentTexture());
 
         Particle particle = new Particle(
                 location.getX(),
@@ -47,7 +49,7 @@ public class ExplosionEmitter implements Emitter {
         particle.setGraphicComponent(new ExplosionComponent(
                 graphicsEngine.calculateWorldRatio(engine.getLevel()),
                 animation));
-        particle.setLifetime(1.0);
+        particle.setLifetime(animation.getTotalDuration());
         particleSystem.addParticles(particle);
 
         done = true;

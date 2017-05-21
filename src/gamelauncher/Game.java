@@ -182,6 +182,10 @@ public class Game implements GameStart {
         }
     }
 
+    public static ParticleSystem getParticleSystem() {
+        return particleSystem;
+    }
+
     public static Engine getEngine() {
         return engine;
     }

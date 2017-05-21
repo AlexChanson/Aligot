@@ -19,7 +19,7 @@ public class ExplosionComponent implements GraphicComponent {
 
     @Override
     public void draw(Particle particle) {
-        float scale = (float)(ratio*particle.getSize()*(1-(float)(particle.getLife()/particle.getLifetime())));
+        float scale = (float)(ratio*particle.getSize());
         float posX = (float)(particle.getPosition().getX()*ratio-scale/2);
         float posY = (float)(particle.getPosition().getY()*ratio-scale/2);
 

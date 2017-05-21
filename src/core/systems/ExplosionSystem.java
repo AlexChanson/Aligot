@@ -3,6 +3,8 @@ package core.systems;
 import core.Event;
 import core.model.Explosion;
 import core.model.Projectile;
+import gamelauncher.Game;
+import particles.ExplosionEmitter;
 import physics.RigidBody;
 import physics.Vector2D;
 import utility.Pair;
@@ -52,6 +54,8 @@ public class ExplosionSystem extends SubSystem{
                 engine.throwEvent(new Event("EXPLOSION", new Explosion(new Vector2D(pr.getRigidBody().getPosition()), pr.getType().getExplosionRadius(), damage)));
                 engine.getProjectiles().remove(pr);
                 engine.getPhysicsEngine().removeBody(projectile);
+                Game.getParticleSystem().addEmitter(new ExplosionEmitter(
+                        new Vector2D(pr.getRigidBody().getPosition()), pr.getType().getExplosionRadius()*15));
             }
         }
     }
