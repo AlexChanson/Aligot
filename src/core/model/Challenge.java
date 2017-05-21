@@ -4,7 +4,7 @@ import java.util.HashSet;
 
 public class Challenge{
     private int difficulty;
-    public static int TARGET_SIZE = 50; //Diameter
+    public static int TARGET_SIZE = 10; //Diameter
     private int shots;
     private HashSet<double[]> targets;
 
