@@ -5,6 +5,7 @@ import java.util.HashMap;
 
 /**
  * Created by ben on 11/04/17.
+ * represents a finite state machine automaton
  */
 public class FiniteStateMachine {
     private HashMap<String, State> states;
@@ -18,6 +19,11 @@ public class FiniteStateMachine {
         states = new HashMap<>();
     }
 
+    /**
+     * adds a new state to the machine
+     * if there are no states yet, this state becomes the actual state
+     * @param state
+     */
     public void addState(State state){
         String name = state.getStateName();
         if ( states.isEmpty() && name != "" ){
@@ -54,6 +60,10 @@ public class FiniteStateMachine {
         }
     }
 
+    /**
+     * set the actual state to a state already in the state machine
+     * @param stateName name of state
+     */
     public void setInitialState(String stateName){
         if(!init){
             if ( states.containsKey(stateName) ){
@@ -96,12 +106,21 @@ public class FiniteStateMachine {
         }
     }
 
+    /**
+     * checks if finite state machine contains a specific state
+     * @param stateName
+     * @return
+     */
     public Boolean isRegisteredState(String stateName){
         return states.containsKey(stateName);
     }
 
+    /**
+     *
+     * @return all the states name in the machine
+     */
     public String toString(){
-        String returned = "";
+        String returned = "Actual state"+this.state+"\n";
 
         for ( String key: states.keySet() ){
             returned += key + "\n";
@@ -110,6 +129,10 @@ public class FiniteStateMachine {
         return returned;
     }
 
+    /**
+     * call the onUpdate method on every states
+     * @return true if the actual state is a final state
+     */
     public Boolean update(){
         if ( isRegisteredState(this.state) ){
             String newState = this.states.get(this.state).onUpdate();

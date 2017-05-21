@@ -4,6 +4,9 @@ import java.util.ArrayList;
 
 /**
  * Created by ben on 14/04/17.
+ *
+ * allow to create, update and draw particles
+ * contains emitter of particles
  */
 public class ParticleSystem {
     private static int maxParticles = 1000;
@@ -28,6 +31,11 @@ public class ParticleSystem {
         this.particles.add(particle);
     }
 
+    /**
+     * updates all the live particles and remove dead ones
+     * update the emitters to add new particles
+     * @param dt
+     */
     public void update(double dt){
         particles.removeIf((Particle par) -> par.isDead());
 
@@ -43,6 +51,9 @@ public class ParticleSystem {
 
     }
 
+    /**
+     * draw all particles
+     */
     public void draw(){
         for (Particle particle : particles){
             particle.draw();

@@ -108,6 +108,9 @@ public class Window {
         });
     }
 
+    /**
+     * should be called at the beginning of the drawing loop
+     */
     public static void loopStart() {
         glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
@@ -118,11 +121,18 @@ public class Window {
         glMatrixMode(GL_MODELVIEW);
     }
 
+    /**
+     * should be called at the end of the drawing loop
+     */
     public static void loopEnd() {
         glfwSwapBuffers(window);
         glfwPollEvents();
     }
 
+    /**
+     *
+     * @return {x mouse pos, y mouse pos}
+     */
     public static int[] getMousePos() {
         DoubleBuffer x = BufferUtils.createDoubleBuffer(1), y = BufferUtils.createDoubleBuffer(1);
         glfwGetCursorPos(window, x, y);
@@ -215,6 +225,18 @@ public class Window {
         drawTexture(texture, posX, posY, width, height, rotate, 1f, 0, 0, texture.getWidth(), texture.getHeight(), 255, 255, 255);
     }
 
+    /**
+     * draw a sprite rotated from an offset point
+     * @param fileName texture name
+     * @param posX position to draw
+     * @param posY position to draw
+     * @param offsetX pivot point offset from the center of the picture
+     * @param offsetY pivot point offset from the center of the picture
+     * @param rotate rotation amount in radians
+     * @param scaleX
+     * @param scaleY
+     * @param scale
+     */
     public static void drawSpriteRotate(String fileName, float posX, float posY,
                                         float offsetX, float offsetY, float rotate,
                                         float scaleX, float scaleY, float scale) {
@@ -355,6 +377,19 @@ public class Window {
         glPopMatrix();
     }
 
+    /**
+     * draw text in a virtual invisible bounding box
+     * @param text text to be drawn
+     * @param x
+     * @param y
+     * @param size font size
+     * @param lineWidth graphical bounding box width
+     * @param align alignment in bounding box
+     * @param r
+     * @param g
+     * @param b
+     * @param monoline forces drawing on a single line if true
+     */
     public static void drawText(String text, float x, float y, float size, float lineWidth, int align, int r, int g, int b, boolean monoline) {
         if (text.equals(""))
             return;

@@ -6,7 +6,10 @@ import physics.Vector2D;
  * Created by ben on 14/04/17.
  */
 
-
+/**
+ * ALIVE: particle is updated
+ * DEAD: particle is set to removal
+ */
 enum ParticleStates{
     ALIVE,
     DEAD;
@@ -17,7 +20,7 @@ public class Particle {
     private double rotation;
     private Vector2D velocity;
     private double rotationSpeed;
-    private double lifetime = 5.0;
+    private double lifetime = 5.0; // in seconds
     private double life;
     private double size;
     private ParticleStates state = ParticleStates.ALIVE;

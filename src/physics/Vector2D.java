@@ -10,10 +10,18 @@ public class Vector2D {
     double x;
     double y;
 
+    /**
+     *
+     * @return x component
+     */
     public double getX(){
         return x;
     }
 
+    /**
+     *
+     * @return y component
+     */
     public double getY(){
         return y;
     }
@@ -24,7 +32,7 @@ public class Vector2D {
     }
 
     /**
-     *
+     * Vector copy
      * @param other vector to be copied
      */
     public Vector2D(Vector2D other){
@@ -92,18 +100,40 @@ public class Vector2D {
         return (this.x - other.x) * (this.x - other.x) + (this.y - other.y) * (this.y - other.y);
     }
 
+    /**
+     *
+     * @param x
+     * @param y
+     * @return a new vector with added components
+     */
     public Vector2D add(double x, double y){
         return new Vector2D(this.x + x, this.y + y);
     }
 
+    /**
+     *
+     * @param other Another vector
+     * @return a new vector with added components
+     */
     public Vector2D add(Vector2D other){
         return new Vector2D(this.x + other.x, this.y + other.y);
     }
 
+    /**
+     *
+     * @param x
+     * @param y
+     * @return a new vector with subtracted components
+     */
     public Vector2D minus(double x, double y){
         return new Vector2D(this.x - x, this.y - y);
     }
 
+    /**
+     *
+     * @param other Another vector
+     * @return a new vector with subtracted components
+     */
     public Vector2D minus(Vector2D other){
         return new Vector2D(this.x - other.x, this.y - other.y);
     }
@@ -125,7 +155,7 @@ public class Vector2D {
     }
 
     /**
-     *
+     * return the angle between two vectors, can be negative
      * @param other vector to compare to
      * @return the angle between the two vectors in radiants
      */
@@ -136,6 +166,11 @@ public class Vector2D {
         return angle-otherAngle;
     }
 
+    /**
+     *  return the angle between two vectors, cannot be negative
+     * @param other vector to compare to
+     * @return the absolute angle between the two vectors in radiants
+     */
     public double angleBetweenAbs(Vector2D other){
         double angle = Math.atan2(this.y, this.x);
         double otherAngle = Math.atan2(other.y, other.x);
@@ -162,7 +197,7 @@ public class Vector2D {
     }
 
     /**
-     *
+     *returns a new vector rotated by the amount specified
      * @param angle angle used to rotate in radiants, positive goes is the opposite rotation of a clock's
      */
     public Vector2D rotate(double angle){
@@ -172,6 +207,11 @@ public class Vector2D {
         return this;
     }
 
+    /**
+     * return a new vector forming a right angle with the original
+     * @param b true: counter clockwise else clockwise
+     * @return
+     */
     public Vector2D rotate90(boolean b){
         double x = this.x;
         if (b){
