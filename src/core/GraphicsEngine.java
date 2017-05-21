@@ -211,21 +211,22 @@ public class GraphicsEngine {
                             ciblePosY,
                             (float)(80f),
                             0f, (float)(player.getGlobalWeaponOrientation()-90),1f,1f, scale );
+                    scale = 0.05f*(float)ratio;
+                    Weapon weapon = player.getCurrentWeapon();
+                    float scaleX =  player.isLooking_right() ? 1 : -1;
+                    if (weapon != null){
+                        Texture weaponTexture = Window.getTexture(weapon.getTexture());
+                        float weaponPosX = playerPosX - scale*weaponTexture.getWidth()/2;
+                        float weaponPosY = playerPosY - scale*weaponTexture.getHeight()/2;
+                        Window.drawSpriteRotate(weapon.getTexture(),
+                                weaponPosX,
+                                weaponPosY,
+                                10f,
+                                0f, (float)(player.getGlobalWeaponOrientation()-90), 1f, scaleX, scale );
+                    }
                 }
 
-                scale = 0.05f*(float)ratio;
-                Weapon weapon = player.getCurrentWeapon();
-                float scaleX =  player.isLooking_right() ? 1 : -1;
-                if (weapon != null){
-                    Texture weaponTexture = Window.getTexture(weapon.getTexture());
-                    float weaponPosX = playerPosX - scale*weaponTexture.getWidth()/2;
-                    float weaponPosY = playerPosY - scale*weaponTexture.getHeight()/2;
-                    Window.drawSpriteRotate(weapon.getTexture(),
-                            weaponPosX,
-                            weaponPosY,
-                            10f,
-                            0f, (float)(player.getGlobalWeaponOrientation()-90), 1f, scaleX, scale );
-                }
+
             }
             else {
                 float size = 500;
