@@ -199,6 +199,10 @@ public class Engine {
         this.timeStep = timeStep;
     }
 
+    public ArrayList<Solver> getSolvers() {
+        return solvers;
+    }
+
     /**
      * Adds a projectile to the engine
      * @param projectile the projectile to be added
