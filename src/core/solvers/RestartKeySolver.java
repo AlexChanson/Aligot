@@ -8,7 +8,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * Created by ben on 18/05/17.
+ * @author Alexandre Chanson
  */
 public class RestartKeySolver extends Solver implements KeyboardListener {
     private final static Logger LOGGER = Logger.getLogger(KeyPressSolver.class.getName());

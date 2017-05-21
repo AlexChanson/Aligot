@@ -89,16 +89,9 @@ public class Game implements GameStart {
                 LOGGER.log(java.util.logging.Level.WARNING, "Engine Init Failed");
             }
             engine.registerSubSystems(
-                    new DebugSubSystem().ignore(
-                        "TICK",
-                        "COLLISION",
-                        "KEY_PRESSED",
-                        "KEY_RELEASED",
-                        "KEY_PRESSED_CONTINUOUS"),
                     new PlayerOrientationSystem(),
                     new PlayerMovementSystem(),
                     new FireSubSystem(),
-                    new DebugCommandsSubSystem(),
                     new PlayerAimingSubSystem(),
                     new ContinuousKeyPress(),
                     new ChargingWeaponSubSystem(),
@@ -114,7 +107,6 @@ public class Game implements GameStart {
             engine.registerSolvers(
                     new KeyPressSolver(),
                     new CollisionSolver(),
-                    new RestartKeySolver(),
                     new FiringSolver(),
                     new WeaponChangeSolver());
 
@@ -147,7 +139,6 @@ public class Game implements GameStart {
                     new PlayerOrientationSystem(),
                     new PlayerMovementSystem(),
                     new FireSubSystem(),
-                    new DebugCommandsSubSystem(),
                     new PlayerAimingSubSystem(),
                     new ContinuousKeyPress(),
                     new ChargingWeaponSubSystem(),
@@ -161,7 +152,6 @@ public class Game implements GameStart {
             engine.registerSolvers(
                     new KeyPressSolver(),
                     new CollisionSolver(),
-                    new RestartKeySolver(),
                     new FiringSolver(),
                     new WeaponChangeSolver());
 
