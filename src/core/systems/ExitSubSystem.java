@@ -24,8 +24,9 @@ public class ExitSubSystem extends SubSystem {
     @Override
     protected void processEvent(Event event) {
         if ( event.type.equals("QUIT") ){
-            Game.setLevel(null);
+            engine.throwEvent(new Event("EXITING"));
             graphicsEngine.transitionToGUIState("start");
+            Game.setLevel(null);
         }
     }
 }

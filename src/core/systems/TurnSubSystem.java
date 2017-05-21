@@ -28,6 +28,8 @@ public class TurnSubSystem extends SubSystem {
             case "REMOVED_LAST_PROJECTILE":
                 engine.throwEvent(new Event("NEW_TURN"));
                 break;
+            case "EXITING":
+                engine.getGameState().changeState("endGame");
         }
     }
 }
