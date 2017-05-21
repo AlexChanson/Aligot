@@ -4,9 +4,7 @@ import core.model.Player;
 import fsm.State;
 import gamelauncher.Game;
 import graphics.Window;
-import graphics.gui.Button;
-import graphics.gui.GUI;
-import graphics.gui.GUIButtonListener;
+import graphics.gui.*;
 import son.SoundPlayer;
 
 public class MultiWinState extends State {
@@ -25,7 +23,11 @@ public class MultiWinState extends State {
         back.addListener(backButtonListener);
         gui.addComponent(back);
 
-        //TODO setup player wins screen
+        Label victory = new Label(player.getName() + " Win!", width/2-400, height/2-350, 1000, 500, "victory");
+        gui.addComponent(victory);
+
+        Image victory_bg = new Image("menu_bg.png");
+        gui.addComponent(victory_bg);
     }
 
     @Override
