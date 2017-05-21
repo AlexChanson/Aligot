@@ -26,7 +26,10 @@ public class FireSubSystem extends SubSystem{
             Player shooter = engine.getActivePlayer();
             Ammunition ammo = shooter.getCurrentWeapon().getAmmo();
             if(shooter.getCurrentWeapon() != null){
-                SoundPlayer.play("pew");
+                if (shooter.getCurrentWeapon().getName().equals("Bazoo-K"))
+                    SoundPlayer.play("bazooka");
+                else
+                    SoundPlayer.play("pew");
                 Vector2D firingAngle = Vector2D.createFromAngleDegree(1, shooter.getGlobalWeaponOrientation() - 90);
                 Vector2D projectileOrigin = new Vector2D(shooter.getRigidBody().getPosition());
                 projectileOrigin = projectileOrigin.add(firingAngle.multiply(15.5));
