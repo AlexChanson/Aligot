@@ -122,7 +122,7 @@ public class Loader {
 
         if(jarFile != null){
             String path = tempPath +  File.separator + "aligot_assets";
-            System.out.println("Trying to create directory: " + path);
+            System.out.println("Trying to create directory: " + path );
             Window.setRessourcesFolderPath(path + File.separator);
             ressourcesPath = path + File.separator;
 
@@ -138,6 +138,7 @@ public class Loader {
                         String fileName = je.getName().replace("assets/", "");
                         InputStream in = ClassLoader.getSystemResourceAsStream(je.getName());
                         File f = new File(path + File.separator + fileName);
+                        System.out.println("Trying to create file: " + f.getAbsolutePath());
                         try {
                             f.createNewFile();
                             FileOutputStream out = new FileOutputStream(f);
