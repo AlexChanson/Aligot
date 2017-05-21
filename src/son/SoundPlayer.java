@@ -14,15 +14,19 @@ public class SoundPlayer {
     private static HashMap<String, PlaySound> paused = new HashMap<>();
     private static HashMap<String, LoopedSound> looped = new HashMap<>();
     private static ArrayList<Thread> threads = new ArrayList<>();
-    private static boolean muted = false;
+    private static boolean muted = false, concurrentPlay = true;
 
     /**
      * Plays a wav file contained in the asset folder of the game
      * @param soundName the name of the wav file without .wav
      */
     public static void play(String soundName){
+        if (muted)
+            return;
         AudioInputStream audio = SoundBank.get(soundName);
-        if (audio == null || playing.get(soundName) != null)
+        if (audio == null)
+            return;
+        if (!concurrentPlay && playing.get(soundName)!= null)
             return;
         if (paused.get(soundName) != null){
             PlaySound temp = paused.get(soundName);
@@ -41,6 +45,8 @@ public class SoundPlayer {
      * @param soundName the name of the wav file without .wav
      */
     public static void playLoop(String soundName){
+        if (muted)
+            return;
         AudioInputStream audio = SoundBank.get(soundName);
         if (audio == null || looped.get(soundName) != null)
             return;
@@ -104,6 +110,8 @@ public class SoundPlayer {
      * @param soundName the name of the wav file without .wav
      */
     public static void resume(String soundName){
+        if (muted)
+            return;
         PlaySound p = paused.get(soundName);
         if(p == null)
             return;
@@ -139,5 +147,13 @@ public class SoundPlayer {
      */
     static void unregister(String name){
         playing.remove(name);
+    }
+
+    public static boolean isConcurrentPlay() {
+        return concurrentPlay;
+    }
+
+    public static void setConcurrentPlay(boolean concurrentPlay) {
+        SoundPlayer.concurrentPlay = concurrentPlay;
     }
 }

@@ -7,6 +7,7 @@ import core.model.Projectile;
 import core.solvers.KeyPressSolver;
 import physics.RigidBody;
 import physics.Vector2D;
+import son.SoundPlayer;
 
 import java.util.logging.Logger;
 
@@ -25,6 +26,7 @@ public class FireSubSystem extends SubSystem{
             Player shooter = engine.getActivePlayer();
             Ammunition ammo = shooter.getCurrentWeapon().getAmmo();
             if(shooter.getCurrentWeapon() != null){
+                SoundPlayer.play("pew");
                 Vector2D firingAngle = Vector2D.createFromAngleDegree(1, shooter.getGlobalWeaponOrientation() - 90);
                 Vector2D projectileOrigin = new Vector2D(shooter.getRigidBody().getPosition());
                 projectileOrigin = projectileOrigin.add(firingAngle.multiply(15.5));

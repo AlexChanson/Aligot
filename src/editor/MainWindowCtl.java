@@ -397,7 +397,7 @@ public class MainWindowCtl {
 
         dialog.getDialogPane().setContent(grid);
 
-        Platform.runLater(() -> difficulty.requestFocus());
+        Platform.runLater(difficulty::requestFocus);
 
         dialog.setResultConverter(dialogButton -> {
             if (dialogButton == okButtonType)
