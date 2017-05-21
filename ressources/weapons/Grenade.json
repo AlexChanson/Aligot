@@ -9,7 +9,7 @@
       "damageBonus": 1,
       "type": 4,
       "effect": 0,
-      "explosionRadius": 50,
+      "explosionRadius": 30,
       "massModifier": 1.0,
       "velocityModifier": 1.0,
       "projectileTexture": "grenade_projectile.png"
