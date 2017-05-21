@@ -26,6 +26,14 @@ public class FireSubSystem extends SubSystem{
             Player shooter = engine.getActivePlayer();
             Ammunition ammo = shooter.getCurrentWeapon().getAmmo();
             if(shooter.getCurrentWeapon() != null){
+                if (engine.getLevel().getChallenge() != null){
+                    if (engine.getLevel().getChallenge().getShots() > 0){
+                        engine.getLevel().getChallenge().setShots(engine.getLevel().getChallenge().getShots() - 1);
+                        if (engine.getLevel().getChallenge().getShots() == 0)
+                            engine.throwEvent(new Event("LAST_PROJECTILE_USED"));
+                    }else
+                        return;
+                }
                 if (shooter.getCurrentWeapon().getName().equals("Bazoo-K"))
                     SoundPlayer.play("bazooka");
                 else
