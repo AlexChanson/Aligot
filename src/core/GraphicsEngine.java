@@ -9,6 +9,7 @@ import graphics.Window;
 import graphics.gui.Button;
 import graphics.gui.GUI;
 import graphics.gui.GUIComponent;
+import particles.GraphicComponent;
 import physics.RigidBody;
 import physics.Vector2D;
 import utility.Challenges;
@@ -242,10 +243,12 @@ public class GraphicsEngine {
                         255, 64, 64);
             }
             else {
-                Window.drawCircle((float) (position.getX() * ratio),
-                        (float) (position.getY() * ratio),
-                        (float) (projectile.getRigidBody().getRadius() * ratio),
-                        0, 255, 64);
+                if (GraphicsEngine.debugDisplay){
+                    Window.drawCircle((float) (position.getX() * ratio),
+                            (float) (position.getY() * ratio),
+                            (float) (projectile.getRigidBody().getRadius() * ratio),
+                            0, 255, 64);
+                }
                 Window.drawTexture(t, (float) (position.getX() * ratio) - size/2,
                         (float) (position.getY() * ratio) - size/2,
                         size, size,
