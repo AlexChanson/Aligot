@@ -7,6 +7,7 @@ import graphics.gui.Button;
 import graphics.gui.GUI;
 import graphics.gui.GUIButtonListener;
 import graphics.gui.Image;
+import son.SoundPlayer;
 
 public class GameModsState extends State {
     private GUI gameMods;
@@ -52,14 +53,17 @@ public class GameModsState extends State {
         }
         if (soloButtonListener.isClicked()) {
             soloButtonListener.setNotClicked();
+            SoundPlayer.play("button_select01");
             return "challengeDifficulty";
         }
         else if (multiButtonListener.isClicked()) {
             multiButtonListener.setNotClicked();
+            SoundPlayer.play("button_select01");
             return "multi";
         }
         else if (backButtonListener.isClicked()) {
             backButtonListener.setNotClicked();
+            SoundPlayer.play("button_back");
             return "start";
         }
         return "gameMods";
