@@ -52,15 +52,15 @@ public class ChallengesState extends State {
     public void initialize() {
         width = Window.getWidth();
         height = Window.getHeight();
+        greyStars.add(new Image("star_grey.png", (int)(width *0.31), (int) (height * 0.05), (int)(width*0.06), (int)(height*0.1)));
         greyStars.add(new Image("star_grey.png", (int) (width * 0.39), (int) (height * 0.05), (int) (width * 0.06), (int) (height * 0.1)));
         greyStars.add(new Image("star_grey.png", width / 2 - (int) (width * 0.03), (int) (height * 0.05), (int) (width * 0.06), (int) (height * 0.1)));
         greyStars.add( new Image("star_grey.png", (int) (width * 0.55), (int) (height * 0.05), (int) (width * 0.06), (int) (height * 0.1)));
-        greyStars.add(new Image("star_grey.png", (int)(width *0.31), (int) (height * 0.05), (int)(width*0.06), (int)(height*0.1)));
         greyStars.add( new Image("star_grey.png", (int)(width *0.63), (int) (height * 0.05), (int)(width*0.06), (int)(height*0.1)));
+        yellowStars.add(new Image("star.png", (int)(width *0.31), (int) (height * 0.05), (int)(width*0.06), (int)(height*0.1)));
         yellowStars.add(new Image("star.png", (int) (width * 0.39), (int) (height * 0.05), (int) (width * 0.06), (int) (height * 0.1)));
         yellowStars.add(new Image("star.png", width / 2 - (int) (width * 0.03), (int) (height * 0.05), (int) (width * 0.06), (int) (height * 0.1)));
         yellowStars.add( new Image("star.png", (int) (width * 0.55), (int) (height * 0.05), (int) (width * 0.06), (int) (height * 0.1)));
-        yellowStars.add(new Image("star.png", (int)(width *0.31), (int) (height * 0.05), (int)(width*0.06), (int)(height*0.1)));
         yellowStars.add( new Image("star.png", (int)(width *0.63), (int) (height * 0.05), (int)(width*0.06), (int)(height*0.1)));
         yellowStars.forEach(image -> image.setZ(10));
         name = new Label("---", width/2 - (int)(width*0.14), (int)(height*0.17), (int)(width*0.31), (int)(height*0.14), "name");
