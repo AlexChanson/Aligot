@@ -2,6 +2,7 @@ package fsm.GUIStates;
 
 import core.GraphicsEngine;
 import core.model.Level;
+import core.systems.ChallengeSubSystem;
 import fsm.State;
 import gamelauncher.Game;
 import graphics.Window;
@@ -21,7 +22,9 @@ public class ChallengesState extends State {
     private ArrayList<Level> levels;
     private Level currentLevel;
     private Label name, info;
-    private Image firstStar, secondStar, thirdStar;
+    private ArrayList<Image> greyStars = new ArrayList<>();
+    private ArrayList<Image> yellowStars = new ArrayList<>();
+    private int score;
     private String stateName;
     private int width, height;
 
@@ -49,13 +52,21 @@ public class ChallengesState extends State {
     public void initialize() {
         width = Window.getWidth();
         height = Window.getHeight();
-        firstStar = new Image("star_grey.png", (int)(Window.getWidth()*0.39),(int)(Window.getHeight()*0.05),(int)(Window.getWidth()*0.06),(int)(Window.getHeight()*0.1));
-        secondStar = new Image("star_grey.png", Window.getWidth()/2 - (int)(Window.getWidth()*0.03),(int)(Window.getHeight()*0.05),(int)(Window.getWidth()*0.06),(int)(Window.getHeight()*0.1));
-        thirdStar = new Image("star_grey.png", (int)(Window.getWidth()*0.55),(int)(Window.getHeight()*0.05),(int)(Window.getWidth()*0.06),(int)(Window.getHeight()*0.1));
+        greyStars.add(new Image("star_grey.png", (int) (Window.getWidth() * 0.39), (int) (Window.getHeight() * 0.05), (int) (Window.getWidth() * 0.06), (int) (Window.getHeight() * 0.1)));
+        greyStars.add(new Image("star_grey.png", Window.getWidth() / 2 - (int) (Window.getWidth() * 0.03), (int) (Window.getHeight() * 0.05), (int) (Window.getWidth() * 0.06), (int) (Window.getHeight() * 0.1)));
+        greyStars.add( new Image("star_grey.png", (int) (Window.getWidth() * 0.55), (int) (Window.getHeight() * 0.05), (int) (Window.getWidth() * 0.06), (int) (Window.getHeight() * 0.1)));
+        greyStars.add(new Image("star_grey.png", 10, 100, 100, 100));
+        greyStars.add( new Image("star_grey.png", 10, 150, 100, 100));
+        yellowStars.add(new Image("star.png", (int) (Window.getWidth() * 0.39), (int) (Window.getHeight() * 0.05), (int) (Window.getWidth() * 0.06), (int) (Window.getHeight() * 0.1)));
+        yellowStars.add(new Image("star.png", Window.getWidth() / 2 - (int) (Window.getWidth() * 0.03), (int) (Window.getHeight() * 0.05), (int) (Window.getWidth() * 0.06), (int) (Window.getHeight() * 0.1)));
+        yellowStars.add( new Image("star.png", (int) (Window.getWidth() * 0.55), (int) (Window.getHeight() * 0.05), (int) (Window.getWidth() * 0.06), (int) (Window.getHeight() * 0.1)));
+        yellowStars.add(new Image("star.png", 10, 100, 100, 100));
+        yellowStars.add( new Image("star.png", 10, 150, 100, 100));
         name = new Label("---", Window.getWidth()/2 - (int)(Window.getWidth()*0.14), (int)(Window.getHeight()*0.17), (int)(Window.getWidth()*0.31), (int)(Window.getHeight()*0.14), "name");
         info = new Label("---", Window.getWidth()/2 - (int)(Window.getWidth()*0.215), (int)(Window.getHeight()*0.35), (int)(Window.getWidth()*0.46), (int)(Window.getHeight()*0.21), "info");
         Image menu_bg = new Image("menu_bg.png");
         menu_bg.setZ(-2);
+        starsPlacement();
         Button left = new Button("button_left.png", "",2*(Window.getWidth()/7) - (int)(Window.getWidth()*0.02), (int)(Window.getHeight()*0.21), (int)(Window.getWidth()*0.04), (int)(Window.getHeight()*0.07), "left");
         Button right = new Button("button_right.png", "", 5*(Window.getWidth()/7) -(int)(Window.getWidth()*0.02),(int)(Window.getHeight()*0.21), (int)(Window.getWidth()*0.04), (int)(Window.getHeight()*0.07), "right");
         Button back = new Button("button_back.png","", (int)(Window.getWidth()*0.03), Window.getHeight() - (int)(Window.getHeight()*0.12), (int)(Window.getWidth()*0.08),(int)(Window.getHeight()*0.07), "back");
@@ -64,7 +75,7 @@ public class ChallengesState extends State {
         left.addListener(leftListener);
         right.addListener(rightListener);
         challenges = new GUI();
-        challenges.addComponents(left, right, back, play, name, info, menu_bg, firstStar, secondStar, thirdStar);
+        challenges.addComponents(left, right, back, play, name, info, menu_bg);
         back.addListener(backButtonListener);
         if(levels.size() != 0){
             currentLevel = levels.get(0);
@@ -80,6 +91,8 @@ public class ChallengesState extends State {
 
     @Override
     public String onUpdate() {
+        ChallengeSubSystem challengeSubSystem = new ChallengeSubSystem();
+        score = challengeSubSystem.getScore();
         if (width != Window.getWidth() || height != Window.getHeight()){
             updateGUISize();
             graphicsEngine.setGUI(challenges);
@@ -123,6 +136,16 @@ public class ChallengesState extends State {
     }
     private void updateGUISize() {
         initialize();
+    }
+
+    private void starsPlacement() {
+        score =((int)(((double)Game.getProgression().getScore(Game.getP1(), currentLevel)/(double)currentLevel.getChallenge().getTargets().size())*5));
+        for (Image star: greyStars){
+            challenges.addComponent(star);
+        }
+        for (int i=0; i<=score; i++) {
+            challenges.addComponent(yellowStars.get(i));
+        }
     }
 
     @Override
