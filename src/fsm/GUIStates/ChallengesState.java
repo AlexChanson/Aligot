@@ -88,6 +88,7 @@ public class ChallengesState extends State {
         if(levels.size() != 0){
             currentLevel = levels.get(0);
         }
+        initialize();
         graphicsEngine.setGUI(challenges);
     }
 
