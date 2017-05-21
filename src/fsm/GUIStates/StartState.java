@@ -52,10 +52,12 @@ public class StartState extends State {
         }
         if(beginButtonListener.isClicked()) {
             beginButtonListener.setNotClicked();
+            SoundPlayer.play("button_select01");
             return "gameMods";
         }
         else if (exitButtonListener.isClicked()) {
             exitButtonListener.setNotClicked();
+            SoundPlayer.play("button_back");
             return "exit";
         }
         return "start";

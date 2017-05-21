@@ -4,6 +4,7 @@ import core.GraphicsEngine;
 import fsm.State;
 import graphics.Window;
 import graphics.gui.*;
+import son.SoundPlayer;
 
 /**
  * Created by Christopher on 18/04/2017.
@@ -56,19 +57,23 @@ public class ChallengeDifficultyState extends State{
             graphicsEngine.setGUI(selectChallenge);
         }
         if (easyChallengeButtonListener.isClicked()){
+            SoundPlayer.play("button_select01");
             easyChallengeButtonListener.setNotClicked();
             return "easyChallenges";
         }
         else if (mediumChallengeButtonListener.isClicked()){
+            SoundPlayer.play("button_select01");
             mediumChallengeButtonListener.setNotClicked();
             return "mediumChallenges";
         }
         else if (hardChallengeButtonListener.isClicked()) {
+            SoundPlayer.play("button_select01");
             hardChallengeButtonListener.setNotClicked();
             return "hardChallenges";
         }
         else if (backButtonListener.isClicked()) {
             backButtonListener.setNotClicked();
+            SoundPlayer.play("button_back");
             return "gameMods";
         }
         return "challengeDifficulty";

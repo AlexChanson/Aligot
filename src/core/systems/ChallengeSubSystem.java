@@ -43,6 +43,8 @@ public class ChallengeSubSystem extends SubSystem{
                 if (engine.getProjectiles().size() == 0)
                     engine.throwEvent(new Event("REMOVED_LAST_PROJECTILE"));
                 targets.remove(pair.getRight());
+                if (targets.size() == 0)
+                    engine.throwEvent(new Event("LAST_TARGET_DOWN"));
                 engine.getLevel().getChallenge().getTargets().remove(pair.getRight());
             });
         }
