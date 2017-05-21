@@ -52,7 +52,7 @@ public class Game implements GameStart {
             p1.getInventory().clear();
             Weapons.equip(p1);
             engine = null;
-            initEngine();
+            initSoloEngine();
         } else if (level != null && level.getChallenge() == null){
             p1.setHealth(p1.getMaxHealth());
             p2.setHealth(p2.getMaxHealth());
@@ -61,7 +61,7 @@ public class Game implements GameStart {
             p2.getInventory().clear();
             Weapons.equip(p2);
             engine = null;
-            initEngine();
+            initMultiEngine();
         } else {
             engine = null;
         }
@@ -83,7 +83,7 @@ public class Game implements GameStart {
         return currentLevel;
     }
 
-    private static void initEngine(){
+    private static void initMultiEngine(){
         if(engine == null){
             try {
                 engine = new Engine(currentLevel, p1, p2);
@@ -136,7 +136,38 @@ public class Game implements GameStart {
     }
 
     private static void initSoloEngine(){
-        //TODO init the engine for solo play
+        if(engine == null){
+            try {
+                engine = new Engine(currentLevel, p1);
+            }catch (NullPointerException e){
+                LOGGER.log(java.util.logging.Level.WARNING, "Engine Init Failed");
+            }
+            engine.registerSubSystems(
+                    new ChallengeSubSystem(),
+                    new PlayerOrientationSystem(),
+                    new PlayerMovementSystem(),
+                    new FireSubSystem(),
+                    new DebugCommandsSubSystem(),
+                    new PlayerAimingSubSystem(),
+                    new ContinuousKeyPress(),
+                    new ChargingWeaponSubSystem(),
+                    new WeaponChangeSystem(),
+                    new ExplosionSystem(),
+                    new TimerSubSystem(),
+                    new SoundSystem(),
+                    new ExplosionDamageSystem(),
+                    new ExitSubSystem(graphicsEngine));
+
+            engine.registerSolvers(
+                    new KeyPressSolver(),
+                    new CollisionSolver(),
+                    new RestartKeySolver(),
+                    new FiringSolver(),
+                    new WeaponChangeSolver());
+
+            particleSystem = new ParticleSystem();
+            particleSystem.addEmitter(new ProjectileTrailEmitter(engine, graphicsEngine));
+        }
     }
 
     /**
