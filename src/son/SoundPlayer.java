@@ -120,6 +120,9 @@ public class SoundPlayer {
         playing.put(soundName, p);
     }
 
+    /**
+     * A barbaric way to kill all the threads currently playing sounds
+     */
     public static void killAll(){
         threads.forEach(thread -> {
             try {
@@ -130,12 +133,20 @@ public class SoundPlayer {
         playing.clear();
     }
 
+    /**
+     * Allows or not the player to play sounds
+     * @param m true if you want to hear anything, false otherwise
+     */
     public static void mute(boolean m){
         muted = m;
         if (muted)
             killAll();
     }
 
+    /**
+     * Can you hear something ?
+     * @return true if the engine is muted
+     */
     public static boolean isMuted() {
         return muted;
     }
