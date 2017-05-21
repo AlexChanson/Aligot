@@ -184,6 +184,14 @@ public class Engine {
     }
 
     /**
+     * checks if simulation is going or if player should be able to act
+     * @return true if a player has control
+     */
+    public boolean isPlayerTurn(){
+        return gameState.getActualStateName().equals("playerActingState");
+    }
+
+    /**
      * Change the time stem for the physics simulation default 1/60 of a second
      * @param timeStep the new time step
      */
@@ -234,4 +242,7 @@ public class Engine {
         return level;
     }
 
+    public ArrayList<SubSystem> getSystems() {
+        return systems;
+    }
 }

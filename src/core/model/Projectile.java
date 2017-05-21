@@ -6,7 +6,7 @@ public class Projectile extends GameObject {
     private Ammunition type;
     private Weapon origin;
     private Player shooter;
-    public double timeToLive = 60.0; //In seconds
+    public double timeToLive = 10.0; //In seconds
     public double lifetime = 0.0;
 
     public Projectile(RigidBody rigidBody, String texture, Ammunition type, Weapon origin, Player shooter) {

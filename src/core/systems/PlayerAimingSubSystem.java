@@ -8,6 +8,7 @@ import org.lwjgl.glfw.GLFW;
  * Created by ben on 19/05/17.
  */
 public class PlayerAimingSubSystem extends SubSystem {
+
     @Override
     public void initialize() {
 

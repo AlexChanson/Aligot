@@ -36,6 +36,7 @@ public class FireSubSystem extends SubSystem{
                 Projectile projectile = new Projectile(b, ammo.getProjectileTexture(), ammo, shooter.getCurrentWeapon(), shooter);
                 engine.getProjectiles().add(projectile);
                 engine.getPhysicsEngine().addBody(b);
+                engine.throwEvent(new Event("END_OF_PLAYER_TURN"));
             }
         }
     }

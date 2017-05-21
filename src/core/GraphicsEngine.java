@@ -4,6 +4,7 @@ import core.model.*;
 import core.systems.ChargingWeaponSubSystem;
 import fsm.FiniteStateMachine;
 import fsm.GUIStates.*;
+import gamelauncher.Game;
 import graphics.Texture;
 import graphics.Window;
 import graphics.gui.Button;
@@ -193,36 +194,44 @@ public class GraphicsEngine {
                         20f, 200f, 0, 0,255,255, true);
             }
 
-            Texture viseurTexture = Window.getTexture("viseur-01.png");
             float scale = 0.1f;
-            float ciblePosX = playerPosX - scale*viseurTexture.getWidth()/2;
-            float ciblePosY = playerPosY - scale*viseurTexture.getHeight()/2;
-            if (player == actualPlayer){
-                float textSize = 20f;
-                float totalTextSize = textSize*player.getName().length();
-                Window.drawText(player.getName(), playerPosX-totalTextSize/2, playerPosY-50f,
-                        textSize, totalTextSize, Window.TEXT_ALIGN_CENTER,
-                        50,255,50, true);
-                Window.drawSpriteRotate("viseur-01.png",
-                        ciblePosX,
-                        ciblePosY,
-                        (float)(80f),
-                        0f, (float)(player.getGlobalWeaponOrientation()-90),1f,1f, scale );
-            }
-            scale = 0.05f*(float)ratio;
-            Weapon weapon = player.getCurrentWeapon();
-            float scaleX =  player.isLooking_right() ? 1 : -1;
-            if (weapon != null){
-                Texture weaponTexture = Window.getTexture(weapon.getTexture());
-                float weaponPosX = playerPosX - scale*weaponTexture.getWidth()/2;
-                float weaponPosY = playerPosY - scale*weaponTexture.getHeight()/2;
-                Window.drawSpriteRotate(weapon.getTexture(),
-                        weaponPosX,
-                        weaponPosY,
-                        10f,
-                        0f, (float)(player.getGlobalWeaponOrientation()-90), 1f, scaleX, scale );
-            }
+            if (Game.getEngine().isPlayerTurn()){
+                Texture viseurTexture = Window.getTexture("viseur-01.png");
 
+                float ciblePosX = playerPosX - scale*viseurTexture.getWidth()/2;
+                float ciblePosY = playerPosY - scale*viseurTexture.getHeight()/2;
+                if (player == actualPlayer){
+                    float textSize = 20f;
+                    float totalTextSize = textSize*player.getName().length();
+                    Window.drawText(player.getName(), playerPosX-totalTextSize/2, playerPosY-50f,
+                            textSize, totalTextSize, Window.TEXT_ALIGN_CENTER,
+                            50,255,50, true);
+                    Window.drawSpriteRotate("viseur-01.png",
+                            ciblePosX,
+                            ciblePosY,
+                            (float)(80f),
+                            0f, (float)(player.getGlobalWeaponOrientation()-90),1f,1f, scale );
+                }
+
+                scale = 0.05f*(float)ratio;
+                Weapon weapon = player.getCurrentWeapon();
+                float scaleX =  player.isLooking_right() ? 1 : -1;
+                if (weapon != null){
+                    Texture weaponTexture = Window.getTexture(weapon.getTexture());
+                    float weaponPosX = playerPosX - scale*weaponTexture.getWidth()/2;
+                    float weaponPosY = playerPosY - scale*weaponTexture.getHeight()/2;
+                    Window.drawSpriteRotate(weapon.getTexture(),
+                            weaponPosX,
+                            weaponPosY,
+                            10f,
+                            0f, (float)(player.getGlobalWeaponOrientation()-90), 1f, scaleX, scale );
+                }
+            }
+            else {
+                float size = 500;
+                Window.drawText("SIMULATING...", Window.getWidth()/2-size/2, Window.getHeight()-80,
+                        60, size, Window.TEXT_ALIGN_CENTER, 255,20,20, true);
+            }
 
         });
     }

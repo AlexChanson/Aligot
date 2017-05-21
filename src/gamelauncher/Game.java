@@ -108,7 +108,8 @@ public class Game implements GameStart {
                     new TimerSubSystem(),
                     new SoundSystem(),
                     new ExplosionDamageSystem(),
-                    new ExitSubSystem(graphicsEngine));
+                    new ExitSubSystem(graphicsEngine),
+                    new TurnSubSystem());
 
             engine.registerSolvers(
                     new KeyPressSolver(),
