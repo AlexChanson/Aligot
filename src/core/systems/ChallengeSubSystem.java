@@ -4,6 +4,7 @@ import core.Event;
 import core.model.Challenge;
 import core.model.Projectile;
 import physics.Vector2D;
+import son.SoundPlayer;
 import utility.Pair;
 import java.util.ArrayList;
 
@@ -30,6 +31,7 @@ public class ChallengeSubSystem extends SubSystem{
                 for (Projectile p :
                         engine.getProjectiles()) {
                     if (tpos.distanceTo(p.getRigidBody().getPosition()) < Challenge.TARGET_SIZE){
+                        SoundPlayer.play("target");
                         toProcess.add(new Pair<>(p, target));
                     }
                 }
