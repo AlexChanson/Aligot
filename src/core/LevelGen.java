@@ -113,7 +113,7 @@ public class LevelGen {
         RigidBody rigidBody = new RigidBody(left, temp, temp2);
         rigidBody.setAttractive(true);
         rigidBody.setStaticObject(true);
-        worlds.add(Planet.spawn(rigidBody, "placeholder.png"));
+        worlds.add(Planet.spawn(rigidBody, "planet_spawn_1.png"));
         rigidBody = new RigidBody(right, temp, temp2);
         rigidBody.setAttractive(true);
         rigidBody.setStaticObject(true);
@@ -126,8 +126,8 @@ public class LevelGen {
      */
     private void genPlanets() {
         String[] planetTypes = {"rock", "gas", "star", "black_hole"},
-                 rockTextures = {"planet_rock_1.png"},
-                 gasTextures = {"planet_gas_1.png", "planet_gas_2.png"},
+                 rockTextures = {"planet_rock_1.png", "planet_rock_2.png", "planet_rock_3.png"},
+                 gasTextures = {"planet_gas_1.png", "planet_gas_2.png", "planet_gas_3.png"},
                  starTextures = {"planet_star_1.png", "planet_star_2.png"},
                  blackHolesTextures = {"blackhole.png"};
         HashMap<String, String[]> textures = new HashMap<>();

@@ -12,7 +12,7 @@
       "explosionRadius": 3,
       "massModifier": 1.0,
       "velocityModifier": 1.0,
-      "projectileTexture": "weapon_grenade.png"
+      "projectileTexture": "grenade_projectile.png"
     }
   ,
   "name": "Grenade",
