@@ -95,7 +95,8 @@ public class MultiState extends State {
         }
         else if (fightButtonListener.isClicked()){
             fightButtonListener.setNotClicked();
-            LevelGen levelGen = new LevelGen(new Random().nextLong(), LevelGen.SMALL);
+            int[] screenSize = {Window.getWidth(), Window.getHeight()};
+            LevelGen levelGen = new LevelGen(new Random().nextLong(), screenSize);
             levelGen.setPlanetNumber(i);
             Game.setLevel(levelGen.create());
             return "multiPlay";
