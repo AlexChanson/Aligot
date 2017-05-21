@@ -1,0 +1,19 @@
+{
+  "name": "boom",
+  "sprites": [
+    "boom-01.png",
+    "boom2-01.png",
+    "boom3-01.png",
+    "boom4-01.png",
+    "boom5-01.png",
+    "boom6-01.png"
+  ],
+  "durations": [
+    0.1,
+    0.1,
+    0.15,
+    0.15,
+    0.2,
+    0.2
+  ]
+}
