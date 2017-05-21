@@ -94,7 +94,7 @@ public class MultiState extends State {
         }
         else if (fightButtonListener.isClicked()){
             fightButtonListener.setNotClicked();
-            int[] screenSize = {Window.getWidth(), Window.getHeight()};
+            int[] screenSize = {Window.getWidth()/2, Window.getHeight()/2};
             LevelGen levelGen = new LevelGen(new Random().nextLong(), screenSize);
             levelGen.setPlanetNumber(i);
             Game.setLevel(levelGen.create());
