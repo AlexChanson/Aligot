@@ -52,25 +52,25 @@ public class ChallengesState extends State {
     public void initialize() {
         width = Window.getWidth();
         height = Window.getHeight();
-        greyStars.add(new Image("star_grey.png", (int) (Window.getWidth() * 0.39), (int) (Window.getHeight() * 0.05), (int) (Window.getWidth() * 0.06), (int) (Window.getHeight() * 0.1)));
-        greyStars.add(new Image("star_grey.png", Window.getWidth() / 2 - (int) (Window.getWidth() * 0.03), (int) (Window.getHeight() * 0.05), (int) (Window.getWidth() * 0.06), (int) (Window.getHeight() * 0.1)));
-        greyStars.add( new Image("star_grey.png", (int) (Window.getWidth() * 0.55), (int) (Window.getHeight() * 0.05), (int) (Window.getWidth() * 0.06), (int) (Window.getHeight() * 0.1)));
+        greyStars.add(new Image("star_grey.png", (int) (width * 0.39), (int) (height * 0.05), (int) (width * 0.06), (int) (height * 0.1)));
+        greyStars.add(new Image("star_grey.png", width / 2 - (int) (width * 0.03), (int) (height * 0.05), (int) (width * 0.06), (int) (height * 0.1)));
+        greyStars.add( new Image("star_grey.png", (int) (width * 0.55), (int) (height * 0.05), (int) (width * 0.06), (int) (height * 0.1)));
         greyStars.add(new Image("star_grey.png", 10, 100, 100, 100));
         greyStars.add( new Image("star_grey.png", 10, 150, 100, 100));
-        yellowStars.add(new Image("star.png", (int) (Window.getWidth() * 0.39), (int) (Window.getHeight() * 0.05), (int) (Window.getWidth() * 0.06), (int) (Window.getHeight() * 0.1)));
-        yellowStars.add(new Image("star.png", Window.getWidth() / 2 - (int) (Window.getWidth() * 0.03), (int) (Window.getHeight() * 0.05), (int) (Window.getWidth() * 0.06), (int) (Window.getHeight() * 0.1)));
-        yellowStars.add( new Image("star.png", (int) (Window.getWidth() * 0.55), (int) (Window.getHeight() * 0.05), (int) (Window.getWidth() * 0.06), (int) (Window.getHeight() * 0.1)));
+        yellowStars.add(new Image("star.png", (int) (width * 0.39), (int) (height * 0.05), (int) (width * 0.06), (int) (height * 0.1)));
+        yellowStars.add(new Image("star.png", width / 2 - (int) (width * 0.03), (int) (height * 0.05), (int) (width * 0.06), (int) (height * 0.1)));
+        yellowStars.add( new Image("star.png", (int) (width * 0.55), (int) (height * 0.05), (int) (width * 0.06), (int) (height * 0.1)));
         yellowStars.add(new Image("star.png", 10, 100, 100, 100));
         yellowStars.add( new Image("star.png", 10, 150, 100, 100));
         yellowStars.forEach(image -> image.setZ(10));
-        name = new Label("---", Window.getWidth()/2 - (int)(Window.getWidth()*0.14), (int)(Window.getHeight()*0.17), (int)(Window.getWidth()*0.31), (int)(Window.getHeight()*0.14), "name");
-        info = new Label("---", Window.getWidth()/2 - (int)(Window.getWidth()*0.215), (int)(Window.getHeight()*0.35), (int)(Window.getWidth()*0.46), (int)(Window.getHeight()*0.21), "info");
+        name = new Label("---", width/2 - (int)(width*0.14), (int)(height*0.17), (int)(width*0.31), (int)(height*0.14), "name");
+        info = new Label("---", width/2 - (int)(width*0.215), (int)(height*0.35), (int)(width*0.46), (int)(height*0.21), "info");
         Image menu_bg = new Image("menu_bg.png");
         menu_bg.setZ(-2);
-        Button left = new Button("button_left.png", "",2*(Window.getWidth()/7) - (int)(Window.getWidth()*0.02), (int)(Window.getHeight()*0.21), (int)(Window.getWidth()*0.04), (int)(Window.getHeight()*0.07), "left");
-        Button right = new Button("button_right.png", "", 5*(Window.getWidth()/7) -(int)(Window.getWidth()*0.02),(int)(Window.getHeight()*0.21), (int)(Window.getWidth()*0.04), (int)(Window.getHeight()*0.07), "right");
-        Button back = new Button("button_back.png","", (int)(Window.getWidth()*0.03), Window.getHeight() - (int)(Window.getHeight()*0.12), (int)(Window.getWidth()*0.08),(int)(Window.getHeight()*0.07), "back");
-        Button play = new Button("button_fight.png", "", Window.getWidth()/2 - (int)(Window.getWidth()*0.10), (int)(Window.getHeight()*0.70), (int)(Window.getWidth()*0.2), (int)(Window.getHeight()*0.21), "play");
+        Button left = new Button("button_left.png", "",2*(width/7) - (int)(width*0.02), (int)(height*0.21), (int)(width*0.04), (int)(height*0.07), "left");
+        Button right = new Button("button_right.png", "", 5*(width/7) -(int)(width*0.02),(int)(height*0.21), (int)(width*0.04), (int)(height*0.07), "right");
+        Button back = new Button("button_back.png","", (int)(width*0.03), height - (int)(height*0.12), (int)(width*0.08),(int)(height*0.07), "back");
+        Button play = new Button("button_fight.png", "", width/2 - (int)(width*0.10), (int)(height*0.70), (int)(width*0.2), (int)(height*0.21), "play");
         play.addListener(playListener);
         left.addListener(leftListener);
         right.addListener(rightListener);
@@ -143,7 +143,6 @@ public class ChallengesState extends State {
     private void starsPlacement() {
         if (currentLevel != null) {
             score = (int) Math.round(((double) Game.getProgression().getScore(Game.getP1(), currentLevel) / (double) currentLevel.getChallenge().getTargets().size()) * 5);
-            System.out.println(score);
             for (Image star : greyStars) {
                 challenges.addComponent(star);
             }
