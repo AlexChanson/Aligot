@@ -236,7 +236,8 @@ public class Game implements GameStart {
                     particleSystem.update(dt);
                     Animation.passTimeForAll(dt);
                     graphicsEngine.drawLevel(currentLevel);
-                    graphicsEngine.drawPlayers(currentLevel, engine.getActivePlayer(), p1, p2);
+                    graphicsEngine.drawPlayers(currentLevel, engine.getActivePlayer(),
+                            engine.getPlayers().toArray(new Player[engine.getPlayers().size()]));
                     particleSystem.draw();
                     graphicsEngine.drawProjectiles(currentLevel, engine.getProjectiles());
                 }catch (NullPointerException e){
