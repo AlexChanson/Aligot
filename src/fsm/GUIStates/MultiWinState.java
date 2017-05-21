@@ -23,7 +23,7 @@ public class MultiWinState extends State {
         back.addListener(backButtonListener);
         gui.addComponent(back);
 
-        Label victory = new Label(player.getName() + " Win!", width/2-400, height/2-350, 1000, 500, "victory");
+        Label victory = new Label(player.getName() + " Wins !", width/2-400, height/2-350, 1000, 500, "victory");
         gui.addComponent(victory);
 
         Image victory_bg = new Image("menu_bg.png");
