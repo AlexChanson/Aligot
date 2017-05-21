@@ -3,6 +3,10 @@ package core.systems;
 import core.Event;
 import core.model.Explosion;
 
+/**
+ * @author Alexandre Chanson
+ * @handles EXPLOSION
+ */
 public class ExplosionDamageSystem extends SubSystem{
     @Override
     public void initialize() {

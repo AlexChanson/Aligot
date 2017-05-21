@@ -8,6 +8,10 @@ import son.SoundPlayer;
 import utility.Pair;
 import java.util.ArrayList;
 
+/**
+ * @handles TICK
+ * @emits REMOVED_LAST_PROJECTILE, LAST_TARGET_DOWN
+ */
 public class ChallengeSubSystem extends SubSystem{
     private ArrayList<double[]> targets;
     private int score;

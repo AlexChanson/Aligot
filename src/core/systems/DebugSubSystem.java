@@ -4,6 +4,10 @@ import core.Event;
 
 import java.util.Arrays;
 
+/**
+ * Just prints out all events execpt thos set in ignored to the console
+ * @handles ALL
+ */
 public class DebugSubSystem  extends SubSystem{
 
     private String[] ignored;

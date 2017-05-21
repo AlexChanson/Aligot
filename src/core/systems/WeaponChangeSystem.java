@@ -8,6 +8,10 @@ import core.model.Weapon;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author Alexandre Chanson
+ * @handles KEY_PRESSED, CHANGE_WEAPON
+ */
 public class WeaponChangeSystem extends SubSystem{
     @Override
     public void initialize() {

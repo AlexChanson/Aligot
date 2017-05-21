@@ -8,7 +8,8 @@ import physics.Vector2D;
 import utility.Pair;
 
 /**
- * Created by ben on 28/04/17.
+ * @author Ben Crulis
+ * @handles COLLISION
  */
 public class PlayerOrientationSystem extends SubSystem {
     @Override

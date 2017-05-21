@@ -5,7 +5,8 @@ import core.model.Player;
 import org.lwjgl.glfw.GLFW;
 
 /**
- * Created by ben on 19/05/17.
+ * @author Ben Crulis
+ * @handles KEY_PRESSED_CONTINUOUS
  */
 public class PlayerAimingSubSystem extends SubSystem {
 

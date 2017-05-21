@@ -8,9 +8,13 @@ import physics.Vector2D;
 import java.util.HashMap;
 import java.util.logging.Logger;
 
+/**
+ * @author Ben Crulis
+ * @handles PLAYER_MOVEMENT_STARTED, PLAYER_MOVEMENT_ENDED, PLAYER_CHANGED, TICK
+ */
 public class PlayerMovementSystem extends SubSystem {
     private static final Logger LOGGER = Logger.getLogger( PlayerMovementSystem.class.getName() );
-    HashMap<Player, Integer> playerMovements;
+    private HashMap<Player, Integer> playerMovements;
 
     @Override
     public void initialize() {

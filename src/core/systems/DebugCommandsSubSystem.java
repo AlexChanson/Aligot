@@ -7,6 +7,10 @@ import core.model.Projectile;
 import org.lwjgl.glfw.GLFW;
 import physics.Vector2D;
 
+/**
+ * @handles RESTART_GAME, KEY_PRESSED_CONTINUOUS, KEY_PRESSED
+ * @emits FIRE, REMOVED_LAST_PROJECTILE
+ */
 public class DebugCommandsSubSystem extends SubSystem {
     @Override
     public void initialize() {

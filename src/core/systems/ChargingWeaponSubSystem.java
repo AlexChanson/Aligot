@@ -8,7 +8,8 @@ import org.lwjgl.glfw.GLFW;
 import physics.Vector2D;
 
 /**
- * Created by ben on 20/05/17.
+ * @handles STARTED_CHARGING_WEAPON, FINISHED_CHARGING_WEAPON, TICK
+ * @emits FINISHED_CHARGING_WEAPON
  */
 public class ChargingWeaponSubSystem extends SubSystem {
     private static boolean charging;

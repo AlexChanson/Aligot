@@ -4,7 +4,8 @@ import core.Event;
 import son.SoundPlayer;
 
 /**
- * Fait par Alexandre le 20/05/2017.
+ * @author Alexandre
+ * @handles EXPLOSION
  */
 public class SoundSystem extends SubSystem {
     @Override

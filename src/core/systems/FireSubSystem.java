@@ -11,6 +11,11 @@ import son.SoundPlayer;
 
 import java.util.logging.Logger;
 
+/**
+ * @author Alexandre Chanson
+ * @handles FIRE
+ * @emits LAST_PROJECTILE_USED, END_OF_PLAYER_TURN
+ */
 public class FireSubSystem extends SubSystem{
     private final static Logger LOGGER = Logger.getLogger(KeyPressSolver.class.getName());
 
@@ -47,8 +52,7 @@ public class FireSubSystem extends SubSystem{
                 b.setFriction(0.1);
                 b.setVelocity(firingAngle.multiply(amount*ammo.getVelocityModifier()));
                 Projectile projectile = new Projectile(b, ammo.getProjectileTexture(), ammo, shooter.getCurrentWeapon(), shooter);
-                engine.getProjectiles().add(projectile);
-                engine.getPhysicsEngine().addBody(b);
+                engine.addProjectile(projectile);
                 engine.throwEvent(new Event("END_OF_PLAYER_TURN"));
             }
         }

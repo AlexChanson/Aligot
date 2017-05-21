@@ -8,7 +8,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created by ben on 20/05/17.
+ * @author Ben Crulis
+ * @handles TIMER_STARTED, TIMER_SET_ENABLED, TIMER_REMOVE, TIMER_RESTART, TICK
+ * @emits TIMER_FINISHED
  */
 public class TimerSubSystem extends SubSystem {
     HashMap<Integer, GameTimer> timers;

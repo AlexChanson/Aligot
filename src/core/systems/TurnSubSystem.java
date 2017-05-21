@@ -3,7 +3,8 @@ package core.systems;
 import core.Event;
 
 /**
- * Created by ben on 21/05/17.
+ * @author Ben Crulis
+ * @handles END_OF_PLAYER_TURN, END_OF_SIMULATION_TURN, NEW_TURN, REMOVED_LAST_PROJECTILE, EXITING
  */
 public class TurnSubSystem extends SubSystem {
 

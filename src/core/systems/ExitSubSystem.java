@@ -6,6 +6,12 @@ import core.model.Player;
 import fsm.GUIStates.MultiWinState;
 import gamelauncher.Game;
 
+/**
+ * @author Alexandre Chanson
+ * @author Ben Crulis
+ * @handles QUIT, PLAYER_WINS
+ * @emits EXITING
+ */
 public class ExitSubSystem extends SubSystem {
 
 

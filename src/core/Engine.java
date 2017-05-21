@@ -199,6 +199,10 @@ public class Engine {
         this.timeStep = timeStep;
     }
 
+    /**
+     * Adds a projectile to the engine
+     * @param projectile the projectile to be added
+     */
     public void addProjectile(Projectile projectile){
         this.projectiles.add(projectile);
         this.physicsEngine.addBody(projectile.getRigidBody());
@@ -220,6 +224,10 @@ public class Engine {
         this.turns = turns;
     }
 
+    /**
+     * Skips to to the next turn
+     * @return the number of the new turn
+     */
     public int nextTurn(){
         turns += 1;
         throwEvent(new Event("TURN_CHANGED", turns));

@@ -4,6 +4,11 @@ import core.Event;
 import core.model.Player;
 import gamelauncher.Game;
 
+/**
+ * @author Alexandre Chanson
+ * @handles TICK
+ * @emits PLAYER_WINS
+ */
 public class VictoryConditionSystem extends SubSystem{
     private Player p1, p2;
 

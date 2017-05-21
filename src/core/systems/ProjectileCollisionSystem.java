@@ -15,7 +15,7 @@ import java.util.Random;
 
 /**
  * @handles COLLISION
- * @throws EXPLOSION, REMOVED_LAST_PROJECTILE
+ * @emits EXPLOSION, REMOVED_LAST_PROJECTILE
  */
 public class ProjectileCollisionSystem extends SubSystem{
     @Override

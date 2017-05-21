@@ -7,7 +7,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created by ben on 19/05/17.
+ * @handles KEY_PRESSED, KEY_RELEASED, TICK
+ * @emits KEY_PRESSED_CONTINUOUS
  */
 public class ContinuousKeyPress extends SubSystem {
     private static HashMap<Integer, Integer> keyStates;
