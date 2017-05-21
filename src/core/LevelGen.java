@@ -45,6 +45,7 @@ public class LevelGen {
         this.planetNumber = (int) (sqrt(pow(mapSize[0],2)+ pow(mapSize[1],2))/(290) + 1);
         gen = new Random(seed);
         this.mapSize = mapSize;
+        this.massRef *= (mapSize[0] / SMALL[0]);
     }
 
     /**
