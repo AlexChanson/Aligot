@@ -31,8 +31,9 @@ public class ExitSubSystem extends SubSystem {
             if (!graphicsEngine.getGuiFSM().isRegisteredState("multiWin_" + player.getName())){
                 graphicsEngine.getGuiFSM().addState(new MultiWinState(player));
             }
-            graphicsEngine.transitionToGUIState("multiWin_" + player.getName());
-            Game.setLevel(null);
+                engine.throwEvent(new Event("EXITING"));
+                graphicsEngine.transitionToGUIState("multiWin_" + player.getName());
+                Game.setLevel(null);
         }
     }
 }
