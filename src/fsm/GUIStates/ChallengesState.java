@@ -11,7 +11,6 @@ import son.SoundPlayer;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
-
 public class ChallengesState extends State {
     private GUI challenges;
     private GraphicsEngine graphicsEngine;

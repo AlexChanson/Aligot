@@ -6,7 +6,6 @@ import fsm.State;
 import gamelauncher.Game;
 import graphics.Window;
 import graphics.gui.*;
-import org.lwjgl.system.CallbackI;
 
 import java.util.Random;
 

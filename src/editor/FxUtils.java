@@ -83,6 +83,7 @@ public class FxUtils {
         TextField description = new TextField();
         description.setPromptText("Yeah it's fun to play.");
 
+
         grid.add(new Label("Width: "), 0, 0);
         grid.add(width, 1, 0);
         grid.add(new Label("Height: "), 0, 1);
