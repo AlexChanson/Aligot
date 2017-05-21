@@ -108,7 +108,7 @@ public class GameLauncherController {
             e.printStackTrace();
         }
 
-        Scene scene = new Scene(root, 300, 400);
+        Scene scene = new Scene(root, 300, 550);
         Stage primaryStage = new Stage();
         primaryStage.setMinWidth(300);
         primaryStage.setMinHeight(400);

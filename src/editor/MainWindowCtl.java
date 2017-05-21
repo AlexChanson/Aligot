@@ -355,7 +355,7 @@ public class MainWindowCtl {
 
     @FXML
     public void addTarget(){
-        if(currentLevel != null){
+        if(currentLevel.get() != null){
             if(currentLevel.get().getChallenge() == null)
                 defineChallenge();
             if(currentLevel.get() != null){

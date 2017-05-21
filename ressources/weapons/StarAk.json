@@ -11,7 +11,7 @@
       "effect": 0,
       "massModifier": 0.8,
       "velocityModifier": 2.0,
-      "projectileTexture": "star.png"
+      "projectileTexture": "bullet.png"
     }
   ,
   "name": "Ak-47",
