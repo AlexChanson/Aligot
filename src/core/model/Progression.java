@@ -59,8 +59,8 @@ public class Progression {
         if (progression.get(p.getName()) != null){
             if (progression.get(p.getName()).get(l.getName()) != null){
                 Integer s = progression.get(p.getName()).get(l.getName());
-                if (s != null && score > s)
-                    progression.get(p.getName()).put(l.getName(), s);
+                if (score > s)
+                    progression.get(p.getName()).replace(l.getName(), score);
             }else {
                 progression.get(p.getName()).put(l.getName(), score);
             }
