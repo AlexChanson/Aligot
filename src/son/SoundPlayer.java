@@ -4,6 +4,7 @@ import javax.sound.sampled.AudioInputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Provides a simple way to play wav sounds to other game components
@@ -124,6 +125,13 @@ public class SoundPlayer {
      * A barbaric way to kill all the threads currently playing sounds
      */
     public static void killAll(){
+        Set<Map.Entry<String, PlaySound>> parsableMap = playing.entrySet();
+        parsableMap.forEach(entry -> entry.getValue().stop());
+        parsableMap = paused.entrySet();
+        parsableMap.forEach(entry -> entry.getValue().stop());
+        Set<Map.Entry<String, LoopedSound>> parsableLoopedMap = looped.entrySet();
+        parsableLoopedMap.forEach(entry -> entry.getValue().stop());
+        /*
         threads.forEach(thread -> {
             try {
                 thread.stop();
@@ -131,6 +139,7 @@ public class SoundPlayer {
         });
         looped.clear();
         playing.clear();
+        */
     }
 
     /**

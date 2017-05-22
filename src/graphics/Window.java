@@ -411,8 +411,9 @@ public class Window {
 
             lineList.add(new ArrayList<>());
             words.addAll(Arrays.asList(text.split(" ")));
+            int sizeW = words.size();
 
-            for (int i = 0; i < words.size(); i++) {
+            for (int i = 0; i < sizeW; i++) {
                 word = words.get(i);
 
                 if (word.length() + lineOffset >= maxLineOffset && lineOffset > 0 || charrReturn) {
